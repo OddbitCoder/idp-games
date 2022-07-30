@@ -38,7 +38,7 @@ typedef struct {
 typedef struct {
 	sprite_chars *chars;
 	uint8_t body_size_min;
-	uint8_t body_mul_max;
+	uint8_t body_size_max;
 	uint8_t anim_delay_frames;
 } sprite_def;
 
@@ -77,16 +77,16 @@ typedef struct {
 	uint8_t move_frames;
 } lane;
 
-uint8_t *aux_chars_log_left[] = {  "A" };
-uint8_t *aux_chars_log_body[] = {  "B" };
-uint8_t *aux_chars_log_right[] = { "CDE" };
+uint8_t *aux_chars_log_left[] = {  "\x01""A" };
+uint8_t *aux_chars_log_body[] = {  "\x01""B" };
+uint8_t *aux_chars_log_right[] = { "\x03""CDE" };
 
-uint8_t *aux_chars_turtle_left[] = { "FGHI", "JKLM", "NOPR" };
-uint8_t *aux_chars_turtle_empty[] = { "", "", "" };
+uint8_t *aux_chars_turtle_left[] = {  "\x04""FGHI", "\x04""JKLM", "\x04""NOPR" };
+uint8_t *aux_chars_turtle_empty[] = { "\x00""",     "\x00""",     "\x00""" };
 
-uint8_t *aux_chars_croc_left[] = {  "STUV", "STUV" };
-uint8_t *aux_chars_croc_body[] = {  "X",    "X" };
-uint8_t *aux_chars_croc_right[] = { "YZQ0", "1234" };
+uint8_t *aux_chars_croc_left[] = {  "\x04""STUV", "\x04""STUV" };
+uint8_t *aux_chars_croc_body[] = {  "\x01""X",    "\x01""X" };
+uint8_t *aux_chars_croc_right[] = { "\x04""YZQ0", "\x04""1234" };
 
 sprite_chars sprite_chars_log = {
 	/*frame_count*/ 1,
@@ -192,27 +192,27 @@ void sprite_init(sprite *sprite, sprite_def *sprite_def, uint8_t x) {
 	// *** init frame
 	sprite->frame = 0;
 	// *** init body_size
-	sprite->body_size = (sys_rand() % (sprite_def->body_mul_max - sprite_def->body_size_min + 1)) + sprite_def->body_size_min; 
+	sprite->body_size = (sys_rand() % (sprite_def->body_size_max - sprite_def->body_size_min + 1)) + sprite_def->body_size_min; 
 	// *** init char_count
-	sprite->char_count = strlen(sprite->def->chars->left[0]) + sprite->body_size * strlen(sprite->def->chars->body[0]) + strlen(sprite->def->chars->right[0]); // WARNME: first item is measured
+	// NOTE: first item is considered
+	sprite->char_count = *sprite->def->chars->left[0]
+		+ sprite->body_size * *sprite->def->chars->body[0]
+		+ *sprite->def->chars->right[0];
 	// *** init anim_frames
 	sprite->anim_frames = sprite_def->anim_delay_frames;
 }
 
-void sprite_render(sprite *sprite, uint8_t *buffer) { // NOTE: the buffer has 132 chars, x = 0 starts at 35
-	// WARNME: slow (?)
-	uint8_t *p_buffer = buffer + 35 + sprite->x;
-	for (uint8_t *p_str = sprite->def->chars->left[sprite->frame]; *p_str != 0; p_str++, p_buffer++) {
-		*p_buffer = *p_str;
-	}
+void sprite_render(sprite *sprite, uint8_t *buffer) { 
+	uint8_t sz;
+	buffer += 35 + sprite->x; // NOTE: x = 0 starts at 35
+	memcpy(buffer, sprite->def->chars->left[sprite->frame] + 1, sz = *sprite->def->chars->left[sprite->frame]);
+	buffer += sz;
+	sz = *sprite->def->chars->body[sprite->frame];
 	for (uint8_t i = 0; i < sprite->body_size; i++) {
-		for (uint8_t *p_str = sprite->def->chars->body[sprite->frame]; *p_str != 0; p_str++, p_buffer++) {
-			*p_buffer = *p_str;
-		}	
+		memcpy(buffer, sprite->def->chars->body[sprite->frame] + 1, sz);
+		buffer += sz;
 	}
-	for (uint8_t *p_str = sprite->def->chars->right[sprite->frame]; *p_str != 0; p_str++, p_buffer++) {
-		*p_buffer = *p_str;
-	}
+	memcpy(buffer, sprite->def->chars->right[sprite->frame] + 1, *sprite->def->chars->right[sprite->frame]);
 }
 
 void lane_init(lane *lane, lane_def *def) {
@@ -300,14 +300,15 @@ void lane_update(lane *lane) {
 	 		lane->target_gap = (sys_rand() % (lane->def->gap_max - lane->def->gap_min + 1)) + lane->def->gap_min;
 		}
 		// clear buffer
-		memset(lane->buffer[0], CHAR_BUFFER_EMPTY, 132);
+		lane->buffer_idx = 1 - lane->buffer_idx;
+		memset(lane->buffer[lane->buffer_idx], CHAR_BUFFER_EMPTY, 132);
 		// render sprites
 		i = lane->sprites.idx_s;
 		uint8_t y = 0;
 		while (i != lane->sprites.idx_e) {
 			sprite = &lane->sprites.items[i];
 			debug_print_8(y++, i);
-			sprite_render(sprite, lane->buffer[0]);
+			sprite_render(sprite, lane->buffer[lane->buffer_idx]);
 			if (++i == 16) { i = 0; }
 		}
 		lane->move_frames = lane->def->move_delay_frames;
@@ -316,9 +317,8 @@ void lane_update(lane *lane) {
 	}
 }
 
-void lane_render(lane *lane) { // TODO: optimize rendering
-	// lane->buffer_idx points to the updated buffer
-	// 1 - lane->buffer_idx points to the old buffer
+void lane_render(lane *lane) { // TODO: optimize rendering (diff the two buffers)
+	// NOTE: lane->buffer_idx points to the updated buffer, 1 - lane->buffer_idx points to the old buffer
 	uint8_t buffer[62];
 	buffer[61] = 0;
 	memcpy(buffer, lane->buffer[lane->buffer_idx] + 35, 61);
