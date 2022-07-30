@@ -38,6 +38,7 @@ __sfr __at 0x35 AVDC_ATTR;    // R/W: attribute register
 __sfr __at 0x3C AVDC_CUR_LWR; // W: cursor address lower
 __sfr __at 0x3D AVDC_CUR_UPR; // W: cursor address upper
 
+__sfr __at 0xAC AVDC_MODE_SETTING;
 __sfr __at 0x32 AVDC_COMMON_TXT_ATTR;
 __sfr __at 0x3E AVDC_SCREEN_START_2_LOWER;
 __sfr __at 0x3F AVDC_SCREEN_START_2_UPPER;

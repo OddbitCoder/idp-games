@@ -37,6 +37,12 @@ uint8_t _init_str_132[] = {
 
 // init / done
 
+avdc_mode _read_mode_setting() {
+    return AVDC_MODE_SETTING == 81 
+        ? AVDC_MODE_80 
+        : AVDC_MODE_132;
+}
+
 void _save_row_table() {
     for (int row = 0; row < 26; row++) {
         _system_row_table[row] = avdc_get_pointer(row, 0);
@@ -60,15 +66,18 @@ void avdc_init() {
 }
 
 void avdc_init_ex(avdc_mode mode, uint8_t txt_attr_reg, uint8_t *init_str) {
-    // TODO: don't reset if we are already there
-    _save_row_table();
-    avdc_reset(mode, txt_attr_reg, init_str);
-    _restore = true;
+    if (_read_mode_setting() == mode) {
+        avdc_init();
+    } else {
+        _save_row_table();
+        avdc_reset(mode, txt_attr_reg, init_str);
+        _restore = true;
+    }
 }
 
 void avdc_done() {
     if (_restore) {
-        avdc_reset(AVDC_MODE_80, 0, NULL); // TODO: check which mode to restore to
+        avdc_reset(_read_mode_setting(), 0, NULL);
     } else {
         avdc_purge();
     }
@@ -129,7 +138,9 @@ void avdc_reset(avdc_mode mode, uint8_t custom_txt_attr_reg, uint8_t *custom_ini
     // reset AVDC
     avdc_wait_access();
     avdc_wait_ready();
-    // WARNME: In the trace, reset is called twice. The spec says you only need to call it twice on power-up. So we call it only once here.
+    AVDC_CMD = AVDC_CMD_RESET;
+    // in the trace, reset is called twice with a "wait" between the two calls
+    while ((AVDC_ACCESS & AVDC_ACCESS_FLAG) != 0);
     AVDC_CMD = AVDC_CMD_RESET;
     // set common text attributes
     AVDC_COMMON_TXT_ATTR = mode == AVDC_MODE_80 ? 0x65 : (mode == AVDC_MODE_132 ? 0xC4 : custom_txt_attr_reg);
@@ -201,20 +212,12 @@ void avdc_write_addr_at_cursor(uint16_t addr) {
 // wait access
 
 void avdc_wait_access() {
-    uint8_t status = 0;
-    while ((status & AVDC_ACCESS_FLAG) == 0) {
-        status = AVDC_ACCESS;
-    }
-    while ((status & AVDC_ACCESS_FLAG) != 0) {
-        status = AVDC_ACCESS;
-    }
+    while ((AVDC_ACCESS & AVDC_ACCESS_FLAG) == 0);
+    while ((AVDC_ACCESS & AVDC_ACCESS_FLAG) != 0);
 }
 
 void avdc_wait_ready() {
-    uint8_t status = 0;
-    while ((status & AVDC_STATUS_READY) == 0) {
-        status = AVDC_STATUS;
-    }
+    while ((AVDC_STATUS & AVDC_STATUS_READY) == 0);
 }
 
 void avdc_wait_long_command() {
