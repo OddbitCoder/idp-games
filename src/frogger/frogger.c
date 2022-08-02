@@ -40,37 +40,43 @@ typedef struct {
 	uint8_t body_size;
 	uint8_t gap; // gap to the left of this sprite
 	// set by engine
-	uint8_t cache[64]; // for faster rendering (TODO)
+	//uint8_t cache[64]; // for faster rendering (TODO)
 } sprite;
 
 typedef struct {
 	sprite **sprites;
 	uint8_t sprite_count;
-	uint8_t delay_multiplier;
-} anim_frame;
+} frame;
 
 typedef struct {
 	sprite **sprites;
 	uint8_t sprite_count;
-	anim_frame **anim_frames;
-	uint8_t anim_frame_count;
-	// set by engine
+	frame **frames;
+	uint8_t frame_count;
+	// set by the engine
 	uint16_t addr_start; 
 	uint16_t addr_end;
 	uint16_t addr;
 } row;
 
 typedef struct {
-	row **rows;
+	row **rows; // WARNME: each row in a lane needs to be of the same size
 	uint8_t row_count;
-	// set by engine
-	uint8_t anim_frame_idx;
+	uint8_t shift_row_delay_multiplier;
+	uint8_t switch_row_delay_multiplier;
+	dir dir;
+	// set by the engine
+	uint8_t shift_row_counter;
+	uint8_t switch_row_counter;
+	uint8_t row_idx;
 } lane;
 
 typedef struct {
 	lane **lanes;
 	uint8_t lane_count;
 } level;
+
+// *** sprite_chars
 
 sprite_chars sprite_chars_log = {
 	"\x01""A",
@@ -95,6 +101,8 @@ sprite_chars sprite_chars_turtle_dive = {
 	"\x00""",
 	"\x00"""
 };
+
+// *** sprite
 
 sprite sprite_log_9_18 = {
 	&sprite_chars_log,
@@ -156,7 +164,7 @@ sprite sprite_turtle_1_1 = {
 	/*gap*/ 1
 };
 
-// aux_sprites_<level>_<lane>_<row> 
+// *** row_<level>_<lane>_<row>
 
 sprite *aux_sprites_0_0_0[] = {
 	&sprite_log_6_18,
@@ -184,8 +192,6 @@ sprite *aux_sprites_0_3_0[] = {
 	&sprite_log_11_13,
 	&sprite_log_11_13
 };
-
-// row_<level>_<lane>_<row>
 
 row row_0_0_0 = {
 	aux_sprites_0_0_0,
@@ -247,6 +253,8 @@ row row_0_3_0 = {
 	NULL, 0 // no animation
 };
 
+// *** lane_<level>_<lane>
+
 row *aux_lane_rows_0_0[] = {
 	&row_0_0_0
 };
@@ -267,18 +275,29 @@ row *aux_lane_rows_0_2[] = {
 
 lane lane_0_0 = {
 	aux_lane_rows_0_0,
-	/*row_count*/ 1
+	/*row_count*/ 1,
+	/*shift_row_delay_multiplier*/ 1,
+	/*switch_row_delay_multiplier*/ 1,
+	/*dir*/ DIR_LEFT
 };
 
 lane lane_0_1 = {
 	aux_lane_rows_0_1,
-	/*row_count*/ 7
+	/*row_count*/ 7,
+	/*shift_row_delay_multiplier*/ 1,
+	/*switch_row_delay_multiplier*/ 1,
+	/*dir*/ DIR_RIGHT
 };
 
 lane lane_0_2 = {
 	aux_lane_rows_0_2,
-	/*row_count*/ 1
+	/*row_count*/ 1,
+	/*shift_row_delay_multiplier*/ 1,
+	/*switch_row_delay_multiplier*/ 1,
+	/*dir*/ DIR_LEFT
 };
+
+// *** level_<level>
 
 lane *aux_level_lanes_0[] = {
 	&lane_0_0,
@@ -365,8 +384,13 @@ void level_init(level *level) {
 	uint16_t addr = ADDR_BASE;
 	for (uint8_t i = 0; i < level->lane_count; i++) {
 		lane *lane = level->lanes[i];
+		lane->shift_row_counter = 0;
+		lane->switch_row_counter = 0;
+		lane->row_idx = 0;
 		for (uint8_t j = 0; j < lane->row_count; j++) {
 			row *row = lane->rows[j];
+			//row->switch_frame_counter = 0;
+			//row->frame_idx = 0;
 			// assign memory address to row
 			row->addr_start = row->addr = addr;
 			row->addr_end = addr + row_get_len(row);
@@ -437,6 +461,34 @@ void lane_shift_right(lane *lane, uint8_t step) {
 	}
 }
 
+void lane_update(lane *lane, uint8_t delay_base) {
+	// this does the following:
+	// - shifts rows - if lane_update is called delay_base * shift_row_delay_multiplier times
+	// - switches rows - if lane_update is called delay_base * switch_row_delay_multiplier times
+	// - switches frames (for each row in the lane) - if lane_update is called delay_base * switch_frame_delay_multiplier times
+	if (++lane->shift_row_counter >= delay_base * lane->shift_row_delay_multiplier) {
+		lane->shift_row_counter = 0;
+		// shift rows
+		for (uint8_t i = 0; i < lane->row_count; i++) {
+			if (lane->dir == DIR_LEFT) {
+				row_shift_left(lane->rows[i], 1);
+			} else {
+				row_shift_right(lane->rows[i], 1);
+			}
+			// TODO: adjustable step?
+		}
+	}
+	if (++lane->switch_row_counter >= delay_base * lane->switch_row_delay_multiplier) {
+		lane->switch_row_counter = 0;
+		if (++lane->row_idx == lane->row_count) {
+			lane->row_idx = 0;
+		}
+		// switch rows
+		// TODO
+	}
+	// TODO: switch frames
+}
+
 int main() {
 	//avdc_init();
 	//avdc_init_ex(AVDC_MODE_CUSTOM, 0xC4, avdc_init_str);
@@ -455,11 +507,11 @@ int main() {
 	//debug_print_u8(3, row_get_len(&row_0_3_0) + VISIBLE_ROW_LEN);
 
 	do {
-		lane_shift_left(&lane_0_0, 1);
-		lane_shift_right(&lane_0_1, 1);
-		lane_shift_left(&lane_0_2, 1);
+		lane_update(&lane_0_0, 20);
+		lane_update(&lane_0_1, 30);
+		lane_update(&lane_0_2, 50);
 		row_table_init(&level_0);
-		msleep(100);
+		//msleep(100);
 	} while (!kbhit());
 
 	avdc_done();
