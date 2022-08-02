@@ -54,9 +54,7 @@ typedef struct {
 	frame **frames;
 	uint8_t frame_count;
 	// set by the engine
-	uint16_t addr_start; 
-	uint16_t addr_end;
-	uint16_t addr;
+	uint16_t addr; 
 } row;
 
 typedef struct {
@@ -66,9 +64,11 @@ typedef struct {
 	uint8_t switch_row_delay_multiplier;
 	dir dir;
 	// set by the engine
-	uint8_t shift_row_counter;
-	uint8_t switch_row_counter;
+	uint16_t shift_row_counter;
+	uint16_t switch_row_counter;
 	uint8_t row_idx;
+	uint8_t row_offset;
+	uint8_t row_len;
 } lane;
 
 typedef struct {
@@ -140,6 +140,12 @@ sprite sprite_turtle_0_18 = {
 	/*gap*/ 18
 };
 
+sprite sprite_turtle_1_18 = {
+	&sprite_chars_turtle_1,
+	/*body_size*/ 0,
+	/*gap*/ 18
+};
+
 sprite sprite_turtle_0_7 = {
 	&sprite_chars_turtle_0,
 	/*body_size*/ 0,
@@ -183,6 +189,17 @@ sprite *aux_sprites_0_1_0[] = {
 	&sprite_turtle_0_1
 };
 
+sprite *aux_sprites_0_1_1[] = {
+	&sprite_turtle_1_18,
+	&sprite_turtle_1_1,
+	&sprite_turtle_1_7,
+	&sprite_turtle_1_1,
+	&sprite_turtle_1_7,
+	&sprite_turtle_1_1,
+	&sprite_turtle_1_7,
+	&sprite_turtle_1_1
+};
+
 sprite *aux_sprites_0_2_0[] = {
 	&sprite_log_11_27
 };
@@ -206,37 +223,7 @@ row row_0_1_0 = {
 };
 
 row row_0_1_1 = {
-	aux_sprites_0_1_0,
-	/*sprite_count*/ 8,
-	NULL, 0 // no animation
-};
-
-row row_0_1_2 = {
-	aux_sprites_0_1_0,
-	/*sprite_count*/ 8,
-	NULL, 0 // no animation
-};
-
-row row_0_1_3 = {
-	aux_sprites_0_1_0,
-	/*sprite_count*/ 8,
-	NULL, 0 // no animation
-};
-
-row row_0_1_4 = {
-	aux_sprites_0_1_0,
-	/*sprite_count*/ 8,
-	NULL, 0 // no animation
-};
-
-row row_0_1_5 = {
-	aux_sprites_0_1_0,
-	/*sprite_count*/ 8,
-	NULL, 0 // no animation
-};
-
-row row_0_1_6 = {
-	aux_sprites_0_1_0,
+	aux_sprites_0_1_1,
 	/*sprite_count*/ 8,
 	NULL, 0 // no animation
 };
@@ -261,12 +248,7 @@ row *aux_lane_rows_0_0[] = {
 
 row *aux_lane_rows_0_1[] = {
 	&row_0_1_0,
-	&row_0_1_1,
-	&row_0_1_2,
-	&row_0_1_3,
-	&row_0_1_4,
-	&row_0_1_5,
-	&row_0_1_6
+	&row_0_1_1
 };
 
 row *aux_lane_rows_0_2[] = {
@@ -283,9 +265,9 @@ lane lane_0_0 = {
 
 lane lane_0_1 = {
 	aux_lane_rows_0_1,
-	/*row_count*/ 7,
+	/*row_count*/ 2,
 	/*shift_row_delay_multiplier*/ 1,
-	/*switch_row_delay_multiplier*/ 1,
+	/*switch_row_delay_multiplier*/ 5,
 	/*dir*/ DIR_RIGHT
 };
 
@@ -366,7 +348,7 @@ void row_render_buffer(row *row, uint8_t len_min, uint8_t *buffer) {
 }
 
 void row_render(row *row) {
-	uint16_t addr = row->addr_start;
+	uint16_t addr = row->addr;
 	for (uint8_t i = 0; i < row->sprite_count; i++) {
 		sprite *sprite = row->sprites[i];
 		addr += sprite->gap;
@@ -387,14 +369,15 @@ void level_init(level *level) {
 		lane->shift_row_counter = 0;
 		lane->switch_row_counter = 0;
 		lane->row_idx = 0;
+		lane->row_offset = 0;
+		lane->row_len = row_get_len(lane->rows[0]);
 		for (uint8_t j = 0; j < lane->row_count; j++) {
 			row *row = lane->rows[j];
 			//row->switch_frame_counter = 0;
 			//row->frame_idx = 0;
 			// assign memory address to row
-			row->addr_start = row->addr = addr;
-			row->addr_end = addr + row_get_len(row);
-			addr = row->addr_end + VISIBLE_ROW_LEN;
+			row->addr = addr;
+			addr += row_get_len(row) + VISIBLE_ROW_LEN;
 			// render row
 			row_render(row);
 		}
@@ -417,7 +400,7 @@ void row_table_init(level *level) {
 	avdc_set_cursor_addr(0);
 	for (uint8_t i = 0; i < level->lane_count; i++) {
 		lane *lane = level->lanes[i];
-		avdc_write_addr_at_cursor(lane->rows[0]->addr);
+		avdc_write_addr_at_cursor(lane->rows[lane->row_idx]->addr + lane->row_offset);
 	}
 }
 
@@ -431,33 +414,19 @@ void debug_print_u16(uint8_t y, uint16_t val) {
 	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
 }
 
-void row_shift_left(row *row, uint8_t step) {
-	row->addr += step;
-	if (row->addr >= row->addr_end) {
-		uint8_t diff = row->addr_end - row->addr;
-		row->addr = row->addr_start + diff;
-	}
-}
-
-void row_shift_right(row *row, uint8_t step) {
-	row->addr -= step;
-	if (row->addr < row->addr_start) {
-		uint8_t diff = row->addr_start - row->addr; 
-		row->addr = row->addr_end - diff; 
-	}
-}
-
 void lane_shift_left(lane *lane, uint8_t step) {
-	for (uint8_t j = 0; j < lane->row_count; j++) {
-		row *row = lane->rows[j];
-		row_shift_left(row, step);
+	lane->row_offset += step;
+	if (lane->row_offset >= lane->row_len) {
+		uint8_t diff = lane->row_offset - lane->row_len;
+		lane->row_offset = diff;
 	}
 }
 
 void lane_shift_right(lane *lane, uint8_t step) {
-	for (uint8_t j = 0; j < lane->row_count; j++) {
-		row *row = lane->rows[j];
-		row_shift_right(row, step);
+	if (step <= lane->row_offset) {
+		lane->row_offset -= step;
+	} else { // step > lane->row_offset
+		lane->row_offset = lane->row_len - (step - lane->row_offset);
 	}
 }
 
@@ -469,22 +438,19 @@ void lane_update(lane *lane, uint8_t delay_base) {
 	if (++lane->shift_row_counter >= delay_base * lane->shift_row_delay_multiplier) {
 		lane->shift_row_counter = 0;
 		// shift rows
-		for (uint8_t i = 0; i < lane->row_count; i++) {
-			if (lane->dir == DIR_LEFT) {
-				row_shift_left(lane->rows[i], 1);
-			} else {
-				row_shift_right(lane->rows[i], 1);
-			}
-			// TODO: adjustable step?
+		if (lane->dir == DIR_LEFT) {
+			lane_shift_left(lane, 1);
+		} else {
+			lane_shift_right(lane, 1);
 		}
+		// TODO: adjustable step?
 	}
 	if (++lane->switch_row_counter >= delay_base * lane->switch_row_delay_multiplier) {
 		lane->switch_row_counter = 0;
+		// switch rows
 		if (++lane->row_idx == lane->row_count) {
 			lane->row_idx = 0;
 		}
-		// switch rows
-		// TODO
 	}
 	// TODO: switch frames
 }
@@ -507,9 +473,9 @@ int main() {
 	//debug_print_u8(3, row_get_len(&row_0_3_0) + VISIBLE_ROW_LEN);
 
 	do {
-		lane_update(&lane_0_0, 20);
-		lane_update(&lane_0_1, 30);
-		lane_update(&lane_0_2, 50);
+		lane_update(&lane_0_0, 20+30);
+		lane_update(&lane_0_1, 30+30);
+		lane_update(&lane_0_2, 50+30);
 		row_table_init(&level_0);
 		//msleep(100);
 	} while (!kbhit());
