@@ -30,17 +30,9 @@ typedef enum {
 } dir;
 
 typedef struct {
-	uint8_t *left;
-	uint8_t *body;
-	uint8_t *right;
-} sprite_chars;
-
-typedef struct {
-	sprite_chars *chars;
-	uint8_t body_size;
+	uint8_t *chars;
+	uint8_t len;
 	uint8_t gap; // gap to the left of this sprite
-	// set by engine
-	//uint8_t cache[64]; // for faster rendering (TODO)
 } sprite;
 
 typedef struct {
@@ -62,11 +54,14 @@ typedef struct {
 	uint8_t row_count;
 	uint8_t shift_row_delay_multiplier;
 	uint8_t switch_row_delay_multiplier;
+	uint8_t render_frame_delay_multiplier;
 	dir dir;
 	// set by the engine
 	uint16_t shift_row_counter;
 	uint16_t switch_row_counter;
+	uint16_t render_frame_counter;
 	uint8_t row_idx;
+	uint8_t frame_idx;
 	uint8_t row_offset;
 	uint8_t row_len;
 } lane;
@@ -76,97 +71,71 @@ typedef struct {
 	uint8_t lane_count;
 } level;
 
-// *** sprite_chars
-
-sprite_chars sprite_chars_log = {
-	"\x01""A",
-	"\x01""B",
-	"\x03""CDE"
-};
-
-sprite_chars sprite_chars_turtle_0 = {
-	"\x04""FGHI",
-	"\x00""",
-	"\x00"""
-};
-
-sprite_chars sprite_chars_turtle_1 = {
-	"\x04""JKLM",
-	"\x00""",
-	"\x00"""
-};
-
-sprite_chars sprite_chars_turtle_dive = {
-	"\x04""NOPQ",
-	"\x00""",
-	"\x00"""
-};
-
 // *** sprite
 
 sprite sprite_log_9_18 = {
-	&sprite_chars_log,
-	/*body_size*/ 18 - 4,
+	"ABBBBBBBBBBBBBBCDE",
+	/*len*/ 18,
 	/*gap*/ 9
 };
 
 sprite sprite_log_6_18 = {
-	&sprite_chars_log,
-	/*body_size*/ 18 - 4,
+	"ABBBBBBBBBBBBBBCDE",
+	/*len*/ 18,
 	/*gap*/ 6
 };
 
 sprite sprite_log_11_27 = {
-	&sprite_chars_log,
-	/*body_size*/ 27 - 4,
+	"ABBBBBBBBBBBBBBBBBBBBBBBCDE",
+	/*len*/ 27,
 	/*gap*/ 11
 };
 
 sprite sprite_log_11_13 = {
-	&sprite_chars_log,
-	/*body_size*/ 13 - 4,
+	"ABBBBBBBBBCDE",
+	/*len*/ 13,
 	/*gap*/ 11
 };
 
 sprite sprite_log_16_13 = {
-	&sprite_chars_log,
-	/*body_size*/ 13 - 4,
+	"ABBBBBBBBBCDE",
+	/*len*/ 13,
 	/*gap*/ 16
 };
 
 sprite sprite_turtle_0_18 = {
-	&sprite_chars_turtle_0,
-	/*body_size*/ 0,
+	"FGHI",
+	/*len*/ 4,
 	/*gap*/ 18
 };
 
 sprite sprite_turtle_1_18 = {
-	&sprite_chars_turtle_1,
-	/*body_size*/ 0,
+	"JKLM",
+	/*len*/ 4,
 	/*gap*/ 18
 };
 
 sprite sprite_turtle_0_7 = {
-	&sprite_chars_turtle_0,
-	/*body_size*/ 0,
+	"FGHI",
+	/*len*/ 4,
 	/*gap*/ 7
 };
 
 sprite sprite_turtle_0_1 = {
-	&sprite_chars_turtle_0,
-	/*body_size*/ 0,
+	"FGHI",
+	/*len*/ 4,
 	/*gap*/ 1
 };
 
 sprite sprite_turtle_1_7 = {
-	&sprite_chars_turtle_1,
-	/*body_size*/ 0,
+	"JKLM",
+	/*len*/ 4,
 	/*gap*/ 7
 };
 
 sprite sprite_turtle_1_1 = {
-	&sprite_chars_turtle_1,
-	/*body_size*/ 0,
+	"JKLM",
+	/*len*/ 4,
 	/*gap*/ 1
 };
 
@@ -260,6 +229,7 @@ lane lane_0_0 = {
 	/*row_count*/ 1,
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 1,
+	/*render_frame_delay_multiplier*/ 1,
 	/*dir*/ DIR_LEFT
 };
 
@@ -268,6 +238,7 @@ lane lane_0_1 = {
 	/*row_count*/ 2,
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 5,
+	/*render_frame_delay_multiplier*/ 10,
 	/*dir*/ DIR_RIGHT
 };
 
@@ -276,6 +247,7 @@ lane lane_0_2 = {
 	/*row_count*/ 1,
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 1,
+	/*render_frame_delay_multiplier*/ 1,
 	/*dir*/ DIR_LEFT
 };
 
@@ -294,94 +266,95 @@ level level_0 = {
 
 uint8_t buffer[256];
 
-uint8_t sprite_get_len(sprite *sprite) {
-	uint8_t sz = *sprite->chars->left;
-	sz += *sprite->chars->body * sprite->body_size;
-	sz += *sprite->chars->right;
-	return sz;
-}
-
 uint8_t row_get_len(row *row) {
 	uint8_t sz = 0;
 	for (uint8_t i = 0; i < row->sprite_count; i++) {
 		sprite *sprite = row->sprites[i];
 		sz += sprite->gap;
-		sz += sprite_get_len(sprite);
+		sz += sprite->len;
 	}
 	return sz;
 }
 
 void sprite_render(sprite *sprite, uint16_t addr) {
 	avdc_set_cursor_addr(addr);
-	avdc_write_str_at_cursor(sprite->chars->left + 1, NULL);
-	for (uint8_t i = 0; i < sprite->body_size; i++) {
-		avdc_write_str_at_cursor(sprite->chars->body + 1, NULL);
-	}
-	avdc_write_str_at_cursor(sprite->chars->right + 1, NULL);
+	avdc_write_str_at_cursor(sprite->chars, NULL);
 }
 
-void sprite_render_buffer(sprite *sprite, uint8_t *buffer) {
-	memcpy(buffer, sprite->chars->left + 1, *sprite->chars->left);
-	buffer += *sprite->chars->left;
-	for (uint8_t i = 0; i < sprite->body_size; i++) {
-	memcpy(buffer, sprite->chars->body + 1, *sprite->chars->body);
-		buffer += *sprite->chars->body;
-	}
-	memcpy(buffer, sprite->chars->right + 1, *sprite->chars->right);
-}
-
-void row_render_buffer(row *row, uint8_t len_min, uint8_t *buffer) {
-	uint8_t len = 0;
-	memset(buffer, '.', len_min);
-	while (true) {
-		for (uint8_t i = 0; i < row->sprite_count; i++) {
-			sprite *sprite = row->sprites[i];
-			buffer += sprite->gap;
-			len += sprite->gap;
-			sprite_render_buffer(sprite, buffer);
-			uint8_t sprite_len = sprite_get_len(sprite);
-			buffer += sprite_len;
-			len += sprite_len;
-			if (len >= len_min) { return; }
-		}
-	}	
+void sprite_render_chars(sprite *sprite, uint16_t addr, uint8_t char_count) {
+	avdc_set_cursor_addr(addr);
+	// TODO: speed this up
+	memcpy(buffer, sprite->chars, char_count);
+	buffer[char_count] = 0;
+	avdc_write_str_at_cursor(buffer, NULL);
 }
 
 void row_render(row *row) {
 	uint16_t addr = row->addr;
+	sprite *sprite;
 	for (uint8_t i = 0; i < row->sprite_count; i++) {
-		sprite *sprite = row->sprites[i];
+		sprite = row->sprites[i];
 		addr += sprite->gap;
 		sprite_render(sprite, addr);
-		addr += sprite_get_len(sprite);
+		addr += sprite->len;
 	}
 	// end with the first VISIBLE_ROW_LEN chars
-	row_render_buffer(row, VISIBLE_ROW_LEN, buffer);
-	buffer[VISIBLE_ROW_LEN] = 0;
-	avdc_set_cursor_addr(addr);
-	avdc_write_str_at_cursor(buffer, NULL);
+	uint8_t len = 0;
+	while (true) {
+		for (uint8_t i = 0; i < row->sprite_count; i++) {
+			sprite = row->sprites[i];
+			addr += sprite->gap;
+			len += sprite->gap;
+			if (len >= VISIBLE_ROW_LEN) {
+				return;
+			}
+			len += sprite->len;
+			if (len >= VISIBLE_ROW_LEN) {
+				sprite_render_chars(sprite, addr, sprite->len - (len - VISIBLE_ROW_LEN));
+				return;
+			}
+			sprite_render(sprite, addr);
+			addr += sprite->len;
+		}
+	}
+}
+
+void lane_init(lane *lane) {
+	lane->shift_row_counter = 0;
+	lane->switch_row_counter = 0;
+	lane->render_frame_counter = 0;
+	lane->row_idx = 0;
+	lane->frame_idx = 0;
+	lane->row_offset = 0;
+	lane->row_len = row_get_len(lane->rows[0]);
 }
 
 void level_init(level *level) {
 	uint16_t addr = ADDR_BASE;
 	for (uint8_t i = 0; i < level->lane_count; i++) {
 		lane *lane = level->lanes[i];
-		lane->shift_row_counter = 0;
-		lane->switch_row_counter = 0;
-		lane->row_idx = 0;
-		lane->row_offset = 0;
-		lane->row_len = row_get_len(lane->rows[0]);
+		lane_init(lane);
 		for (uint8_t j = 0; j < lane->row_count; j++) {
 			row *row = lane->rows[j];
-			//row->switch_frame_counter = 0;
-			//row->frame_idx = 0;
 			// assign memory address to row
 			row->addr = addr;
 			addr += row_get_len(row) + VISIBLE_ROW_LEN;
-			// render row
-			row_render(row);
 		}
 	}
+}
+
+void lane_render(lane *lane) {
+	for (uint8_t j = 0; j < lane->row_count; j++) {
+		row *row = lane->rows[j];
+		row_render(row);
+	}
+}
+
+void level_render(level *level) {
+	for (uint8_t i = 0; i < level->lane_count; i++) {
+		lane *lane = level->lanes[i];
+		lane_render(lane);
+	}	
 }
 
 uint16_t level_get_byte_count(level *level) {
@@ -434,7 +407,7 @@ void lane_update(lane *lane, uint8_t delay_base) {
 	// this does the following:
 	// - shifts rows - if lane_update is called delay_base * shift_row_delay_multiplier times
 	// - switches rows - if lane_update is called delay_base * switch_row_delay_multiplier times
-	// - switches frames (for each row in the lane) - if lane_update is called delay_base * switch_frame_delay_multiplier times
+	// - switches frames (for each row in the lane) - if lane_update is called delay_base * render_frame_delay_multiplier times
 	if (++lane->shift_row_counter >= delay_base * lane->shift_row_delay_multiplier) {
 		lane->shift_row_counter = 0;
 		// shift rows
@@ -452,7 +425,14 @@ void lane_update(lane *lane, uint8_t delay_base) {
 			lane->row_idx = 0;
 		}
 	}
-	// TODO: switch frames
+	if (++lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
+		lane->render_frame_counter = 0;
+		/*if (++lane->frame_idx == lane->frame_count) {
+			lane->frame_idx = 0;
+		}*/
+		// render frame
+		// TODO
+	}
 }
 
 int main() {
@@ -464,20 +444,16 @@ int main() {
 
 	level_init(&level_0);
 	row_table_init(&level_0);
+	level_render(&level_0);
 
-	//debug_print_u16(20, level_get_byte_count(&level_0));
-
-	//debug_print_u8(0, row_get_len(&row_0_0_0) + VISIBLE_ROW_LEN);
-	//debug_print_u8(1, row_get_len(&row_0_1_0) + VISIBLE_ROW_LEN);
-	//debug_print_u8(2, row_get_len(&row_0_2_0) + VISIBLE_ROW_LEN);
-	//debug_print_u8(3, row_get_len(&row_0_3_0) + VISIBLE_ROW_LEN);
+	debug_print_u16(20, level_get_byte_count(&level_0));
 
 	do {
-		lane_update(&lane_0_0, 20+30);
-		lane_update(&lane_0_1, 30+30);
-		lane_update(&lane_0_2, 50+30);
+		lane_update(&lane_0_0, 1);
+		lane_update(&lane_0_1, 1);
+		lane_update(&lane_0_2, 2);
 		row_table_init(&level_0);
-		//msleep(100);
+		msleep(50);
 	} while (!kbhit());
 
 	avdc_done();
