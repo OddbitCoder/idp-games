@@ -9,7 +9,8 @@
 #include "../common/gdp.h"
 
 #define ADDR_BASE (17 * 2 + 60)
-#define VISIBLE_ROW_LEN 61
+#define VISIBLE_ROW_LEN 132
+//(61 + 20)
 
 uint8_t avdc_init_str[] = { 
 	0xF8, // 16 SCAN LINES PER CHAR ROW
@@ -44,7 +45,6 @@ typedef struct {
 	sprite **sprites;
 	uint8_t sprite_count;
 	frame **frames;
-	uint8_t frame_count;
 	// set by the engine
 	uint16_t addr; 
 } row;
@@ -56,6 +56,7 @@ typedef struct {
 	uint8_t switch_row_delay_multiplier;
 	uint8_t render_frame_delay_multiplier;
 	dir dir;
+	uint8_t frame_count;
 	// set by the engine
 	uint16_t shift_row_counter;
 	uint16_t switch_row_counter;
@@ -139,6 +140,84 @@ sprite sprite_turtle_1_1 = {
 	/*gap*/ 1
 };
 
+sprite sprite_turtle_dive_18 = {
+	"fghi",
+	/*len*/ 4,
+	/*gap*/ 18
+};
+
+sprite sprite_turtle_dive_more_18 = {
+	"jklm",
+	/*len*/ 4,
+	/*gap*/ 18
+};
+
+sprite sprite_turtle_submerged_18 = {
+	"    ",
+	/*len*/ 4,
+	/*gap*/ 18
+};
+
+sprite sprite_dummy_53 = {
+	"",
+	/*len*/ 0,
+	/*gap*/ 53
+};
+
+// *** frame_<level>_<lane>_<row>_<frame>
+
+sprite *aux_frame_0_1_0_0_sprites[] = {
+	&sprite_turtle_0_18,
+	&sprite_dummy_53
+};
+
+frame frame_0_1_0_0 = { // "reset frame"
+	aux_frame_0_1_0_0_sprites,
+	/*sprite_count*/ 2
+};
+
+sprite *aux_frame_0_1_1_0_sprites[] = {
+	&sprite_turtle_1_18,
+	&sprite_dummy_53
+};
+
+frame frame_0_1_1_0 = { // "reset frame"
+	aux_frame_0_1_1_0_sprites,
+	/*sprite_count*/ 2
+};
+
+// these are row-independent
+
+sprite *aux_frame_0_1_1_sprites[] = {
+	&sprite_turtle_dive_18,
+	&sprite_dummy_53
+};
+
+frame frame_0_1_1 = {
+	aux_frame_0_1_1_sprites,
+	/*sprite_count*/ 2
+};
+
+sprite *aux_frame_0_1_2_sprites[] = {
+	&sprite_turtle_dive_more_18,
+	&sprite_dummy_53
+};
+
+frame frame_0_1_2 = {
+	aux_frame_0_1_2_sprites,
+	/*sprite_count*/ 2
+};
+
+sprite *aux_frame_0_1_3_sprites[] = {
+	&sprite_turtle_submerged_18,
+	&sprite_dummy_53
+};
+
+frame frame_0_1_3 = {
+	aux_frame_0_1_3_sprites,
+	/*sprite_count*/ 2
+};
+
 // *** row_<level>_<lane>_<row>
 
 sprite *aux_sprites_0_0_0[] = {
@@ -179,34 +258,49 @@ sprite *aux_sprites_0_3_0[] = {
 	&sprite_log_11_13
 };
 
+frame *aux_row_0_1_0_frames[] = {
+	&frame_0_1_0_0,
+	&frame_0_1_1,
+	&frame_0_1_2,
+	&frame_0_1_3,
+	&frame_0_1_2,
+	&frame_0_1_1
+};
+
+frame *aux_row_0_1_1_frames[] = {
+	&frame_0_1_1_0,
+	&frame_0_1_1,
+	&frame_0_1_2,
+	&frame_0_1_3,
+	&frame_0_1_2,
+	&frame_0_1_1
+};
+
 row row_0_0_0 = {
 	aux_sprites_0_0_0,
-	/*sprite_count*/ 3,
-	NULL, 0 // no animation
+	/*sprite_count*/ 3
 };
 
 row row_0_1_0 = {
 	aux_sprites_0_1_0,
 	/*sprite_count*/ 8,
-	NULL, 0 // no animation
+	aux_row_0_1_0_frames
 };
 
 row row_0_1_1 = {
 	aux_sprites_0_1_1,
 	/*sprite_count*/ 8,
-	NULL, 0 // no animation
+	aux_row_0_1_1_frames
 };
 
 row row_0_2_0 = {
 	aux_sprites_0_2_0,
-	/*sprite_count*/ 1,
-	NULL, 0 // no animation
+	/*sprite_count*/ 1
 };
 
 row row_0_3_0 = {
 	aux_sprites_0_3_0,
-	/*sprite_count*/ 3,
-	NULL, 0 // no animation
+	/*sprite_count*/ 3
 };
 
 // *** lane_<level>_<lane>
@@ -230,7 +324,8 @@ lane lane_0_0 = {
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 1,
 	/*render_frame_delay_multiplier*/ 1,
-	/*dir*/ DIR_LEFT
+	/*dir*/ DIR_RIGHT,
+	/*frame_count*/ 0
 };
 
 lane lane_0_1 = {
@@ -239,7 +334,8 @@ lane lane_0_1 = {
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 5,
 	/*render_frame_delay_multiplier*/ 10,
-	/*dir*/ DIR_RIGHT
+	/*dir*/ DIR_LEFT,
+	/*frame_count*/ 6
 };
 
 lane lane_0_2 = {
@@ -248,7 +344,8 @@ lane lane_0_2 = {
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 1,
 	/*render_frame_delay_multiplier*/ 1,
-	/*dir*/ DIR_LEFT
+	/*dir*/ DIR_RIGHT,
+	/*frame_count*/ 0
 };
 
 // *** level_<level>
@@ -283,26 +380,25 @@ void sprite_render(sprite *sprite, uint16_t addr) {
 
 void sprite_render_chars(sprite *sprite, uint16_t addr, uint8_t char_count) {
 	avdc_set_cursor_addr(addr);
-	// TODO: speed this up
+	// TODO: speed this up (customize avdc_write_str_at_cursor)
 	memcpy(buffer, sprite->chars, char_count);
 	buffer[char_count] = 0;
 	avdc_write_str_at_cursor(buffer, NULL);
 }
 
-void row_render(row *row) {
-	uint16_t addr = row->addr;
+void _sprites_render(sprite **sprites, uint8_t count, uint16_t addr) {
 	sprite *sprite;
-	for (uint8_t i = 0; i < row->sprite_count; i++) {
-		sprite = row->sprites[i];
+	for (uint8_t i = 0; i < count; i++) {
+		sprite = sprites[i];
 		addr += sprite->gap;
 		sprite_render(sprite, addr);
 		addr += sprite->len;
 	}
-	// end with the first VISIBLE_ROW_LEN chars
+	// repeat the first VISIBLE_ROW_LEN chars
 	uint8_t len = 0;
 	while (true) {
-		for (uint8_t i = 0; i < row->sprite_count; i++) {
-			sprite = row->sprites[i];
+		for (uint8_t i = 0; i < count; i++) {
+			sprite = sprites[i];
 			addr += sprite->gap;
 			len += sprite->gap;
 			if (len >= VISIBLE_ROW_LEN) {
@@ -316,6 +412,20 @@ void row_render(row *row) {
 			sprite_render(sprite, addr);
 			addr += sprite->len;
 		}
+	}
+}
+
+void row_render(row *row) {
+	_sprites_render(row->sprites, row->sprite_count, row->addr);
+}
+
+void row_render_frame(row *row, uint8_t frame_idx) {
+	_sprites_render(row->frames[frame_idx]->sprites, row->frames[frame_idx]->sprite_count, row->addr);
+}
+
+void lane_render_frame(lane *lane) {
+	for (uint8_t i = 0; i < lane->row_count; i++) {
+		row_render_frame(lane->rows[i], lane->frame_idx);
 	}
 }
 
@@ -418,20 +528,22 @@ void lane_update(lane *lane, uint8_t delay_base) {
 		}
 		// TODO: adjustable step?
 	}
-	if (++lane->switch_row_counter >= delay_base * lane->switch_row_delay_multiplier) {
+	if (lane->row_count > 1 && ++lane->switch_row_counter >= delay_base * lane->switch_row_delay_multiplier) {
 		lane->switch_row_counter = 0;
 		// switch rows
 		if (++lane->row_idx == lane->row_count) {
 			lane->row_idx = 0;
 		}
 	}
-	if (++lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
+	if (lane->frame_count > 0 && ++lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
 		lane->render_frame_counter = 0;
-		/*if (++lane->frame_idx == lane->frame_count) {
+		if (++lane->frame_idx == lane->frame_count) {
 			lane->frame_idx = 0;
-		}*/
+		}
 		// render frame
-		// TODO
+		for (uint8_t i = 0; i < lane->row_count; i++) {
+			row_render_frame(lane->rows[i], lane->frame_idx);
+		}
 	}
 }
 
