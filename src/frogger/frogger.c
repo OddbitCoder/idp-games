@@ -220,13 +220,13 @@ frame frame_0_1_3 = {
 
 // *** row_<level>_<lane>_<row>
 
-sprite *aux_sprites_0_0_0[] = {
+sprite *aux_row_0_0_0_sprites[] = {
 	&sprite_log_6_18,
 	&sprite_log_9_18,
 	&sprite_log_9_18
 };
 
-sprite *aux_sprites_0_1_0[] = {
+sprite *aux_row_0_1_0_sprites[] = {
 	&sprite_turtle_0_18,
 	&sprite_turtle_0_1,
 	&sprite_turtle_0_7,
@@ -237,7 +237,7 @@ sprite *aux_sprites_0_1_0[] = {
 	&sprite_turtle_0_1
 };
 
-sprite *aux_sprites_0_1_1[] = {
+sprite *aux_row_0_1_1_sprites[] = {
 	&sprite_turtle_1_18,
 	&sprite_turtle_1_1,
 	&sprite_turtle_1_7,
@@ -248,11 +248,11 @@ sprite *aux_sprites_0_1_1[] = {
 	&sprite_turtle_1_1
 };
 
-sprite *aux_sprites_0_2_0[] = {
+sprite *aux_row_0_2_0_sprites[] = {
 	&sprite_log_11_27
 };
 
-sprite *aux_sprites_0_3_0[] = {
+sprite *aux_row_0_3_0_sprites[] = {
 	&sprite_log_16_13,
 	&sprite_log_11_13,
 	&sprite_log_11_13
@@ -277,49 +277,49 @@ frame *aux_row_0_1_1_frames[] = {
 };
 
 row row_0_0_0 = {
-	aux_sprites_0_0_0,
+	aux_row_0_0_0_sprites,
 	/*sprite_count*/ 3
 };
 
 row row_0_1_0 = {
-	aux_sprites_0_1_0,
+	aux_row_0_1_0_sprites,
 	/*sprite_count*/ 8,
 	aux_row_0_1_0_frames
 };
 
 row row_0_1_1 = {
-	aux_sprites_0_1_1,
+	aux_row_0_1_1_sprites,
 	/*sprite_count*/ 8,
 	aux_row_0_1_1_frames
 };
 
 row row_0_2_0 = {
-	aux_sprites_0_2_0,
+	aux_row_0_2_0_sprites,
 	/*sprite_count*/ 1
 };
 
 row row_0_3_0 = {
-	aux_sprites_0_3_0,
+	aux_row_0_3_0_sprites,
 	/*sprite_count*/ 3
 };
 
 // *** lane_<level>_<lane>
 
-row *aux_lane_rows_0_0[] = {
+row *aux_lane_0_0_rows[] = {
 	&row_0_0_0
 };
 
-row *aux_lane_rows_0_1[] = {
+row *aux_lane_0_1_rows[] = {
 	&row_0_1_0,
 	&row_0_1_1
 };
 
-row *aux_lane_rows_0_2[] = {
+row *aux_lane_0_2_rows[] = {
 	&row_0_2_0
 };
 
 lane lane_0_0 = {
-	aux_lane_rows_0_0,
+	aux_lane_0_0_rows,
 	/*row_count*/ 1,
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 1,
@@ -329,7 +329,7 @@ lane lane_0_0 = {
 };
 
 lane lane_0_1 = {
-	aux_lane_rows_0_1,
+	aux_lane_0_1_rows,
 	/*row_count*/ 2,
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 5,
@@ -339,7 +339,7 @@ lane lane_0_1 = {
 };
 
 lane lane_0_2 = {
-	aux_lane_rows_0_2,
+	aux_lane_0_2_rows,
 	/*row_count*/ 1,
 	/*shift_row_delay_multiplier*/ 1,
 	/*switch_row_delay_multiplier*/ 1,
@@ -350,14 +350,14 @@ lane lane_0_2 = {
 
 // *** level_<level>
 
-lane *aux_level_lanes_0[] = {
+lane *aux_level_0_lanes[] = {
 	&lane_0_0,
 	&lane_0_1,
 	&lane_0_2
 };
 
 level level_0 = {
-	aux_level_lanes_0,
+	aux_level_0_lanes,
 	/*lane_count*/ 3
 };
 
