@@ -33,17 +33,16 @@ typedef enum {
 typedef struct {
 	uint8_t *chars;
 	uint8_t len;
-	uint8_t gap; // gap to the left of this sprite
 } sprite;
 
 typedef struct {
-	sprite **sprites;
-	uint8_t sprite_count;
+	uint8_t *frame_def;
+	uint8_t frame_def_len;
 } frame;
 
 typedef struct {
-	sprite **sprites;
-	uint8_t sprite_count;
+	uint8_t *row_def;
+	uint8_t row_def_len;
 	frame **frames;
 	// set by the engine
 	uint16_t addr; 
@@ -74,189 +73,103 @@ typedef struct {
 
 // *** sprite
 
-sprite sprite_log_9_18 = {
+sprite sprite_log_18 = {
 	"ABBBBBBBBBBBBBBCDE",
-	/*len*/ 18,
-	/*gap*/ 9
+	/*len*/ 18
 };
 
-sprite sprite_log_6_18 = {
-	"ABBBBBBBBBBBBBBCDE",
-	/*len*/ 18,
-	/*gap*/ 6
-};
-
-sprite sprite_log_11_27 = {
+sprite sprite_log_27 = {
 	"ABBBBBBBBBBBBBBBBBBBBBBBCDE",
-	/*len*/ 27,
-	/*gap*/ 11
+	/*len*/ 27
 };
 
-sprite sprite_log_11_13 = {
+sprite sprite_log_13 = {
 	"ABBBBBBBBBCDE",
-	/*len*/ 13,
-	/*gap*/ 11
+	/*len*/ 13
 };
 
-sprite sprite_log_16_13 = {
-	"ABBBBBBBBBCDE",
-	/*len*/ 13,
-	/*gap*/ 16
-};
-
-sprite sprite_turtle_0_18 = {
+sprite sprite_turtle_0 = {
 	"FGHI",
-	/*len*/ 4,
-	/*gap*/ 18
+	/*len*/ 4
 };
 
-sprite sprite_turtle_1_18 = {
+sprite sprite_turtle_1 = {
 	"JKLM",
-	/*len*/ 4,
-	/*gap*/ 18
+	/*len*/ 4
 };
 
-sprite sprite_turtle_0_7 = {
-	"FGHI",
-	/*len*/ 4,
-	/*gap*/ 7
-};
-
-sprite sprite_turtle_0_1 = {
-	"FGHI",
-	/*len*/ 4,
-	/*gap*/ 1
-};
-
-sprite sprite_turtle_1_7 = {
-	"JKLM",
-	/*len*/ 4,
-	/*gap*/ 7
-};
-
-sprite sprite_turtle_1_1 = {
-	"JKLM",
-	/*len*/ 4,
-	/*gap*/ 1
-};
-
-sprite sprite_turtle_dive_18 = {
+sprite sprite_turtle_dive = {
 	"fghi",
-	/*len*/ 4,
-	/*gap*/ 18
+	/*len*/ 4
 };
 
-sprite sprite_turtle_dive_more_18 = {
+sprite sprite_turtle_dive_more = {
 	"jklm",
-	/*len*/ 4,
-	/*gap*/ 18
+	/*len*/ 4
 };
 
-sprite sprite_turtle_submerged_18 = {
+sprite sprite_turtle_submerged = {
 	"    ",
-	/*len*/ 4,
-	/*gap*/ 18
+	/*len*/ 4
 };
 
-sprite sprite_dummy_53 = {
+sprite sprite_dummy = {
 	"",
-	/*len*/ 0,
-	/*gap*/ 53
+	/*len*/ 0
 };
+
+sprite *sprite_list[] = {
+	&sprite_log_18,
+	&sprite_log_27,
+	&sprite_log_13,
+	&sprite_turtle_0,
+	&sprite_turtle_1,
+	&sprite_turtle_dive,
+	&sprite_turtle_dive_more,
+	&sprite_turtle_submerged,
+	&sprite_dummy
+};
+
+#define SPRITE_LOG_18 "\x00"
+#define SPRITE_LOG_27 "\x01"
+#define SPRITE_LOG_13 "\x02"
+#define SPRITE_TURTLE_0 "\x03"
+#define SPRITE_TURTLE_1 "\x04"
+#define SPRITE_TURTLE_DIVE "\x05"
+#define SPRITE_TURTLE_DIVE_MORE "\x06"
+#define SPRITE_TURTLE_SUBMERGED "\x07"
+#define SPRITE_DUMMY "\x08"
 
 // *** frame_<level>_<lane>_<row>_<frame>
 
-sprite *aux_frame_0_1_0_0_sprites[] = {
-	&sprite_turtle_0_18,
-	&sprite_dummy_53
-};
-
 frame frame_0_1_0_0 = { // "reset frame"
-	aux_frame_0_1_0_0_sprites,
-	/*sprite_count*/ 2
-};
-
-sprite *aux_frame_0_1_1_0_sprites[] = {
-	&sprite_turtle_1_18,
-	&sprite_dummy_53
+	"\x12"SPRITE_TURTLE_0"\x35"SPRITE_DUMMY,
+	/*frame_def_len*/ 2 * 2
 };
 
 frame frame_0_1_1_0 = { // "reset frame"
-	aux_frame_0_1_1_0_sprites,
-	/*sprite_count*/ 2
+	"\x12"SPRITE_TURTLE_1"\x35"SPRITE_DUMMY,
+	/*frame_def_len*/ 2 * 2
 };
 
 // these are row-independent
 
-sprite *aux_frame_0_1_1_sprites[] = {
-	&sprite_turtle_dive_18,
-	&sprite_dummy_53
-};
-
 frame frame_0_1_1 = {
-	aux_frame_0_1_1_sprites,
-	/*sprite_count*/ 2
-};
-
-sprite *aux_frame_0_1_2_sprites[] = {
-	&sprite_turtle_dive_more_18,
-	&sprite_dummy_53
+	"\x12"SPRITE_TURTLE_DIVE"\x35"SPRITE_DUMMY,
+	/*frame_def_len*/ 2 * 2
 };
 
 frame frame_0_1_2 = {
-	aux_frame_0_1_2_sprites,
-	/*sprite_count*/ 2
-};
-
-sprite *aux_frame_0_1_3_sprites[] = {
-	&sprite_turtle_submerged_18,
-	&sprite_dummy_53
+	"\x12"SPRITE_TURTLE_DIVE_MORE"\x35"SPRITE_DUMMY,
+	/*frame_def_len*/ 2 * 2
 };
 
 frame frame_0_1_3 = {
-	aux_frame_0_1_3_sprites,
-	/*sprite_count*/ 2
+	"\x12"SPRITE_TURTLE_SUBMERGED"\x35"SPRITE_DUMMY,
+	/*frame_def_len*/ 2 * 2
 };
 
 // *** row_<level>_<lane>_<row>
-
-sprite *aux_row_0_0_0_sprites[] = {
-	&sprite_log_6_18,
-	&sprite_log_9_18,
-	&sprite_log_9_18
-};
-
-sprite *aux_row_0_1_0_sprites[] = {
-	&sprite_turtle_0_18,
-	&sprite_turtle_0_1,
-	&sprite_turtle_0_7,
-	&sprite_turtle_0_1,
-	&sprite_turtle_0_7,
-	&sprite_turtle_0_1,
-	&sprite_turtle_0_7,
-	&sprite_turtle_0_1
-};
-
-sprite *aux_row_0_1_1_sprites[] = {
-	&sprite_turtle_1_18,
-	&sprite_turtle_1_1,
-	&sprite_turtle_1_7,
-	&sprite_turtle_1_1,
-	&sprite_turtle_1_7,
-	&sprite_turtle_1_1,
-	&sprite_turtle_1_7,
-	&sprite_turtle_1_1
-};
-
-sprite *aux_row_0_2_0_sprites[] = {
-	&sprite_log_11_27
-};
-
-sprite *aux_row_0_3_0_sprites[] = {
-	&sprite_log_16_13,
-	&sprite_log_11_13,
-	&sprite_log_11_13
-};
 
 frame *aux_row_0_1_0_frames[] = {
 	&frame_0_1_0_0,
@@ -277,30 +190,30 @@ frame *aux_row_0_1_1_frames[] = {
 };
 
 row row_0_0_0 = {
-	aux_row_0_0_0_sprites,
-	/*sprite_count*/ 3
+	"\x06"SPRITE_LOG_18"\x09"SPRITE_LOG_18"\x09"SPRITE_LOG_18, 
+	/*row_def_len*/ 3 * 2
 };
 
 row row_0_1_0 = {
-	aux_row_0_1_0_sprites,
-	/*sprite_count*/ 8,
+	"\x12"SPRITE_TURTLE_0"\x01"SPRITE_TURTLE_0"\x07"SPRITE_TURTLE_0"\x01"SPRITE_TURTLE_0"\x07"SPRITE_TURTLE_0"\x01"SPRITE_TURTLE_0"\x07"SPRITE_TURTLE_0"\x01"SPRITE_TURTLE_0,
+	/*row_def_len*/ 8 * 2,
 	aux_row_0_1_0_frames
 };
 
 row row_0_1_1 = {
-	aux_row_0_1_1_sprites,
-	/*sprite_count*/ 8,
+	"\x12"SPRITE_TURTLE_1"\x01"SPRITE_TURTLE_1"\x07"SPRITE_TURTLE_1"\x01"SPRITE_TURTLE_1"\x07"SPRITE_TURTLE_1"\x01"SPRITE_TURTLE_1"\x07"SPRITE_TURTLE_1"\x01"SPRITE_TURTLE_1,
+	/*row_def_len*/ 8 * 2,
 	aux_row_0_1_1_frames
 };
 
 row row_0_2_0 = {
-	aux_row_0_2_0_sprites,
-	/*sprite_count*/ 1
+	"\x0B"SPRITE_LOG_27,
+	/*sprite_count*/ 1 * 2
 };
 
 row row_0_3_0 = {
-	aux_row_0_3_0_sprites,
-	/*sprite_count*/ 3
+	"\x10"SPRITE_LOG_13"\x0B"SPRITE_LOG_13"\x0B"SPRITE_LOG_13, 
+	/*row_def_len*/ 3 * 2
 };
 
 // *** lane_<level>_<lane>
@@ -363,11 +276,21 @@ level level_0 = {
 
 uint8_t buffer[256];
 
+void debug_print_u8(uint8_t y, uint8_t val) {
+	itoa(val, buffer, 10);
+	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
+}
+
+void debug_print_u16(uint8_t y, uint16_t val) {
+	itoa(val, buffer, 10);
+	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
+}
+
 uint8_t row_get_len(row *row) {
 	uint8_t sz = 0;
-	for (uint8_t i = 0; i < row->sprite_count; i++) {
-		sprite *sprite = row->sprites[i];
-		sz += sprite->gap;
+	for (uint8_t i = 0; i < row->row_def_len; i += 2) {
+		sprite *sprite = sprite_list[row->row_def[i + 1]];
+		sz += row->row_def[i];
 		sz += sprite->len;
 	}
 	return sz;
@@ -386,21 +309,21 @@ void sprite_render_chars(sprite *sprite, uint16_t addr, uint8_t char_count) {
 	avdc_write_str_at_cursor(buffer, NULL);
 }
 
-void _sprites_render(sprite **sprites, uint8_t count, uint16_t addr) {
+void _sprites_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr) {
 	sprite *sprite;
-	for (uint8_t i = 0; i < count; i++) {
-		sprite = sprites[i];
-		addr += sprite->gap;
+	for (uint8_t i = 0; i < row_def_len; i += 2) {
+		sprite = sprite_list[row_def[i + 1]];
+		addr += row_def[i];
 		sprite_render(sprite, addr);
 		addr += sprite->len;
 	}
 	// repeat the first VISIBLE_ROW_LEN chars
 	uint8_t len = 0;
 	while (true) {
-		for (uint8_t i = 0; i < count; i++) {
-			sprite = sprites[i];
-			addr += sprite->gap;
-			len += sprite->gap;
+		for (uint8_t i = 0; i < row_def_len; i += 2) {
+			sprite = sprite_list[row_def[i + 1]];
+			addr += row_def[i];
+			len += row_def[i];
 			if (len >= VISIBLE_ROW_LEN) {
 				return;
 			}
@@ -416,11 +339,11 @@ void _sprites_render(sprite **sprites, uint8_t count, uint16_t addr) {
 }
 
 void row_render(row *row) {
-	_sprites_render(row->sprites, row->sprite_count, row->addr);
+	_sprites_render(row->row_def, row->row_def_len, row->addr);
 }
 
 void row_render_frame(row *row, uint8_t frame_idx) {
-	_sprites_render(row->frames[frame_idx]->sprites, row->frames[frame_idx]->sprite_count, row->addr);
+	_sprites_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr);
 }
 
 void lane_render_frame(lane *lane) {
@@ -487,16 +410,6 @@ void row_table_init(level *level) {
 	}
 }
 
-void debug_print_u8(uint8_t y, uint8_t val) {
-	itoa(val, buffer, 10);
-	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
-}
-
-void debug_print_u16(uint8_t y, uint16_t val) {
-	itoa(val, buffer, 10);
-	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
-}
-
 void lane_shift_left(lane *lane, uint8_t step) {
 	lane->row_offset += step;
 	if (lane->row_offset >= lane->row_len) {
@@ -558,7 +471,7 @@ int main() {
 	row_table_init(&level_0);
 	level_render(&level_0);
 
-	debug_print_u16(20, level_get_byte_count(&level_0));
+	//debug_print_u16(20, level_get_byte_count(&level_0));
 
 	do {
 		lane_update(&lane_0_0, 1);
