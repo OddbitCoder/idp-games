@@ -10,6 +10,16 @@ typedef enum {
 	AVDC_MODE_CUSTOM
 } avdc_mode;
 
+typedef struct {
+	uint8_t char_code;
+	uint8_t *char_data;
+} avdc_glyph_def;
+
+typedef struct {
+	uint8_t count;
+	avdc_glyph_def items[];
+} avdc_glyph_defs;
+
 #define AVDC_DEFAULT_ATTR 0x00
 #define AVDC_ATTR_UDG     0x04
 
