@@ -49,7 +49,7 @@
 /*      Re-coding of advent in C: file i/o and user i/o                 */
 
 // #include "hdr.h"
-// #include <stdio.h>
+#include <stdio.h>
 // #include <string.h>
 #include "io.h"
 #include "vocab.h"
@@ -391,7 +391,7 @@ void rdata()                                 /* "read" data from virtual file*/
 
 void rvoc()
 {
-	// vocab(word,-2,index);
+	vocinit();
 	vocab("road",-2,2);
 	vocab("hill",-2,2);
 	vocab("enter",-2,3);
@@ -734,40 +734,23 @@ void rvoc()
 // }
 
 
-// rspeak(msg)
-// int msg;
-// {       if (msg!=0) speak(&rtext[msg]);
-// }
+void rspeak(int msg)
+//int msg;
+{       if (msg!=0) speak(&rtext[msg]);
+}
 
 
-// mspeak(msg)
-// int msg;
-// {       if (msg!=0) speak(&mtext[msg]);
-// }
+void mspeak(int msg)
+//int msg;
+{       if (msg!=0) speak(&mtext[msg]);
+}
 
 
-// speak(msg)       /* read, decrypt, and print a message (not ptext)      */
-// struct text *msg;/* msg is a pointer to seek address and length of mess */
-// {
-// 	register char *s, nonfirst;
-
-// 	s = msg->seekadr;
-// 	nonfirst=0;
-// 	while (s - msg->seekadr < msg->txtlen)  /* read a line at a time */
-// 	{       tape=iotape;            /* restart decryption tape      */
-// 		while ((*s++ ^ *tape++) != TAB); /* read past loc num       */
-// 		/* assume tape is longer than location number           */
-// 		/*   plus the lookahead put together                    */
-// 		if ((*s ^ *tape) == '>' &&
-// 			(*(s+1) ^ *(tape+1)) == '$' &&
-// 			(*(s+2) ^ *(tape+2)) == '<') break;
-// 		if (blklin && !nonfirst++) putchar('\n');
-// 		do
-// 		{       if (*tape == 0) tape = iotape;/* rewind decryp tape */
-// 			putchar(*s ^ *tape);
-// 		} while ((*s++ ^ *tape++) != LF);   /* better end with LF   */
-// 	}
-// }
+void speak(struct text *msg)       /* read, decrypt, and print a message (not ptext)      */
+//struct text *msg;/* msg is a pointer to seek address and length of mess */
+{
+	printf(msg->seekadr);
+}
 
 
 // pspeak(m,skip) /* read, decrypt an print a ptext message              */

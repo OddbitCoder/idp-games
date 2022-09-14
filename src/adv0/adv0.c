@@ -59,6 +59,8 @@
 // #include <stdio.h>
 #include "hdr.h"
 #include "_init.h"
+#include "io.h" // REMOVE
+#include "vocab.h" // REMOVE
 
 void main(int argc,char **argv)
 //int argc;
@@ -74,6 +76,8 @@ void main(int argc,char **argv)
 // 		perror("setuid");
 
 	init(0);         /* Initialize everything */
+	speak(&ltext[0]); // REMOVE
+	prht(); // REMOVE
 // 	signal(SIGINT,trapdel);
 
 // 	if (argc > 1)   /* Restore file specified */

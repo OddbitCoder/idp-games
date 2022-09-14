@@ -50,6 +50,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "hdr.h"
 #include "vocab.h"
 
@@ -120,6 +121,11 @@ struct hashtab voc[HTSIZE];
 // 	atloc[where]=object;
 // }
 
+
+void vocinit()
+{
+	memset(voc, 0, HTSIZE * sizeof(struct hashtab));
+}
 
 int vocab(char *word,int type,int value)                  /* look up or store a word      */
 //char *word;
@@ -211,24 +217,24 @@ int length(char *str)                             /* includes 0 at end          
 	return(n+1);
 }
 
-// prht()                                  /* print hash table             */
-// {       register int i,j,l;
-// 	char *c;
-// 	struct hashtab *h;
-// 	for (i=0; i<HTSIZE/10+1; i++)
-// 	{       printf("%4d",i*10);
-// 		for (j=0; j<10; j++)
-// 		{       if (i*10+j>=HTSIZE) break;
-// 			h= &voc[i*10+j];
-// 			putchar(' ');
-// 			if (h->val==0)
-// 			{       printf("-----");
-// 				continue;
-// 			}
-// 			for (l=0, c=h->atab; l<5; l++)
-// 				if ((*c ^ '=')) putchar(*c++ ^ '=');
-// 				else putchar(' ');
-// 		}
-// 		putchar('\n');
-// 	}
-// }
+void prht()                                  /* print hash table             */
+{       register int i,j,l;
+	char *c;
+	struct hashtab *h;
+	for (i=0; i<HTSIZE/10+1; i++)
+	{       printf("%4d",i*10);
+		for (j=0; j<10; j++)
+		{       if (i*10+j>=HTSIZE) break;
+			h= &voc[i*10+j];
+			putchar(' ');
+			if (h->val==0)
+			{       printf("-----");
+				continue;
+			}
+			for (l=0, c=h->atab; l<5; l++)
+				if ((*c ^ '=')) putchar(*c++ ^ '=');
+				else putchar(' ');
+		}
+		putchar('\n');
+	}
+}
