@@ -48,13 +48,24 @@
 
 /*      Re-coding of advent in C: file i/o and user i/o                 */
 
-// #include "hdr.h"
+#include "hdr.h"
 #include <stdio.h>
-// #include <string.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "io.h"
 #include "vocab.h"
 
+#define DEBUG
 
+#define TRAV_BIN "trav.bin"
+#define TRAV_BIN_SZ 3699
+#define VOC_BIN "voc.bin"
+#define VOC_BIN_SZ 2194
+#define TEXT_BIN "text.bin"
+
+//getin
 // getin(wrd1,wrd2)                        /* get command from user        */
 // char **wrd1,**wrd2;                     /* no prompt, usually           */
 // {       register char *s;
@@ -98,6 +109,7 @@
 // }
 
 
+//confirm
 // confirm(mesg)                           /* confirm irreversible action  */
 // char *mesg;
 // {       register int result;
@@ -127,6 +139,7 @@
 // 	return(result);
 // }
 
+//yesm
 // yesm(x,y,z)                             /* confirm with mspeak          */
 // int x,y,z;
 // {       register int result;
@@ -154,6 +167,7 @@
 // char iotape[] = "Ax3F'\003tt$8h\315qer*h\017nGKrX\207:!l";
 // char *tape = iotape;			/* pointer to encryption tape   */
 
+//next
 // next()                                  /* next virtual char, bump adr  */
 // {
 // 	int ch;
@@ -167,11 +181,14 @@
 // 	return(ch);
 // }
 
+//diffsync1
 // char breakch;                           /* tell which char ended rnum   */
 
+//rdata
 void rdata()                                 /* "read" data from virtual file*/
 {       
 	rvoc();
+	rtrav();
 //	register int sect;
 // 	register char ch;
 
@@ -241,6 +258,7 @@ void rdata()                                 /* "read" data from virtual file*/
 // char nbf[12];
 
 
+//rnum
 // rnum()                                  /* read initial location num    */
 // {       register char *s;
 // 	tape = iotape;                  /* restart encryption tape      */
@@ -322,378 +340,126 @@ void rdata()                                 /* "read" data from virtual file*/
 // 	}
 // }
 
-
-// rtrav()                                 /* read travel table            */
-// {       register int locc;
-// 	register struct travlist *t;
-// 	register char *s;
-// 	char buf[12];
-// 	int len,m,n,entries;
-// 	for (oldloc= -1;;)              /* get another line             */
-// 	{       if ((locc=rnum())!=oldloc && oldloc>=0) /* end of entry */
-// 		{
-// 			t->next = 0;    /* terminate the old entry      */
-// 		/*      printf("%d:%d entries\n",oldloc,entries);       */
-// 		/*      twrite(oldloc);                                 */
-// 		}
-// 		if (locc== -1) return;
-// 		if (locc!=oldloc)        /* getting a new entry         */
-// 		{       t=travel[locc]=(struct travlist *) malloc(sizeof (struct travlist));
-// 		/*      printf("New travel list for %d\n",locc);        */
-// 			entries=0;
-// 			oldloc=locc;
-// 		}
-// 		for (s=buf;; *s++)      /* get the newloc number /ASCII */
-// 			if ((*s=next())==TAB || *s==LF) break;
-// 		*s=0;
-// 		len=length(buf)-1;      /* quad long number handling    */
-// 	/*      printf("Newloc: %s (%d chars)\n",buf,len);              */
-// 		if (len<4)              /* no "m" conditions            */
-// 		{       m=0;
-// 			n=atoi(buf);    /* newloc mod 1000 = newloc     */
-// 		}
-// 		else                    /* a long integer               */
-// 		{       n=atoi(buf+len-3);
-// 			buf[len-3]=0;   /* terminate newloc/1000        */
-// 			m=atoi(buf);
-// 		}
-// 		while (breakch!=LF)     /* only do one line at a time   */
-// 		{       if (entries++) t=t->next=(struct travlist *) malloc(sizeof (struct travlist));
-// 			t->tverb=rnum();/* get verb from the file       */
-// 			t->tloc=n;      /* table entry mod 1000         */
-// 			t->conditions=m;/* table entry / 1000           */
-// 		/*      printf("entry %d for %d\n",entries,locc);       */
-// 		}
-// 	}
-// }
-
-// #ifdef DEBUG
-
-// twrite(loq)                             /* travel options from this loc */
-// int loq;
-// {       register struct travlist *t;
-// 	printf("If");
-// 	speak(&ltext[loq]);
-// 	printf("then\n");
-// 	for (t=travel[loq]; t!=0; t=t->next)
-// 	{       printf("verb %d takes you to ",t->tverb);
-// 		if (t->tloc<=300)
-// 			speak(&ltext[t->tloc]);
-// 		else if (t->tloc<=500)
-// 			printf("special code %d\n",t->tloc-300);
-// 		else
-// 			rspeak(t->tloc-500);
-// 		printf("under conditions %d\n",t->conditions);
-// 	}
-// }
-
-// #endif DEBUG
-
-void rvoc()
-{
-	vocinit();
-	vocab("road",-2,2);
-	vocab("hill",-2,2);
-	vocab("enter",-2,3);
-	vocab("upstr",-2,4);
-	vocab("downs",-2,5);
-	vocab("fores",-2,6);
-	vocab("forwa",-2,7);
-	vocab("conti",-2,7);
-	vocab("onwar",-2,7);
-	vocab("back",-2,8);
-	vocab("retur",-2,8);
-	vocab("retre",-2,8);
-	vocab("valle",-2,9);
-	vocab("stair",-2,10);
-	vocab("out",-2,11);
-	vocab("outsi",-2,11);
-	vocab("exit",-2,11);
-	vocab("leave",-2,11);
-	vocab("build",-2,12);
-	vocab("house",-2,12);
-	vocab("gully",-2,13);
-	vocab("strea",-2,14);
-	vocab("rock",-2,15);
-	vocab("bed",-2,16);
-	vocab("crawl",-2,17);
-	vocab("cobbl",-2,18);
-	vocab("inwar",-2,19);
-	vocab("insid",-2,19);
-	vocab("in",-2,19);
-	vocab("surfa",-2,20);
-	vocab("null",-2,21);
-	vocab("nowhe",-2,21);
-	vocab("dark",-2,22);
-	vocab("passa",-2,23);
-	vocab("tunne",-2,23);
-	vocab("low",-2,24);
-	vocab("canyo",-2,25);
-	vocab("awkwa",-2,26);
-	vocab("giant",-2,27);
-	vocab("view",-2,28);
-	vocab("upwar",-2,29);
-	vocab("up",-2,29);
-	vocab("u",-2,29);
-	vocab("above",-2,29);
-	vocab("ascen",-2,29);
-	vocab("d",-2,30);
-	vocab("downw",-2,30);
-	vocab("down",-2,30);
-	vocab("desce",-2,30);
-	vocab("pit",-2,31);
-	vocab("outdo",-2,32);
-	vocab("crack",-2,33);
-	vocab("steps",-2,34);
-	vocab("dome",-2,35);
-	vocab("left",-2,36);
-	vocab("right",-2,37);
-	vocab("hall",-2,38);
-	vocab("jump",-2,39);
-	vocab("barre",-2,40);
-	vocab("over",-2,41);
-	vocab("acros",-2,42);
-	vocab("east",-2,43);
-	vocab("e",-2,43);
-	vocab("west",-2,44);
-	vocab("w",-2,44);
-	vocab("north",-2,45);
-	vocab("n",-2,45);
-	vocab("south",-2,46);
-	vocab("s",-2,46);
-	vocab("ne",-2,47);
-	vocab("se",-2,48);
-	vocab("sw",-2,49);
-	vocab("nw",-2,50);
-	vocab("debri",-2,51);
-	vocab("hole",-2,52);
-	vocab("wall",-2,53);
-	vocab("broke",-2,54);
-	vocab("y2",-2,55);
-	vocab("climb",-2,56);
-	vocab("look",-2,57);
-	vocab("exami",-2,57);
-	vocab("touch",-2,57);
-	vocab("descr",-2,57);
-	vocab("floor",-2,58);
-	vocab("room",-2,59);
-	vocab("slit",-2,60);
-	vocab("slab",-2,61);
-	vocab("slabr",-2,61);
-	vocab("xyzzy",-2,62);
-	vocab("depre",-2,63);
-	vocab("entra",-2,64);
-	vocab("plugh",-2,65);
-	vocab("secre",-2,66);
-	vocab("cave",-2,67);
-	vocab("cross",-2,69);
-	vocab("bedqu",-2,70);
-	vocab("plove",-2,71);
-	vocab("orien",-2,72);
-	vocab("caver",-2,73);
-	vocab("shell",-2,74);
-	vocab("reser",-2,75);
-	vocab("main",-2,76);
-	vocab("offic",-2,76);
-	vocab("fork",-2,77);
-	vocab("keys",-2,1001);
-	vocab("key",-2,1001);
-	vocab("lamp",-2,1002);
-	vocab("headl",-2,1002);
-	vocab("lante",-2,1002);
-	vocab("grate",-2,1003);
-	vocab("cage",-2,1004);
-	vocab("wand",-2,1005);
-	vocab("rod",-2,1005);
-	vocab("wand",-2,1006);
-	vocab("rod",-2,1006);
-	vocab("steps",-2,1007);
-	vocab("bird",-2,1008);
-	vocab("door",-2,1009);
-	vocab("pillo",-2,1010);
-	vocab("velve",-2,1010);
-	vocab("snake",-2,1011);
-	vocab("fissu",-2,1012);
-	vocab("table",-2,1013);
-	vocab("clam",-2,1014);
-	vocab("oyste",-2,1015);
-	vocab("magaz",-2,1016);
-	vocab("issue",-2,1016);
-	vocab("spelu",-2,1016);
-	vocab("\"spel",-2,1016);
-	vocab("dwarf",-2,1017);
-	vocab("dwarv",-2,1017);
-	vocab("knife",-2,1018);
-	vocab("knive",-2,1018);
-	vocab("food",-2,1019);
-	vocab("ratio",-2,1019);
-	vocab("bottl",-2,1020);
-	vocab("jar",-2,1020);
-	vocab("water",-2,1021);
-	vocab("h2o",-2,1021);
-	vocab("oil",-2,1022);
-	vocab("mirro",-2,1023);
-	vocab("plant",-2,1024);
-	vocab("beans",-2,1024);
-	vocab("plant",-2,1025);
-	vocab("stala",-2,1026);
-	vocab("shado",-2,1027);
-	vocab("figur",-2,1027);
-	vocab("axe",-2,1028);
-	vocab("drawi",-2,1029);
-	vocab("pirat",-2,1030);
-	vocab("drago",-2,1031);
-	vocab("chasm",-2,1032);
-	vocab("troll",-2,1033);
-	vocab("troll",-2,1034);
-	vocab("bear",-2,1035);
-	vocab("messa",-2,1036);
-	vocab("volca",-2,1037);
-	vocab("geyse",-2,1037);
-	vocab("machi",-2,1038);
-	vocab("vendi",-2,1038);
-	vocab("batte",-2,1039);
-	vocab("carpe",-2,1040);
-	vocab("moss",-2,1040);
-	vocab("gold",-2,1050);
-	vocab("nugge",-2,1050);
-	vocab("diamo",-2,1051);
-	vocab("silve",-2,1052);
-	vocab("bars",-2,1052);
-	vocab("jewel",-2,1053);
-	vocab("coins",-2,1054);
-	vocab("chest",-2,1055);
-	vocab("box",-2,1055);
-	vocab("treas",-2,1055);
-	vocab("eggs",-2,1056);
-	vocab("egg",-2,1056);
-	vocab("nest",-2,1056);
-	vocab("tride",-2,1057);
-	vocab("vase",-2,1058);
-	vocab("ming",-2,1058);
-	vocab("shard",-2,1058);
-	vocab("potte",-2,1058);
-	vocab("emera",-2,1059);
-	vocab("plati",-2,1060);
-	vocab("pyram",-2,1060);
-	vocab("pearl",-2,1061);
-	vocab("rug",-2,1062);
-	vocab("persi",-2,1062);
-	vocab("spice",-2,1063);
-	vocab("chain",-2,1064);
-	vocab("carry",-2,2001);
-	vocab("take",-2,2001);
-	vocab("keep",-2,2001);
-	vocab("catch",-2,2001);
-	vocab("steal",-2,2001);
-	vocab("captu",-2,2001);
-	vocab("get",-2,2001);
-	vocab("tote",-2,2001);
-	vocab("drop",-2,2002);
-	vocab("relea",-2,2002);
-	vocab("free",-2,2002);
-	vocab("disca",-2,2002);
-	vocab("dump",-2,2002);
-	vocab("say",-2,2003);
-	vocab("chant",-2,2003);
-	vocab("sing",-2,2003);
-	vocab("utter",-2,2003);
-	vocab("mumbl",-2,2003);
-	vocab("unloc",-2,2004);
-	vocab("open",-2,2004);
-	vocab("nothi",-2,2005);
-	vocab("lock",-2,2006);
-	vocab("close",-2,2006);
-	vocab("light",-2,2007);
-	vocab("on",-2,2007);
-	vocab("extin",-2,2008);
-	vocab("off",-2,2008);
-	vocab("wave",-2,2009);
-	vocab("shake",-2,2009);
-	vocab("swing",-2,2009);
-	vocab("calm",-2,2010);
-	vocab("placa",-2,2010);
-	vocab("tame",-2,2010);
-	vocab("walk",-2,2011);
-	vocab("run",-2,2011);
-	vocab("trave",-2,2011);
-	vocab("go",-2,2011);
-	vocab("proce",-2,2011);
-	vocab("conti",-2,2011);
-	vocab("explo",-2,2011);
-	vocab("goto",-2,2011);
-	vocab("follo",-2,2011);
-	vocab("turn",-2,2011);
-	vocab("attac",-2,2012);
-	vocab("kill",-2,2012);
-	vocab("slay",-2,2012);
-	vocab("fight",-2,2012);
-	vocab("hit",-2,2012);
-	vocab("strik",-2,2012);
-	vocab("pour",-2,2013);
-	vocab("eat",-2,2014);
-	vocab("devou",-2,2014);
-	vocab("drink",-2,2015);
-	vocab("rub",-2,2016);
-	vocab("throw",-2,2017);
-	vocab("toss",-2,2017);
-	vocab("quit",-2,2018);
-	vocab("find",-2,2019);
-	vocab("where",-2,2019);
-	vocab("inven",-2,2020);
-	vocab("inv",-2,2020);
-	vocab("feed",-2,2021);
-	vocab("fill",-2,2022);
-	vocab("blast",-2,2023);
-	vocab("deton",-2,2023);
-	vocab("ignit",-2,2023);
-	vocab("blowu",-2,2023);
-	vocab("score",-2,2024);
-	vocab("fee",-2,2025);
-	vocab("fie",-2,2025);
-	vocab("foe",-2,2025);
-	vocab("foo",-2,2025);
-	vocab("fum",-2,2025);
-	vocab("brief",-2,2026);
-	vocab("read",-2,2027);
-	vocab("perus",-2,2027);
-	vocab("break",-2,2028);
-	vocab("shatt",-2,2028);
-	vocab("smash",-2,2028);
-	vocab("wake",-2,2029);
-	vocab("distu",-2,2029);
-	vocab("suspe",-2,2030);
-	vocab("pause",-2,2030);
-	vocab("save",-2,2030);
-	vocab("hours",-2,2031);
-	vocab("fee",-2,3001);
-	vocab("fie",-2,3002);
-	vocab("foe",-2,3003);
-	vocab("foo",-2,3004);
-	vocab("fum",-2,3005);
-	vocab("sesam",-2,3050);
-	vocab("opens",-2,3050);
-	vocab("abra",-2,3050);
-	vocab("abrac",-2,3050);
-	vocab("shaza",-2,3050);
-	vocab("hocus",-2,3050);
-	vocab("pocus",-2,3050);
-	vocab("help",-2,3051);
-	vocab("?",-2,3051);
-	vocab("tree",-2,3064);
-	vocab("trees",-2,3064);
-	vocab("dig",-2,3066);
-	vocab("excav",-2,3066);
-	vocab("lost",-2,3068);
-	vocab("mist",-2,3069);
-	vocab("fuck",-2,3079);
-	vocab("stop",-2,3139);
-	vocab("info",-2,3142);
-	vocab("infor",-2,3142);
-	vocab("swim",-2,3147);
+void trav(uint8_t locc, uint16_t tloc, uint16_t conditions, uint8_t tverb_len, uint8_t *tverb) {
+	struct travlist *t = 0;
+	for (uint8_t i = 0; i < tverb_len; i++) {
+		if (t == 0) {
+			t = travel[locc] = (struct travlist *)malloc(sizeof(struct travlist));		
+		} else {
+			t = t->next = (struct travlist *)malloc(sizeof(struct travlist));
+		}
+		t->tverb = tverb[i];
+		t->tloc = tloc;
+		t->conditions = conditions;
+		t->next = 0;
+	}
 }
 
 
+//rtrav
+void rtrav()                                 /* read travel table            */
+{
+	int fd = open(TRAV_BIN, O_RDONLY);
+	ssize_t read_size = 0;
+	size_t tail = 0;
+	uint16_t full_read_sz = 0;
+	do {
+		read_size = read(fd, buffer + tail, BUFFER_SIZE - tail);
+		uint8_t *row = buffer;
+		uint8_t *eod = buffer + tail + read_size;
+		do {
+			// get tverb list length
+			uint8_t tverb_len = *row;
+			// did we read the entire row?
+			if (row + tverb_len + 6 >= eod) { break; }
+			row++;
+			// read locc
+			uint8_t locc = *row;
+			row++;
+			// read tloc
+			int16_t tloc = *(int16_t *)row;
+			row += 2;
+			// read conditions
+			int16_t conditions = *(int16_t *)row;
+			row += 2;
+			// process tverb list
+			trav(locc, tloc, conditions, tverb_len, row);
+			printf(".");
+			row += tverb_len;
+			full_read_sz += tverb_len + 6;
+		} while (full_read_sz < TRAV_BIN_SZ);
+		if (full_read_sz == TRAV_BIN_SZ) { break; }
+	    tail = eod - row;
+	    if (tail > 0) { 
+	    	memcpy(buffer, row, tail);
+		}
+	} while (true);
+	close(fd);	
+}
+
+#ifdef DEBUG
+
+//twrite
+void twrite(int loq)                             /* travel options from this loc */
+//int loq;
+{       register struct travlist *t;
+	printf("If");
+	speak(&ltext[loq]);
+	printf("then\n");
+	for (t=travel[loq]; t!=0; t=t->next)
+	{       printf("verb %d takes you to ",t->tverb);
+		if (t->tloc<=300)
+			speak(&ltext[t->tloc]);
+		else if (t->tloc<=500)
+			printf("special code %d\n",t->tloc-300);
+		else
+			/*rspeak(t->tloc-500)*/;
+		printf("under conditions %d\n",t->conditions);
+	}
+}
+
+#endif DEBUG
+
+//rvoc
+void rvoc()               /* read the vocabulary          */
+{
+	static uint8_t word_buf[6];
+	int fd = open(VOC_BIN, O_RDONLY);
+	ssize_t read_size = 0;
+	size_t tail = 0;
+	uint16_t full_read_sz = 0;
+	do {
+		read_size = read(fd, buffer + tail, BUFFER_SIZE - tail);
+		uint8_t *row = buffer;
+		uint8_t *eod = buffer + tail + read_size;
+		do {
+			// get word length
+			uint8_t word_len = *row;
+			// did we read the entire row?
+			if (row + word_len + 3 >= eod) { break; }
+			row++;
+			// read word index
+			uint16_t word_idx = *(uint16_t *)row;
+			row += 2;
+			// process word
+			memcpy(word_buf, row, word_len);
+			word_buf[word_len] = 0;
+			vocab(word_buf, -2, word_idx);
+			printf("%s ", word_buf);
+			row += word_len;
+			full_read_sz += word_len + 3;
+		} while (full_read_sz < VOC_BIN_SZ);
+		if (full_read_sz == VOC_BIN_SZ) { break; }
+	    tail = eod - row;
+	    if (tail > 0) { 
+	    	memcpy(buffer, row, tail);
+		}
+	} while (true);
+	close(fd);
+}
+
+
+//rlocs
 // rlocs()                                 /* initial object locations     */
 // {	for (;;)
 // 	{       if ((obj=rnum())<0) break;
@@ -704,6 +470,7 @@ void rvoc()
 // 	}
 // }
 
+//rdflt
 // rdflt()                                 /* default verb messages        */
 // {	for (;;)
 // 	{       if ((verb=rnum())<0) break;
@@ -711,6 +478,7 @@ void rvoc()
 // 	}
 // }
 
+//rliq
 // rliq()                                  /* liquid assets &c: cond bits  */
 // {       register int bitnum;
 // 	for (;;)                        /* read new bit list            */
@@ -722,6 +490,7 @@ void rvoc()
 // 	}
 // }
 
+//rhints
 // rhints()
 // {       register int hintnum,i;
 // 	hntmax=0;
@@ -734,25 +503,34 @@ void rvoc()
 // }
 
 
+//rspeak
 void rspeak(int msg)
 //int msg;
 {       if (msg!=0) speak(&rtext[msg]);
 }
 
 
+//mspeak
 void mspeak(int msg)
 //int msg;
 {       if (msg!=0) speak(&mtext[msg]);
 }
 
 
+//speak
 void speak(struct text *msg)       /* read, decrypt, and print a message (not ptext)      */
 //struct text *msg;/* msg is a pointer to seek address and length of mess */
 {
-	printf(msg->seekadr);
+	int fd = open(TEXT_BIN, O_RDONLY);
+	lseek(fd, (long int)msg->seekadr, SEEK_SET);
+	read(fd, buffer, msg->txtlen);
+	buffer[msg->txtlen] = 0;
+	printf(buffer);
+	close(fd);
 }
 
 
+//pspeak
 // pspeak(m,skip) /* read, decrypt an print a ptext message              */
 // int m;         /* msg is the number of all the p msgs for this place  */
 // int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/

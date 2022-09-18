@@ -51,16 +51,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "hdr.h"
+# include "hdr.h"
 #include "vocab.h"
 
-struct hashtab voc[HTSIZE];
-
+//destroy
 // dstroy(object)
 // int object;
 // {       move(object,0);
 // }
 
+//juggle
 // juggle(object)
 // int object;
 // {       register int i,j;
@@ -72,6 +72,7 @@ struct hashtab voc[HTSIZE];
 // }
 
 
+//move
 // move(object,where)
 // int object,where;
 // {       register int from;
@@ -85,12 +86,14 @@ struct hashtab voc[HTSIZE];
 // }
 
 
+//put
 // put(object,where,pval)
 // int object,where,pval;
 // {       move(object,where);
 // 	return(-1-pval);
 // }
 
+//carry
 // carry(object,where)
 // int object,where;
 // {       register int temp;
@@ -109,30 +112,26 @@ struct hashtab voc[HTSIZE];
 // }
 
 
-// drop(object,where)
-// int object,where;
-// {	if (object>100) fixed[object-100]=where;
-// 	else
-// 	{       if (place[object]== -1) holdng--;
-// 		place[object]=where;
-// 	}
-// 	if (where<=0) return;
-// 	link[object]=atloc[where];
-// 	atloc[where]=object;
-// }
-
-
-void vocinit()
-{
-	memset(voc, 0, HTSIZE * sizeof(struct hashtab));
+//drop
+void drop(int object,int where)
+//int object,where;
+{	if (object>100) fixed[object-100]=where;
+	else
+	{       if (place[object]== -1) holdng--;
+		place[object]=where;
+	}
+	if (where<=0) return;
+	link[object]=atloc[where];
+	atloc[where]=object;
 }
 
+
+//vocab
 int vocab(char *word,int type,int value)                  /* look up or store a word      */
 //char *word;
 //int type;       /* -2 for store, -1 for user word, >=0 for canned lookup*/
 //int value;                              /* used for storing only        */
-{       
-	register int adr;
+{       register int adr;
 	register char *s,*t;
 	int hash, i;
 	struct hashtab *h;
@@ -187,6 +186,7 @@ int vocab(char *word,int type,int value)                  /* look up or store a 
 }
 
 
+//copystr
 // copystr(w1,w2)                          /* copy one string to another   */
 // char *w1,*w2;
 // {       register char *s,*t;
@@ -195,6 +195,7 @@ int vocab(char *word,int type,int value)                  /* look up or store a 
 // 	*t=0;
 // }
 
+//weq
 // weq(w1,w2)                              /* compare words                */
 // char *w1,*w2;                           /* w1 is user, w2 is system     */
 // {       register char *s,*t;
@@ -210,6 +211,7 @@ int vocab(char *word,int type,int value)                  /* look up or store a 
 // }
 
 
+//length
 int length(char *str)                             /* includes 0 at end            */
 {       register char *s;
 	register int n;
@@ -217,6 +219,7 @@ int length(char *str)                             /* includes 0 at end          
 	return(n+1);
 }
 
+//prht
 void prht()                                  /* print hash table             */
 {       register int i,j,l;
 	char *c;
