@@ -59,6 +59,7 @@ static char rcsid[] = "$NetBSD: main.c,v 1.5 1996/05/21 21:53:09 mrg Exp $";
 #include <stdio.h>
 #include "hdr.h"
 
+//main
 main(argc,argv)
 int argc;
 char **argv;

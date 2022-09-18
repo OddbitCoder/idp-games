@@ -53,6 +53,7 @@ static char rcsid[] = "$NetBSD: io.c,v 1.3 1995/04/24 12:21:37 cgd Exp $";
 #include <string.h>
 
 
+//getin
 getin(wrd1,wrd2)                        /* get command from user        */
 char **wrd1,**wrd2;                     /* no prompt, usually           */
 {       register char *s;
@@ -96,6 +97,7 @@ char **wrd1,**wrd2;                     /* no prompt, usually           */
 }
 
 
+//confirm
 confirm(mesg)                           /* confirm irreversible action  */
 char *mesg;
 {       register int result;
@@ -125,6 +127,7 @@ int x,y,z;
 	return(result);
 }
 
+//yesm
 yesm(x,y,z)                             /* confirm with mspeak          */
 int x,y,z;
 {       register int result;
@@ -152,6 +155,7 @@ int outsw = 0;				/* putting stuff to data file?  */
 char iotape[] = "Ax3F'\003tt$8h\315qer*h\017nGKrX\207:!l";
 char *tape = iotape;			/* pointer to encryption tape   */
 
+//next
 next()                                  /* next virtual char, bump adr  */
 {
 	int ch;
@@ -165,8 +169,10 @@ next()                                  /* next virtual char, bump adr  */
 	return(ch);
 }
 
+//diffsync1
 char breakch;                           /* tell which char ended rnum   */
 
+//rdata
 rdata()                                 /* "read" data from virtual file*/
 {       register int sect;
 	register char ch;
@@ -237,6 +243,7 @@ rdata()                                 /* "read" data from virtual file*/
 char nbf[12];
 
 
+//rnum
 rnum()                                  /* read initial location num    */
 {       register char *s;
 	tape = iotape;                  /* restart encryption tape      */
@@ -319,6 +326,7 @@ int sect;
 }
 
 
+//rtrav
 rtrav()                                 /* read travel table            */
 {       register int locc;
 	register struct travlist *t;
@@ -365,6 +373,7 @@ rtrav()                                 /* read travel table            */
 
 #ifdef DEBUG
 
+//twrite
 twrite(loq)                             /* travel options from this loc */
 int loq;
 {       register struct travlist *t;
@@ -385,6 +394,7 @@ int loq;
 
 #endif DEBUG
 
+//rvoc
 rvoc()
 {       register char *s;               /* read the vocabulary          */
 	register int index;
@@ -405,6 +415,7 @@ rvoc()
 }
 
 
+//rlocs
 rlocs()                                 /* initial object locations     */
 {	for (;;)
 	{       if ((obj=rnum())<0) break;
@@ -415,6 +426,7 @@ rlocs()                                 /* initial object locations     */
 	}
 }
 
+//rdflt
 rdflt()                                 /* default verb messages        */
 {	for (;;)
 	{       if ((verb=rnum())<0) break;
@@ -422,6 +434,7 @@ rdflt()                                 /* default verb messages        */
 	}
 }
 
+//rliq
 rliq()                                  /* liquid assets &c: cond bits  */
 {       register int bitnum;
 	for (;;)                        /* read new bit list            */
@@ -433,6 +446,7 @@ rliq()                                  /* liquid assets &c: cond bits  */
 	}
 }
 
+//rhints
 rhints()
 {       register int hintnum,i;
 	hntmax=0;
@@ -445,18 +459,21 @@ rhints()
 }
 
 
+//rspeak
 rspeak(msg)
 int msg;
 {       if (msg!=0) speak(&rtext[msg]);
 }
 
 
+//mspeak
 mspeak(msg)
 int msg;
 {       if (msg!=0) speak(&mtext[msg]);
 }
 
 
+//speak
 speak(msg)       /* read, decrypt, and print a message (not ptext)      */
 struct text *msg;/* msg is a pointer to seek address and length of mess */
 {
@@ -481,6 +498,7 @@ struct text *msg;/* msg is a pointer to seek address and length of mess */
 }
 
 
+//pspeak
 pspeak(m,skip) /* read, decrypt an print a ptext message              */
 int m;         /* msg is the number of all the p msgs for this place  */
 int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/

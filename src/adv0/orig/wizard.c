@@ -51,6 +51,7 @@ static char rcsid[] = "$NetBSD: wizard.c,v 1.3 1995/04/24 12:21:41 cgd Exp $";
 # include "hdr.h"
 #include <string.h>
 
+//datime
 datime(d,t)
 int *d,*t;
 {       int tvec[2],*tptr;
@@ -67,12 +68,14 @@ int *d,*t;
 
 char magic[6];
 
+//poof
 poof()
 {
 	strcpy(magic, DECR(d,w,a,r,f));
 	latncy = 45;
 }
 
+//Start
 Start(n)
 {       int d,t,delay;
 
@@ -98,6 +101,7 @@ Start(n)
 	return(FALSE);
 }
 
+//wizard
 wizard()                /* not as complex as advent/10 (for now)        */
 {       register int wiz;
 	char *word,*x;
@@ -112,6 +116,7 @@ wizard()                /* not as complex as advent/10 (for now)        */
 	return(TRUE);
 }
 
+//ciao
 ciao(cmdfile)
 char *cmdfile;
 {       register char *c;
@@ -130,6 +135,7 @@ char *cmdfile;
 }
 
 
+//ran
 ran(range)
 int range;
 {

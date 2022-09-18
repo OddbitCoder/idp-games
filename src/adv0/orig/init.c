@@ -59,6 +59,7 @@ int setbit[16] = {1,2,4,010,020,040,0100,0200,0400,01000,02000,04000,
 		  010000,020000,040000,0100000};
 
 
+//init
 init(command)                           /* everything for 1st time run  */
 char *command;                          /* command we were called with  */
 {
@@ -67,6 +68,7 @@ char *command;                          /* command we were called with  */
 	poof();
 }
 
+//decr
 char *decr(a,b,c,d,e)
 char a,b,c,d,e;
 {
@@ -81,6 +83,7 @@ char a,b,c,d,e;
 	return buf;
 }
 
+//linkdata
 linkdata()                              /*  secondary data manipulation */
 {       register int i,j;
 
@@ -202,12 +205,14 @@ linkdata()                              /*  secondary data manipulation */
 
 
 
+//trapdel
 trapdel()                               /* come here if he hits a del   */
 {	delhit++;			/* main checks, treats as QUIT  */
 	signal(SIGINT,trapdel);		/* catch subsequent DELs        */
 }
 
 
+//startup
 startup()
 {
 	time_t time();

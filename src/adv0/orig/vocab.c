@@ -50,11 +50,13 @@ static char rcsid[] = "$NetBSD: vocab.c,v 1.2 1995/03/21 12:05:13 cgd Exp $";
 
 # include "hdr.h"
 
+//destroy
 dstroy(object)
 int object;
 {       move(object,0);
 }
 
+//juggle
 juggle(object)
 int object;
 {       register int i,j;
@@ -66,6 +68,7 @@ int object;
 }
 
 
+//move
 move(object,where)
 int object,where;
 {       register int from;
@@ -79,12 +82,14 @@ int object,where;
 }
 
 
+//put
 put(object,where,pval)
 int object,where,pval;
 {       move(object,where);
 	return(-1-pval);
 }
 
+//carry
 carry(object,where)
 int object,where;
 {       register int temp;
@@ -103,6 +108,7 @@ int object,where;
 }
 
 
+//drop
 drop(object,where)
 int object,where;
 {	if (object>100) fixed[object-100]=where;
@@ -116,6 +122,7 @@ int object,where;
 }
 
 
+//vocab
 vocab(word,type,value)                  /* look up or store a word      */
 char *word;
 int type;       /* -2 for store, -1 for user word, >=0 for canned lookup*/
@@ -175,6 +182,7 @@ int value;                              /* used for storing only        */
 }
 
 
+//copystr
 copystr(w1,w2)                          /* copy one string to another   */
 char *w1,*w2;
 {       register char *s,*t;
@@ -183,6 +191,7 @@ char *w1,*w2;
 	*t=0;
 }
 
+//weq
 weq(w1,w2)                              /* compare words                */
 char *w1,*w2;                           /* w1 is user, w2 is system     */
 {       register char *s,*t;
@@ -198,6 +207,7 @@ char *w1,*w2;                           /* w1 is user, w2 is system     */
 }
 
 
+//length
 length(str)                             /* includes 0 at end            */
 char *str;
 {       register char *s;
@@ -206,6 +216,7 @@ char *str;
 	return(n+1);
 }
 
+//prht
 prht()                                  /* print hash table             */
 {       register int i,j,l;
 	char *c;
