@@ -11,7 +11,7 @@ int fixed[101];
 
 // NOTE: these are initialized here [or don't need to be initialized]
 
-unsigned char buffer[BUFFER_SIZE];
+char buffer[BUFFER_SIZE];
 
 int latncy = 0;
 
