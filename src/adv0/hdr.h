@@ -93,7 +93,7 @@ extern struct hashtab voc[HTSIZE];
 struct text
 #ifdef OLDSTUFF
 {       int seekadr;                    /* DATFILE must be < 2**16      */
-#endif OLDSTUFF
+#endif //OLDSTUFF
 {       char *seekadr;                  /* Msg start in virtual disk    */
 	int txtlen;                     /* length of msg starting here  */
 };

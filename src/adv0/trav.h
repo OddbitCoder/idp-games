@@ -9,7 +9,7 @@ struct travptr {
 	uint tloc;
 	uint conditions;
 	char *ptr;
-	char *ptr_eod;
+	char *eod;
 };
 
 struct travptr *tstart(struct travptr *tptr, char idx);

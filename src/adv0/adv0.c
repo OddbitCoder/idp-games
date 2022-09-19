@@ -40,8 +40,7 @@
 
 // #ifndef lint
 // static char copyright[] =
-// "@(#) Copyright (c) 1991, 1993\n\
-// 	The Regents of the University of California.  All rights reserved.\n";
+// "@(#) Copyright (c) 1991, 1993\nThe Regents of the University of California.  All rights reserved.\n";
 // #endif /* not lint */
 
 // #ifndef lint
@@ -59,6 +58,7 @@
 #include <stdio.h>
 #include "hdr.h"
 #include "_init.h"
+#include "vocab.h"
 
 //main
 void main(int argc,char **argv)

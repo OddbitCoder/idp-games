@@ -1,0 +1,3 @@
+[ ] fix static data (problems with indices)
+[ ] assert data types
+[ ] remove obsolete #includes

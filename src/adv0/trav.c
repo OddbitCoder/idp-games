@@ -3,7 +3,7 @@
 
 struct travptr *tstart(struct travptr *tptr, char idx) {
 	tptr->ptr = newtravel[idx];
-	tptr->ptr_eod = tptr->ptr + *tptr->ptr;
+	tptr->eod = tptr->ptr + *tptr->ptr;
 	tptr->ptr++;
 	tptr->tverb = *tptr->ptr & 127;
 	tptr->ptr++;
@@ -32,11 +32,11 @@ struct travptr *tnext(struct travptr *tptr) {
 }
 
 bool tlast(struct travptr *tptr) {
-	return tptr->ptr == tptr->ptr_eod;
+	return tptr->ptr == tptr->eod;
 }
 
 bool tvalid(struct travptr *tptr) {
-	return tptr->ptr <= tptr->ptr_eod;
+	return tptr->ptr <= tptr->eod;
 }
 
 void tptrwrite(struct travptr *tptr) {

@@ -343,28 +343,28 @@ void twrite(int loq)                             /* travel options from this loc
 	}
 }
 
-#endif DEBUG
+#endif //DEBUG
 
 //rvoc
 void rvoc()               /* read the vocabulary          */
 {
-	static uint8_t word_buf[6];
+	static char word_buf[6];
 	int fd = open(VOC_BIN, O_RDONLY);
 	ssize_t read_size = 0;
 	size_t tail = 0;
-	uint16_t full_read_sz = 0;
+	uint full_read_sz = 0;
 	do {
 		read_size = read(fd, buffer + tail, BUFFER_SIZE - tail);
-		uint8_t *row = buffer;
-		uint8_t *eod = buffer + tail + read_size;
+		char *row = buffer;
+		char *eod = buffer + tail + read_size;
 		do {
 			// get word length
-			uint8_t word_len = *row;
+			char word_len = *row;
 			// did we read the entire row?
 			if (row + word_len + 3 >= eod) { break; }
 			row++;
 			// read word index
-			uint16_t word_idx = *(uint16_t *)row;
+			uint word_idx = *(uint *)row;
 			row += 2;
 			// process word
 			memcpy(word_buf, row, word_len);
