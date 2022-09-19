@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include "trav.h"
 
-struct travptr *tstart(struct travptr *tptr, byte idx) {
+struct travptr *tstart(struct travptr *tptr, char idx) {
 	tptr->ptr = newtravel[idx];
 	tptr->ptr_eod = tptr->ptr + *tptr->ptr;
 	tptr->ptr++;
 	tptr->tverb = *tptr->ptr & 127;
 	tptr->ptr++;
-	tptr->tloc = *(ushort *)tptr->ptr;
+	tptr->tloc = *(uint *)tptr->ptr;
 	tptr->ptr += 2;
-	tptr->conditions = *(ushort *)tptr->ptr;
+	tptr->conditions = *(uint *)tptr->ptr;
 	tptr->ptr += 2;
 	return tptr;
 }
@@ -22,9 +22,9 @@ struct travptr *tnext(struct travptr *tptr) {
 	tptr->tverb = *tptr->ptr;
 	tptr->ptr++;
 	if ((tptr->tverb & 128) != 0) {
-		tptr->tloc = *(ushort *)tptr->ptr;
+		tptr->tloc = *(uint *)tptr->ptr;
 		tptr->ptr += 2;
-		tptr->conditions = *(ushort *)tptr->ptr;
+		tptr->conditions = *(uint *)tptr->ptr;
 		tptr->ptr += 2;
 	}	
 	tptr->tverb &= 127;

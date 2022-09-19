@@ -60,8 +60,6 @@
 
 #define DEBUG
 
-#define TRAV_BIN "trav.bin"
-#define TRAV_BIN_SZ 3699
 #define VOC_BIN "voc.bin"
 #define VOC_BIN_SZ 2194
 #define TEXT_BIN "text.bin"

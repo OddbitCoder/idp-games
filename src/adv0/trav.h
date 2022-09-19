@@ -5,14 +5,14 @@
 #include "hdr.h"
 
 struct travptr {
-	byte tverb;
-	ushort tloc;
-	ushort conditions;
+	char tverb;
+	uint tloc;
+	uint conditions;
 	char *ptr;
 	char *ptr_eod;
 };
 
-struct travptr *tstart(struct travptr *tptr, byte idx);
+struct travptr *tstart(struct travptr *tptr, char idx);
 struct travptr *tnext(struct travptr *tptr);
 bool tlast(struct travptr *tptr);
 bool tvalid(struct travptr *tptr);

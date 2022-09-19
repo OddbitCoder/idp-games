@@ -58,8 +58,7 @@
 
 /* hdr.h: included by c advent files */
 
-typedef unsigned short ushort;
-typedef unsigned char byte;
+typedef unsigned int uint;
 
 // int datfd;                              /* message file descriptor      */
 // int delhit;
