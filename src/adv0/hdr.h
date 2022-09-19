@@ -170,7 +170,7 @@ char *decr(char a,char b,char c,char d,char e);
 // unsigned long crc();
 
 /* We need to get a little tricky to avoid strings */
-#define DECR(a,b,c,d,e) decr((char)('a'+'+'),(char)('b'+'-'),(char)('c'+'#'),(char)('d'+'&'),(char)('e'+'%'))
+#define DECR(a,b,c,d,e) decr((char)(a+'+'),(char)(b+'-'),(char)(c+'#'),(char)(d+'&'),(char)(e+'%'))
 
 #define BUFFER_SIZE 1024
 

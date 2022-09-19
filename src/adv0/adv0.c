@@ -75,6 +75,7 @@ void main(int argc,char **argv)
 // 		perror("setuid");
 
 	init(0);         /* Initialize everything */
+	prht(); // REMOVE
 // 	signal(SIGINT,trapdel);
 
 // 	if (argc > 1)   /* Restore file specified */

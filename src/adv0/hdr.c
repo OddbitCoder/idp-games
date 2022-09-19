@@ -1,6 +1,6 @@
 #include "hdr.h"
 
-// WARNME: these need to be initialized in init()
+// WARNME: these need to be initialized in _init.c
 
 int dseen[7], dloc[7], odloc[7];
 int place[101], prop[101], link[201];
@@ -9,7 +9,7 @@ int atloc[LOCSIZ];
 struct hashtab voc[HTSIZE];
 int fixed[101];
 
-// NOTE: these are initialized here [or don't need to be initialized]
+// NOTE: these are initialized here (or don't need to be initialized)
 
 char buffer[BUFFER_SIZE];
 

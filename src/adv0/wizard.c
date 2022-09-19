@@ -71,7 +71,7 @@ char magic[6];
 //poof
 void poof()
 {
-	strcpy(magic, DECR(d,w,a,r,f));
+	strcpy(magic, DECR('d','w','a','r','f'));
 	latncy = 45;
 }
 
