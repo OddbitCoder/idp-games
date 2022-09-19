@@ -53,6 +53,7 @@
 // #include <stdio.h>
 #include <string.h>
 #include "hdr.h"
+#include "trav.h"
 #include "io.h"
 #include "vocab.h"
 #include "_init.h"
@@ -76,7 +77,6 @@ void init(char *command)                           /* everything for 1st time ru
     memset(dloc, 0, 7 * sizeof(int));
     memset(odloc, 0, 7 * sizeof(int));
     memset(atloc, 0, LOCSIZ * sizeof(int));
-    memset(travel, 0, LOCSIZ * sizeof(struct travlist));
     memset(voc, 0, HTSIZE * sizeof(struct hashtab));
 
 	rdata();                        /* read data from orig. file    */
@@ -105,8 +105,8 @@ void linkdata()                              /*  secondary data manipulation */
 
 	/*      array linkages          */
 	for (i=1; i<=LOCSIZ; i++)
-		if (ltext[i].seekadr!=0 && travel[i] != 0)
-			if ((travel[i]->tverb)==1) cond[i]=2;
+		if (ltext[i].seekadr!=0 && newtravel[i][0] != 0)
+			if ((tstart(&tptr,i)->tverb)==1) cond[i]=2;
 	for (j=100; j>0; j--)
 		if (fixd[j]>0)
 		{       drop(j+100,fixd[j]);

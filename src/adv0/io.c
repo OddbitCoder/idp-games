@@ -56,6 +56,7 @@
 #include <fcntl.h>
 #include "io.h"
 #include "vocab.h"
+#include "trav.h"
 
 #define DEBUG
 
@@ -188,71 +189,6 @@
 void rdata()                                 /* "read" data from virtual file*/
 {       
 	rvoc();
-	rtrav();
-//	register int sect;
-// 	register char ch;
-
-// 	inptr = data_file;              /* Pointer to virtual data file */
-// 	srandom(SEED);                  /* which is lightly encrypted.  */
-
-// 	clsses=1;
-// 	for (;;)                        /* read data sections           */
-// 	{       sect=next()-'0';        /* 1st digit of section number  */
-// #ifdef VERBOSE
-// 		printf("Section %c",sect+'0');
-// #endif
-// 		if ((ch=next())!=LF)    /* is there a second digit?     */
-// 		{
-// 			FLUSHLF;
-// #ifdef VERBOSE
-// 			putchar(ch);
-// #endif
-// 			sect=10*sect+ch-'0';
-// 		}
-// #ifdef VERBOSE
-// 		putchar('\n');
-// #endif
-// 		switch(sect)
-// 		{   case 0:             /* finished reading database    */
-// 			return;
-// 		    case 1:             /* long form descriptions       */
-// 			rdesc(1);
-// 			break;
-// 		    case 2:             /* short form descriptions      */
-// 			rdesc(2);
-// 			break;
-// 		    case 3:             /* travel table                 */
-// 			rtrav();   break;
-// 		    case 4:             /* vocabulary                   */
-// 			rvoc();
-// 			break;
-// 		    case 5:             /* object descriptions          */
-// 			rdesc(5);
-// 			break;
-// 		    case 6:             /* arbitrary messages           */
-// 			rdesc(6);
-// 			break;
-// 		    case 7:             /* object locations             */
-// 			rlocs();   break;
-// 		    case 8:             /* action defaults              */
-// 			rdflt();   break;
-// 		    case 9:             /* liquid assets                */
-// 			rliq();    break;
-// 		    case 10:            /* class messages               */
-// 			rdesc(10);
-// 			break;
-// 		    case 11:            /* hints                        */
-// 			rhints();  break;
-// 		    case 12:            /* magic messages               */
-// 			rdesc(12);
-// 			break;
-// 		    default:
-// 			printf("Invalid data section number: %d\n",sect);
-// 			for (;;) putchar(next());
-// 		}
-// 		if (breakch!=LF)        /* routines return after "-1"   */
-// 			FLUSHLF;
-// 	}
 }
 
 // char nbf[12];
@@ -273,6 +209,7 @@ void rdata()                                 /* "read" data from virtual file*/
 
 // char *seekhere;
 
+//rdesc
 // rdesc(sect)                             /* read description-format msgs */
 // int sect;
 // {       register char *s,*t;
@@ -340,73 +277,63 @@ void rdata()                                 /* "read" data from virtual file*/
 // 	}
 // }
 
-void trav(uint8_t locc, uint16_t tloc, uint16_t conditions, uint8_t tverb_len, uint8_t *tverb) {
-	struct travlist *t = 0;
-	for (uint8_t i = 0; i < tverb_len; i++) {
-		if (t == 0) {
-			t = travel[locc] = (struct travlist *)malloc(sizeof(struct travlist));		
-		} else {
-			t = t->next = (struct travlist *)malloc(sizeof(struct travlist));
-		}
-		t->tverb = tverb[i];
-		t->tloc = tloc;
-		t->conditions = conditions;
-		t->next = 0;
-	}
-}
 
 
 //rtrav
-void rtrav()                                 /* read travel table            */
-{
-	int fd = open(TRAV_BIN, O_RDONLY);
-	ssize_t read_size = 0;
-	size_t tail = 0;
-	uint16_t full_read_sz = 0;
-	do {
-		read_size = read(fd, buffer + tail, BUFFER_SIZE - tail);
-		uint8_t *row = buffer;
-		uint8_t *eod = buffer + tail + read_size;
-		do {
-			// get tverb list length
-			uint8_t tverb_len = *row;
-			// did we read the entire row?
-			if (row + tverb_len + 6 >= eod) { break; }
-			row++;
-			// read locc
-			uint8_t locc = *row;
-			row++;
-			// read tloc
-			int16_t tloc = *(int16_t *)row;
-			row += 2;
-			// read conditions
-			int16_t conditions = *(int16_t *)row;
-			row += 2;
-			// process tverb list
-			trav(locc, tloc, conditions, tverb_len, row);
-			printf(".");
-			row += tverb_len;
-			full_read_sz += tverb_len + 6;
-		} while (full_read_sz < TRAV_BIN_SZ);
-		if (full_read_sz == TRAV_BIN_SZ) { break; }
-	    tail = eod - row;
-	    if (tail > 0) { 
-	    	memcpy(buffer, row, tail);
-		}
-	} while (true);
-	close(fd);	
-}
+// rtrav()                                 /* read travel table            */
+// {       register int locc;
+// 	register struct travlist *t;
+// 	register char *s;
+// 	char buf[12];
+// 	int len,m,n,entries;
+// 	for (oldloc= -1;;)              /* get another line             */
+// 	{       if ((locc=rnum())!=oldloc && oldloc>=0) /* end of entry */
+// 		{
+// 			t->next = 0;    /* terminate the old entry      */
+// 		/*      printf("%d:%d entries\n",oldloc,entries);       */
+// 		/*      twrite(oldloc);                                 */
+// 		}
+// 		if (locc== -1) return;
+// 		if (locc!=oldloc)        /* getting a new entry         */
+// 		{       t=travel[locc]=(struct travlist *) malloc(sizeof (struct travlist));
+// 		/*      printf("New travel list for %d\n",locc);        */
+// 			entries=0;
+// 			oldloc=locc;
+// 		}
+// 		for (s=buf;; *s++)      /* get the newloc number /ASCII */
+// 			if ((*s=next())==TAB || *s==LF) break;
+// 		*s=0;
+// 		len=length(buf)-1;      /* quad long number handling    */
+// 	/*      printf("Newloc: %s (%d chars)\n",buf,len);              */
+// 		if (len<4)              /* no "m" conditions            */
+// 		{       m=0;
+// 			n=atoi(buf);    /* newloc mod 1000 = newloc     */
+// 		}
+// 		else                    /* a long integer               */
+// 		{       n=atoi(buf+len-3);
+// 			buf[len-3]=0;   /* terminate newloc/1000        */
+// 			m=atoi(buf);
+// 		}
+// 		while (breakch!=LF)     /* only do one line at a time   */
+// 		{       if (entries++) t=t->next=(struct travlist *) malloc(sizeof (struct travlist));
+// 			t->tverb=rnum();/* get verb from the file       */
+// 			t->tloc=n;      /* table entry mod 1000         */
+// 			t->conditions=m;/* table entry / 1000           */
+// 		/*      printf("entry %d for %d\n",entries,locc);       */
+// 		}
+// 	}
+// }
 
 #ifdef DEBUG
 
 //twrite
 void twrite(int loq)                             /* travel options from this loc */
 //int loq;
-{       register struct travlist *t;
+{       register struct travptr *t=&tptr;
 	printf("If");
 	speak(&ltext[loq]);
 	printf("then\n");
-	for (t=travel[loq]; t!=0; t=t->next)
+	for (tstart(t,loq); tvalid(t); tnext(t))
 	{       printf("verb %d takes you to ",t->tverb);
 		if (t->tloc<=300)
 			speak(&ltext[t->tloc]);

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Net.Http.Headers;
 
 var lines = File.ReadAllLines(@"C:\Work\idp-games\src\adv0\glorkz");
 
@@ -17,6 +18,11 @@ var txtWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games\\src\\adv0\\text
 
 int[] cond = new int[141];
 var fixd = new List<int>();
+
+var trav = new List<byte>[141];
+for (int i = 0; i < 141; i++) {
+    trav[i] = new List<byte>();
+}
 
 foreach (var line in lines.Select(l => l.Trim())) 
 {
@@ -80,7 +86,7 @@ foreach (var line in lines.Select(l => l.Trim()))
             int m = n1 / 1000; // "conditions"
             foreach (var part in parts.Skip(1).Select(x => Convert.ToInt32(x)))
             {
-                if (part > 255 || part == 0) { Console.WriteLine(part); }
+                if (part >= 128 || part == 0) { throw new Exception(part.ToString()); }
             }
             int tverb_count = parts.Skip(1).Count();
             Console.WriteLine($"Writing trav {id}; tverb list size = {tverb_count}");
@@ -88,9 +94,24 @@ foreach (var line in lines.Select(l => l.Trim()))
             travWriter.Write((byte)id);
             travWriter.Write((ushort)n);
             travWriter.Write((ushort)m);
-            foreach (int tverb in parts.Skip(1).Select(x => Convert.ToInt32(x)))
+            var tverbs = parts.Skip(1).Select(x => Convert.ToInt32(x));
+            foreach (int tverb in tverbs)
             {
                 travWriter.Write((byte)tverb);
+            }
+            // write trav table as bytes (optimized)
+            // add first tverb (with '| 128')
+            trav[id].Add((byte)(tverbs.First() | 128));
+            // add tloc
+            trav[id].Add((byte)(n & 0xFF));
+            trav[id].Add((byte)((n >> 8) & 0xFF));
+            // add cond
+            trav[id].Add((byte)(m & 0xFF));
+            trav[id].Add((byte)((m >> 8) & 0xFF));
+            // add tverbs
+            foreach (byte tverb in tverbs.Skip(1))
+            {
+                trav[id].Add(tverb);
             }
         }
     }
@@ -134,4 +155,11 @@ Console.WriteLine("*** 7 fixd ***");
 foreach (var item in fixd)
 {
     Console.WriteLine($"{item}, ");
+}
+
+Console.WriteLine("*** TRAV TABLE ***");
+
+foreach (var item in trav.Skip(1)) 
+{
+    Console.WriteLine($"\"\\x{item.Count.ToString("X2")}{item.Select(x => $"\\x{x.ToString("X2")}").Aggregate((x, y) => x + y)}\",");
 }

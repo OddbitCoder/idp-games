@@ -258,6 +258,7 @@ rnum()                                  /* read initial location num    */
 
 char *seekhere;
 
+//rdesc
 rdesc(sect)                             /* read description-format msgs */
 int sect;
 {       register char *s,*t;

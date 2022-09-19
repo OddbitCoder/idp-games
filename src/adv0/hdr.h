@@ -58,6 +58,9 @@
 
 /* hdr.h: included by c advent files */
 
+typedef unsigned short ushort;
+typedef unsigned char byte;
+
 // int datfd;                              /* message file descriptor      */
 // int delhit;
 // int yea;
@@ -113,14 +116,16 @@ extern struct text ptext[101];                 /* object descriptions          *
 extern struct text ltext[LOCSIZ];              /* long loc description         */
 extern struct text stext[LOCSIZ];              /* short loc descriptions       */
 
-struct travlist                         /* direcs & conditions of travel*/
-{       struct travlist *next;          /* ptr to next list entry       */
-	int conditions;                 /* m in writeup (newloc / 1000) */
-	int tloc;                       /* n in writeup (newloc % 1000) */
-	int tverb;                      /* the verb that takes you there*/
-}; 
-extern struct travlist *travel[LOCSIZ];
+//struct travlist                         /* direcs & conditions of travel*/
+//{       struct travlist *next;          /* ptr to next list entry       */
+//	int conditions;                 /* m in writeup (newloc / 1000) */
+//	int tloc;                       /* n in writeup (newloc % 1000) */
+//	int tverb;                      /* the verb that takes you there*/
+//}; 
+//extern struct travlist *travel[LOCSIZ];
 //extern struct travlist *tkk;
+extern struct travptr tptr;
+extern char *newtravel[LOCSIZ];
 
 extern int atloc[LOCSIZ];
 
