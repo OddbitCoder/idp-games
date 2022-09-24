@@ -39,6 +39,6 @@ bool tvalid(struct travptr *tptr) {
 	return tptr->ptr <= tptr->eod;
 }
 
-void tptrwrite(struct travptr *tptr) {
+void wtptr(struct travptr *tptr) {
 	printf("%d (%d %d) ", tptr->tverb, tptr->tloc, tptr->conditions);
 }

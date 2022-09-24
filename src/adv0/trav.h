@@ -16,6 +16,6 @@ struct travptr *tstart(struct travptr *tptr, char idx);
 struct travptr *tnext(struct travptr *tptr);
 bool tlast(struct travptr *tptr);
 bool tvalid(struct travptr *tptr);
-void tptrwrite(struct travptr *tptr);
+void wtptr(struct travptr *tptr);
 
 #endif
