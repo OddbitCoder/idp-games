@@ -59,6 +59,9 @@
 #include "hdr.h"
 #include "_init.h"
 #include "vocab.h"
+#include "io.h"
+#include "done.h"
+#include "subr.h"
 
 //main
 void main(int argc,char **argv)
@@ -75,7 +78,7 @@ void main(int argc,char **argv)
 // 		perror("setuid");
 
 	init(0);         /* Initialize everything */
-	prht(); // REMOVE
+	//prht(); // REMOVE
 // 	signal(SIGINT,trapdel);
 
 // 	if (argc > 1)   /* Restore file specified */
@@ -96,18 +99,18 @@ void main(int argc,char **argv)
 // 		}                       /* So don't unlink it. */
 // 	}
 
-//	startup();              /* prepare for a user           */
+	startup();              /* prepare for a user           */
 
-// 	for (;;)                        /* main command loop (label 2)  */
-// 	{       if (newloc<9 && newloc!=0 && closng)
-// 		{       rspeak(130);    /* if closing leave only by     */
-// 			newloc=loc;     /*      main office             */
-// 			if (!panic) clock2=15;
-// 			panic=TRUE;
-// 		}
+	for (;;)                        /* main command loop (label 2)  */
+	{       if (newloc<9 && newloc!=0 && closng)
+ 		{       rspeak(130);    /* if closing leave only by     */
+ 			newloc=loc;     /*      main office             */
+ 			if (!panic) clock2=15;
+ 			panic=TRUE;
+ 		}
 
-// 		rval=fdwarf();          /* dwarf stuff                  */
-// 		if (rval==99) die(99);
+ 		rval=fdwarf();          /* dwarf stuff                  */
+ 		if (rval==99) die(99);
 
 // 	l2000:  if (loc==0) die(99);    /* label 2000                   */
 // 		kk = &stext[loc];
@@ -588,5 +591,5 @@ void main(int argc,char **argv)
 // 	l5190:  if ((verb==find||verb==invent)&&*wd2==0) goto l5010;
 // 		printf("I see no %s here\n",wd1);
 // 		goto l2012;
-// 	}
+ 	}
 }

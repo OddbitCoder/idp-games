@@ -9,5 +9,6 @@ void rvoc();
 void rspeak(int msg);
 void mspeak(int msg);
 void speak(struct text *msg);
+int yes(int x,int y,int z);
 
 #endif

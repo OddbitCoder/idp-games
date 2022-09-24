@@ -51,6 +51,7 @@
 // #include <sys/types.h>
 // #include <signal.h>
 // #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "hdr.h"
 #include "trav.h"
@@ -58,11 +59,12 @@
 #include "vocab.h"
 #include "_init.h"
 #include "wizard.h"
+#include "../common/utils.h"
 
 // int blklin = TRUE;
 
-// int setbit[16] = {1,2,4,010,020,040,0100,0200,0400,01000,02000,04000,
-// 		  010000,020000,040000,0100000};
+long setbit[16] = {1,2,4,010,020,040,0100,0200,0400,01000,02000,04000,
+		  010000,020000,040000,0100000};
 
 
 //init
@@ -78,6 +80,9 @@ void init(char *command)                           /* everything for 1st time ru
     memset(odloc, 0, 7 * sizeof(int));
     memset(atloc, 0, LOCSIZ * sizeof(int));
     memset(voc, 0, HTSIZE * sizeof(struct hashtab));
+    memset(hinted, 0, 20 * sizeof(int));
+    memset(hintlc, 0, 20 * sizeof(int));
+    memset(tk, 0, 21 * sizeof(int));
 
 	rdata();                        /* read data from orig. file    */
 	linkdata();
@@ -229,16 +234,16 @@ void linkdata()                              /*  secondary data manipulation */
 
 
 //startup
-// startup()
-// {
-// 	time_t time();
+void startup()
+{
+	//time_t time();
 
-// 	demo=Start(0);
-// 	srand((int)(time((time_t *)NULL)));	/* random seed */
-// 	/* srand(371);				/* non-random seed */
-// 	hinted[3]=yes(65,1,0);
-// 	newloc=1;
-// 	delhit = 0;
-// 	limit=330;
-// 	if (hinted[3]) limit=1000;      /* better batteries if instrucs */
-// }
+	//demo=Start(0);
+    srand(timer());	/* random seed */
+	/* srand(371);				/* non-random seed */
+	hinted[3]=yes(65,1,0);
+	newloc=1;
+	delhit = 0;
+	limit=330;
+	if (hinted[3]) limit=1000;      /* better batteries if instrucs */
+}

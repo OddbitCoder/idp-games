@@ -54,6 +54,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <partner.h>
 #include "io.h"
 #include "vocab.h"
 #include "trav.h"
@@ -120,23 +121,25 @@
 // 	return(result);
 // }
 
-// yes(x,y,z)                              /* confirm with rspeak          */
-// int x,y,z;
-// {       register int result;
-// 	register char ch;
-// 	for (;;)
-// 	{       rspeak(x);                     /* tell him what we want*/
-// 		if ((ch=getchar())=='y')
-// 			result=TRUE;
-// 		else if (ch=='n') result=FALSE;
-// 		FLUSHLINE;
-// 		if (ch=='y'|| ch=='n') break;
-// 		printf("Please answer the question.\n");
-// 	}
-// 	if (result==TRUE) rspeak(y);
-// 	if (result==FALSE) rspeak(z);
-// 	return(result);
-// }
+//yes
+int yes(int x,int y,int z)                              /* confirm with rspeak          */
+//int x,y,z;
+{       register int result;
+	register char ch;
+	for (;;)
+	{       rspeak(x);                     /* tell him what we want*/
+		while (!(ch=kbhit()));
+		if (ch=='y')
+			result=TRUE;
+		else if (ch=='n') result=FALSE;
+		//FLUSHLINE;
+		if (ch=='y'|| ch=='n') break;
+		printf("Please answer the question.\n\r");
+	}
+	if (result==TRUE) rspeak(y);
+	if (result==FALSE) rspeak(z);
+	return(result);
+}
 
 //yesm
 // yesm(x,y,z)                             /* confirm with mspeak          */
@@ -338,7 +341,7 @@ void twrite(int loq)                             /* travel options from this loc
 		else if (t->tloc<=500)
 			printf("special code %d\n",t->tloc-300);
 		else
-			/*rspeak(t->tloc-500)*/;
+			rspeak(t->tloc-500);
 		printf("under conditions %d\n",t->conditions);
 	}
 }
@@ -370,7 +373,7 @@ void rvoc()               /* read the vocabulary          */
 			memcpy(word_buf, row, word_len);
 			word_buf[word_len] = 0;
 			vocab(word_buf, -2, word_idx);
-			printf("%s ", word_buf);
+			//printf("%s ", word_buf);
 			row += word_len;
 			full_read_sz += word_len + 3;
 		} while (full_read_sz < VOC_BIN_SZ);
@@ -451,6 +454,7 @@ void speak(struct text *msg)       /* read, decrypt, and print a message (not pt
 	read(fd, buffer, msg->txtlen);
 	buffer[msg->txtlen] = 0;
 	printf(buffer);
+	printf("\n\r");
 	close(fd);
 }
 

@@ -8,6 +8,8 @@ int place[101], prop[101], link[201];
 int atloc[LOCSIZ];
 struct hashtab voc[HTSIZE];
 int fixed[101];
+int hinted[20], hintlc[20];
+int tk[21];
 
 // NOTE: these are initialized here (or don't need to be initialized)
 
@@ -624,8 +626,8 @@ struct text ptext[101] = { // section 5
 };
 
 struct text rtext[RTXSIZ] = { // section 6
-	{ 23473, 0 },
-	{ 23473, 747 }, /* Somewhere nearby is Colossal Cave, where others have found fortunes in
+	/* 0 */ { 23857, 0 },
+	/* 1 */ { 23857, 747 }, /* Somewhere nearby is Colossal Cave, where others have found fortunes in
 	treasure and gold, though it is rumored that some who enter are never
 	seen again.  Magic is said to work in the cave.  I will be your eyes
 	and hands.  Direct me with commands of 1 or 2 words.  I should warn
@@ -637,65 +639,65 @@ struct text rtext[RTXSIZ] = { // section 6
 	This program was originally developed by Will Crowther.  Most of the
 	features of the current program were added by Don Woods.  Address
 	complaints about the UNIX version to Jim Gillogly (jim@rand.org). */
-	{ 24220, 48 }, /* A little dwarf with a big knife blocks your way. */
-	{ 24268, 116 }, /* A little dwarf just walked around a corner, saw you, threw a little
+	/* 2 */ { 24604, 48 }, /* A little dwarf with a big knife blocks your way. */
+	/* 3 */ { 24652, 116 }, /* A little dwarf just walked around a corner, saw you, threw a little
 	axe at you (which missed), cursed, and ran away. */
-	{ 24384, 57 }, /* There is a threatening little dwarf in the room with you! */
-	{ 24441, 39 }, /* One sharp nasty knife is thrown at you! */
-	{ 24480, 21 }, /* None of them hit you! */
-	{ 24501, 21 }, /* One of them gets you! */
-	{ 24522, 28 }, /* A hollow voice says "Plugh". */
-	{ 24550, 37 }, /* There is no way to go that direction. */
-	{ 24587, 70 }, /* I am unsure how you are facing.  Use compass points or nearby objects. */
-	{ 24657, 109 }, /* I don't know in from out here.  Use compass points or name something
+	/* 4 */ { 24768, 57 }, /* There is a threatening little dwarf in the room with you! */
+	/* 5 */ { 24825, 39 }, /* One sharp nasty knife is thrown at you! */
+	/* 6 */ { 24864, 21 }, /* None of them hit you! */
+	/* 7 */ { 24885, 21 }, /* One of them gets you! */
+	/* 8 */ { 24906, 28 }, /* A hollow voice says "Plugh". */
+	/* 9 */ { 24934, 37 }, /* There is no way to go that direction. */
+	/* 10 */ { 24971, 70 }, /* I am unsure how you are facing.  Use compass points or nearby objects. */
+	/* 11 */ { 25041, 109 }, /* I don't know in from out here.  Use compass points or name something
 	in the general direction you want to go. */
-	{ 24766, 41 }, /* I don't know how to apply that word here. */
-	{ 24807, 24 }, /* I don't understand that! */
-	{ 24831, 41 }, /* I'm game.  Would you care to explain how? */
-	{ 24872, 102 }, /* Sorry, but I am not allowed to give more detail.  I will repeat the
+	/* 12 */ { 25150, 41 }, /* I don't know how to apply that word here. */
+	/* 13 */ { 25191, 24 }, /* I don't understand that! */
+	/* 14 */ { 25215, 41 }, /* I'm game.  Would you care to explain how? */
+	/* 15 */ { 25256, 102 }, /* Sorry, but I am not allowed to give more detail.  I will repeat the
 	long description of your location. */
-	{ 24974, 70 }, /* It is now pitch dark.  If you proceed you will likely fall into a pit. */
-	{ 25044, 46 }, /* If you prefer, simply type w rather than west. */
-	{ 25090, 33 }, /* Are you trying to catch the bird? */
-	{ 25123, 110 }, /* The bird is frightened right now and you cannot catch it no matter
+	/* 16 */ { 25358, 70 }, /* It is now pitch dark.  If you proceed you will likely fall into a pit. */
+	/* 17 */ { 25428, 46 }, /* If you prefer, simply type w rather than west. */
+	/* 18 */ { 25474, 33 }, /* Are you trying to catch the bird? */
+	/* 19 */ { 25507, 110 }, /* The bird is frightened right now and you cannot catch it no matter
 	what you try.  Perhaps you might try later. */
-	{ 25233, 46 }, /* Are you trying to somehow deal with the snake? */
-	{ 25279, 160 }, /* You can't kill the snake, or drive it away, or avoid it, or anything
+	/* 20 */ { 25617, 46 }, /* Are you trying to somehow deal with the snake? */
+	/* 21 */ { 25663, 160 }, /* You can't kill the snake, or drive it away, or avoid it, or anything
 	like that.  There is a way to get by, but you don't have the necessary
 	resources right now. */
-	{ 25439, 31 }, /* Do you really want to quit now? */
-	{ 25470, 54 }, /* You fell into a pit and broke every bone in your body! */
-	{ 25524, 28 }, /* You are already carrying it! */
-	{ 25552, 21 }, /* You can't be serious! */
-	{ 25573, 105 }, /* The bird was unafraid when you entered, but as you approach it becomes
+	/* 22 */ { 25823, 31 }, /* Do you really want to quit now? */
+	/* 23 */ { 25854, 54 }, /* You fell into a pit and broke every bone in your body! */
+	/* 24 */ { 25908, 28 }, /* You are already carrying it! */
+	/* 25 */ { 25936, 21 }, /* You can't be serious! */
+	/* 26 */ { 25957, 105 }, /* The bird was unafraid when you entered, but as you approach it becomes
 	disturbed and you cannot catch it. */
-	{ 25678, 48 }, /* You can catch the bird, but you cannot carry it. */
-	{ 25726, 34 }, /* There is nothing here with a lock! */
-	{ 25760, 23 }, /* You aren't carrying it! */
-	{ 25783, 91 }, /* The little bird attacks the green snake, and in an astounding flurry
+	/* 27 */ { 26062, 48 }, /* You can catch the bird, but you cannot carry it. */
+	/* 28 */ { 26110, 34 }, /* There is nothing here with a lock! */
+	/* 29 */ { 26144, 23 }, /* You aren't carrying it! */
+	/* 30 */ { 26167, 91 }, /* The little bird attacks the green snake, and in an astounding flurry
 	drives the snake away. */
-	{ 25874, 17 }, /* You have no keys! */
-	{ 25891, 15 }, /* It has no lock. */
-	{ 25906, 48 }, /* I don't know how to lock or unlock such a thing. */
-	{ 25954, 22 }, /* It was already locked. */
-	{ 25976, 24 }, /* The grate is now locked. */
-	{ 26000, 26 }, /* The grate is now unlocked. */
-	{ 26026, 24 }, /* It was already unlocked. */
-	{ 26050, 28 }, /* You have no source of light. */
-	{ 26078, 20 }, /* Your lamp is now on. */
-	{ 26098, 21 }, /* Your lamp is now off. */
-	{ 26119, 89 }, /* There is no way to get past the bear to unlock the chain, which is
+	/* 31 */ { 26258, 17 }, /* You have no keys! */
+	/* 32 */ { 26275, 15 }, /* It has no lock. */
+	/* 33 */ { 26290, 48 }, /* I don't know how to lock or unlock such a thing. */
+	/* 34 */ { 26338, 22 }, /* It was already locked. */
+	/* 35 */ { 26360, 24 }, /* The grate is now locked. */
+	/* 36 */ { 26384, 26 }, /* The grate is now unlocked. */
+	/* 37 */ { 26410, 24 }, /* It was already unlocked. */
+	/* 38 */ { 26434, 28 }, /* You have no source of light. */
+	/* 39 */ { 26462, 20 }, /* Your lamp is now on. */
+	/* 40 */ { 26482, 21 }, /* Your lamp is now off. */
+	/* 41 */ { 26503, 89 }, /* There is no way to get past the bear to unlock the chain, which is
 	probably just as well. */
-	{ 26208, 16 }, /* Nothing happens. */
-	{ 26224, 6 }, /* Where? */
-	{ 26230, 32 }, /* There is nothing here to attack. */
-	{ 26262, 50 }, /* The little bird is now dead.  Its body disappears. */
-	{ 26312, 60 }, /* Attacking the snake both doesn't work and is very dangerous. */
-	{ 26372, 26 }, /* You killed a little dwarf. */
-	{ 26398, 56 }, /* You attack a little dwarf, but he dodges out of the way. */
-	{ 26454, 28 }, /* With what?  Your bare hands? */
-	{ 26482, 49 }, /* Good try, but that is an old worn-out magic word. */
-	{ 26531, 1296 }, /* I know of places, actions, and things.  Most of my vocabulary
+	/* 42 */ { 26592, 16 }, /* Nothing happens. */
+	/* 43 */ { 26608, 6 }, /* Where? */
+	/* 44 */ { 26614, 32 }, /* There is nothing here to attack. */
+	/* 45 */ { 26646, 50 }, /* The little bird is now dead.  Its body disappears. */
+	/* 46 */ { 26696, 60 }, /* Attacking the snake both doesn't work and is very dangerous. */
+	/* 47 */ { 26756, 26 }, /* You killed a little dwarf. */
+	/* 48 */ { 26782, 56 }, /* You attack a little dwarf, but he dodges out of the way. */
+	/* 49 */ { 26838, 28 }, /* With what?  Your bare hands? */
+	/* 50 */ { 26866, 49 }, /* Good try, but that is an old worn-out magic word. */
+	/* 51 */ { 26915, 1296 }, /* I know of places, actions, and things.  Most of my vocabulary
 	describes places and is used to move you there.  To move, try words
 	like forest, building, downstream, enter, east, west, north, south,
 	up, or down.  I know about a few special objects, like a black rod
@@ -715,143 +717,143 @@ struct text rtext[RTXSIZ] = { // section 6
 	forest.  Also, note that cave passages turn a lot, and that leaving a
 	room to the north does not guarantee entering the next from the south.
 	Good luck! */
-	{ 27827, 10 }, /* It misses! */
-	{ 27837, 12 }, /* It gets you! */
-	{ 27849, 2 }, /* OK */
-	{ 27851, 26 }, /* You can't unlock the keys. */
-	{ 27877, 83 }, /* You have crawled around in some little holes and wound up back in the
+	/* 52 */ { 28211, 10 }, /* It misses! */
+	/* 53 */ { 28221, 12 }, /* It gets you! */
+	/* 54 */ { 28233, 2 }, /* OK */
+	/* 55 */ { 28235, 26 }, /* You can't unlock the keys. */
+	/* 56 */ { 28261, 83 }, /* You have crawled around in some little holes and wound up back in the
 	main passage. */
-	{ 27960, 114 }, /* I don't know where the cave is, but hereabouts no stream can run on
+	/* 57 */ { 28344, 114 }, /* I don't know where the cave is, but hereabouts no stream can run on
 	the surface for long.  I would try the stream. */
-	{ 28074, 45 }, /* I need more detailed instructions to do that. */
-	{ 28119, 117 }, /* I can only tell you what you see as you move about and manipulate
+	/* 58 */ { 28458, 45 }, /* I need more detailed instructions to do that. */
+	/* 59 */ { 28503, 117 }, /* I can only tell you what you see as you move about and manipulate
 	things.  I cannot tell you where remote things are. */
-	{ 28236, 23 }, /* I don't know that word. */
-	{ 28259, 5 }, /* What? */
-	{ 28264, 36 }, /* Are you trying to get into the cave? */
-	{ 28300, 168 }, /* The grate is very solid and has a hardened steel lock.  You cannot
+	/* 60 */ { 28620, 23 }, /* I don't know that word. */
+	/* 61 */ { 28643, 5 }, /* What? */
+	/* 62 */ { 28648, 36 }, /* Are you trying to get into the cave? */
+	/* 63 */ { 28684, 168 }, /* The grate is very solid and has a hardened steel lock.  You cannot
 	enter without a key, and there are no keys nearby.  I would recommend
 	looking elsewhere for the keys. */
-	{ 28468, 358 }, /* The trees of the forest are large hardwood oak and maple, with an
+	/* 64 */ { 28852, 358 }, /* The trees of the forest are large hardwood oak and maple, with an
 	occasional grove of pine or spruce.  There is quite a bit of under-
 	growth, largely birch and ash saplings plus nondescript bushes of
 	various sorts.  This time of year visibility is quite restricted by
 	all the leaves, but travel is quite easy if you detour around the
 	spruce and berry bushes. */
-	{ 28826, 52 }, /* Welcome to Adventure!!  Would you like instructions? */
-	{ 28878, 88 }, /* Digging without a shovel is quite impractical.  Even with a shovel
+	/* 65 */ { 29210, 52 }, /* Welcome to Adventure!!  Would you like instructions? */
+	/* 66 */ { 29262, 88 }, /* Digging without a shovel is quite impractical.  Even with a shovel
 	progress is unlikely. */
-	{ 28966, 27 }, /* Blasting requires dynamite. */
-	{ 28993, 27 }, /* I'm as confused as you are. */
-	{ 29020, 160 }, /* Mist is a white vapor, usually water, seen from time to time in
+	/* 67 */ { 29350, 27 }, /* Blasting requires dynamite. */
+	/* 68 */ { 29377, 27 }, /* I'm as confused as you are. */
+	/* 69 */ { 29404, 160 }, /* Mist is a white vapor, usually water, seen from time to time in
 	caverns.  It can be found anywhere but is frequently a sign of a deep
 	pit leading down to water. */
-	{ 29180, 22 }, /* Your feet are now wet. */
-	{ 29202, 32 }, /* I think I just lost my appetite. */
-	{ 29234, 28 }, /* Thank you, it was delicious! */
-	{ 29262, 125 }, /* You have taken a drink from the stream.  The water tastes strongly of
+	/* 70 */ { 29564, 22 }, /* Your feet are now wet. */
+	/* 71 */ { 29586, 32 }, /* I think I just lost my appetite. */
+	/* 72 */ { 29618, 28 }, /* Thank you, it was delicious! */
+	/* 73 */ { 29646, 125 }, /* You have taken a drink from the stream.  The water tastes strongly of
 	minerals, but is not unpleasant.  It is extremely cold. */
-	{ 29387, 33 }, /* The bottle of water is now empty. */
-	{ 29420, 91 }, /* Rubbing the electric lamp is not particularly rewarding.  Anyway,
+	/* 74 */ { 29771, 33 }, /* The bottle of water is now empty. */
+	/* 75 */ { 29804, 91 }, /* Rubbing the electric lamp is not particularly rewarding.  Anyway,
 	nothing exciting happens. */
-	{ 29511, 38 }, /* Peculiar.  Nothing unexpected happens. */
-	{ 29549, 43 }, /* Your bottle is empty and the ground is wet. */
-	{ 29592, 20 }, /* You can't pour that. */
-	{ 29612, 9 }, /* Watch it! */
-	{ 29621, 10 }, /* Which way? */
-	{ 29631, 166 }, /* Oh dear, you seem to have gotten yourself killed.  I might be able to
+	/* 76 */ { 29895, 38 }, /* Peculiar.  Nothing unexpected happens. */
+	/* 77 */ { 29933, 43 }, /* Your bottle is empty and the ground is wet. */
+	/* 78 */ { 29976, 20 }, /* You can't pour that. */
+	/* 79 */ { 29996, 9 }, /* Watch it! */
+	/* 80 */ { 30005, 10 }, /* Which way? */
+	/* 81 */ { 30015, 166 }, /* Oh dear, you seem to have gotten yourself killed.  I might be able to
 	help you out, but I've never really done this before.  Do you want me
 	to try to reincarnate you? */
-	{ 29797, 179 }, /* All right.  But don't blame me if something goes wr......
+	/* 82 */ { 30181, 179 }, /* All right.  But don't blame me if something goes wr......
 	--- Poof!! ---
 	You are engulfed in a cloud of orange smoke.  Coughing and gasping,
 	you emerge from the smoke and find.... */
-	{ 29976, 128 }, /* You clumsy oaf, you've done it again!  I don't know how long I can
+	/* 83 */ { 30360, 128 }, /* You clumsy oaf, you've done it again!  I don't know how long I can
 	keep this up.  Do you want me to try reincarnating you again? */
-	{ 30104, 111 }, /* Okay, now where did I put my orange smoke?....  >poof!<
+	/* 84 */ { 30488, 111 }, /* Okay, now where did I put my orange smoke?....  >poof!<
 	Everything disappears in a dense cloud of orange smoke. */
-	{ 30215, 136 }, /* Now you've really done it!  I'm out of orange smoke!  You don't expect
+	/* 85 */ { 30599, 136 }, /* Now you've really done it!  I'm out of orange smoke!  You don't expect
 	me to do a decent reincarnation without any orange smoke, do you? */
-	{ 30351, 55 }, /* Okay, if you're so smart, do it yourself!  I'm leaving! */
-	{ 30406, 0 },
-	{ 30406, 0 },
-	{ 30406, 0 },
-	{ 30406, 58 }, /* >>> Messages 81 thru 90 are reserved for "obituaries". <<< */
-	{ 30464, 64 }, /* Sorry, but I no longer seem to remember how it was you got here. */
-	{ 30528, 68 }, /* You can't carry anything more.  You'll have to drop something first. */
-	{ 30596, 42 }, /* You can't go through a locked steel grate! */
-	{ 30638, 47 }, /* I believe what you want is right here with you. */
-	{ 30685, 38 }, /* You don't fit through a two-inch slit! */
-	{ 30723, 67 }, /* I respectfully suggest you go across the bridge instead of jumping. */
-	{ 30790, 35 }, /* There is no way across the fissure. */
-	{ 30825, 29 }, /* You're not carrying anything. */
-	{ 30854, 40 }, /* You are currently holding the following: */
-	{ 30894, 85 }, /* It's not hungry (it's merely pinin' for the fjords).  Besides, you
+	/* 86 */ { 30735, 55 }, /* Okay, if you're so smart, do it yourself!  I'm leaving! */
+    { 30790, 0 },
+    { 30790, 0 },
+    { 30790, 0 },
+	/* 90 */ { 30790, 58 }, /* >>> Messages 81 thru 90 are reserved for "obituaries". <<< */
+	/* 91 */ { 30848, 64 }, /* Sorry, but I no longer seem to remember how it was you got here. */
+	/* 92 */ { 30912, 68 }, /* You can't carry anything more.  You'll have to drop something first. */
+	/* 93 */ { 30980, 42 }, /* You can't go through a locked steel grate! */
+	/* 94 */ { 31022, 47 }, /* I believe what you want is right here with you. */
+	/* 95 */ { 31069, 38 }, /* You don't fit through a two-inch slit! */
+	/* 96 */ { 31107, 67 }, /* I respectfully suggest you go across the bridge instead of jumping. */
+	/* 97 */ { 31174, 35 }, /* There is no way across the fissure. */
+	/* 98 */ { 31209, 29 }, /* You're not carrying anything. */
+	/* 99 */ { 31238, 40 }, /* You are currently holding the following: */
+	/* 100 */ { 31278, 85 }, /* It's not hungry (it's merely pinin' for the fjords).  Besides, you
 	have no bird seed. */
-	{ 30979, 37 }, /* The snake has now devoured your bird. */
-	{ 31016, 58 }, /* There's nothing here it wants to eat (except perhaps you). */
-	{ 31074, 68 }, /* You fool, dwarves eat only coal!  Now you've made him *really* mad!! */
-	{ 31142, 38 }, /* You have nothing in which to carry it. */
-	{ 31180, 28 }, /* Your bottle is already full. */
-	{ 31208, 52 }, /* There is nothing here with which to fill the bottle. */
-	{ 31260, 33 }, /* Your bottle is now full of water. */
-	{ 31293, 31 }, /* Your bottle is now full of oil. */
-	{ 31324, 20 }, /* You can't fill that. */
-	{ 31344, 20 }, /* Don't be ridiculous! */
-	{ 31364, 48 }, /* The door is extremely rusty and refuses to open. */
-	{ 31412, 70 }, /* The plant indignantly shakes the oil off its leaves and asks, "water?" */
-	{ 31482, 59 }, /* The hinges are quite thoroughly rusted now and won't budge. */
-	{ 31541, 97 }, /* The oil has freed up the hinges so that the door will now move,
+	/* 101 */ { 31363, 37 }, /* The snake has now devoured your bird. */
+	/* 102 */ { 31400, 58 }, /* There's nothing here it wants to eat (except perhaps you). */
+	/* 103 */ { 31458, 68 }, /* You fool, dwarves eat only coal!  Now you've made him *really* mad!! */
+	/* 104 */ { 31526, 38 }, /* You have nothing in which to carry it. */
+	/* 105 */ { 31564, 28 }, /* Your bottle is already full. */
+	/* 106 */ { 31592, 52 }, /* There is nothing here with which to fill the bottle. */
+	/* 107 */ { 31644, 33 }, /* Your bottle is now full of water. */
+	/* 108 */ { 31677, 31 }, /* Your bottle is now full of oil. */
+	/* 109 */ { 31708, 20 }, /* You can't fill that. */
+	/* 110 */ { 31728, 20 }, /* Don't be ridiculous! */
+	/* 111 */ { 31748, 48 }, /* The door is extremely rusty and refuses to open. */
+	/* 112 */ { 31796, 70 }, /* The plant indignantly shakes the oil off its leaves and asks, "water?" */
+	/* 113 */ { 31866, 59 }, /* The hinges are quite thoroughly rusted now and won't budge. */
+	/* 114 */ { 31925, 97 }, /* The oil has freed up the hinges so that the door will now move,
 	although it requires some effort. */
-	{ 31638, 65 }, /* The plant has exceptionally deep roots and cannot be pulled free. */
-	{ 31703, 64 }, /* The dwarves' knives vanish as they strike the walls of the cave. */
-	{ 31767, 110 }, /* Something you're carrying won't fit through the tunnel with you.
+	/* 115 */ { 32022, 65 }, /* The plant has exceptionally deep roots and cannot be pulled free. */
+	/* 116 */ { 32087, 64 }, /* The dwarves' knives vanish as they strike the walls of the cave. */
+	/* 117 */ { 32151, 110 }, /* Something you're carrying won't fit through the tunnel with you.
 	You'd best take inventory and drop something. */
-	{ 31877, 62 }, /* You can't fit this five-foot clam through that little passage! */
-	{ 31939, 64 }, /* You can't fit this five-foot oyster through that little passage! */
-	{ 32003, 63 }, /* I advise you to put down the clam before opening it.  >strain!< */
-	{ 32066, 65 }, /* I advise you to put down the oyster before opening it.  >wrench!< */
-	{ 32131, 55 }, /* You don't have anything strong enough to open the clam. */
-	{ 32186, 57 }, /* You don't have anything strong enough to open the oyster. */
-	{ 32243, 196 }, /* A glistening pearl falls out of the clam and rolls away.  Goodness,
+	/* 118 */ { 32261, 62 }, /* You can't fit this five-foot clam through that little passage! */
+	/* 119 */ { 32323, 64 }, /* You can't fit this five-foot oyster through that little passage! */
+	/* 120 */ { 32387, 63 }, /* I advise you to put down the clam before opening it.  >strain!< */
+	/* 121 */ { 32450, 65 }, /* I advise you to put down the oyster before opening it.  >wrench!< */
+	/* 122 */ { 32515, 55 }, /* You don't have anything strong enough to open the clam. */
+	/* 123 */ { 32570, 57 }, /* You don't have anything strong enough to open the oyster. */
+	/* 124 */ { 32627, 196 }, /* A glistening pearl falls out of the clam and rolls away.  Goodness,
 	this must really be an oyster.  (I never was very good at identifying
 	bivalves.)  Whatever it is, it has now snapped shut again. */
-	{ 32439, 91 }, /* The oyster creaks open, revealing nothing but oyster inside.  It
+	/* 125 */ { 32823, 91 }, /* The oyster creaks open, revealing nothing but oyster inside.  It
 	promptly snaps shut again. */
-	{ 32530, 131 }, /* You have crawled around in some little holes and found your way
+	/* 126 */ { 32914, 131 }, /* You have crawled around in some little holes and found your way
 	blocked by a recent cave-in.  You are now back in the main passage. */
-	{ 32661, 61 }, /* There are faint rustling noises from the darkness behind you. */
-	{ 32722, 220 }, /* Out from the shadows behind you pounces a bearded pirate!  "Har, har,"
+	/* 127 */ { 33045, 61 }, /* There are faint rustling noises from the darkness behind you. */
+	/* 128 */ { 33106, 220 }, /* Out from the shadows behind you pounces a bearded pirate!  "Har, har,"
 	he chortles, "I'll just take all this booty and hide it away with me
 	chest deep in the maze!"  He snatches your treasure and vanishes into
 	the gloom. */
-	{ 32942, 132 }, /* A sepulchral voice reverberating through the cave, says, "Cave closing
+	/* 129 */ { 33326, 132 }, /* A sepulchral voice reverberating through the cave, says, "Cave closing
 	soon.  All adventurers exit immediately through Main Office." */
-	{ 33074, 113 }, /* A mysterious recorded voice groans into life and announces:
+	/* 130 */ { 33458, 113 }, /* A mysterious recorded voice groans into life and announces:
 	"This exit is closed.  Please leave via Main Office." */
-	{ 33187, 124 }, /* It looks as though you're dead.  Well, seeing as how it's so close to
+	/* 131 */ { 33571, 124 }, /* It looks as though you're dead.  Well, seeing as how it's so close to
 	closing time anyway, I think we'll just call it a day. */
-	{ 33311, 206 }, /* The sepulchral voice intones, "The cave is now closed."  As the echoes
+	/* 132 */ { 33695, 206 }, /* The sepulchral voice intones, "The cave is now closed."  As the echoes
 	fade, there is a blinding flash of light (and a small puff of orange
 	smoke). . . .    As your eyes refocus, you look around and find... */
-	{ 33517, 268 }, /* There is a loud explosion, and a twenty-foot hole appears in the far
+	/* 133 */ { 33901, 268 }, /* There is a loud explosion, and a twenty-foot hole appears in the far
 	wall, burying the dwarves in the rubble.  You march through the hole
 	and find yourself in the Main Office, where a cheering band of
 	friendly elves carry the conquering adventurer off into the sunset. */
-	{ 33785, 209 }, /* There is a loud explosion, and a twenty-foot hole appears in the far
+	/* 134 */ { 34169, 209 }, /* There is a loud explosion, and a twenty-foot hole appears in the far
 	wall, burying the snakes in the rubble.  A river of molten lava pours
 	in through the hole, destroying everything in its path, including you! */
-	{ 33994, 86 }, /* There is a loud explosion, and you are suddenly splashed across the
+	/* 135 */ { 34378, 86 }, /* There is a loud explosion, and you are suddenly splashed across the
 	walls of the room. */
-	{ 34080, 175 }, /* The resulting ruckus has awakened the dwarves.  There are now several
+	/* 136 */ { 34464, 175 }, /* The resulting ruckus has awakened the dwarves.  There are now several
 	threatening little dwarves in the room with you!  Most of them throw
 	knives at you!  All of them get you! */
-	{ 34255, 38 }, /* Oh, leave the poor unhappy bird alone. */
-	{ 34293, 54 }, /* I dare say whatever you want is around here somewhere. */
-	{ 34347, 65 }, /* I don't know the word "stop".  Use "quit" if you want to give up. */
-	{ 34412, 30 }, /* You can't get there from here. */
-	{ 34442, 50 }, /* You are being followed by a very large, tame bear. */
-	{ 34492, 1379 }, /* If you want to end your adventure early, say "quit".  To suspend your
+	/* 137 */ { 34639, 38 }, /* Oh, leave the poor unhappy bird alone. */
+	/* 138 */ { 34677, 54 }, /* I dare say whatever you want is around here somewhere. */
+	/* 139 */ { 34731, 65 }, /* I don't know the word "stop".  Use "quit" if you want to give up. */
+	/* 140 */ { 34796, 30 }, /* You can't get there from here. */
+	/* 141 */ { 34826, 50 }, /* You are being followed by a very large, tame bear. */
+	/* 142 */ { 34876, 1379 }, /* If you want to end your adventure early, say "quit".  To suspend your
 	adventure such that you can continue later, say "suspend" (or "pause"
 	or "save").  To see what hours the cave is normally open, say "hours".
 	To see how well you're doing, say "score".  To get full credit for a
@@ -871,91 +873,91 @@ struct text rtext[RTXSIZ] = { // section 6
 	how much it will affect your score to accept the hints.  Finally, to
 	save paper, you may specify "brief", which tells me never to repeat
 	the full description of a place unless you explicitly ask me to. */
-	{ 35871, 31 }, /* Do you indeed wish to quit now? */
-	{ 35902, 50 }, /* There is nothing here with which to fill the vase. */
-	{ 35952, 67 }, /* The sudden change in temperature has delicately shattered the vase. */
-	{ 36019, 35 }, /* It is beyond your power to do that. */
-	{ 36054, 17 }, /* I don't know how. */
-	{ 36071, 34 }, /* It is too far up for you to reach. */
-	{ 36105, 79 }, /* You killed a little dwarf.  The body vanishes in a cloud of greasy
+	/* 143 */ { 36255, 31 }, /* Do you indeed wish to quit now? */
+	/* 144 */ { 36286, 50 }, /* There is nothing here with which to fill the vase. */
+	/* 145 */ { 36336, 67 }, /* The sudden change in temperature has delicately shattered the vase. */
+	/* 146 */ { 36403, 35 }, /* It is beyond your power to do that. */
+	/* 147 */ { 36438, 17 }, /* I don't know how. */
+	/* 148 */ { 36455, 34 }, /* It is too far up for you to reach. */
+	/* 149 */ { 36489, 79 }, /* You killed a little dwarf.  The body vanishes in a cloud of greasy
 	black smoke. */
-	{ 36184, 53 }, /* The shell is very strong and is impervious to attack. */
-	{ 36237, 62 }, /* What's the matter, can't you read?  Now you'd best start over. */
-	{ 36299, 57 }, /* The axe bounces harmlessly off the dragon's thick scales. */
-	{ 36356, 61 }, /* The dragon looks rather nasty.  You'd best not try to get by. */
-	{ 36417, 115 }, /* The little bird attacks the green dragon, and in an astounding flurry
+	/* 150 */ { 36568, 53 }, /* The shell is very strong and is impervious to attack. */
+	/* 151 */ { 36621, 62 }, /* What's the matter, can't you read?  Now you'd best start over. */
+	/* 152 */ { 36683, 57 }, /* The axe bounces harmlessly off the dragon's thick scales. */
+	/* 153 */ { 36740, 61 }, /* The dragon looks rather nasty.  You'd best not try to get by. */
+	/* 154 */ { 36801, 115 }, /* The little bird attacks the green dragon, and in an astounding flurry
 	gets burnt to a cinder.  The ashes blow away. */
-	{ 36532, 8 }, /* On what? */
-	{ 36540, 125 }, /* Okay, from now on I'll only describe a place in full the first time
+	/* 155 */ { 36916, 8 }, /* On what? */
+	/* 156 */ { 36924, 125 }, /* Okay, from now on I'll only describe a place in full the first time
 	you come to it.  To get the full description, say "look". */
-	{ 36665, 135 }, /* Trolls are close relatives with the rocks and have skin as tough as
+	/* 157 */ { 37049, 135 }, /* Trolls are close relatives with the rocks and have skin as tough as
 	that of a rhinoceros.  The troll fends off your blows effortlessly. */
-	{ 36800, 137 }, /* The troll deftly catches the axe, examines it carefully, and tosses it
+	/* 158 */ { 37184, 137 }, /* The troll deftly catches the axe, examines it carefully, and tosses it
 	back, declaring, "Good workmanship, but it's not valuable enough." */
-	{ 36937, 63 }, /* The troll catches your treasure and scurries away out of sight. */
-	{ 37000, 35 }, /* The troll refuses to let you cross. */
-	{ 37035, 44 }, /* There is no longer any way across the chasm. */
-	{ 37079, 231 }, /* Just as you reach the other side, the bridge buckles beneath the
+	/* 159 */ { 37321, 63 }, /* The troll catches your treasure and scurries away out of sight. */
+	/* 160 */ { 37384, 35 }, /* The troll refuses to let you cross. */
+	/* 161 */ { 37419, 44 }, /* There is no longer any way across the chasm. */
+	/* 162 */ { 37463, 231 }, /* Just as you reach the other side, the bridge buckles beneath the
 	weight of the bear, which was still following you around.  You
 	scrabble desperately for support, but as the bridge collapses you
 	stumble back and fall into the chasm. */
-	{ 37310, 138 }, /* The bear lumbers toward the troll, who lets out a startled shriek and
+	/* 163 */ { 37694, 138 }, /* The bear lumbers toward the troll, who lets out a startled shriek and
 	scurries away.  The bear soon gives up the pursuit and wanders back. */
-	{ 37448, 65 }, /* The axe misses and lands near the bear where you can't get at it. */
-	{ 37513, 56 }, /* With what?  Your bare hands?  Against *his* bear hands?? */
-	{ 37569, 54 }, /* The bear is confused; he only wants to be your friend. */
-	{ 37623, 52 }, /* For crying out loud, the poor thing is already dead! */
-	{ 37675, 119 }, /* The bear eagerly wolfs down your food, after which he seems to calm
+	/* 164 */ { 37832, 65 }, /* The axe misses and lands near the bear where you can't get at it. */
+	/* 165 */ { 37897, 56 }, /* With what?  Your bare hands?  Against *his* bear hands?? */
+	/* 166 */ { 37953, 54 }, /* The bear is confused; he only wants to be your friend. */
+	/* 167 */ { 38007, 52 }, /* For crying out loud, the poor thing is already dead! */
+	/* 168 */ { 38059, 119 }, /* The bear eagerly wolfs down your food, after which he seems to calm
 	down considerably and even becomes rather friendly. */
-	{ 37794, 38 }, /* The bear is still chained to the wall. */
-	{ 37832, 26 }, /* The chain is still locked. */
-	{ 37858, 26 }, /* The chain is now unlocked. */
-	{ 37884, 24 }, /* The chain is now locked. */
-	{ 37908, 55 }, /* There is nothing here to which the chain can be locked. */
-	{ 37963, 29 }, /* There is nothing here to eat. */
-	{ 37992, 21 }, /* Do you want the hint? */
-	{ 38013, 41 }, /* Do you need help getting out of the maze? */
-	{ 38054, 61 }, /* You can make the passages look less alike by dropping things. */
-	{ 38115, 49 }, /* Are you trying to explore beyond the Plover Room? */
-	{ 38164, 167 }, /* There is a way to explore that region without having to worry about
+	/* 169 */ { 38178, 38 }, /* The bear is still chained to the wall. */
+	/* 170 */ { 38216, 26 }, /* The chain is still locked. */
+	/* 171 */ { 38242, 26 }, /* The chain is now unlocked. */
+	/* 172 */ { 38268, 24 }, /* The chain is now locked. */
+	/* 173 */ { 38292, 55 }, /* There is nothing here to which the chain can be locked. */
+	/* 174 */ { 38347, 29 }, /* There is nothing here to eat. */
+	/* 175 */ { 38376, 21 }, /* Do you want the hint? */
+	/* 176 */ { 38397, 41 }, /* Do you need help getting out of the maze? */
+	/* 177 */ { 38438, 61 }, /* You can make the passages look less alike by dropping things. */
+	/* 178 */ { 38499, 49 }, /* Are you trying to explore beyond the Plover Room? */
+	/* 179 */ { 38548, 167 }, /* There is a way to explore that region without having to worry about
 	falling into a pit.  None of the objects available is immediately
 	useful in discovering the secret. */
-	{ 38331, 37 }, /* Do you need help getting out of here? */
-	{ 38368, 14 }, /* Don't go west. */
-	{ 38382, 64 }, /* Gluttony is not one of the troll's vices.  Avarice, however, is. */
-	{ 38446, 188 }, /* Your lamp is getting dim.  You'd best start wrapping this up, unless
+	/* 180 */ { 38715, 37 }, /* Do you need help getting out of here? */
+	/* 181 */ { 38752, 14 }, /* Don't go west. */
+	/* 182 */ { 38766, 64 }, /* Gluttony is not one of the troll's vices.  Avarice, however, is. */
+	/* 183 */ { 38830, 188 }, /* Your lamp is getting dim.  You'd best start wrapping this up, unless
 	You can find some fresh batteries.  I seem to recall there's a vending
 	machine in the maze.  Bring some coins with you. */
-	{ 38634, 31 }, /* Your lamp has run out of power. */
-	{ 38665, 129 }, /* There's not much point in wandering around out here, and you can't
+	/* 184 */ { 39018, 31 }, /* Your lamp has run out of power. */
+	/* 185 */ { 39049, 129 }, /* There's not much point in wandering around out here, and you can't
 	explore the cave without a lamp.  So let's just call it a day. */
-	{ 38794, 317 }, /* There are faint rustling noises from the darkness behind you.  As you
+	/* 186 */ { 39178, 317 }, /* There are faint rustling noises from the darkness behind you.  As you
 	turn toward them, the beam of your lamp falls across a bearded pirate.
 	He is carrying a large chest.  "Shiver me timbers!" he cries, "I've
 	been spotted!  I'd best hie meself off to the maze to hide me chest!"
 	With that, he vanishes into the gloom. */
-	{ 39111, 66 }, /* Your lamp is getting dim.  You'd best go back for those batteries. */
-	{ 39177, 77 }, /* Your lamp is getting dim.  I'm taking the liberty of replacing the
+	/* 187 */ { 39495, 66 }, /* Your lamp is getting dim.  You'd best go back for those batteries. */
+	/* 188 */ { 39561, 77 }, /* Your lamp is getting dim.  I'm taking the liberty of replacing the
 	batteries. */
-	{ 39254, 96 }, /* Your lamp is getting dim, and you're out of spare batteries.  You'd
+	/* 189 */ { 39638, 96 }, /* Your lamp is getting dim, and you're out of spare batteries.  You'd
 	best start wrapping this up. */
-	{ 39350, 47 }, /* I'm afraid the magazine is written in Dwarvish. */
-	{ 39397, 66 }, /* "This is not the maze where the pirate leaves his treasure chest." */
-	{ 39463, 117 }, /* Hmmm, this looks like a clue, which means it'll cost you 10 points to
+	/* 190 */ { 39734, 47 }, /* I'm afraid the magazine is written in Dwarvish. */
+	/* 191 */ { 39781, 66 }, /* "This is not the maze where the pirate leaves his treasure chest." */
+	/* 192 */ { 39847, 117 }, /* Hmmm, this looks like a clue, which means it'll cost you 10 points to
 	read it.  Should I go ahead and read it anyway? */
-	{ 39580, 122 }, /* It says, "there is something strange about this place, such that one
+	/* 193 */ { 39964, 122 }, /* It says, "there is something strange about this place, such that one
 	of the words I've always known now has a new effect." */
-	{ 39702, 37 }, /* It says the same thing it did before. */
-	{ 39739, 30 }, /* I'm afraid I don't understand. */
-	{ 39769, 55 }, /* "Congratulations on bringing light into the Dark-Room!" */
-	{ 39824, 92 }, /* You strike the mirror a resounding blow, whereupon it shatters into a
+	/* 194 */ { 40086, 37 }, /* It says the same thing it did before. */
+	/* 195 */ { 40123, 30 }, /* I'm afraid I don't understand. */
+	/* 196 */ { 40153, 55 }, /* "Congratulations on bringing light into the Dark-Room!" */
+	/* 197 */ { 40208, 92 }, /* You strike the mirror a resounding blow, whereupon it shatters into a
 	myriad tiny fragments. */
-	{ 39916, 63 }, /* You have taken the vase and hurled it delicately to the ground. */
-	{ 39979, 104 }, /* You prod the nearest dwarf, who wakes up grumpily, takes one look at
+	/* 198 */ { 40300, 63 }, /* You have taken the vase and hurled it delicately to the ground. */
+	/* 199 */ { 40363, 104 }, /* You prod the nearest dwarf, who wakes up grumpily, takes one look at
 	you, curses, and grabs for his axe. */
-	{ 40083, 19 }, /* Is this acceptable? */
-	{ 40102, 52 }, /* There's no point in suspending a demonstration game. */
-	{ 40154, 124 } /* You awaken only to discover your bits have been dissolving while you
+	/* 200 */ { 40467, 19 }, /* Is this acceptable? */
+	/* 201 */ { 40486, 52 }, /* There's no point in suspending a demonstration game. */
+	/* 202 */ { 40538, 124 } /* You awaken only to discover your bits have been dissolving while you
 	slept.  You disappear in a cloud of greasy black smoke. */
 };
 
@@ -999,6 +1001,8 @@ struct text mtext[MAGSIZ] = { // section 12
 	{ 41930, 48 }, /* Too small!  Assuming minimum value (45 minutes). */
 	{ 41978, 43 } /* Break out of this and save your core-image. */
 };
+
+int clsses = 10;
 
 struct text ctext[CLSMAX] = { // section 10
 	{ 0, 0 },
@@ -1203,11 +1207,11 @@ int actspk[35] = { // section 8
 	0, 24, 29, 0, 33, 0, 33, 38, 38, 42, 14, 43, 110, 29, 110, 73, 75, 29, 13, 59, 59, 174, 109, 67, 13, 147, 155, 195, 146, 110, 13, 13, 0, 0, 0
 };
 
-int latncy = 0;
+int saved = 0, savet = 0, mxscor = 0, latncy = 0;
 
 int turns = 0, lmwarn = 0, iwest = 0, knfloc = 0, detail = 0, 
 	abbnum = 0, maxdie = 0, numdie = 0, holdng = 0, dkill = 0, foobar = 0, bonus = 0, clock1 = 0, clock2 = 0, 
-	saved = 0, closng = 0, panic = 0, closed = 0, scorng = 0;
+	closng = 0, panic = 0, closed = 0, scorng = 0;
 
 int keys = 0, lamp = 0, grate = 0, cage = 0, rod = 0, rod2 = 0, steps = 0, 
 	bird = 0, door = 0, pillow = 0, snake = 0, fissur = 0, tablet = 0, clam = 0, oyster = 0, magzin = 0, 
@@ -1223,5 +1227,15 @@ int maxtrs = 0, tally = 0, tally2 = 0;
 
 int chloc = 0, chloc2 = 0, 
 	dflag = 0, daltlc = 0;
+
+int demo = 0, limit = 0;
+
+int delhit = 0;
+
+int loc = 0, newloc = 0, oldloc = 0, oldlc2 = 0, wzdark = 0, gaveup = 0, kq = 0, k = 0, k2 = 0;
+
+int yea = 0;
+
+int stick = 0, dtotal = 0, attack = 0;
 
 char buffer[BUFFER_SIZE];

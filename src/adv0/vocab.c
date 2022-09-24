@@ -73,17 +73,17 @@
 
 
 //move
-// move(object,where)
-// int object,where;
-// {       register int from;
+void move(int object,int where)
+//int object,where;
+{       register int from;
 
-// 	if (object<=100)
-// 		from=place[object];
-// 	else
-// 		from=fixed[object-100];
-// 	if (from>0 && from<=300) carry(object,from);
-// 	drop(object,where);
-// }
+	if (object<=100)
+		from=place[object];
+	else
+		from=fixed[object-100];
+	if (from>0 && from<=300) carry(object,from);
+	drop(object,where);
+}
 
 
 //put
@@ -94,22 +94,22 @@
 // }
 
 //carry
-// carry(object,where)
-// int object,where;
-// {       register int temp;
+void carry(int object,int where)
+//int object,where;
+{       register int temp;
 
-// 	if (object<=100)
-// 	{       if (place[object]== -1) return;
-// 		place[object] = -1;
-// 		holdng++;
-// 	}
-// 	if (atloc[where]==object)
-// 	{       atloc[where]=link[object];
-// 		return;
-// 	}
-// 	for (temp=atloc[where]; link[temp]!=object; temp=link[temp]);
-// 	link[temp]=link[object];
-// }
+	if (object<=100)
+	{       if (place[object]== -1) return;
+		place[object] = -1;
+		holdng++;
+	}
+	if (atloc[where]==object)
+	{       atloc[where]=link[object];
+		return;
+	}
+	for (temp=atloc[where]; link[temp]!=object; temp=link[temp]);
+	link[temp]=link[object];
+}
 
 
 //drop

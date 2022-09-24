@@ -61,8 +61,8 @@
 typedef unsigned int uint;
 
 // int datfd;                              /* message file descriptor      */
-// int delhit;
-// int yea;
+extern int delhit;
+extern int yea;
 // extern char data_file[];                /* Virtual data file            */
 
 // #define TAB     011
@@ -70,12 +70,11 @@ typedef unsigned int uint;
 // #define FLUSHLINE while (getchar()!='\n')
 // #define FLUSHLF   while (next()!=LF)
 
-// int loc,newloc,oldloc,oldlc2,wzdark,gaveup,kq,k,k2;
+extern int loc,newloc,oldloc,oldlc2,wzdark,gaveup,kq,k,k2;
 // char *wd1,*wd2;                         /* the complete words           */
 // int verb,obj,spk;
 // extern int blklin;
-// int saved,savet,mxscor,latncy;
-extern int latncy;
+extern int saved,savet,mxscor,latncy;
 
 // #define SHORT 50                        /* How short is a demo game?    */
 
@@ -104,10 +103,10 @@ extern struct text rtext[RTXSIZ];              /* random text messages         *
 #define MAGSIZ  35
 extern struct text mtext[MAGSIZ];              /* magic messages               */
 
-// int clsses;
+extern int clsses;
 #define CLSMAX  12
 extern struct text ctext[CLSMAX];              /* classes of adventurer        */
-// int cval[CLSMAX];
+extern int cval[CLSMAX];
 
 extern struct text ptext[101];                 /* object descriptions          */
 
@@ -135,11 +134,11 @@ extern int actspk[35];                         /* rtext msg for verb <n>       *
 
 extern int cond[LOCSIZ];                       /* various condition bits       */
 
-// extern int setbit[16];                  /* bit defn masks 1,2,4,...     */
+extern long setbit[16];                  /* bit defn masks 1,2,4,...     */
 
 extern int hntmax;
 extern int hints[20][5];                       /* info on hints                */
-// int hinted[20],hintlc[20];
+extern int hinted[20],hintlc[20];
 
 extern int place[101], prop[101],link[201];
 // int abb[LOCSIZ];
@@ -162,12 +161,12 @@ extern int keys,lamp,grate,cage,rod,rod2,steps,/* mnemonics                    *
 extern int chloc,chloc2,dseen[7],dloc[7],      /* dwarf stuff                  */
 	odloc[7],dflag,daltlc;
 
-// int tk[21],stick,dtotal,attack;
+extern int tk[21],stick,dtotal,attack;
 extern int turns,lmwarn,iwest,knfloc,detail,   /* various flags & counters     */
 	abbnum,maxdie,numdie,holdng,dkill,foobar,bonus,clock1,clock2,
 	saved,closng,panic,closed,scorng;
 
-// int demo,newloc,limit;
+extern int demo,newloc,limit;
 
 // char *malloc();
 char *decr(char a,char b,char c,char d,char e);

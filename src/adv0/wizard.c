@@ -50,6 +50,7 @@
 
 # include "hdr.h"
 #include <string.h>
+#include "../common/utils.h"
 
 //datime
 // datime(d,t)
@@ -136,11 +137,11 @@ void poof()
 
 
 //ran
-// ran(range)
-// int range;
-// {
-// 	long rand(), i;
+int ran(int range)
+//int range;
+{
+	long i;
 
-// 	i = rand() % range;
-// 	return(i);
-// }
+	i = sys_rand() % range;
+	return(i);
+}

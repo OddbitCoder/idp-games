@@ -4,6 +4,8 @@
 void drop(int object,int where);
 int vocab(char *word,int type,int value);
 int length(char *str);
+void move(int object,int where);
+void carry(int object,int where);
 void prht();
 
 #endif
