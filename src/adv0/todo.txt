@@ -1,3 +1,4 @@
 [ ] fix static data (problems with indices)
 [ ] assert data types
 [ ] remove obsolete #includes
+[ ] optimize mem usage for static vars and arrays (use const, cast to write data)
