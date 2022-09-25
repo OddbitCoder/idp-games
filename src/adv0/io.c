@@ -461,7 +461,7 @@ void speak(struct text *msg)       /* read, decrypt, and print a message (not pt
 
 
 //pspeak
-void pspeak(int m,int skip) /* read, decrypt an print a ptext message              */
+void pspeak(int m,int skip) /* read, decrypt an print a ptext message              */ // TODO
 //int m;         /* msg is the number of all the p msgs for this place  */
 //int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/
 {

@@ -1,6 +1,6 @@
 var lines = File.ReadAllLines(@"C:\Work\idp-games\src\adv0\glorkz");
 
-var crlf = "\n";
+var crlf = "\n\r";
 
 var msg = "";
 var msgLen = 0;
@@ -45,8 +45,8 @@ foreach (var line in lines.Select(l => l.Trim()))
         if ((prevMsgId != msgId) && !(sect == 5 && (msgId == 0 || msgId >= 100)))
         {
             Console.WriteLine(msgLen > 0 
-                ? $"{{ {offset}, {msgLen} }}, /* {msg} */"
-                : $"{{ {offset}, {msgLen} }},"
+                ? $"/* {prevMsgId} */ {{ {offset}, {msgLen} }}, /* {msg} */"
+                : $"/* {prevMsgId} */ {{ {offset}, {msgLen} }},"
             );
             if (msgId != -1)
             {
@@ -64,11 +64,11 @@ foreach (var line in lines.Select(l => l.Trim()))
         if (msgId != -1)
         {
             var msgPart = split[1].Trim();
-            msgLen += (msg == "" ? 0 : crlf.Length) + msgPart.Length;
             if (sect == 5 && (msgId == 0 || msgId >= 100))
             {
                 msgPart = $"{msgId.ToString("000")}\t{msgPart}";
             }
+            msgLen += (msg == "" ? 0 : crlf.Length) + msgPart.Length;
             msg += (msg == "" ? "" : crlf) + msgPart;
         }
         else
