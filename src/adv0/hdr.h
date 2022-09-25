@@ -71,7 +71,7 @@ extern int yea;
 // #define FLUSHLF   while (next()!=LF)
 
 extern int loc,newloc,oldloc,oldlc2,wzdark,gaveup,kq,k,k2;
-// char *wd1,*wd2;                         /* the complete words           */
+extern char *wd1,*wd2;                         /* the complete words           */
 extern int verb,obj,spk;
 // extern int blklin;
 extern int saved,savet,mxscor,latncy;

@@ -15,5 +15,6 @@ int mback();
 int badmove();
 int specials();
 int trbridge();
+void checkhints();
 
 #endif

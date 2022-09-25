@@ -187,13 +187,13 @@ int vocab(char *word,int type,int value)                  /* look up or store a 
 
 
 //copystr
-// copystr(w1,w2)                          /* copy one string to another   */
-// char *w1,*w2;
-// {       register char *s,*t;
-// 	for (s=w1,t=w2; *s;)
-// 		*t++ = *s++;
-// 	*t=0;
-// }
+void copystr(char *w1,char *w2)                          /* copy one string to another   */
+//char *w1,*w2;
+{       register char *s,*t;
+	for (s=w1,t=w2; *s;)
+		*t++ = *s++;
+	*t=0;
+}
 
 //weq
 // weq(w1,w2)                              /* compare words                */

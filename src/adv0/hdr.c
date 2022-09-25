@@ -1242,4 +1242,6 @@ int verb = 0, obj = 0, spk = 0;
 struct travptr _tkk = { 0, 0, 0, /*ptr*/1, /*eod*/0 };
 struct travptr *tkk = &_tkk;
 
+char *wd1 = 0, *wd2 = 0;
+
 char buffer[BUFFER_SIZE];

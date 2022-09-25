@@ -149,29 +149,29 @@ void main(int argc,char **argv)
 					ll = 1;
 				pspeak(obj, ll);
 			}                                       /* 2008 */
-			//goto l2012;//WARNME
+			goto l2012;
 	l2009:          k=54;                   /* 2009                 */
 	l2010:          spk=k;
 	l2011:          rspeak(spk);
 		}
-// 	l2012:  verb=0;                         /* 2012                 */
-// 		obj=0;
-// 	l2600:	checkhints();                   /* to 2600-2602         */
-// 		if (closed)
-// 		{       if (prop[oyster]<0 && toting(oyster))
-// 				pspeak(oyster,1);
-// 			for (i=1; i<100; i++)
-// 				if (toting(i)&&prop[i]<0)       /*2604  */
-// 					prop[i] = -1-prop[i];
-// 		}
-// 		wzdark=dark(0);                 /* 2605                 */
-// 		if (knfloc>0 && knfloc!=loc) knfloc=1;
-// 		getin(&wd1,&wd2);
-// 		if (delhit)                     /* user typed a DEL     */
-// 		{       delhit=0;               /* reset counter        */
-// 			copystr("quit",wd1);    /* pretend he's quitting*/
-// 			*wd2=0;
-// 		}
+	l2012:  verb=0;                         /* 2012                 */
+		obj=0;
+	l2600:	checkhints();                   /* to 2600-2602         */
+		if (closed)
+		{       if (prop[oyster]<0 && toting(oyster))
+				pspeak(oyster,1);
+			for (i=1; i<100; i++)
+				if (toting(i)&&prop[i]<0)       /*2604  */
+					prop[i] = -1-prop[i];
+		}
+		wzdark=dark(0);                 /* 2605                 */
+		if (knfloc>0 && knfloc!=loc) knfloc=1;
+		getin(&wd1,&wd2);
+		if (delhit)                     /* user typed a DEL     */
+		{       delhit=0;               /* reset counter        */
+			copystr("quit",wd1);    /* pretend he's quitting*/
+			*wd2=0;
+		}
 // 	l2608:  if ((foobar = -foobar)>0) foobar=0;     /* 2608         */
 // 		/* should check here for "magic mode"                   */
 // 		turns++;

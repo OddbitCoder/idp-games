@@ -7,6 +7,7 @@ int length(char *str);
 void move(int object,int where);
 void carry(int object,int where);
 void juggle(int object);
+void copystr(char *w1,char *w2);
 void prht();
 
 #endif

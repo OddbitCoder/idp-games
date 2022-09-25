@@ -408,42 +408,42 @@ void bug(int n)
 }
 
 
-// checkhints()                                    /* 2600 &c              */
-// {       register int hint;
-// 	for (hint=4; hint<=hntmax; hint++)
-// 	{       if (hinted[hint]) continue;
-// 		if (!bitset(loc,hint)) hintlc[hint]= -1;
-// 		hintlc[hint]++;
-// 		if (hintlc[hint]<hints[hint][1]) continue;
-// 		switch(hint)
-// 		{   case 4:     /* 40400 */
-// 			if (prop[grate]==0&&!here(keys)) goto l40010;
-// 			goto l40020;
-// 		    case 5:     /* 40500 */
-// 			if (here(bird)&&toting(rod)&&obj==bird) goto l40010;
-// 			continue;      /* i.e. goto l40030 */
-// 		    case 6:     /* 40600 */
-// 			if (here(snake)&&!here(bird)) goto l40010;
-// 			goto l40020;
-// 		    case 7:     /* 40700 */
-// 			if (atloc[loc]==0&&atloc[oldloc]==0
-// 			    && atloc[oldlc2]==0&&holdng>1) goto l40010;
-// 			goto l40020;
-// 		    case 8:     /* 40800 */
-// 			if (prop[emrald]!= -1&&prop[pyram]== -1) goto l40010;
-// 			goto l40020;
-// 		    case 9:
-// 			goto l40010;    /* 40900 */
-// 		    default: bug(27);
-// 		}
-// 	l40010: hintlc[hint]=0;
-// 		if (!yes(hints[hint][3],0,54)) continue;
-// 		printf("I am prepared to give you a hint, but it will ");
-// 		printf("cost you %d points.\n",hints[hint][2]);
-// 		hinted[hint]=yes(175,hints[hint][4],54);
-// 	l40020: hintlc[hint]=0;
-// 	}
-// }
+void checkhints()                                    /* 2600 &c              */
+{       register int hint;
+	for (hint=4; hint<=hntmax; hint++)
+	{       if (hinted[hint]) continue;
+		if (!bitset(loc,hint)) hintlc[hint]= -1;
+		hintlc[hint]++;
+		if (hintlc[hint]<hints[hint][1]) continue;
+		switch(hint)
+		{   case 4:     /* 40400 */
+			if (prop[grate]==0&&!here(keys)) goto l40010;
+			goto l40020;
+		    case 5:     /* 40500 */
+			if (here(bird)&&toting(rod)&&obj==bird) goto l40010;
+			continue;      /* i.e. goto l40030 */
+		    case 6:     /* 40600 */
+			if (here(snake)&&!here(bird)) goto l40010;
+			goto l40020;
+		    case 7:     /* 40700 */
+			if (atloc[loc]==0&&atloc[oldloc]==0
+			    && atloc[oldlc2]==0&&holdng>1) goto l40010;
+			goto l40020;
+		    case 8:     /* 40800 */
+			if (prop[emrald]!= -1&&prop[pyram]== -1) goto l40010;
+			goto l40020;
+		    case 9:
+			goto l40010;    /* 40900 */
+		    default: bug(27);
+		}
+	l40010: hintlc[hint]=0;
+		if (!yes(hints[hint][3],0,54)) continue;
+		printf("I am prepared to give you a hint, but it will ");
+		printf("cost you %d points.\n",hints[hint][2]);
+		hinted[hint]=yes(175,hints[hint][4],54);
+	l40020: hintlc[hint]=0;
+	}
+}
 
 
 // trsay()                                         /* 9030                 */
