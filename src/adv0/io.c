@@ -58,6 +58,7 @@
 #include "io.h"
 #include "vocab.h"
 #include "trav.h"
+#include "subr.h"
 
 #define DEBUG
 
@@ -451,7 +452,7 @@ void speak(struct text *msg)       /* read, decrypt, and print a message (not pt
 //struct text *msg;/* msg is a pointer to seek address and length of mess */
 {
 	int fd = open(TEXT_BIN, O_RDONLY);
-	lseek(fd, (long int)msg->seekadr, SEEK_SET);
+	lseek(fd, (long)msg->seekadr, SEEK_SET);
 	read(fd, buffer, msg->txtlen);
 	buffer[msg->txtlen] = 0;
 	printf(buffer);
@@ -461,41 +462,54 @@ void speak(struct text *msg)       /* read, decrypt, and print a message (not pt
 
 
 //pspeak
-void pspeak(int m,int skip) /* read, decrypt an print a ptext message              */ // TODO
+void pspeak(int m,int skip) /* read, decrypt an print a ptext message              */
 //int m;         /* msg is the number of all the p msgs for this place  */
 //int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/
 {
-// 	register char *s,nonfirst;
-// 	char *numst, save;
-// 	struct text *msg;
-// 	char *tbuf;
-
-// 	msg = &ptext[m];
-// 	if ((tbuf=(char *) malloc(msg->txtlen + 1)) == 0) bug(108);
-// 	memcpy(tbuf, msg->seekadr, msg->txtlen + 1);   /* Room to null */
-// 	s = tbuf;
-
-// 	nonfirst=0;
-// 	while (s - tbuf < msg->txtlen) /* read line at a time */
-// 	{       tape=iotape;            /* restart decryption tape      */
-// 		for (numst=s; (*s^= *tape++)!=TAB; s++); /* get number  */
-
-// 		save = *s; /* Temporarily trash the string (cringe) */
-// 		*s++ = 0; /* decrypting number within the string          */
-
-// 		if (atoi(numst) != 100 * skip && skip >= 0)
-// 		{       while ((*s++^*tape++)!=LF) /* flush the line    */
-// 				if (*tape==0) tape=iotape;
-// 			continue;
-// 		}
-// 		if ((*s^*tape)=='>' && (*(s+1)^*(tape+1))=='$' &&
-// 			(*(s+2)^*(tape+2))=='<') break;
-// 		if (blklin && ! nonfirst++) putchar('\n');
-// 		do
-// 		{       if (*tape==0) tape=iotape;
-// 			putchar(*s^*tape);
-// 		} while ((*s++^*tape++)!=LF);   /* better end with LF   */
-// 		if (skip<0) break;
-// 	}
-// 	free(tbuf);
+	struct text *msg = &ptext[m];
+	// if skip < 0, then print the first line, else print the line that matches skip * 100
+	int fd = open(TEXT_BIN, O_RDONLY);
+	lseek(fd, (long)msg->seekadr, SEEK_SET);
+	read(fd, buffer, msg->txtlen);
+	buffer[msg->txtlen] = 0;
+	close(fd);
+	char *eod = buffer + msg->txtlen;
+	// do we print the first line? (inventory item)
+	if (skip < 0) {
+		char *p = buffer;
+		if (*p == '>' && *(p + 1) == '$' && *(p + 2) == '<') { 
+			return; 
+		}
+		for (; *p != '\n' && p != eod; p++);
+		*p = '\0';
+		printf(buffer);
+		printf("\n\r");
+	} else {
+		// print the line that matches skip * 100 (observation / description)
+		char *p = buffer;
+		for (; *p != '\n' && p != eod; p++); // skip the first line
+		if (p == eod) { bug(-1); }
+		p += 2; // \n\r
+		while (true) {
+			char *r = p;
+			for (; *p != '\t'; p++);
+			*p = '\0';
+			int val = atoi(r);
+			if (skip * 100 == val) {
+				// print message from p + 1 to \n or end-of-data (eod)
+				r = p + 1;
+				if (*r == '>' && *(r + 1) == '$' && *(r + 2) == '<') {
+					return;
+				}
+				for (; *p != '\n' && p != eod; p++);
+				*p = '\0';
+				printf(r);
+				printf("\n\r");
+				return;
+			}
+			for (; *p != '\n' && p != eod; p++);
+			if (p == eod) { bug(-1); }
+			p += 2; // \n\r
+		}
+	}
 }
