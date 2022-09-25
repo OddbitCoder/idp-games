@@ -31,6 +31,19 @@ struct travptr *tnext(struct travptr *tptr) {
 	return tptr;
 }
 
+struct travptr *tset(struct travptr *a, struct travptr *b) {
+	if (b == 0) {
+		a->ptr = 1;
+		a->eod = 0;
+	} else {
+		a->tverb = b->tverb;
+		a->tloc = b->tloc;
+		a->conditions = b->conditions;
+		a->ptr = b->ptr;
+		a->eod = b->eod;
+	}
+}
+
 bool tlast(struct travptr *tptr) {
 	return tptr->ptr == tptr->eod;
 }

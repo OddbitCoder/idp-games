@@ -83,6 +83,7 @@ void init(char *command)                           /* everything for 1st time ru
     memset(hinted, 0, 20 * sizeof(int));
     memset(hintlc, 0, 20 * sizeof(int));
     memset(tk, 0, 21 * sizeof(int));
+    memset(abb, 0, LOCSIZ * sizeof(int));
 
 	rdata();                        /* read data from orig. file    */
 	linkdata();
@@ -106,7 +107,8 @@ char *decr(char a,char b,char c,char d,char e)
 
 //linkdata
 void linkdata()                              /*  secondary data manipulation */
-{       register int i,j;
+{       static struct travptr tptr;
+    register int i,j;
 
 	/*      array linkages          */
 	for (i=1; i<=LOCSIZ; i++)

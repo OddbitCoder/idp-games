@@ -10,6 +10,7 @@ struct hashtab voc[HTSIZE];
 int fixed[101];
 int hinted[20], hintlc[20];
 int tk[21];
+int abb[LOCSIZ];
 
 // NOTE: these are initialized here (or don't need to be initialized)
 
@@ -1030,8 +1031,6 @@ int cval[CLSMAX] = { // section 10
 	9999
 };
 
-struct travptr tptr;
-
 char *newtravel[LOCSIZ] = { // section 3
 	"\x00",
 	"\x24\x82\x02\x00\x00\x00\x2C\x1D\x83\x03\x00\x00\x00\x0C\x13\x2B\x85\x04\x00\x00\x00\x0D\x0E\x2E\x1E\x86\x05\x00\x00\x00\x2D\x2B\xBF\x08\x00\x00\x00",
@@ -1237,5 +1236,10 @@ int loc = 0, newloc = 0, oldloc = 0, oldlc2 = 0, wzdark = 0, gaveup = 0, kq = 0,
 int yea = 0;
 
 int stick = 0, dtotal = 0, attack = 0;
+
+int verb = 0, obj = 0, spk = 0;
+
+struct travptr _tkk = { 0, 0, 0, /*ptr*/1, /*eod*/0 };
+struct travptr *tkk = &_tkk;
 
 char buffer[BUFFER_SIZE];

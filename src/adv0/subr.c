@@ -49,11 +49,13 @@
 /*      Re-coding of advent in C: subroutines from main                 */
 
 #include <stdio.h>
+#include <stdlib.h>
 # include "hdr.h"
 #include "io.h"
 #include "wizard.h"
 #include "vocab.h"
 #include "trav.h"
+#include "subr.h"
 
 /*              Statement functions     */
 int toting(int objj)
@@ -108,11 +110,11 @@ int forced(int locc)
 	return(FALSE);
 }
 
-// dark(foo)
-// {       if ((cond[loc]%2)==0 && (prop[lamp]==0 || !here(lamp)))
-// 		return(TRUE);
-// 	return(FALSE);
-// }
+int dark(int foo)
+{       if ((cond[loc]%2)==0 && (prop[lamp]==0 || !here(lamp)))
+		return(TRUE);
+	return(FALSE);
+}
 
 int pct(int n)
 //int n;
@@ -123,7 +125,8 @@ int pct(int n)
 
 int fdwarf()		/* 71 */
 {	register int i,j;
-	register struct travptr *kk=&tptr;
+	static struct travptr _kk;
+	register struct travptr *kk=&_kk;
 
 	if (newloc!=loc&&!forced(loc)&&!bitset(loc,3))
 	{	for (i=1; i<=5; i++)
@@ -239,168 +242,170 @@ int fdwarf()		/* 71 */
 }
 
 
-// march()                                        /* label 8              */
-// {       register int ll1,ll2;
+int march()                                        /* label 8              */
+{       register int ll1,ll2;
 
-// 	if ((tkk=travel[newloc=loc])==0) bug(26);
-// 	if (k==null) return(2);
-// 	if (k==cave)                            /* 40                   */
-// 	{       if (loc<8) rspeak(57);
-// 		if (loc>=8) rspeak(58);
-// 		return(2);
-// 	}
-// 	if (k==look)                            /* 30                   */
-// 	{       if (detail++<3) rspeak(15);
-// 		wzdark=FALSE;
-// 		abb[loc]=0;
-// 		return(2);
-// 	}
-// 	if (k==back)                            /* 20                   */
-// 	{       switch(mback())
-// 		{       case 2: return(2);
-// 			case 9: goto l9;
-// 			default: bug(100);
-// 		}
-// 	}
-// 	oldlc2=oldloc;
-// 	oldloc=loc;
-// l9:
-// 	for (; tkk!=0; tkk=tkk->next)
-// 		if (tkk->tverb==1 || tkk->tverb==k) break;
-// 	if (tkk==0)
-// 	{       badmove();
-// 		return(2);
-// 	}
-// l11:    ll1=tkk->conditions;                    /* 11                   */
-// 	ll2=tkk->tloc;
-// 	newloc=ll1;                             /* newloc=conditions    */
-// 	k=newloc%100;                           /* k used for prob      */
-// 	if (newloc<=300)
-// 	{       if (newloc<=100)                /* 13                   */
-// 		{       if (newloc!=0&&!pct(newloc)) goto l12;  /* 14   */
-// 		l16:    newloc=ll2;             /* newloc=location      */
-// 			if (newloc<=300) return(2);
-// 			if (newloc<=500)
-// 				switch(specials())/* to 30000           */
-// 				{   case 2: return(2);
-// 				    case 12: goto l12;
-// 				    case 99: return(99);
-// 				    default: bug(101);
-// 				}
-// 			rspeak(newloc-500);
-// 			newloc=loc;
-// 			return(2);
-// 		}
-// 		if (toting(k)||(newloc>200&&at(k))) goto l16;
-// 		goto l12;
-// 	}
-// 	if (prop[k]!=(newloc/100)-3) goto l16;  /* newloc still conditions*/
-// l12:    /* alternative to probability move      */
-// 	for (; tkk!=0; tkk=tkk->next)
-// 		if (tkk->tloc!=ll2 || tkk->conditions!=ll1) break;
-// 	if (tkk==0) bug(25);
-// 	goto l11;
-// }
-
-
-
-// mback()                                         /* 20                   */
-// {       register struct travlist *tk2,*j;
-// 	register int ll;
-// 	if (forced(k=oldloc)) k=oldlc2;         /* k=location           */
-// 	oldlc2=oldloc;
-// 	oldloc=loc;
-// 	tk2=0;
-// 	if (k==loc)
-// 	{       rspeak(91);
-// 		return(2);
-// 	}
-// 	for (; tkk!=0; tkk=tkk->next)           /* 21                   */
-// 	{       ll=tkk->tloc;
-// 		if (ll==k)
-// 		{       k=tkk->tverb;           /* k back to verb       */
-// 			tkk=travel[loc];
-// 			return(9);
-// 		}
-// 		if (ll<=300)
-// 		{       j=travel[loc];
-// 			if (forced(ll) && k==j->tloc) tk2=tkk;
-// 		}
-// 	}
-// 	tkk=tk2;                                /* 23                   */
-// 	if (tkk!=0)
-// 	{       k=tkk->tverb;
-// 		tkk=travel[loc];
-// 		return(9);
-// 	}
-// 	rspeak(140);
-// 	return(2);
-// }
+	if (newtravel[newloc=loc][0]==0) bug(26);
+	tstart(tkk,newloc);
+	if (k==null) return(2);
+	if (k==cave)                            /* 40                   */
+	{       if (loc<8) rspeak(57);
+		if (loc>=8) rspeak(58);
+		return(2);
+	}
+	if (k==look)                            /* 30                   */
+	{       if (detail++<3) rspeak(15);
+		wzdark=FALSE;
+		abb[loc]=0;
+		return(2);
+	}
+	if (k==back)                            /* 20                   */
+	{       switch(mback())
+		{       case 2: return(2);
+			case 9: goto l9;
+			default: bug(100);
+		}
+	}
+	oldlc2=oldloc;
+	oldloc=loc;
+l9:
+	for (; tvalid(tkk); tnext(tkk))
+		if (tkk->tverb==1 || tkk->tverb==k) break;
+	if (!tvalid(tkk))
+	{       badmove();
+		return(2);
+	}
+l11:    ll1=tkk->conditions;                    /* 11                   */
+	ll2=tkk->tloc;
+	newloc=ll1;                             /* newloc=conditions    */
+	k=newloc%100;                           /* k used for prob      */
+	if (newloc<=300)
+	{       if (newloc<=100)                /* 13                   */
+		{       if (newloc!=0&&!pct(newloc)) goto l12;  /* 14   */
+		l16:    newloc=ll2;             /* newloc=location      */
+			if (newloc<=300) return(2);
+			if (newloc<=500)
+				switch(specials())/* to 30000           */
+				{   case 2: return(2);
+				    case 12: goto l12;
+				    case 99: return(99);
+				    default: bug(101);
+				}
+			rspeak(newloc-500);
+			newloc=loc;
+			return(2);
+		}
+		if (toting(k)||(newloc>200&&at(k))) goto l16;
+		goto l12;
+	}
+	if (prop[k]!=(newloc/100)-3) goto l16;  /* newloc still conditions*/
+l12:    /* alternative to probability move      */
+	for (; tvalid(tkk); tnext(tkk))
+		if (tkk->tloc!=ll2 || tkk->conditions!=ll1) break;
+	if (!tvalid(tkk)) bug(25);
+	goto l11;
+}
 
 
-// specials()                                      /* 30000                */
-// {       switch(newloc -= 300)
-// 	{   case 1:                             /* 30100                */
-// 		newloc = 99+100-loc;
-// 		if (holdng==0||(holdng==1&&toting(emrald))) return(2);
-// 		newloc=loc;
-// 		rspeak(117);
-// 		return(2);
-// 	    case 2:                             /* 30200                */
-// 		drop(emrald,loc);
-// 		return(12);
-// 	    case 3:                             /* to 30300             */
-// 		return(trbridge());
-// 	    default: bug(29);
-// 	}
-// }
+
+int mback()                                         /* 20                   */
+{       static struct travptr _tk2,_j;
+	register struct travptr *tk2=&_tk2,*j=&_j;
+	register int ll;
+	if (forced(k=oldloc)) k=oldlc2;         /* k=location           */
+	oldlc2=oldloc;
+	oldloc=loc;
+	tset(tk2,0);
+	if (k==loc)
+	{       rspeak(91);
+		return(2);
+	}
+	for (; tvalid(tkk); tnext(tkk))           /* 21                   */
+	{       ll=tkk->tloc;
+		if (ll==k)
+		{       k=tkk->tverb;           /* k back to verb       */
+			tstart(tkk,loc);
+			return(9);
+		}
+		if (ll<=300)
+		{       tstart(j,loc);
+			if (forced(ll) && k==j->tloc) tset(tk2,tkk);
+		}
+	}
+	tset(tkk,tk2);                                /* 23                   */
+	if (tvalid(tkk))
+	{       k=tkk->tverb;
+		tstart(tkk,loc);
+		return(9);
+	}
+	rspeak(140);
+	return(2);
+}
 
 
-// trbridge()                                      /* 30300                */
-// {       if (prop[troll]==1)
-// 	{       pspeak(troll,1);
-// 		prop[troll]=0;
-// 		move(troll2,0);
-// 		move(troll2+100,0);
-// 		move(troll,plac[troll]);
-// 		move(troll+100,fixd[troll]);
-// 		juggle(chasm);
-// 		newloc=loc;
-// 		return(2);
-// 	}
-// 	newloc=plac[troll]+fixd[troll]-loc;     /* 30310                */
-// 	if (prop[troll]==0) prop[troll]=1;
-// 	if (!toting(bear)) return(2);
-// 	rspeak(162);
-// 	prop[chasm]=1;
-// 	prop[troll]=2;
-// 	drop(bear,newloc);
-// 	fixed[bear] = -1;
-// 	prop[bear]=3;
-// 	if (prop[spices]<0) tally2++;
-// 	oldlc2=newloc;
-// 	return(99);
-// }
+int specials()                                      /* 30000                */
+{       switch(newloc -= 300)
+	{   case 1:                             /* 30100                */
+		newloc = 99+100-loc;
+		if (holdng==0||(holdng==1&&toting(emrald))) return(2);
+		newloc=loc;
+		rspeak(117);
+		return(2);
+	    case 2:                             /* 30200                */
+		drop(emrald,loc);
+		return(12);
+	    case 3:                             /* to 30300             */
+		return(trbridge());
+	    default: bug(29);
+	}
+}
 
 
-// badmove()                                       /* 20                   */
-// {       spk=12;
-// 	if (k>=43 && k<=50) spk=9;
-// 	if (k==29||k==30) spk=9;
-// 	if (k==7||k==36||k==37) spk=10;
-// 	if (k==11||k==19) spk=11;
-// 	if (verb==find||verb==invent) spk=59;
-// 	if (k==62||k==65) spk=42;
-// 	if (k==17) spk=80;
-// 	rspeak(spk);
-// 	return(2);
-// }
+int trbridge()                                      /* 30300                */
+{       if (prop[troll]==1)
+	{       pspeak(troll,1);
+		prop[troll]=0;
+		move(troll2,0);
+		move(troll2+100,0);
+		move(troll,plac[troll]);
+		move(troll+100,fixd[troll]);
+		juggle(chasm);
+		newloc=loc;
+		return(2);
+	}
+	newloc=plac[troll]+fixd[troll]-loc;     /* 30310                */
+	if (prop[troll]==0) prop[troll]=1;
+	if (!toting(bear)) return(2);
+	rspeak(162);
+	prop[chasm]=1;
+	prop[troll]=2;
+	drop(bear,newloc);
+	fixed[bear] = -1;
+	prop[bear]=3;
+	if (prop[spices]<0) tally2++;
+	oldlc2=newloc;
+	return(99);
+}
 
-// bug(n)
-// int n;
-// {       printf("Please tell jim@rand.org that fatal bug %d happened.\n",n);
-// 	exit(0);
-// }
+
+int badmove()                                       /* 20                   */
+{       spk=12;
+	if (k>=43 && k<=50) spk=9;
+	if (k==29||k==30) spk=9;
+	if (k==7||k==36||k==37) spk=10;
+	if (k==11||k==19) spk=11;
+	if (verb==find||verb==invent) spk=59;
+	if (k==62||k==65) spk=42;
+	if (k==17) spk=80;
+	rspeak(spk);
+	return(2);
+}
+
+void bug(int n)
+//int n;
+{       printf("Please tell jim@rand.org that fatal bug %d happened.\n",n);
+	exit(0);
+}
 
 
 // checkhints()                                    /* 2600 &c              */

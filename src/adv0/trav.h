@@ -17,5 +17,6 @@ struct travptr *tnext(struct travptr *tptr);
 bool tlast(struct travptr *tptr);
 bool tvalid(struct travptr *tptr);
 void wtptr(struct travptr *tptr);
+struct travptr *tset(struct travptr *a, struct travptr *b); // a = b
 
 #endif

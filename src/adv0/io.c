@@ -330,7 +330,8 @@ void rdata()                                 /* "read" data from virtual file*/
 //twrite
 void twrite(int loq)                             /* travel options from this loc */
 //int loq;
-{       register struct travptr *t=&tptr;
+{       static struct travptr _t;
+	register struct travptr *t=&_t;
 	printf("If");
 	speak(&ltext[loq]);
 	printf("then\n");
@@ -460,10 +461,10 @@ void speak(struct text *msg)       /* read, decrypt, and print a message (not pt
 
 
 //pspeak
-// pspeak(m,skip) /* read, decrypt an print a ptext message              */
-// int m;         /* msg is the number of all the p msgs for this place  */
-// int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/
-// {
+void pspeak(int m,int skip) /* read, decrypt an print a ptext message              */
+//int m;         /* msg is the number of all the p msgs for this place  */
+//int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/
+{
 // 	register char *s,nonfirst;
 // 	char *numst, save;
 // 	struct text *msg;
@@ -497,4 +498,4 @@ void speak(struct text *msg)       /* read, decrypt, and print a message (not pt
 // 		if (skip<0) break;
 // 	}
 // 	free(tbuf);
-// }
+}

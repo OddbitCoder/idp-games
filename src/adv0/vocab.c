@@ -61,15 +61,15 @@
 // }
 
 //juggle
-// juggle(object)
-// int object;
-// {       register int i,j;
+void juggle(int object)
+//int object;
+{       register int i,j;
 
-// 	i=place[object];
-// 	j=fixed[object];
-// 	move(object,i);
-// 	move(object+100,j);
-// }
+	i=place[object];
+	j=fixed[object];
+	move(object,i);
+	move(object+100,j);
+}
 
 
 //move

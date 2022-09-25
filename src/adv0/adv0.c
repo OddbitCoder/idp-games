@@ -112,48 +112,48 @@ void main(int argc,char **argv)
  		rval=fdwarf();          /* dwarf stuff                  */
  		if (rval==99) die(99);
 
-// 	l2000:  if (loc==0) die(99);    /* label 2000                   */
-// 		kk = &stext[loc];
-// 		if ((abb[loc]%abbnum)==0 || kk->seekadr==0)
-// 			kk = &ltext[loc];
-// 		if (!forced(loc) && dark(0))
-// 		{       if (wzdark && pct(35))
-// 			{       die(90);
-// 				goto l2000;
-// 			}
-// 			kk = &rtext[16];
-// 		}
-// 	l2001:  if (toting(bear)) rspeak(141);  /* 2001                 */
-// 		speak(kk);
-// 		k=1;
-// 		if (forced(loc))
-// 			goto l8;
-// 		if (loc==33 && pct(25)&&!closng) rspeak(8);
-// 		if (!dark(0))
-// 		{       abb[loc]++;
-// 			for (i=atloc[loc]; i!=0; i=link[i])     /*2004  */
-// 			{       obj=i;
-// 				if (obj>100) obj -= 100;
-// 				if (obj==steps && toting(nugget)) continue;
-// 				if (prop[obj]<0)
-// 				{       if (closed) continue;
-// 					prop[obj]=0;
-// 					if (obj==rug||obj==chain)
-// 						prop[obj]=1;
-// 					tally--;
-// 					if (tally==tally2 && tally != 0)
-// 						if (limit>35) limit=35;
-// 				}
-// 				ll =  prop[obj];   /* 2006         */
-// 				if (obj==steps && loc==fixed[steps])
-// 					ll = 1;
-// 				pspeak(obj, ll);
-// 			}                                       /* 2008 */
-// 			goto l2012;
-// 	l2009:          k=54;                   /* 2009                 */
-// 	l2010:          spk=k;
-// 	l2011:          rspeak(spk);
-// 		}
+ 	l2000:  if (loc==0) die(99);    /* label 2000                   */
+ 		kk = &stext[loc];
+ 		if ((abb[loc]%abbnum)==0 || kk->seekadr==0)
+ 			kk = &ltext[loc];
+ 		if (!forced(loc) && dark(0))
+ 		{       if (wzdark && pct(35))
+ 			{       die(90);
+ 				goto l2000;
+ 			}
+ 			kk = &rtext[16];
+ 		}
+ 	l2001:  if (toting(bear)) rspeak(141);  /* 2001                 */
+ 		speak(kk);
+ 		k=1;
+ 		if (forced(loc))
+ 			goto l8;
+ 		if (loc==33 && pct(25)&&!closng) rspeak(8);
+		if (!dark(0))
+		{       abb[loc]++;
+			for (i=atloc[loc]; i!=0; i=link[i])     /*2004  */
+			{       obj=i;
+				if (obj>100) obj -= 100;
+				if (obj==steps && toting(nugget)) continue;
+				if (prop[obj]<0)
+				{       if (closed) continue;
+					prop[obj]=0;
+					if (obj==rug||obj==chain)
+						prop[obj]=1;
+					tally--;
+					if (tally==tally2 && tally != 0)
+						if (limit>35) limit=35;
+				}
+				ll =  prop[obj];   /* 2006         */
+				if (obj==steps && loc==fixed[steps])
+					ll = 1;
+				pspeak(obj, ll);
+			}                                       /* 2008 */
+			//goto l2012;//WARNME
+	l2009:          k=54;                   /* 2009                 */
+	l2010:          spk=k;
+	l2011:          rspeak(spk);
+		}
 // 	l2012:  verb=0;                         /* 2012                 */
 // 		obj=0;
 // 	l2600:	checkhints();                   /* to 2600-2602         */
@@ -252,16 +252,16 @@ void main(int argc,char **argv)
 // 			exit(0);
 // 		}
 
-// 	l8:
-// 		switch(march())
-// 		{   case 2: continue;           /* i.e. goto l2         */
-// 		    case 99:
-// 			switch(die(99))
-// 			{   case 2000: goto l2000;
-// 			    default: bug(111);
-// 			}
-// 		    default: bug(110);
-// 		}
+ 	l8:
+ 		switch(march())
+ 		{   case 2: continue;           /* i.e. goto l2         */
+ 		    case 99:
+ 			switch(die(99))
+ 			{   case 2000: goto l2000;
+ 			    default: bug(111);
+ 			}
+ 		    default: bug(110);
+ 		}
 
 // 	l2800:  copystr(wd2,wd1);
 // 		*wd2=0;

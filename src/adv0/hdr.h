@@ -72,7 +72,7 @@ extern int yea;
 
 extern int loc,newloc,oldloc,oldlc2,wzdark,gaveup,kq,k,k2;
 // char *wd1,*wd2;                         /* the complete words           */
-// int verb,obj,spk;
+extern int verb,obj,spk;
 // extern int blklin;
 extern int saved,savet,mxscor,latncy;
 
@@ -121,8 +121,7 @@ extern struct text stext[LOCSIZ];              /* short loc descriptions       *
 //	int tverb;                      /* the verb that takes you there*/
 //}; 
 //extern struct travlist *travel[LOCSIZ];
-//extern struct travlist *tkk;
-extern struct travptr tptr;
+extern struct travptr *tkk;
 extern char *newtravel[LOCSIZ];
 
 extern int atloc[LOCSIZ];
@@ -141,7 +140,7 @@ extern int hints[20][5];                       /* info on hints                *
 extern int hinted[20],hintlc[20];
 
 extern int place[101], prop[101],link[201];
-// int abb[LOCSIZ];
+extern int abb[LOCSIZ];
 
 extern int maxtrs,tally,tally2;                /* treasure values              */
 
