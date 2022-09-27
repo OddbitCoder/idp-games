@@ -76,27 +76,27 @@ int at(int objj)
 	else return (FALSE);
 }
 
-// liq2(pbotl)
-// int pbotl;
-// {       return((1-pbotl)*water+(pbotl/2)*(water+oil));
-// }
+int liq2(int pbotl)
+//int pbotl;
+{       return((1-pbotl)*water+(pbotl/2)*(water+oil));
+}
 
-// liq(foo)
-// {       register int i;
-// 	i=prop[bottle];
-// 	if (i>-1-i) return(liq2(i));
-// 	else return(liq2(-1-i));
-// }
+int liq(int foo)
+{       register int i;
+	i=prop[bottle];
+	if (i>-1-i) return(liq2(i));
+	else return(liq2(-1-i));
+}
 
-// liqloc(locc)     /* may want to clean this one up a bit */
-// int locc;
-// {       register int i,j,l;
-// 	i=cond[locc]/2;
-// 	j=((i*2)%8)-5;
-// 	l=cond[locc]/4;
-// 	l=l%2;
-// 	return(liq2(j*l+1));
-// }
+int liqloc(int locc)     /* may want to clean this one up a bit */
+//int locc;
+{       register int i,j,l;
+	i=cond[locc]/2;
+	j=((i*2)%8)-5;
+	l=cond[locc]/4;
+	l=l%2;
+	return(liq2(j*l+1));
+}
 
 int bitset(int l,int n)
 //int l,n;
@@ -789,56 +789,56 @@ void checkhints()                                    /* 2600 &c              */
 // }
 
 
-// closing()                               /* 10000 */
-// {       register int i;
+int closing()                               /* 10000 */
+{       register int i;
 
-// 	prop[grate]=prop[fissur]=0;
-// 	for (i=1; i<=6; i++)
-// 	{       dseen[i]=FALSE;
-// 		dloc[i]=0;
-// 	}
-// 	move(troll,0);
-// 	move(troll+100,0);
-// 	move(troll2,plac[troll]);
-// 	move(troll2+100,fixd[troll]);
-// 	juggle(chasm);
-// 	if(prop[bear]!=3) dstroy(bear);
-// 	prop[chain]=0;
-// 	fixed[chain]=0;
-// 	prop[axe]=0;
-// 	fixed[axe]=0;
-// 	rspeak(129);
-// 	clock1 = -1;
-// 	closng=TRUE;
-// 	return(19999);
-// }
+	prop[grate]=prop[fissur]=0;
+	for (i=1; i<=6; i++)
+	{       dseen[i]=FALSE;
+		dloc[i]=0;
+	}
+	move(troll,0);
+	move(troll+100,0);
+	move(troll2,plac[troll]);
+	move(troll2+100,fixd[troll]);
+	juggle(chasm);
+	if(prop[bear]!=3) dstroy(bear);
+	prop[chain]=0;
+	fixed[chain]=0;
+	prop[axe]=0;
+	fixed[axe]=0;
+	rspeak(129);
+	clock1 = -1;
+	closng=TRUE;
+	return(19999);
+}
 
 
-// caveclose()                             /* 11000 */
-// {       register int i;
-// 	prop[bottle]=put(bottle,115,1);
-// 	prop[plant]=put(plant,115,0);
-// 	prop[oyster]=put(oyster,115,0);
-// 	prop[lamp]=put(lamp,115,0);
-// 	prop[rod]=put(rod,115,0);
-// 	prop[dwarf]=put(dwarf,115,0);
-// 	loc=115;
-// 	oldloc=115;
-// 	newloc=115;
+int caveclose()                             /* 11000 */
+{       register int i;
+	prop[bottle]=put(bottle,115,1);
+	prop[plant]=put(plant,115,0);
+	prop[oyster]=put(oyster,115,0);
+	prop[lamp]=put(lamp,115,0);
+	prop[rod]=put(rod,115,0);
+	prop[dwarf]=put(dwarf,115,0);
+	loc=115;
+	oldloc=115;
+	newloc=115;
 
-// 	put(grate,116,0);
-// 	prop[snake]=put(snake,116,1);
-// 	prop[bird]=put(bird,116,1);
-// 	prop[cage]=put(cage,116,0);
-// 	prop[rod2]=put(rod2,116,0);
-// 	prop[pillow]=put(pillow,116,0);
+	put(grate,116,0);
+	prop[snake]=put(snake,116,1);
+	prop[bird]=put(bird,116,1);
+	prop[cage]=put(cage,116,0);
+	prop[rod2]=put(rod2,116,0);
+	prop[pillow]=put(pillow,116,0);
 
-// 	prop[mirror]=put(mirror,115,0);
-// 	fixed[mirror]=116;
+	prop[mirror]=put(mirror,115,0);
+	fixed[mirror]=116;
 
-// 	for (i=1; i<=100; i++)
-// 		if (toting(i)) dstroy(i);
-// 	rspeak(132);
-// 	closed=TRUE;
-// 	return(2);
-// }
+	for (i=1; i<=100; i++)
+		if (toting(i)) dstroy(i);
+	rspeak(132);
+	closed=TRUE;
+	return(2);
+}

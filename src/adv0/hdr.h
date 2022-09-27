@@ -76,9 +76,9 @@ extern int verb,obj,spk;
 // extern int blklin;
 extern int saved,savet,mxscor,latncy;
 
-// #define SHORT 50                        /* How short is a demo game?    */
+#define SHORT 50                        /* How short is a demo game?    */
 
-// #define MAXSTR  20                      /* max length of user's words   */
+#define MAXSTR  20                      /* max length of user's words   */
 
 #define HTSIZE  512                     /* max number of vocab words    */
 struct hashtab                          /* hash table for vocabulary    */

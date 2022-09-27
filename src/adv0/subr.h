@@ -16,5 +16,10 @@ int badmove();
 int specials();
 int trbridge();
 void checkhints();
+int closing();
+int caveclose();
+int liqloc(int locc);
+int liq2(int pbotl);
+int liq(int foo);
 
 #endif

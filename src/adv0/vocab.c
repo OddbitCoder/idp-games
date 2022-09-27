@@ -54,11 +54,11 @@
 # include "hdr.h"
 #include "vocab.h"
 
-//destroy
-// dstroy(object)
-// int object;
-// {       move(object,0);
-// }
+//dstroy
+void dstroy(int object)
+//int object;
+{       move(object,0);
+}
 
 //juggle
 void juggle(int object)
@@ -87,11 +87,11 @@ void move(int object,int where)
 
 
 //put
-// put(object,where,pval)
-// int object,where,pval;
-// {       move(object,where);
-// 	return(-1-pval);
-// }
+int put(int object,int where,int pval)
+//int object,where,pval;
+{       move(object,where);
+	return(-1-pval);
+}
 
 //carry
 void carry(int object,int where)
@@ -196,19 +196,19 @@ void copystr(char *w1,char *w2)                          /* copy one string to a
 }
 
 //weq
-// weq(w1,w2)                              /* compare words                */
-// char *w1,*w2;                           /* w1 is user, w2 is system     */
-// {       register char *s,*t;
-// 	register int i;
-// 	s=w1;
-// 	t=w2;
-// 	for (i=0; i<5; i++)             /* compare at most 5 chars      */
-// 	{       if (*t==0 && *s==0)
-// 			return(TRUE);
-// 		if (*s++ != *t++) return(FALSE);
-// 	}
-// 	return(TRUE);
-// }
+int weq(char *w1,char *w2)                              /* compare words                */
+//char *w1,*w2;                           /* w1 is user, w2 is system     */
+{       register char *s,*t;
+	register int i;
+	s=w1;
+	t=w2;
+	for (i=0; i<5; i++)             /* compare at most 5 chars      */
+	{       if (*t==0 && *s==0)
+			return(TRUE);
+		if (*s++ != *t++) return(FALSE);
+	}
+	return(TRUE);
+}
 
 
 //length

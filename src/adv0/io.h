@@ -11,5 +11,6 @@ void mspeak(int msg);
 void speak(struct text *msg);
 int yes(int x,int y,int z);
 void pspeak(int m,int skip);
+void getin(char **wrd1,char **wrd2);
 
 #endif

@@ -67,47 +67,61 @@
 #define TEXT_BIN "text.bin"
 
 //getin
-// getin(wrd1,wrd2)                        /* get command from user        */
+void getin(char **wrd1,char **wrd2)                        /* get command from user        */
 // char **wrd1,**wrd2;                     /* no prompt, usually           */
-// {       register char *s;
-// 	static char wd1buf[MAXSTR],wd2buf[MAXSTR];
-// 	int first, numch;
-
-// 	*wrd1=wd1buf;                   /* return ptr to internal string*/
-// 	*wrd2=wd2buf;
-// 	wd2buf[0]=0;                    /* in case it isn't set here    */
-// 	for (s=wd1buf, first=1, numch=0;;)
-// 	{       if ((*s=getchar())>='A' && *s <='Z') *s = *s - ('A' -'a');
-// 					/* convert to upper case        */
-// 		switch(*s)              /* start reading from user      */
-// 		{   case '\n':
-// 			*s=0;
-// 			return;
-// 		    case ' ':
-// 			if (s==wd1buf||s==wd2buf)  /* initial blank   */
-// 				continue;
-// 			*s=0;
-// 			if (first)      /* finished 1st wd; start 2nd   */
-// 			{       first=numch=0;
-// 				s=wd2buf;
-// 				break;
-// 			}
-// 			else            /* finished 2nd word            */
-// 			{       FLUSHLINE;
-// 				*s=0;
-// 				return;
-// 			}
-// 		    default:
-// 			if (++numch>=MAXSTR)    /* string too long      */
-// 			{       printf("Give me a break!!\n");
-// 				wd1buf[0]=wd2buf[0]=0;
-// 				FLUSHLINE;
-// 				return;
-// 			}
-// 			s++;
-// 		}
-// 	}
-// }
+{       static char wd1buf[MAXSTR], wd2buf[MAXSTR];
+	*wrd1 = wd1buf;                   /* return ptr to internal string*/
+ 	*wrd2 = wd2buf;
+ 	printf("? ");
+ 	char ch;
+ 	char l = 0;
+ 	do {
+ 		// TODO: history, back/fwd arrow, insert, delete...
+	 	while (!(ch = kbhit()));
+	 	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == ' ') { // WARNME: do we need numbers too?
+	 		if (l < 2 * MAXSTR + 1) {
+	 			buffer[l] = ch;
+	 			printf("%c", ch);
+		 		buffer[++l] = '\0'; 
+	 		} 
+	 	} else if (ch == '\b') { 
+	 		if (l > 0) {
+	 			printf("\b \b");
+	 			buffer[--l] = '\0';
+	 		}
+	 	} 
+	} while (ch != '\r' || l == 0);
+	printf("\n\r");
+	// parse input
+	// word 1
+	char *p = buffer, *r;
+	for (; *p == ' '; p++);
+	r = p;
+	l = 0;
+	for (; *p != ' ' && *p != '\0'; p++, l++);
+	if (l >= MAXSTR) {
+		memcpy(wd1buf, r, MAXSTR - 1);
+		wd1buf[MAXSTR - 1] = '\0';
+	} else {
+		memcpy(wd1buf, r, l);
+		wd1buf[l] = '\0';
+	}
+	// word 2
+	wd2buf[0] = '\0';
+	for (; *p == ' '; p++); // skip spaces
+	if (*p != '\0') { // is there a word?
+		r = p;
+		l = 0;
+		for (; *p != ' ' && *p != '\0'; p++, l++);
+		if (l >= MAXSTR) {
+			memcpy(wd2buf, r, MAXSTR - 1);
+			wd2buf[MAXSTR - 1] = '\0';
+		} else {
+			memcpy(wd2buf, r, l);
+			wd2buf[l] = '\0';
+		}
+	}
+}
 
 
 //confirm
@@ -129,11 +143,12 @@ int yes(int x,int y,int z)                              /* confirm with rspeak  
 	register char ch;
 	for (;;)
 	{       rspeak(x);                     /* tell him what we want*/
+		printf("? ");
 		while (!(ch=kbhit()));
+		printf("%c\n\r", ch);
 		if (ch=='y')
 			result=TRUE;
 		else if (ch=='n') result=FALSE;
-		//FLUSHLINE;
 		if (ch=='y'|| ch=='n') break;
 		printf("Please answer the question.\n\r");
 	}

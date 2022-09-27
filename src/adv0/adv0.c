@@ -56,6 +56,7 @@
 // #include <sys/file.h>
 // #include <signal.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "hdr.h"
 #include "_init.h"
 #include "vocab.h"
@@ -78,7 +79,12 @@ void main(int argc,char **argv)
 // 		perror("setuid");
 
 	init(0);         /* Initialize everything */
-	//prht(); // REMOVE
+	char *a, *b;
+	getin(&a, &b);
+	printf(a);
+	printf("\n\r");
+	printf(b);
+	return;
 // 	signal(SIGINT,trapdel);
 
 // 	if (argc > 1)   /* Restore file specified */
@@ -172,85 +178,85 @@ void main(int argc,char **argv)
 			copystr("quit",wd1);    /* pretend he's quitting*/
 			*wd2=0;
 		}
-// 	l2608:  if ((foobar = -foobar)>0) foobar=0;     /* 2608         */
-// 		/* should check here for "magic mode"                   */
-// 		turns++;
-// 		if (demo && turns>=SHORT) done(1);      /* to 13000     */
+	l2608:  if ((foobar = -foobar)>0) foobar=0;     /* 2608         */
+		/* should check here for "magic mode"                   */
+		turns++;
+		if (demo && turns>=SHORT) done(1);      /* to 13000     */
 
-// 		if (verb==say && *wd2!=0) verb=0;
-// 		if (verb==say)
-// 			goto l4090;
-// 		if (tally==0 && loc>=15 && loc!=33) clock1--;
-// 		if (clock1==0)
-// 		{       closing();                      /* to 10000     */
-// 			goto l19999;
-// 		}
-// 		if (clock1<0) clock2--;
-// 		if (clock2==0)
-// 		{       caveclose();            /* to 11000             */
-// 			continue;               /* back to 2            */
-// 		}
-// 		if (prop[lamp]==1) limit--;
-// 		if (limit<=30 && here(batter) && prop[batter]==0
-// 			&& here(lamp))
-// 		{       rspeak(188);            /* 12000                */
-// 			prop[batter]=1;
-// 			if (toting(batter)) drop(batter,loc);
-// 			limit=limit+2500;
-// 			lmwarn=FALSE;
-// 			goto l19999;
-// 		}
-// 		if (limit==0)
-// 		{       limit = -1;             /* 12400                */
-// 			prop[lamp]=0;
-// 			rspeak(184);
-// 			goto l19999;
-// 		}
-// 		if (limit<0&&loc<=8)
-// 		{       rspeak(185);            /* 12600                */
-// 			gaveup=TRUE;
-// 			done(2);                /* to 20000             */
-// 		}
-// 		if (limit<=30)
-// 		{       if (lmwarn|| !here(lamp)) goto l19999;  /*12200*/
-// 			lmwarn=TRUE;
-// 			spk=187;
-// 			if (place[batter]==0) spk=183;
-// 			if (prop[batter]==1) spk=189;
-// 			rspeak(spk);
-// 		}
-// 	l19999: k=43;
-// 		if (liqloc(loc)==water) k=70;
-// 		if (weq(wd1,"enter") &&
-// 		    (weq(wd2,"strea")||weq(wd2,"water")))
-// 			goto l2010;
-// 		if (weq(wd1,"enter") && *wd2!=0) goto l2800;
-// 		if ((!weq(wd1,"water")&&!weq(wd1,"oil"))
-// 		    || (!weq(wd2,"plant")&&!weq(wd2,"door")))
-// 			goto l2610;
-// 		if (at(vocab(wd2,1))) copystr("pour",wd2);
+		if (verb==say && *wd2!=0) verb=0;
+		if (verb==say)
+			/*goto l4090*/; //WARNME
+		if (tally==0 && loc>=15 && loc!=33) clock1--;
+		if (clock1==0)
+		{       closing();                      /* to 10000     */
+			goto l19999;
+		}
+		if (clock1<0) clock2--;
+		if (clock2==0)
+		{       caveclose();            /* to 11000             */
+			continue;               /* back to 2            */
+		}
+		if (prop[lamp]==1) limit--;
+		if (limit<=30 && here(batter) && prop[batter]==0
+			&& here(lamp))
+		{       rspeak(188);            /* 12000                */
+			prop[batter]=1;
+			if (toting(batter)) drop(batter,loc);
+			limit=limit+2500;
+			lmwarn=FALSE;
+			goto l19999;
+		}
+		if (limit==0)
+		{       limit = -1;             /* 12400                */
+			prop[lamp]=0;
+			rspeak(184);
+			goto l19999;
+		}
+		if (limit<0&&loc<=8)
+		{       rspeak(185);            /* 12600                */
+			gaveup=TRUE;
+			done(2);                /* to 20000             */
+		}
+		if (limit<=30)
+		{       if (lmwarn|| !here(lamp)) goto l19999;  /*12200*/ 
+			lmwarn=TRUE;
+			spk=187;
+			if (place[batter]==0) spk=183;
+			if (prop[batter]==1) spk=189;
+			rspeak(spk);
+		}
+	l19999: k=43;
+		if (liqloc(loc)==water) k=70;
+		if (weq(wd1,"enter") &&
+		    (weq(wd2,"strea")||weq(wd2,"water")))
+			goto l2010;
+		if (weq(wd1,"enter") && *wd2!=0) /*goto l2800*/;//WARNME
+		if ((!weq(wd1,"water")&&!weq(wd1,"oil"))
+		    || (!weq(wd2,"plant")&&!weq(wd2,"door")))
+			goto l2610;
+		if (at(vocab(wd2,1,0))) copystr("pour",wd2);
 
-// 	l2610:  if (weq(wd1,"west"))
-// 			if (++iwest==10) rspeak(17);
-// 	l2630:  i=vocab(wd1,-1);
-// 		if (i== -1)
-// 		{       spk=60;                 /* 3000         */
-// 			if (pct(20)) spk=61;
-// 			if (pct(20)) spk=13;
-// 			rspeak(spk);
-// 			goto l2600;
-// 		}
-// 		k=i%1000;
-// 		kq=i/1000+1;
-// 		switch(kq)
-// 		{   case 1: goto l8;
-// 		    case 2: goto l5000;
-// 		    case 3: goto l4000;
-// 		    case 4: goto l2010;
-// 		    default:
-// 			printf("Error 22\n");
-// 			exit(0);
-// 		}
+	l2610:  if (weq(wd1,"west"))
+			if (++iwest==10) rspeak(17);
+	l2630:  i=vocab(wd1,-1,0);
+		if (i== -1)
+		{       spk=60;                 /* 3000         */
+			if (pct(20)) spk=61;
+			if (pct(20)) spk=13;
+			rspeak(spk);
+			goto l2600;
+		}
+		k=i%1000;
+		kq=i/1000+1;
+		switch(kq)
+		{   case 1: goto l8;
+		    case 2: /*goto l5000*/;//WARNME
+		    case 3: /*goto l4000*/;//WARNME
+		    case 4: goto l2010;
+		    default:
+			printf("Error 22\n");
+			exit(0);
+		}
 
  	l8:
  		switch(march())
