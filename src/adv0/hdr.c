@@ -1244,4 +1244,6 @@ struct travptr *tkk = &_tkk;
 
 char *wd1 = 0, *wd2 = 0;
 
+int blklin = 0;
+
 char buffer[BUFFER_SIZE];

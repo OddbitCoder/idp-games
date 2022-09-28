@@ -21,5 +21,14 @@ int caveclose();
 int liqloc(int locc);
 int liq2(int pbotl);
 int liq(int foo);
+int trtake();
+int trdrop();
+int trsay();
+int tropen();
+int trkill();
+int trtoss();
+int trfeed();
+int trfill();
+int dropper();
 
 #endif

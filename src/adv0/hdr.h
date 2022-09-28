@@ -58,7 +58,11 @@
 
 /* hdr.h: included by c advent files */
 
-typedef unsigned int uint;
+typedef unsigned int UINT16;
+typedef unsigned char UINT8;
+typedef unsigned char BYTE;
+typedef signed char INT8;
+typedef INT8 BOOL;
 
 // int datfd;                              /* message file descriptor      */
 extern int delhit;
@@ -73,7 +77,7 @@ extern int yea;
 extern int loc,newloc,oldloc,oldlc2,wzdark,gaveup,kq,k,k2;
 extern char *wd1,*wd2;                         /* the complete words           */
 extern int verb,obj,spk;
-// extern int blklin;
+extern int blklin;
 extern int saved,savet,mxscor,latncy;
 
 #define SHORT 50                        /* How short is a demo game?    */

@@ -66,19 +66,14 @@
 #define VOC_BIN_SZ 2194
 #define TEXT_BIN "text.bin"
 
-//getin
-void getin(char **wrd1,char **wrd2)                        /* get command from user        */
-// char **wrd1,**wrd2;                     /* no prompt, usually           */
-{       static char wd1buf[MAXSTR], wd2buf[MAXSTR];
-	*wrd1 = wd1buf;                   /* return ptr to internal string*/
- 	*wrd2 = wd2buf;
- 	printf("? ");
+void conin() {
+	printf("? ");
  	char ch;
- 	char l = 0;
+ 	UINT8 l = 0;
  	do {
  		// TODO: history, back/fwd arrow, insert, delete...
 	 	while (!(ch = kbhit()));
-	 	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == ' ') { // WARNME: do we need numbers too?
+	 	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == ' ') {
 	 		if (l < 2 * MAXSTR + 1) {
 	 			buffer[l] = ch;
 	 			printf("%c", ch);
@@ -92,35 +87,49 @@ void getin(char **wrd1,char **wrd2)                        /* get command from u
 	 	} 
 	} while (ch != '\r' || l == 0);
 	printf("\n\r");
-	// parse input
+}
+
+void parsein(char *wd1buf, char *wd2buf, int maxwd1, int maxwd2) {
 	// word 1
 	char *p = buffer, *r;
 	for (; *p == ' '; p++);
 	r = p;
-	l = 0;
+	UINT8 l = 0;
 	for (; *p != ' ' && *p != '\0'; p++, l++);
-	if (l >= MAXSTR) {
-		memcpy(wd1buf, r, MAXSTR - 1);
-		wd1buf[MAXSTR - 1] = '\0';
+	if (l >= maxwd1) {
+		memcpy(wd1buf, r, maxwd1 - 1);
+		wd1buf[maxwd1 - 1] = '\0';
 	} else {
 		memcpy(wd1buf, r, l);
 		wd1buf[l] = '\0';
 	}
 	// word 2
 	wd2buf[0] = '\0';
-	for (; *p == ' '; p++); // skip spaces
-	if (*p != '\0') { // is there a word?
-		r = p;
-		l = 0;
-		for (; *p != ' ' && *p != '\0'; p++, l++);
-		if (l >= MAXSTR) {
-			memcpy(wd2buf, r, MAXSTR - 1);
-			wd2buf[MAXSTR - 1] = '\0';
-		} else {
-			memcpy(wd2buf, r, l);
-			wd2buf[l] = '\0';
+	if (maxwd2 > 0) {
+		for (; *p == ' '; p++); 
+		if (*p != '\0') { // is there a word?
+			r = p;
+			l = 0;
+			for (; *p != ' ' && *p != '\0'; p++, l++);
+			if (l >= maxwd2) {
+				memcpy(wd2buf, r, maxwd2 - 1);
+				wd2buf[maxwd2 - 1] = '\0';
+			} else {
+				memcpy(wd2buf, r, l);
+				wd2buf[l] = '\0';
+			}
 		}
 	}
+}
+
+//getin
+void getin(char **wrd1,char **wrd2)                        /* get command from user        */
+// char **wrd1,**wrd2;                     /* no prompt, usually           */
+{       static char wd1buf[MAXSTR], wd2buf[MAXSTR];
+	*wrd1 = wd1buf;                   /* return ptr to internal string*/
+ 	*wrd2 = wd2buf;
+ 	conin();
+	parsein(wd1buf, wd2buf, MAXSTR, MAXSTR);
 }
 
 
@@ -372,7 +381,7 @@ void rvoc()               /* read the vocabulary          */
 	int fd = open(VOC_BIN, O_RDONLY);
 	ssize_t read_size = 0;
 	size_t tail = 0;
-	uint full_read_sz = 0;
+	UINT16 full_read_sz = 0;
 	do {
 		read_size = read(fd, buffer + tail, BUFFER_SIZE - tail);
 		char *row = buffer;
@@ -384,7 +393,7 @@ void rvoc()               /* read the vocabulary          */
 			if (row + word_len + 3 >= eod) { break; }
 			row++;
 			// read word index
-			uint word_idx = *(uint *)row;
+			UINT16 word_idx = *(UINT16 *)row;
 			row += 2;
 			// process word
 			memcpy(word_buf, row, word_len);

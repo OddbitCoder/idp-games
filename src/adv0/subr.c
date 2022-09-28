@@ -446,347 +446,347 @@ void checkhints()                                    /* 2600 &c              */
 }
 
 
-// trsay()                                         /* 9030                 */
-// {       register int i;
-// 	if (*wd2!=0) copystr(wd2,wd1);
-// 	i=vocab(wd1,-1);
-// 	if (i==62||i==65||i==71||i==2025)
-// 	{       *wd2=0;
-// 		obj=0;
-// 		return(2630);
-// 	}
-// 	printf("\nOkay, \"%s\".\n",wd2);
-// 	return(2012);
-// }
+int trsay()                                         /* 9030                 */
+{       register int i;
+	if (*wd2!=0) copystr(wd2,wd1);
+	i=vocab(wd1,-1,0);
+	if (i==62||i==65||i==71||i==2025)
+	{       *wd2=0;
+		obj=0;
+		return(2630);
+	}
+	printf("\nOkay, \"%s\".\n",wd2);
+	return(2012);
+}
 
 
-// trtake()                                        /* 9010                 */
-// {       register int i;
-// 	if (toting(obj)) return(2011);  /* 9010 */
-// 	spk=25;
-// 	if (obj==plant&&prop[plant]<=0) spk=115;
-// 	if (obj==bear&&prop[bear]==1) spk=169;
-// 	if (obj==chain&&prop[bear]!=0) spk=170;
-// 	if (fixed[obj]!=0) return(2011);
-// 	if (obj==water||obj==oil)
-// 	{       if (here(bottle)&&liq(0)==obj)
-// 		{       obj=bottle;
-// 			goto l9017;
-// 		}
-// 		obj=bottle;
-// 		if (toting(bottle)&&prop[bottle]==1)
-// 			return(9220);
-// 		if (prop[bottle]!=1) spk=105;
-// 		if (!toting(bottle)) spk=104;
-// 		return(2011);
-// 	}
-// l9017:  if (holdng>=7)
-// 	{       rspeak(92);
-// 		return(2012);
-// 	}
-// 	if (obj==bird)
-// 	{       if (prop[bird]!=0) goto l9014;
-// 		if (toting(rod))
-// 		{       rspeak(26);
-// 			return(2012);
-// 		}
-// 		if (!toting(cage))      /* 9013 */
-// 		{       rspeak(27);
-// 			return(2012);
-// 		}
-// 		prop[bird]=1;           /* 9015 */
-// 	}
-// l9014:  if ((obj==bird||obj==cage)&&prop[bird]!=0)
-// 		carry(bird+cage-obj,loc);
-// 	carry(obj,loc);
-// 	k=liq(0);
-// 	if (obj==bottle && k!=0) place[k] = -1;
-// 	return(2009);
-// }
+int trtake()                                        /* 9010                 */
+{       register int i;
+	if (toting(obj)) return(2011);  /* 9010 */
+	spk=25;
+	if (obj==plant&&prop[plant]<=0) spk=115;
+	if (obj==bear&&prop[bear]==1) spk=169;
+	if (obj==chain&&prop[bear]!=0) spk=170;
+	if (fixed[obj]!=0) return(2011);
+	if (obj==water||obj==oil)
+	{       if (here(bottle)&&liq(0)==obj)
+		{       obj=bottle;
+			goto l9017;
+		}
+		obj=bottle;
+		if (toting(bottle)&&prop[bottle]==1)
+			return(9220);
+		if (prop[bottle]!=1) spk=105;
+		if (!toting(bottle)) spk=104;
+		return(2011);
+	}
+l9017:  if (holdng>=7)
+	{       rspeak(92);
+		return(2012);
+	}
+	if (obj==bird)
+	{       if (prop[bird]!=0) goto l9014;
+		if (toting(rod))
+		{       rspeak(26);
+			return(2012);
+		}
+		if (!toting(cage))      /* 9013 */
+		{       rspeak(27);
+			return(2012);
+		}
+		prop[bird]=1;           /* 9015 */
+	}
+l9014:  if ((obj==bird||obj==cage)&&prop[bird]!=0)
+		carry(bird+cage-obj,loc);
+	carry(obj,loc);
+	k=liq(0);
+	if (obj==bottle && k!=0) place[k] = -1;
+	return(2009);
+}
 
 
-// dropper()                                       /* 9021                 */
-// {       k=liq(0);
-// 	if (k==obj) obj=bottle;
-// 	if (obj==bottle&&k!=0) place[k]=0;
-// 	if (obj==cage&&prop[bird]!=0) drop(bird,loc);
-// 	if (obj==bird) prop[bird]=0;
-// 	drop(obj,loc);
-// 	return(2012);
-// }
+int dropper()                                       /* 9021                 */
+{       k=liq(0);
+	if (k==obj) obj=bottle;
+	if (obj==bottle&&k!=0) place[k]=0;
+	if (obj==cage&&prop[bird]!=0) drop(bird,loc);
+	if (obj==bird) prop[bird]=0;
+	drop(obj,loc);
+	return(2012);
+}
 
-// trdrop()                                        /* 9020                 */
-// {
-// 	if (toting(rod2)&&obj==rod&&!toting(rod)) obj=rod2;
-// 	if (!toting(obj)) return(2011);
-// 	if (obj==bird&&here(snake))
-// 	{       rspeak(30);
-// 		if (closed) return(19000);
-// 		dstroy(snake);
-// 		prop[snake]=1;
-// 		return(dropper());
-// 	}
-// 	if (obj==coins&&here(vend))             /* 9024                 */
-// 	{       dstroy(coins);
-// 		drop(batter,loc);
-// 		pspeak(batter,0);
-// 		return(2012);
-// 	}
-// 	if (obj==bird&&at(dragon)&&prop[dragon]==0)     /* 9025         */
-// 	{       rspeak(154);
-// 		dstroy(bird);
-// 		prop[bird]=0;
-// 		if (place[snake]==plac[snake]) tally2--;
-// 		return(2012);
-// 	}
-// 	if (obj==bear&&at(troll))               /* 9026                 */
-// 	{       rspeak(163);
-// 		move(troll,0);
-// 		move(troll+100,0);
-// 		move(troll2,plac[troll]);
-// 		move(troll2+100,fixd[troll]);
-// 		juggle(chasm);
-// 		prop[troll]=2;
-// 		return(dropper());
-// 	}
-// 	if (obj!=vase||loc==plac[pillow])       /* 9027                 */
-// 	{       rspeak(54);
-// 		return(dropper());
-// 	}
-// 	prop[vase]=2;                           /* 9028                 */
-// 	if (at(pillow)) prop[vase]=0;
-// 	pspeak(vase,prop[vase]+1);
-// 	if (prop[vase]!=0) fixed[vase] = -1;
-// 	return(dropper());
-// }
-
-
-// tropen()                                        /* 9040                 */
-// {       if (obj==clam||obj==oyster)
-// 	{       k=0;                            /* 9046                 */
-// 		if (obj==oyster) k=1;
-// 		spk=124+k;
-// 		if (toting(obj)) spk=120+k;
-// 		if (!toting(tridnt)) spk=122+k;
-// 		if (verb==lock) spk=61;
-// 		if (spk!=124) return(2011);
-// 		dstroy(clam);
-// 		drop(oyster,loc);
-// 		drop(pearl,105);
-// 		return(2011);
-// 	}
-// 	if (obj==door) spk=111;
-// 	if (obj==door&&prop[door]==1) spk=54;
-// 	if (obj==cage) spk=32;
-// 	if (obj==keys) spk=55;
-// 	if (obj==grate||obj==chain) spk=31;
-// 	if (spk!=31||!here(keys)) return(2011);
-// 	if (obj==chain)
-// 	{       if (verb==lock)
-// 		{       spk=172;                /* 9049: lock           */
-// 			if (prop[chain]!=0) spk=34;
-// 			if (loc!=plac[chain]) spk=173;
-// 			if (spk!=172) return(2011);
-// 			prop[chain]=2;
-// 			if (toting(chain)) drop(chain,loc);
-// 			fixed[chain]= -1;
-// 			return(2011);
-// 		}
-// 		spk=171;
-// 		if (prop[bear]==0) spk=41;
-// 		if (prop[chain]==0) spk=37;
-// 		if (spk!=171) return(2011);
-// 		prop[chain]=0;
-// 		fixed[chain]=0;
-// 		if (prop[bear]!=3) prop[bear]=2;
-// 		fixed[bear]=2-prop[bear];
-// 		return(2011);
-// 	}
-// 	if (closng)
-// 	{       k=130;
-// 		if (!panic) clock2=15;
-// 		panic=TRUE;
-// 		return(2010);
-// 	}
-// 	k=34+prop[grate];                       /* 9043                 */
-// 	prop[grate]=1;
-// 	if (verb==lock) prop[grate]=0;
-// 	k=k+2*prop[grate];
-// 	return(2010);
-// }
+int trdrop()                                        /* 9020                 */
+{
+	if (toting(rod2)&&obj==rod&&!toting(rod)) obj=rod2;
+	if (!toting(obj)) return(2011);
+	if (obj==bird&&here(snake))
+	{       rspeak(30);
+		if (closed) return(19000);
+		dstroy(snake);
+		prop[snake]=1;
+		return(dropper());
+	}
+	if (obj==coins&&here(vend))             /* 9024                 */
+	{       dstroy(coins);
+		drop(batter,loc);
+		pspeak(batter,0);
+		return(2012);
+	}
+	if (obj==bird&&at(dragon)&&prop[dragon]==0)     /* 9025         */
+	{       rspeak(154);
+		dstroy(bird);
+		prop[bird]=0;
+		if (place[snake]==plac[snake]) tally2--;
+		return(2012);
+	}
+	if (obj==bear&&at(troll))               /* 9026                 */
+	{       rspeak(163);
+		move(troll,0);
+		move(troll+100,0);
+		move(troll2,plac[troll]);
+		move(troll2+100,fixd[troll]);
+		juggle(chasm);
+		prop[troll]=2;
+		return(dropper());
+	}
+	if (obj!=vase||loc==plac[pillow])       /* 9027                 */
+	{       rspeak(54);
+		return(dropper());
+	}
+	prop[vase]=2;                           /* 9028                 */
+	if (at(pillow)) prop[vase]=0;
+	pspeak(vase,prop[vase]+1);
+	if (prop[vase]!=0) fixed[vase] = -1;
+	return(dropper());
+}
 
 
-// trkill()                                /* 9120                         */
-// {       register int i;
-// 	for (i=1; i<=5; i++)
-// 		if (dloc[i]==loc&&dflag>=2) break;
-// 	if (i==6) i=0;
-// 	if (obj==0)                     /* 9122                         */
-// 	{       if (i!=0) obj=dwarf;
-// 		if (here(snake)) obj=obj*100+snake;
-// 		if (at(dragon)&&prop[dragon]==0) obj=obj*100+dragon;
-// 		if (at(troll)) obj=obj*100+troll;
-// 		if (here(bear)&&prop[bear]==0) obj=obj*100+bear;
-// 		if (obj>100) return(8000);
-// 		if (obj==0)
-// 		{       if (here(bird)&&verb!=throw) obj=bird;
-// 			if (here(clam)||here(oyster)) obj=100*obj+clam;
-// 			if (obj>100) return(8000);
-// 		}
-// 	}
-// 	if (obj==bird)                  /* 9124                         */
-// 	{       spk=137;
-// 		if (closed) return(2011);
-// 		dstroy(bird);
-// 		prop[bird]=0;
-// 		if (place[snake]==plac[snake]) tally2++;
-// 		spk=45;
-// 	}
-// 	if (obj==0) spk=44;             /* 9125                         */
-// 	if (obj==clam||obj==oyster) spk=150;
-// 	if (obj==snake) spk=46;
-// 	if (obj==dwarf) spk=49;
-// 	if (obj==dwarf&&closed) return(19000);
-// 	if (obj==dragon) spk=147;
-// 	if (obj==troll) spk=157;
-// 	if (obj==bear) spk=165+(prop[bear]+1)/2;
-// 	if (obj!=dragon||prop[dragon]!=0) return(2011);
-// 	rspeak(49);
-// 	verb=0;
-// 	obj=0;
-// 	getin(&wd1,&wd2);
-// 	if (!weq(wd1,"y")&&!weq(wd1,"yes")) return(2608);
-// 	pspeak(dragon,1);
-// 	prop[dragon]=2;
-// 	prop[rug]=0;
-// 	k=(plac[dragon]+fixd[dragon])/2;
-// 	move(dragon+100,-1);
-// 	move(rug+100,0);
-// 	move(dragon,k);
-// 	move(rug,k);
-// 	for (obj=1; obj<=100; obj++)
-// 		if (place[obj]==plac[dragon]||place[obj]==fixd[dragon])
-// 			move(obj,k);
-// 	loc=k;
-// 	k=null;
-// 	return(8);
-// }
+int tropen()                                        /* 9040                 */
+{       if (obj==clam||obj==oyster)
+	{       k=0;                            /* 9046                 */
+		if (obj==oyster) k=1;
+		spk=124+k;
+		if (toting(obj)) spk=120+k;
+		if (!toting(tridnt)) spk=122+k;
+		if (verb==lock) spk=61;
+		if (spk!=124) return(2011);
+		dstroy(clam);
+		drop(oyster,loc);
+		drop(pearl,105);
+		return(2011);
+	}
+	if (obj==door) spk=111;
+	if (obj==door&&prop[door]==1) spk=54;
+	if (obj==cage) spk=32;
+	if (obj==keys) spk=55;
+	if (obj==grate||obj==chain) spk=31;
+	if (spk!=31||!here(keys)) return(2011);
+	if (obj==chain)
+	{       if (verb==lock)
+		{       spk=172;                /* 9049: lock           */
+			if (prop[chain]!=0) spk=34;
+			if (loc!=plac[chain]) spk=173;
+			if (spk!=172) return(2011);
+			prop[chain]=2;
+			if (toting(chain)) drop(chain,loc);
+			fixed[chain]= -1;
+			return(2011);
+		}
+		spk=171;
+		if (prop[bear]==0) spk=41;
+		if (prop[chain]==0) spk=37;
+		if (spk!=171) return(2011);
+		prop[chain]=0;
+		fixed[chain]=0;
+		if (prop[bear]!=3) prop[bear]=2;
+		fixed[bear]=2-prop[bear];
+		return(2011);
+	}
+	if (closng)
+	{       k=130;
+		if (!panic) clock2=15;
+		panic=TRUE;
+		return(2010);
+	}
+	k=34+prop[grate];                       /* 9043                 */
+	prop[grate]=1;
+	if (verb==lock) prop[grate]=0;
+	k=k+2*prop[grate];
+	return(2010);
+}
 
 
-// trtoss()                                /* 9170: throw                  */
-// {       register int i;
-// 	if (toting(rod2)&&obj==rod&&!toting(rod)) obj=rod2;
-// 	if (!toting(obj)) return(2011);
-// 	if (obj>=50&&obj<=maxtrs&&at(troll))
-// 	{       spk=159;                        /* 9178                 */
-// 		drop(obj,0);
-// 		move(troll,0);
-// 		move(troll+100,0);
-// 		drop(troll2,plac[troll]);
-// 		drop(troll2+100,fixd[troll]);
-// 		juggle(chasm);
-// 		return(2011);
-// 	}
-// 	if (obj==food&&here(bear))
-// 	{       obj=bear;                       /* 9177                 */
-// 		return(9210);
-// 	}
-// 	if (obj!=axe) return(9020);
-// 	for (i=1; i<=5; i++)
-// 	{       if (dloc[i]==loc)
-// 		{       spk=48;                 /* 9172                 */
-// 			if (ran(3)==0||saved!= -1)
-// 		l9175:  {       rspeak(spk);
-// 				drop(axe,loc);
-// 				k=null;
-// 				return(8);
-// 			}
-// 			dseen[i]=FALSE;
-// 			dloc[i]=0;
-// 			spk=47;
-// 			dkill++;
-// 			if (dkill==1) spk=149;
-// 			goto l9175;
-// 		}
-// 	}
-// 	spk=152;
-// 	if (at(dragon)&&prop[dragon]==0)
-// 		goto l9175;
-// 	spk=158;
-// 	if (at(troll)) goto l9175;
-// 	if (here(bear)&&prop[bear]==0)
-// 	{       spk=164;
-// 		drop(axe,loc);
-// 		fixed[axe]= -1;
-// 		prop[axe]=1;
-// 		juggle(bear);
-// 		return(2011);
-// 	}
-// 	obj=0;
-// 	return(9120);
-// }
+int trkill()                                /* 9120                         */
+{       register int i;
+	for (i=1; i<=5; i++)
+		if (dloc[i]==loc&&dflag>=2) break;
+	if (i==6) i=0;
+	if (obj==0)                     /* 9122                         */
+	{       if (i!=0) obj=dwarf;
+		if (here(snake)) obj=obj*100+snake;
+		if (at(dragon)&&prop[dragon]==0) obj=obj*100+dragon;
+		if (at(troll)) obj=obj*100+troll;
+		if (here(bear)&&prop[bear]==0) obj=obj*100+bear;
+		if (obj>100) return(8000);
+		if (obj==0)
+		{       if (here(bird)&&verb!=throw) obj=bird;
+			if (here(clam)||here(oyster)) obj=100*obj+clam;
+			if (obj>100) return(8000);
+		}
+	}
+	if (obj==bird)                  /* 9124                         */
+	{       spk=137;
+		if (closed) return(2011);
+		dstroy(bird);
+		prop[bird]=0;
+		if (place[snake]==plac[snake]) tally2++;
+		spk=45;
+	}
+	if (obj==0) spk=44;             /* 9125                         */
+	if (obj==clam||obj==oyster) spk=150;
+	if (obj==snake) spk=46;
+	if (obj==dwarf) spk=49;
+	if (obj==dwarf&&closed) return(19000);
+	if (obj==dragon) spk=147;
+	if (obj==troll) spk=157;
+	if (obj==bear) spk=165+(prop[bear]+1)/2;
+	if (obj!=dragon||prop[dragon]!=0) return(2011);
+	rspeak(49);
+	verb=0;
+	obj=0;
+	getin(&wd1,&wd2);
+	if (!weq(wd1,"y")&&!weq(wd1,"yes")) return(2608);
+	pspeak(dragon,1);
+	prop[dragon]=2;
+	prop[rug]=0;
+	k=(plac[dragon]+fixd[dragon])/2;
+	move(dragon+100,-1);
+	move(rug+100,0);
+	move(dragon,k);
+	move(rug,k);
+	for (obj=1; obj<=100; obj++)
+		if (place[obj]==plac[dragon]||place[obj]==fixd[dragon])
+			move(obj,k);
+	loc=k;
+	k=null;
+	return(8);
+}
 
 
-// trfeed()                                        /* 9210                 */
-// {       if (obj==bird)
-// 	{       spk=100;
-// 		return(2011);
-// 	}
-// 	if (obj==snake||obj==dragon||obj==troll)
-// 	{       spk=102;
-// 		if (obj==dragon&&prop[dragon]!=0) spk=110;
-// 		if (obj==troll) spk=182;
-// 		if (obj!=snake||closed||!here(bird)) return(2011);
-// 		spk=101;
-// 		dstroy(bird);
-// 		prop[bird]=0;
-// 		tally2++;
-// 		return(2011);
-// 	}
-// 	if (obj==dwarf)
-// 	{       if (!here(food)) return(2011);
-// 		spk=103;
-// 		dflag++;
-// 		return(2011);
-// 	}
-// 	if (obj==bear)
-// 	{       if (prop[bear]==0) spk=102;
-// 		if (prop[bear]==3) spk=110;
-// 		if (!here(food)) return(2011);
-// 		dstroy(food);
-// 		prop[bear]=1;
-// 		fixed[axe]=0;
-// 		prop[axe]=0;
-// 		spk=168;
-// 		return(2011);
-// 	}
-// 	spk=14;
-// 	return(2011);
-// }
+int trtoss()                                /* 9170: throw                  */
+{       register int i;
+	if (toting(rod2)&&obj==rod&&!toting(rod)) obj=rod2;
+	if (!toting(obj)) return(2011);
+	if (obj>=50&&obj<=maxtrs&&at(troll))
+	{       spk=159;                        /* 9178                 */
+		drop(obj,0);
+		move(troll,0);
+		move(troll+100,0);
+		drop(troll2,plac[troll]);
+		drop(troll2+100,fixd[troll]);
+		juggle(chasm);
+		return(2011);
+	}
+	if (obj==food&&here(bear))
+	{       obj=bear;                       /* 9177                 */
+		return(9210);
+	}
+	if (obj!=axe) return(9020);
+	for (i=1; i<=5; i++)
+	{       if (dloc[i]==loc)
+		{       spk=48;                 /* 9172                 */
+			if (ran(3)==0||saved!= -1)
+		l9175:  {       rspeak(spk);
+				drop(axe,loc);
+				k=null;
+				return(8);
+			}
+			dseen[i]=FALSE;
+			dloc[i]=0;
+			spk=47;
+			dkill++;
+			if (dkill==1) spk=149;
+			goto l9175;
+		}
+	}
+	spk=152;
+	if (at(dragon)&&prop[dragon]==0)
+		goto l9175;
+	spk=158;
+	if (at(troll)) goto l9175;
+	if (here(bear)&&prop[bear]==0)
+	{       spk=164;
+		drop(axe,loc);
+		fixed[axe]= -1;
+		prop[axe]=1;
+		juggle(bear);
+		return(2011);
+	}
+	obj=0;
+	return(9120);
+}
 
 
-// trfill()                                        /* 9220 */
-// {       if (obj==vase)
-// 	{       spk=29;
-// 		if (liqloc(loc)==0) spk=144;
-// 		if (liqloc(loc)==0||!toting(vase)) return(2011);
-// 		rspeak(145);
-// 		prop[vase]=2;
-// 		fixed[vase]= -1;
-// 		return(9020);           /* advent/10 goes to 9024 */
-// 	}
-// 	if (obj!=0&&obj!=bottle) return(2011);
-// 	if (obj==0&&!here(bottle)) return(8000);
-// 	spk=107;
-// 	if (liqloc(loc)==0) spk=106;
-// 	if (liq(0)!=0) spk=105;
-// 	if (spk!=107) return(2011);
-// 	prop[bottle]=((cond[loc]%4)/2)*2;
-// 	k=liq(0);
-// 	if (toting(bottle)) place[k]= -1;
-// 	if (k==oil) spk=108;
-// 	return(2011);
-// }
+int trfeed()                                        /* 9210                 */
+{       if (obj==bird)
+	{       spk=100;
+		return(2011);
+	}
+	if (obj==snake||obj==dragon||obj==troll)
+	{       spk=102;
+		if (obj==dragon&&prop[dragon]!=0) spk=110;
+		if (obj==troll) spk=182;
+		if (obj!=snake||closed||!here(bird)) return(2011);
+		spk=101;
+		dstroy(bird);
+		prop[bird]=0;
+		tally2++;
+		return(2011);
+	}
+	if (obj==dwarf)
+	{       if (!here(food)) return(2011);
+		spk=103;
+		dflag++;
+		return(2011);
+	}
+	if (obj==bear)
+	{       if (prop[bear]==0) spk=102;
+		if (prop[bear]==3) spk=110;
+		if (!here(food)) return(2011);
+		dstroy(food);
+		prop[bear]=1;
+		fixed[axe]=0;
+		prop[axe]=0;
+		spk=168;
+		return(2011);
+	}
+	spk=14;
+	return(2011);
+}
+
+
+int trfill()                                        /* 9220 */
+{       if (obj==vase)
+	{       spk=29;
+		if (liqloc(loc)==0) spk=144;
+		if (liqloc(loc)==0||!toting(vase)) return(2011);
+		rspeak(145);
+		prop[vase]=2;
+		fixed[vase]= -1;
+		return(9020);           /* advent/10 goes to 9024 */
+	}
+	if (obj!=0&&obj!=bottle) return(2011);
+	if (obj==0&&!here(bottle)) return(8000);
+	spk=107;
+	if (liqloc(loc)==0) spk=106;
+	if (liq(0)!=0) spk=105;
+	if (spk!=107) return(2011);
+	prop[bottle]=((cond[loc]%4)/2)*2;
+	k=liq(0);
+	if (toting(bottle)) place[k]= -1;
+	if (k==oil) spk=108;
+	return(2011);
+}
 
 
 int closing()                               /* 10000 */

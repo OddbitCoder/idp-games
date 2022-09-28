@@ -6,8 +6,8 @@
 
 struct travptr {
 	char tverb;
-	uint tloc;
-	uint conditions;
+	UINT16 tloc;
+	UINT16 conditions;
 	char *ptr;
 	char *eod;
 };

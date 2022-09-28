@@ -50,12 +50,16 @@
 
 # include "hdr.h"
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "io.h"
+#include "save.h"
 #include "../common/utils.h"
 
 //datime
-// datime(d,t)
-// int *d,*t;
-// {       int tvec[2],*tptr;
+void datime(int *d,int *t)
+//int *d,*t;
+{       int tvec[2],*tptr;
 // 	int *localtime();
 
 // 	time(tvec);
@@ -64,7 +68,7 @@
 // 	/* bug: this will overflow in the year 2066 AD                  */
 // 	/* it will be attributed to Wm the C's millenial celebration    */
 // 	*t=tptr[2]*60+tptr[1];          /* and minutes since midnite    */
-// }                                       /* pretty painless              */
+}                                       /* pretty painless              */
 
 
 char magic[6];
@@ -118,22 +122,18 @@ void poof()
 // }
 
 //ciao
-// ciao(cmdfile)
-// char *cmdfile;
-// {       register char *c;
-// 	register int outfd, size;
-// 	char fname[80], buf[512];
-// 	extern unsigned filesize;
-
-// 	printf("What would you like to call the saved version?\n");
-// 	for (c=fname;; c++)
-// 		if ((*c=getchar())=='\n') break;
-// 	*c=0;
-// 	if (save(fname) != 0) return;           /* Save failed */
-// 	printf("To resume, say \"adventure %s\".\n", fname);
-// 	printf("\"With these rooms I might now have been familiarly acquainted.\"\n");
-// 	exit(0);
-// }
+void ciao(char *cmdfile)
+//char *cmdfile;
+{
+    static char fname[80];
+ 	printf("What would you like to call the saved version?\n\r");
+    conin();
+    parsein(fname, NULL, 80, 0);
+ 	if (save(fname) != 0) return;           /* Save failed */
+ 	printf("To resume, say \"adventure %s\".\n\r", fname);
+ 	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
+	exit(0);
+}
 
 
 //ran
