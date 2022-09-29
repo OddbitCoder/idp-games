@@ -102,21 +102,21 @@ struct text
 };
 
 #define RTXSIZ  205
-extern struct text rtext[RTXSIZ];              /* random text messages         */
+extern const struct text rtext[RTXSIZ];              /* random text messages         */
 
 #define MAGSIZ  35
-extern struct text mtext[MAGSIZ];              /* magic messages               */
+extern const struct text mtext[MAGSIZ];              /* magic messages               */
 
-extern int clsses;
+extern const int clsses;
 #define CLSMAX  12
-extern struct text ctext[CLSMAX];              /* classes of adventurer        */
-extern int cval[CLSMAX];
+extern const struct text ctext[CLSMAX];              /* classes of adventurer        */
+extern const int cval[CLSMAX];
 
-extern struct text ptext[101];                 /* object descriptions          */
+extern const struct text ptext[101];                 /* object descriptions          */
 
 #define LOCSIZ  141                     /* number of locations          */
-extern struct text ltext[LOCSIZ];              /* long loc description         */
-extern struct text stext[LOCSIZ];              /* short loc descriptions       */
+extern const struct text ltext[LOCSIZ];              /* long loc description         */
+extern const struct text stext[LOCSIZ];              /* short loc descriptions       */
 
 //struct travlist                         /* direcs & conditions of travel*/
 //{       struct travlist *next;          /* ptr to next list entry       */
@@ -124,23 +124,23 @@ extern struct text stext[LOCSIZ];              /* short loc descriptions       *
 //	int tloc;                       /* n in writeup (newloc % 1000) */
 //	int tverb;                      /* the verb that takes you there*/
 //}; 
-//extern struct travlist *travel[LOCSIZ];
 extern struct travptr *tkk;
-extern char *newtravel[LOCSIZ];
+extern const char *travel[LOCSIZ];
 
 extern int atloc[LOCSIZ];
 
-extern int  plac[101];                         /* initial object placement     */
-extern int  fixd[101],fixed[101];              /* location fixed?              */
+extern const int  plac[101];                         /* initial object placement     */
+extern const int  fixd[101];
+extern int  fixed[101];              /* location fixed?              */
 
-extern int actspk[35];                         /* rtext msg for verb <n>       */
+extern const int actspk[35];                         /* rtext msg for verb <n>       */
 
-extern int cond[LOCSIZ];                       /* various condition bits       */
+extern const int cond[LOCSIZ];                       /* various condition bits       */
 
 extern long setbit[16];                  /* bit defn masks 1,2,4,...     */
 
-extern int hntmax;
-extern int hints[20][5];                       /* info on hints                */
+extern const int hntmax;
+extern const int hints[20][5];                       /* info on hints                */
 extern int hinted[20],hintlc[20];
 
 extern int place[101], prop[101],link[201];

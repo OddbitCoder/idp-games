@@ -245,7 +245,7 @@ int fdwarf()		/* 71 */
 int march()                                        /* label 8              */
 {       register int ll1,ll2;
 
-	if (newtravel[newloc=loc][0]==0) bug(26);
+	if (travel[newloc=loc][0]==0) bug(26);
 	tstart(tkk,newloc);
 	if (k==null) return(2);
 	if (k==cave)                            /* 40                   */

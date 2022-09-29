@@ -2,7 +2,7 @@
 #include "trav.h"
 
 struct travptr *tstart(struct travptr *tptr, char idx) {
-	tptr->ptr = newtravel[idx];
+	tptr->ptr = travel[idx];
 	tptr->eod = tptr->ptr + *tptr->ptr;
 	tptr->ptr++;
 	tptr->tverb = *tptr->ptr & 127;

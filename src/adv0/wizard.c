@@ -52,6 +52,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "io.h"
 #include "save.h"
 #include "../common/utils.h"
@@ -59,11 +60,11 @@
 //datime
 void datime(int *d,int *t)
 //int *d,*t;
-{       int tvec[2],*tptr;
-// 	int *localtime();
+{       int *tptr;
+    time_t tm;
 
-// 	time(tvec);
-// 	tptr=localtime(tvec);
+// 	time(&tm);
+// 	tptr=(int *)localtime(&tm);
 // 	*d=tptr[7]+365*(tptr[5]-77);    /* day since 1977  (mod leap)   */
 // 	/* bug: this will overflow in the year 2066 AD                  */
 // 	/* it will be attributed to Wm the C's millenial celebration    */

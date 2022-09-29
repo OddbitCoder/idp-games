@@ -23,7 +23,7 @@ Text file contents (TEXT.BIN):
 * Sect 12 mtext
 */
 
-struct text ltext[LOCSIZ] = { // section 1
+const struct text ltext[LOCSIZ] = { // section 1
 	/* 0 */ { 0, 0 },
 	/* 1 */ { 0, 154 }, /* You are standing at the end of a road before a small brick building.
 	Around you is a forest.  A small stream flows out of the building and
@@ -327,7 +327,7 @@ struct text ltext[LOCSIZ] = { // section 1
 	/* 140 */ { 17136, 8 } /* Dead end */
 };
 
-struct text stext[LOCSIZ] = { // section 2
+const struct text stext[LOCSIZ] = { // section 2
 	/* 0 */ { 17144, 0 },
 	/* 1 */ { 17144, 28 }, /* You're at end of road again. */
 	/* 2 */ { 17172, 23 }, /* You're at hill in road. */
@@ -461,7 +461,7 @@ struct text stext[LOCSIZ] = { // section 2
 	/* 130 */ { 18765, 22 } /* You're in Barren Room. */
 };
 
-struct text ptext[101] = { // section 5
+const struct text ptext[101] = { // section 5
 	/* 0 */ { 18787, 0 },
 	/* 1 */ { 18787, 56 }, /* Set of keys
 	000     There are some keys on the ground here. */
@@ -625,7 +625,7 @@ struct text ptext[101] = { // section 5
 	200     There is a golden chain locked to the wall! */
 };
 
-struct text rtext[RTXSIZ] = { // section 6
+const struct text rtext[RTXSIZ] = { // section 6
 	/* 0 */ { 24113, 0 },
 	/* 1 */ { 24113, 758 }, /* Somewhere nearby is Colossal Cave, where others have found fortunes in
 	treasure and gold, though it is rumored that some who enter are never
@@ -961,7 +961,7 @@ struct text rtext[RTXSIZ] = { // section 6
 	slept.  You disappear in a cloud of greasy black smoke. */
 };
 
-struct text mtext[MAGSIZ] = { // section 12
+const struct text mtext[MAGSIZ] = { // section 12
 	/* 0 */ { 41048, 0 },
 	/* 1 */ { 41048, 322 }, /* A large cloud of green smoke appears in front of you.  It clears away
 	to reveal a tall wizard, clothed in grey.  He fixes you with a steely
@@ -1003,9 +1003,9 @@ struct text mtext[MAGSIZ] = { // section 12
 	/* 32 */ { 42797, 34 } /* Be sure to save your core-image... */
 };
 
-int clsses = 10;
+const int clsses = 10;
 
-struct text ctext[CLSMAX] = { // section 10
+const struct text ctext[CLSMAX] = { // section 10
 	{ 0, 0 },
 	{ "You are obviously a rank amateur.  Better luck next time.", 57 }, 
 	{ "Your score qualifies you as a Novice class Adventurer.", 54 },
@@ -1018,7 +1018,7 @@ struct text ctext[CLSMAX] = { // section 10
 	{ "All of Adventuredom gives tribute to you, Adventurer Grandmaster!", 65 } 
 };
 
-int cval[CLSMAX] = { // section 10
+const int cval[CLSMAX] = { // section 10
 	0,
 	35,
 	100,
@@ -1031,7 +1031,7 @@ int cval[CLSMAX] = { // section 10
 	9999
 };
 
-char *newtravel[LOCSIZ] = { // section 3
+const char *travel[LOCSIZ] = { // section 3
 	"\x00",
 	"\x24\x82\x02\x00\x00\x00\x2C\x1D\x83\x03\x00\x00\x00\x0C\x13\x2B\x85\x04\x00\x00\x00\x0D\x0E\x2E\x1E\x86\x05\x00\x00\x00\x2D\x2B\xBF\x08\x00\x00\x00",
 	"\x11\x82\x01\x00\x00\x00\x0C\x07\x2B\x2D\x1E\x86\x05\x00\x00\x00\x2D\x2E",
@@ -1175,9 +1175,9 @@ char *newtravel[LOCSIZ] = { // section 3
 	"\x06\xAD\x70\x00\x00\x00\x0B"
 };
 
-int hntmax = 9;
+const int hntmax = 9;
 
-int hints[20][5] = { // section 11
+const int hints[20][5] = { // section 11
 /* 0 */	{ 0, 0, 0, 0, 0 },
 /* 1 */	{ 0, 0, 0, 0, 0 },
 /* 2 */	{ 0, 9999, 10, 0, 0 },
@@ -1190,19 +1190,19 @@ int hints[20][5] = { // section 11
 /* 9 */	{ 0, 20, 3, 180, 181 }
 };
 
-int fixd[101] = { // section 7 1/2
+const int fixd[101] = { // section 7 1/2
 	0, 0, 0, 9, 0, 0, 0, 15, 0, -1, 0, -1, 27, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1, 67, -1, 110, 0, -1, -1, 121, 122, 122, 0, -1, -1, -1, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 121, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-int plac[101] = { // section 7 2/2
+const int plac[101] = { // section 7 2/2
 	0, 3, 3, 8, 10, 11, 0, 14, 13, 94, 96, 19, 17, 101, 103, 0, 106, 0, 0, 3, 3, 0, 0, 109, 25, 23, 111, 35, 0, 97, 0, 119, 117, 117, 0, 130, 0, 126, 140, 0, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 27, 28, 29, 30, 0, 92, 95, 97, 100, 101, 0, 119, 127, 130, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0	
 };
 
-int cond[LOCSIZ] = { // section 9
+const int cond[LOCSIZ] = { // section 9
 	0, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 0, 0, 7, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 0, 0, 1, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 3, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-int actspk[35] = { // section 8
+const int actspk[35] = { // section 8
 	0, 24, 29, 0, 33, 0, 33, 38, 38, 42, 14, 43, 110, 29, 110, 73, 75, 29, 13, 59, 59, 174, 109, 67, 13, 147, 155, 195, 146, 110, 13, 13, 0, 0, 0
 };
 

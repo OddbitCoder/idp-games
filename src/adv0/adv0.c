@@ -80,12 +80,7 @@ void main(int argc,char **argv)
 // 		perror("setuid");
 
 	init(0);         /* Initialize everything */
-	char *a, *b;
-	getin(&a, &b);
-	printf(a);
-	printf("\n\r");
-	printf(b);
-	return;
+
 // 	signal(SIGINT,trapdel);
 
 // 	if (argc > 1)   /* Restore file specified */
@@ -186,7 +181,7 @@ void main(int argc,char **argv)
 
 		if (verb==say && *wd2!=0) verb=0;
 		if (verb==say)
-			/*goto l4090*/; //WARNME
+			goto l4090;
 		if (tally==0 && loc>=15 && loc!=33) clock1--;
 		if (clock1==0)
 		{       closing();                      /* to 10000     */
@@ -231,7 +226,7 @@ void main(int argc,char **argv)
 		if (weq(wd1,"enter") &&
 		    (weq(wd2,"strea")||weq(wd2,"water")))
 			goto l2010;
-		if (weq(wd1,"enter") && *wd2!=0) /*goto l2800*/;//WARNME
+		if (weq(wd1,"enter") && *wd2!=0) goto l2800;
 		if ((!weq(wd1,"water")&&!weq(wd1,"oil"))
 		    || (!weq(wd2,"plant")&&!weq(wd2,"door")))
 			goto l2610;
@@ -251,8 +246,8 @@ void main(int argc,char **argv)
 		kq=i/1000+1;
 		switch(kq)
 		{   case 1: goto l8;
-		    case 2: /*goto l5000*/;//WARNME
-		    case 3: /*goto l4000*/;//WARNME
+		    case 2: goto l5000;
+		    case 3: goto l4000;
 		    case 4: goto l2010;
 		    default:
 			printf("Error 22\n");
@@ -540,7 +535,7 @@ void main(int argc,char **argv)
 			rspeak(bonus);
 			done(2);
 	l9270:      case 27:                    /* read                 */
-			if (dark(0)) /*goto l5190*/;//WARNME
+			if (dark(0)) goto l5190;
 			if (obj==magzin) spk=190;
 			if (obj==tablet) spk=196;
 			if (obj==messag) spk=191;
