@@ -58,12 +58,9 @@
 
 /* hdr.h: included by c advent files */
 
-typedef unsigned int UINT16;
-typedef unsigned char UINT8;
-typedef unsigned char BYTE;
-typedef signed char INT8;
-typedef INT8 BOOL;
+#include "types.h"
 
+//
 // int datfd;                              /* message file descriptor      */
 extern int delhit;
 extern int yea;
@@ -124,8 +121,8 @@ extern const struct text stext[LOCSIZ];              /* short loc descriptions  
 //	int tloc;                       /* n in writeup (newloc % 1000) */
 //	int tverb;                      /* the verb that takes you there*/
 //}; 
+extern const UINT8 *travel[LOCSIZ];
 extern struct travptr *tkk;
-extern const char *travel[LOCSIZ];
 
 extern int atloc[LOCSIZ];
 
@@ -137,7 +134,7 @@ extern const int actspk[35];                         /* rtext msg for verb <n>  
 
 extern const int cond[LOCSIZ];                       /* various condition bits       */
 
-extern long setbit[16];                  /* bit defn masks 1,2,4,...     */
+extern int setbit[16];                  /* bit defn masks 1,2,4,...     */
 
 extern const int hntmax;
 extern const int hints[20][5];                       /* info on hints                */
@@ -180,6 +177,6 @@ char *decr(char a,char b,char c,char d,char e);
 
 #define BUFFER_SIZE 1024
 
-extern char buffer[BUFFER_SIZE];
+extern UINT8 buffer[BUFFER_SIZE];
 
 #endif

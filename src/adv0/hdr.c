@@ -1,3 +1,11 @@
+/*
+ * hdr.c
+ *
+ * Miha Grčar 2022
+ *
+ * Stuff from hdr.h
+ */
+
 #include "hdr.h"
 #include "trav.h"
 
@@ -20,6 +28,7 @@ Text file contents (TEXT.BIN):
 * Sect 2  stext
 * Sect 5  ptext
 * Sect 6  rtext
+* Sect 10 ctext
 * Sect 12 mtext
 */
 
@@ -962,60 +971,60 @@ const struct text rtext[RTXSIZ] = { // section 6
 };
 
 const struct text mtext[MAGSIZ] = { // section 12
-	/* 0 */ { 41048, 0 },
-	/* 1 */ { 41048, 322 }, /* A large cloud of green smoke appears in front of you.  It clears away
+	/* 0 */ { 41520, 0 },
+	/* 1 */ { 41520, 322 }, /* A large cloud of green smoke appears in front of you.  It clears away
 	to reveal a tall wizard, clothed in grey.  He fixes you with a steely
 	glare and declares, "This adventure has lasted too long."  With that
 	he makes a single pass over you with his hands, and everything around
 	you fades away into a grey nothingness. */
-	/* 2 */ { 41370, 43 }, /* Even wizards have to wait longer than that! */
-	/* 3 */ { 41413, 64 }, /* I'm terribly sorry, but Colossal Cave is closed.  Our hours are: */
-	/* 4 */ { 41477, 53 }, /* Only wizards are permitted within the cave right now. */
-	/* 5 */ { 41530, 97 }, /* We do allow visitors to make short explorations during our off hours.
+	/* 2 */ { 41842, 43 }, /* Even wizards have to wait longer than that! */
+	/* 3 */ { 41885, 64 }, /* I'm terribly sorry, but Colossal Cave is closed.  Our hours are: */
+	/* 4 */ { 41949, 53 }, /* Only wizards are permitted within the cave right now. */
+	/* 5 */ { 42002, 97 }, /* We do allow visitors to make short explorations during our off hours.
 	Would you like to do that? */
-	/* 6 */ { 41627, 68 }, /* Colossal Cave is open to regular adventurers at the following hours: */
-	/* 7 */ { 41695, 10 }, /* Very well. */
-	/* 8 */ { 41705, 50 }, /* Only a wizard may continue an adventure this soon. */
-	/* 9 */ { 41755, 52 }, /* I suggest you resume your adventure at a later time. */
-	/* 10 */ { 41807, 29 }, /* Do you wish to see the hours? */
-	/* 11 */ { 41836, 32 }, /* Do you wish to change the hours? */
-	/* 12 */ { 41868, 41 }, /* New magic word (null to leave unchanged): */
-	/* 13 */ { 41909, 43 }, /* New magic number (null to leave unchanged): */
-	/* 14 */ { 41952, 45 }, /* Do you wish to change the message of the day? */
-	/* 15 */ { 41997, 37 }, /* Okay.  You can save this version now. */
-	/* 16 */ { 42034, 17 }, /* Are you a wizard? */
-	/* 17 */ { 42051, 30 }, /* Prove it!  Say the magic word! */
-	/* 18 */ { 42081, 70 }, /* That is not what I thought it was.  Do you know what I thought it was? */
-	/* 19 */ { 42151, 69 }, /* Oh dear, you really *are* a wizard!  Sorry to have bothered you . . . */
-	/* 20 */ { 42220, 37 }, /* Foo, you are nothing but a charlatan! */
-	/* 21 */ { 42257, 137 }, /* New hours specified by defining "prime time".  Give only the hour
+	/* 6 */ { 42099, 68 }, /* Colossal Cave is open to regular adventurers at the following hours: */
+	/* 7 */ { 42167, 10 }, /* Very well. */
+	/* 8 */ { 42177, 50 }, /* Only a wizard may continue an adventure this soon. */
+	/* 9 */ { 42227, 52 }, /* I suggest you resume your adventure at a later time. */
+	/* 10 */ { 42279, 29 }, /* Do you wish to see the hours? */
+	/* 11 */ { 42308, 32 }, /* Do you wish to change the hours? */
+	/* 12 */ { 42340, 41 }, /* New magic word (null to leave unchanged): */
+	/* 13 */ { 42381, 43 }, /* New magic number (null to leave unchanged): */
+	/* 14 */ { 42424, 45 }, /* Do you wish to change the message of the day? */
+	/* 15 */ { 42469, 37 }, /* Okay.  You can save this version now. */
+	/* 16 */ { 42506, 17 }, /* Are you a wizard? */
+	/* 17 */ { 42523, 30 }, /* Prove it!  Say the magic word! */
+	/* 18 */ { 42553, 70 }, /* That is not what I thought it was.  Do you know what I thought it was? */
+	/* 19 */ { 42623, 69 }, /* Oh dear, you really *are* a wizard!  Sorry to have bothered you . . . */
+	/* 20 */ { 42692, 37 }, /* Foo, you are nothing but a charlatan! */
+	/* 21 */ { 42729, 137 }, /* New hours specified by defining "prime time".  Give only the hour
 	(E.g. 14, not 14:00 or 2pm).  Enter a negative number after last pair. */
-	/* 22 */ { 42394, 28 }, /* New hours for Colossal Cave: */
-	/* 23 */ { 42422, 45 }, /* Limit lines to 70 chars.  End with null line. */
-	/* 24 */ { 42467, 22 }, /* Line too long, retype: */
-	/* 25 */ { 42489, 55 }, /* Not enough room for another line.  Ending message here. */
-	/* 26 */ { 42544, 45 }, /* Do you wish to (re)schedule the next holiday? */
-	/* 27 */ { 42589, 34 }, /* To begin how many days from today? */
-	/* 28 */ { 42623, 43 }, /* To last how many days (zero if no holiday)? */
-	/* 29 */ { 42666, 40 }, /* To be called what (up to 20 characters)? */
-	/* 30 */ { 42706, 48 }, /* Too small!  Assuming minimum value (45 minutes). */
-	/* 31 */ { 42754, 43 }, /* Break out of this and save your core-image. */
-	/* 32 */ { 42797, 34 } /* Be sure to save your core-image... */
+	/* 22 */ { 42866, 28 }, /* New hours for Colossal Cave: */
+	/* 23 */ { 42894, 45 }, /* Limit lines to 70 chars.  End with null line. */
+	/* 24 */ { 42939, 22 }, /* Line too long, retype: */
+	/* 25 */ { 42961, 55 }, /* Not enough room for another line.  Ending message here. */
+	/* 26 */ { 43016, 45 }, /* Do you wish to (re)schedule the next holiday? */
+	/* 27 */ { 43061, 34 }, /* To begin how many days from today? */
+	/* 28 */ { 43095, 43 }, /* To last how many days (zero if no holiday)? */
+	/* 29 */ { 43138, 40 }, /* To be called what (up to 20 characters)? */
+	/* 30 */ { 43178, 48 }, /* Too small!  Assuming minimum value (45 minutes). */
+	/* 31 */ { 43226, 43 }, /* Break out of this and save your core-image. */
+	/* 32 */ { 43269, 34 } /* Be sure to save your core-image... */
 };
 
 const int clsses = 10;
 
 const struct text ctext[CLSMAX] = { // section 10
-	{ 0, 0 },
-	{ "You are obviously a rank amateur.  Better luck next time.", 57 }, 
-	{ "Your score qualifies you as a Novice class Adventurer.", 54 },
-	{ "You have achieved the rating: \"Experienced Adventurer\".", 55 }, 
-	{ "You may now consider yourself a \"Seasoned Adventurer\".", 54 }, 
-	{ "You have reached \"Junior Master\" status.", 40 }, 
-	{ "Your score puts you in Master Adventurer Class C.", 49 }, 
-	{ "Your score puts you in Master Adventurer Class B.", 49 }, 
-	{ "Your score puts you in Master Adventurer Class A.", 49 }, 
-	{ "All of Adventuredom gives tribute to you, Adventurer Grandmaster!", 65 } 
+	{ 41048, 0 },
+	{ 41048, 57 }, /* You are obviously a rank amateur.  Better luck next time. */
+	{ 41105, 54 }, /* Your score qualifies you as a Novice class Adventurer. */
+	{ 41159, 55 }, /* You have achieved the rating: "Experienced Adventurer". */
+	{ 41214, 54 }, /* You may now consider yourself a "Seasoned Adventurer". */
+	{ 41268, 40 }, /* You have reached "Junior Master" status. */
+	{ 41308, 49 }, /* Your score puts you in Master Adventurer Class C. */
+	{ 41357, 49 }, /* Your score puts you in Master Adventurer Class B. */
+	{ 41406, 49 }, /* Your score puts you in Master Adventurer Class A. */
+	{ 41455, 65 } /* All of Adventuredom gives tribute to you, Adventurer Grandmaster! */
 };
 
 const int cval[CLSMAX] = { // section 10
@@ -1031,7 +1040,7 @@ const int cval[CLSMAX] = { // section 10
 	9999
 };
 
-const char *travel[LOCSIZ] = { // section 3
+const UINT8 *travel[LOCSIZ] = { // section 3
 	"\x00",
 	"\x24\x82\x02\x00\x00\x00\x2C\x1D\x83\x03\x00\x00\x00\x0C\x13\x2B\x85\x04\x00\x00\x00\x0D\x0E\x2E\x1E\x86\x05\x00\x00\x00\x2D\x2B\xBF\x08\x00\x00\x00",
 	"\x11\x82\x01\x00\x00\x00\x0C\x07\x2B\x2D\x1E\x86\x05\x00\x00\x00\x2D\x2E",
@@ -1246,4 +1255,4 @@ char *wd1 = 0, *wd2 = 0;
 
 int blklin = 0;
 
-char buffer[BUFFER_SIZE];
+UINT8 buffer[BUFFER_SIZE];
