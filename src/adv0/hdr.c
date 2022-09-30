@@ -3,7 +3,7 @@
  *
  * Miha Grčar 2022
  *
- * Stuff from hdr.h
+ * Stuff from hdr.h and glorkz
  */
 
 #include "hdr.h"

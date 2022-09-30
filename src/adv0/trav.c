@@ -1,7 +1,15 @@
+/*
+ * trav.c
+ *
+ * Miha Grčar 2022
+ *
+ * Travel table "pointer"
+ */
+
 #include <stdio.h>
 #include "trav.h"
 
-struct travptr *tstart(struct travptr *tptr, char idx) {
+struct travptr *tstart(struct travptr *tptr, UINT8 idx) {
 	tptr->ptr = travel[idx];
 	tptr->eod = tptr->ptr + *tptr->ptr;
 	tptr->ptr++;
@@ -45,11 +53,11 @@ struct travptr *tset(struct travptr *a, struct travptr *b) {
 	return a;
 }
 
-bool tlast(struct travptr *tptr) {
+BOOL tlast(struct travptr *tptr) {
 	return tptr->ptr == tptr->eod;
 }
 
-bool tvalid(struct travptr *tptr) {
+BOOL tvalid(struct travptr *tptr) {
 	return tptr->ptr <= tptr->eod;
 }
 
