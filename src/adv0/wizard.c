@@ -52,16 +52,15 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "io.h"
 #include "save.h"
-#include "../common/utils.h"
+#include "utils.h"
 
 //datime
 void datime(int *d,int *t)
 //int *d,*t;
 {       int *tptr;
-    time_t tm;
+//  time_t tm;
 
 // 	time(&tm);
 // 	tptr=(int *)localtime(&tm);
@@ -143,6 +142,6 @@ int ran(int range)
 {
 	long i;
 
-	i = sys_rand() % range;
+	i = rand() % range;
 	return(i);
 }

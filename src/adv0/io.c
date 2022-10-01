@@ -48,79 +48,19 @@
 
 /*      Re-coding of advent in C: file i/o and user i/o                 */
 
-#include "hdr.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <partner.h>
+#include "hdr.h"
 #include "io.h"
 #include "vocab.h"
 #include "trav.h"
 #include "subr.h"
+#include "utils.h"
 
-#define DEBUG
-
-#define VOC_BIN "voc.bin"
+#define VOC_BIN "VOC.BIN"
 #define VOC_BIN_SZ 2194
-#define TEXT_BIN "text.bin"
-
-void conin() {
-	printf("? ");
- 	char ch;
- 	UINT8 l = 0;
- 	do {
- 		// TODO: history, back/fwd arrow, insert, delete...
-	 	while (!(ch = kbhit()));
-	 	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == ' ') {
-	 		if (l < 2 * MAXSTR + 1) {
-	 			buffer[l] = ch;
-	 			printf("%c", ch);
-		 		buffer[++l] = '\0'; 
-	 		} 
-	 	} else if (ch == '\b') { 
-	 		if (l > 0) {
-	 			printf("\b \b");
-	 			buffer[--l] = '\0';
-	 		}
-	 	} 
-	} while (ch != '\r' || l == 0);
-	printf("\n\r");
-}
-
-void parsein(char *wd1buf, char *wd2buf, int maxwd1, int maxwd2) {
-	// word 1
-	char *p = buffer, *r;
-	for (; *p == ' '; p++);
-	r = p;
-	UINT8 l = 0;
-	for (; *p != ' ' && *p != '\0'; p++, l++);
-	if (l >= maxwd1) {
-		memcpy(wd1buf, r, maxwd1 - 1);
-		wd1buf[maxwd1 - 1] = '\0';
-	} else {
-		memcpy(wd1buf, r, l);
-		wd1buf[l] = '\0';
-	}
-	// word 2
-	wd2buf[0] = '\0';
-	if (maxwd2 > 0) {
-		for (; *p == ' '; p++); 
-		if (*p != '\0') { // is there a word?
-			r = p;
-			l = 0;
-			for (; *p != ' ' && *p != '\0'; p++, l++);
-			if (l >= maxwd2) {
-				memcpy(wd2buf, r, maxwd2 - 1);
-				wd2buf[maxwd2 - 1] = '\0';
-			} else {
-				memcpy(wd2buf, r, l);
-				wd2buf[l] = '\0';
-			}
-		}
-	}
-}
+#define TEXT_BIN "TEXT.BIN"
 
 //getin
 void getin(char **wrd1,char **wrd2)                        /* get command from user        */
@@ -208,7 +148,6 @@ int yes(int x,int y,int z)                              /* confirm with rspeak  
 // 	return(ch);
 // }
 
-//diffsync1
 // char breakch;                           /* tell which char ended rnum   */
 
 //rdata
@@ -378,38 +317,27 @@ void twrite(int loq)                             /* travel options from this loc
 void rvoc()               /* read the vocabulary          */
 {
 	static char word_buf[6];
-	int fd = open(VOC_BIN, O_RDONLY);
-	ssize_t read_size = 0;
-	size_t tail = 0;
-	UINT16 full_read_sz = 0;
-	do {
-		read_size = read(fd, buffer + tail, BUFFER_SIZE - tail);
-		char *row = buffer;
-		char *eod = buffer + tail + read_size;
-		do {
-			// get word length
-			char word_len = *row;
-			// did we read the entire row?
-			if (row + word_len + 3 >= eod) { break; }
-			row++;
-			// read word index
-			UINT16 word_idx = *(UINT16 *)row;
-			row += 2;
-			// process word
-			memcpy(word_buf, row, word_len);
+	UINT16 len = 0;
+	while (len < VOC_BIN_SZ) {
+		UINT16 read_sz = (len + BUFFER_SIZE) >= VOC_BIN_SZ ? (VOC_BIN_SZ - len) : BUFFER_SIZE;
+		fread(VOC_BIN, buffer, len, read_sz);
+		UINT8 *ptr = buffer;
+		UINT8 *eod = buffer + read_sz;
+		while (ptr < eod) {
+			UINT8 word_len = *ptr;
+			if (++ptr + 2 + word_len > eod) { 
+				break; 
+			}
+			UINT16 word_idx = *(UINT16 *)ptr;
+			ptr += 2;
+			memcpy(word_buf, ptr, word_len);
 			word_buf[word_len] = 0;
+			ptr += word_len;
+			//printf("%s. ", word_buf); 
 			vocab(word_buf, -2, word_idx);
-			//printf("%s ", word_buf);
-			row += word_len;
-			full_read_sz += word_len + 3;
-		} while (full_read_sz < VOC_BIN_SZ);
-		if (full_read_sz == VOC_BIN_SZ) { break; }
-	    tail = eod - row;
-	    if (tail > 0) { 
-	    	memcpy(buffer, row, tail);
+			len += 3 + word_len;
 		}
-	} while (true);
-	close(fd);
+	}
 }
 
 
@@ -475,13 +403,10 @@ void mspeak(int msg)
 void speak(struct text *msg)       /* read, decrypt, and print a message (not ptext)      */
 //struct text *msg;/* msg is a pointer to seek address and length of mess */
 {
-	int fd = open(TEXT_BIN, O_RDONLY);
-	lseek(fd, (long)msg->seekadr, SEEK_SET);
-	read(fd, buffer, msg->txtlen);
+	fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;
 	printf(buffer);
 	printf("\n\r");
-	close(fd);
 }
 
 
@@ -490,13 +415,10 @@ void pspeak(int m,int skip) /* read, decrypt an print a ptext message           
 //int m;         /* msg is the number of all the p msgs for this place  */
 //int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/
 {
+	// // if skip < 0, then print the first line, else print the line that matches skip * 100
 	struct text *msg = &ptext[m];
-	// if skip < 0, then print the first line, else print the line that matches skip * 100
-	int fd = open(TEXT_BIN, O_RDONLY);
-	lseek(fd, (long)msg->seekadr, SEEK_SET);
-	read(fd, buffer, msg->txtlen);
+	fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;
-	close(fd);
 	char *eod = buffer + msg->txtlen;
 	// do we print the first line? (inventory item)
 	if (skip < 0) {

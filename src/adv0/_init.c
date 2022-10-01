@@ -59,11 +59,10 @@
 #include "vocab.h"
 #include "_init.h"
 #include "wizard.h"
-#include "../common/utils.h"
 
 // int blklin = TRUE;
 
-long setbit[16] = {1,2,4,010,020,040,0100,0200,0400,01000,02000,04000,
+int setbit[16] = {1,2,4,010,020,040,0100,0200,0400,01000,02000,04000,
 		  010000,020000,040000,0100000};
 
 
@@ -112,7 +111,7 @@ void linkdata()                              /*  secondary data manipulation */
 
 	/*      array linkages          */
 	for (i=1; i<=LOCSIZ; i++)
-		if (ltext[i].seekadr!=0 && travel[i][0] != 0)
+		if (ltext[i].seekadr!=0 && travel[i].txtlen != 0)
 			if ((tstart(&tptr,i)->tverb)==1) ((int *)cond)[i]=2;
 	for (j=100; j>0; j--)
 		if (fixd[j]>0)
@@ -241,7 +240,7 @@ void startup()
 	//time_t time();
 
 	//demo=Start(0);
-    srand(timer());	/* random seed */
+//    srand(timer());	/* random seed */
 	/* srand(371);				/* non-random seed */
 	hinted[3]=yes(65,1,0);
 	newloc=1;

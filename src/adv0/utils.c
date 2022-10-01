@@ -3,11 +3,12 @@
  *
  * Miha Grčar 2022
  *
- * Adds functionality that is missing in idp_udev
+ * Various utils
  */
 
 #include <bdos.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "utils.h"
 
@@ -27,6 +28,15 @@ void exit(int status)
     status;
     // unfortunately, the status is lost in CP/M
     bdos(P_TERMCPM, 0);
+}
+
+int atoi(char *str)
+{
+    int res = 0;
+    for (int i = 0; str[i] != '\0'; ++i) {
+        res = res * 10 + str[i] - '0';
+    }
+    return res;
 }
 
 int fparse(char *path, fcb_t *fcb, UINT8 *area);
@@ -95,4 +105,60 @@ fread_done:
     free(fcb);
     free(dma);
 	return ret_val;
+}
+
+void conin() {
+    printf("? ");
+    char ch;
+    UINT8 l = 0;
+    do {
+        // TODO: history, back/fwd arrow, insert, delete...
+        while (!(ch = kbhit()));
+        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == ' ') {
+            if (l < 2 * MAXSTR + 1) {
+                buffer[l] = ch;
+                printf("%c", ch);
+                buffer[++l] = '\0'; 
+            } 
+        } else if (ch == '\b') { 
+            if (l > 0) {
+                printf("\b \b");
+                buffer[--l] = '\0';
+            }
+        } 
+    } while (ch != '\r' || l == 0);
+    printf("\n\r");
+}
+
+void parsein(char *wd1buf, char *wd2buf, int maxwd1, int maxwd2) {
+    // word 1
+    char *p = buffer, *r;
+    for (; *p == ' '; p++);
+    r = p;
+    UINT8 l = 0;
+    for (; *p != ' ' && *p != '\0'; p++, l++);
+    if (l >= maxwd1) {
+        memcpy(wd1buf, r, maxwd1 - 1);
+        wd1buf[maxwd1 - 1] = '\0';
+    } else {
+        memcpy(wd1buf, r, l);
+        wd1buf[l] = '\0';
+    }
+    // word 2
+    wd2buf[0] = '\0';
+    if (maxwd2 > 0) {
+        for (; *p == ' '; p++); 
+        if (*p != '\0') { // is there a word?
+            r = p;
+            l = 0;
+            for (; *p != ' ' && *p != '\0'; p++, l++);
+            if (l >= maxwd2) {
+                memcpy(wd2buf, r, maxwd2 - 1);
+                wd2buf[maxwd2 - 1] = '\0';
+            } else {
+                memcpy(wd2buf, r, l);
+                wd2buf[l] = '\0';
+            }
+        }
+    }
 }

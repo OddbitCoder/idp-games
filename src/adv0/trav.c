@@ -8,11 +8,12 @@
 
 #include <stdio.h>
 #include "trav.h"
+#include "utils.h"
 
 struct travptr *tstart(struct travptr *tptr, UINT8 idx) {
-	tptr->ptr = travel[idx];
-	tptr->eod = tptr->ptr + *tptr->ptr;
-	tptr->ptr++;
+	fread(TRAV_BIN, tptr->buffer, (UINT16)travel[idx].seekadr, travel[idx].txtlen);
+	tptr->ptr = buffer;
+	tptr->eod = tptr->ptr + travel[idx].txtlen;
 	tptr->tverb = *tptr->ptr & 127;
 	tptr->ptr++;
 	tptr->tloc = *(UINT16 *)tptr->ptr;
@@ -41,7 +42,7 @@ struct travptr *tnext(struct travptr *tptr) {
 
 struct travptr *tset(struct travptr *a, struct travptr *b) {
 	if (b == 0) {
-		a->ptr = (char *)1;
+		a->ptr = (UINT8 *)1;
 		a->eod = 0;
 	} else {
 		a->tverb = b->tverb;

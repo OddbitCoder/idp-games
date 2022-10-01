@@ -121,7 +121,7 @@ extern const struct text stext[LOCSIZ];              /* short loc descriptions  
 //	int tloc;                       /* n in writeup (newloc % 1000) */
 //	int tverb;                      /* the verb that takes you there*/
 //}; 
-extern const UINT8 *travel[LOCSIZ];
+extern const struct text travel[LOCSIZ];
 extern struct travptr *tkk;
 
 extern int atloc[LOCSIZ];

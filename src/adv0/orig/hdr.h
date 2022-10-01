@@ -55,6 +55,7 @@
 
 /* hdr.h: included by c advent files */
 
+//
 int datfd;                              /* message file descriptor      */
 int delhit;
 int yea;

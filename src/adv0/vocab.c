@@ -53,6 +53,7 @@
 #include <string.h>
 # include "hdr.h"
 #include "vocab.h"
+#include "utils.h"
 
 //dstroy
 void dstroy(int object)

@@ -9,8 +9,9 @@ int offset = 0;
 
 int sect = 1;
 
-var vocWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games\\src\\adv0\\voc.bin", FileMode.Create));
-var txtWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games\\src\\adv0\\text.bin", FileMode.Create));
+var vocWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\voc.bin", FileMode.Create));
+var txtWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\text.bin", FileMode.Create));
+var travWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\trav.bin", FileMode.Create));
 
 int[] cond = new int[141];
 
@@ -55,6 +56,36 @@ foreach (var line in lines.Select(l => l.Trim()))
                     Console.WriteLine($"{{ {offset + msgLen}, 0 }},");
                 }
             }
+            txtWriter.Write(msg.Select(ch => (byte)ch).ToArray());
+            offset += msgLen;
+            msg = "";
+            prevMsgId = msgId;
+            msgLen = 0;
+        }
+        if (msgId != -1)
+        {
+            var msgPart = split[1].Trim();
+            if (sect == 5 && (msgId == 0 || msgId >= 100))
+            {
+                msgPart = $"{msgId.ToString("000")}\t{msgPart}";
+            }
+            msgLen += (msg == "" ? 0 : crlf.Length) + msgPart.Length;
+            msg += (msg == "" ? "" : crlf) + msgPart;
+        }
+        else
+        {
+            prevMsgId = 0;
+        }
+    }
+    else if (sect == 10)
+    {
+        int msgId = Convert.ToInt32(split[0]);
+        if ((prevMsgId != msgId) && !(sect == 5 && (msgId == 0 || msgId >= 100)))
+        {
+            Console.WriteLine(msgLen > 0
+                ? $"{{ {offset}, {msgLen} }}, /* {msg} */"
+                : $"{{ {offset}, {msgLen} }},"
+            );
             txtWriter.Write(msg.Select(ch => (byte)ch).ToArray());
             offset += msgLen;
             msg = "";
@@ -197,7 +228,20 @@ Console.WriteLine();
 Console.WriteLine("*** TRAVEL TABLE ***");
 Console.WriteLine();
 
+int pos = 0;
+int maxLen = 0;
+
 foreach (var item in trav.Skip(1)) 
 {
-    Console.WriteLine($"\"\\x{item.Count.ToString("X2")}{item.Select(x => $"\\x{x.ToString("X2")}").Aggregate((x, y) => x + y)}\",");
+    //Console.WriteLine($"\"\\x{item.Count.ToString("X2")}{item.Select(x => $"\\x{x.ToString("X2")}").Aggregate((x, y) => x + y)}\",");
+    Console.WriteLine($"{{ {pos}, {item.Count} }},");
+    pos += item.Count;
+    foreach (var val in item) {
+        travWriter.Write(val);
+    }
+    if (item.Count > maxLen) { maxLen = item.Count; }
 }
+
+Console.WriteLine(maxLen);
+
+travWriter.Close();

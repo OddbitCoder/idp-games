@@ -11,12 +11,15 @@
 
 #include "hdr.h"
 
+#define TRAV_BIN "TRAV.BIN"
+
 struct travptr {
 	UINT8 tverb;
 	UINT16 tloc;
 	UINT16 conditions;
 	UINT8 *ptr;
 	UINT8 *eod;
+	UINT8 buffer[60];
 };
 
 struct travptr *tstart(struct travptr *tptr, UINT8 idx);

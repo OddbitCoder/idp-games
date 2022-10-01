@@ -169,7 +169,6 @@ next()                                  /* next virtual char, bump adr  */
 	return(ch);
 }
 
-//diffsync1
 char breakch;                           /* tell which char ended rnum   */
 
 //rdata

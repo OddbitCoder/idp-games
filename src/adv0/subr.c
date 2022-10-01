@@ -56,6 +56,7 @@
 #include "vocab.h"
 #include "trav.h"
 #include "subr.h"
+#include "utils.h"
 
 /*              Statement functions     */
 int toting(int objj)
@@ -245,7 +246,7 @@ int fdwarf()		/* 71 */
 int march()                                        /* label 8              */
 {       register int ll1,ll2;
 
-	if (travel[newloc=loc][0]==0) bug(26);
+	printf("march "); if (travel[newloc=loc].txtlen==0) bug(26);
 	tstart(tkk,newloc);
 	if (k==null) return(2);
 	if (k==cave)                            /* 40                   */
