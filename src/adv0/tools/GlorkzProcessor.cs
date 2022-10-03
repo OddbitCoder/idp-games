@@ -13,6 +13,8 @@ var vocWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\a
 var txtWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\text.bin", FileMode.Create));
 var travWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\trav.bin", FileMode.Create));
 
+var vocDict = new Dictionary<ushort, List<(string, ushort)>>();
+
 int[] cond = new int[141];
 
 var trav = new List<byte>[141];
@@ -24,6 +26,17 @@ int[] fixd = new int[101];
 int[] plac = new int[101];
 
 int[] actspk = new int[35];
+
+static ushort GetHashCode(string word)
+{
+    ushort hcode = 0;
+    foreach (char ch in word)
+    {
+        hcode <<= 2;
+        hcode += ch;
+    }
+    return hcode;
+}
 
 foreach (var line in lines.Select(l => l.Trim())) 
 {
@@ -113,9 +126,18 @@ foreach (var line in lines.Select(l => l.Trim()))
         if (wordId != -1)
         {
             var word = split[1].Trim();
-            vocWriter.Write((byte)word.Length);
-            vocWriter.Write((ushort)wordId);
-            vocWriter.Write(word.Select(ch => (byte)ch).ToArray());
+            //vocWriter.Write((byte)word.Length);
+            //vocWriter.Write((ushort)wordId);
+            //vocWriter.Write(word.Select(ch => (byte)ch).ToArray());
+            ushort hcode = (ushort)(GetHashCode(word) % 128);
+            if (vocDict.TryGetValue(hcode, out var list))
+            {
+                list.Add((word, (ushort)wordId));
+            }
+            else
+            {
+                vocDict.Add(hcode, new List<(string, ushort)>(new[] { (word, (ushort)wordId) }));
+            }
         }
     }
     else if (sect == 3)
@@ -157,7 +179,7 @@ foreach (var line in lines.Select(l => l.Trim()))
             var parts = split[1].Split('\t');
             foreach (var idx in parts.Select(x => Convert.ToInt32(x)))
             {
-                cond[idx] |= 2 ^ bit;
+                cond[idx] |= (int)Math.Pow(2, bit);
             }
         }
     }
@@ -181,7 +203,6 @@ foreach (var line in lines.Select(l => l.Trim()))
     }
 }
 
-vocWriter.Close();
 txtWriter.Close();
 
 Console.WriteLine();
@@ -242,6 +263,35 @@ foreach (var item in trav.Skip(1))
     if (item.Count > maxLen) { maxLen = item.Count; }
 }
 
-Console.WriteLine(maxLen);
+//Console.WriteLine(maxLen);
 
 travWriter.Close();
+
+Console.WriteLine();
+Console.WriteLine("*** VOC HASHTABLE ***");
+Console.WriteLine();
+
+int wordLoc = 0;
+
+for (ushort i = 0; i < 128; i++)
+{
+    if (vocDict.TryGetValue(i, out List<(string word, ushort val)> list))
+    {
+        int len = 0;
+        foreach (var (word, val) in list)
+        {
+            vocWriter.Write(word.ToCharArray());
+            vocWriter.Write('\0');
+            vocWriter.Write(val);
+            len += 3 + word.Length;
+        }
+        Console.WriteLine($"{{ {wordLoc}, {len} }}, /* {list.Select(x => x.word).Aggregate((a, b) => a + " " + b)} */");
+        wordLoc += len;
+    }
+    else
+    {
+        Console.WriteLine($"{{ {wordLoc}, 0 }},");
+    }
+}
+
+vocWriter.Close();

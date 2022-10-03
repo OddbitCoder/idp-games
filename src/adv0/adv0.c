@@ -66,7 +66,11 @@
 #include "wizard.h"
 #include "utils.h"
 
+#if DEBUG
 #define L(x) x: printf(#x " "); 
+#else
+#define L(x) x: 
+#endif
 
 //main
 void main(int argc,char **argv)
@@ -108,7 +112,7 @@ void main(int argc,char **argv)
 	startup();              /* prepare for a user           */
 
 	for (;;)                        /* main command loop (label 2)  */
-	{       printf("l2 "); if (newloc<9 && newloc!=0 && closng)
+	{       if (newloc<9 && newloc!=0 && closng)
  		{       rspeak(130);    /* if closing leave only by     */
  			newloc=loc;     /*      main office             */
  			if (!panic) clock2=15;
@@ -234,11 +238,11 @@ void main(int argc,char **argv)
 		if ((!weq(wd1,"water")&&!weq(wd1,"oil"))
 		    || (!weq(wd2,"plant")&&!weq(wd2,"door")))
 			goto l2610;
-		if (at(vocab(wd2,1,0))) copystr("pour",wd2);
+		if (at(vocab(wd2,1))) copystr("pour",wd2);
 
 	L(l2610)  if (weq(wd1,"west"))
 			if (++iwest==10) rspeak(17);
-	L(l2630)  i=vocab(wd1,-1,0);
+	L(l2630)  i=vocab(wd1,-1);
 		if (i== -1)
 		{       spk=60;                 /* 3000         */
 			if (pct(20)) spk=61;
@@ -344,7 +348,7 @@ void main(int argc,char **argv)
 			if (gaveup) done(2);
 			goto l2012;
 		    case 25:                    /* foo: 8250            */
-			k=vocab(wd1,3,0);
+			k=vocab(wd1,3);
 			spk=42;
 			if (foobar==1-k) goto l8252;
 			if (foobar!=0) spk=151;

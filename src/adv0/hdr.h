@@ -81,12 +81,13 @@ extern int saved,savet,mxscor,latncy;
 
 #define MAXSTR  20                      /* max length of user's words   */
 
-#define HTSIZE  512                     /* max number of vocab words    */
-struct hashtab                          /* hash table for vocabulary    */
-{       int val;                        /* word type &index (ktab)      */
-	char *atab;                     /* pointer to actual string     */
-};
-extern struct hashtab voc[HTSIZE];
+//#define HTSIZE  512                     /* max number of vocab words    */
+//struct hashtab                          /* hash table for vocabulary    */
+//{       int val;                        /* word type &index (ktab)      */
+//	char *atab;                     /* pointer to actual string     */
+//};
+//extern struct hashtab voc[HTSIZE];
+extern const struct text voc[128];
 
 // #define SEED 1815622                    /* "Encryption" seed            */
 

@@ -24,9 +24,8 @@ struct travptr {
 
 struct travptr *tstart(struct travptr *tptr, UINT8 idx);
 struct travptr *tnext(struct travptr *tptr);
+struct travptr *tset(struct travptr *a, struct travptr *b); // a = b
 BOOL tlast(struct travptr *tptr);
 BOOL tvalid(struct travptr *tptr);
-void wtptr(struct travptr *tptr);
-struct travptr *tset(struct travptr *a, struct travptr *b); // a = b
 
 #endif

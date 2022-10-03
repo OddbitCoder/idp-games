@@ -14,7 +14,6 @@
 int dseen[7], dloc[7], odloc[7];
 int place[101], prop[101], link[201];
 int atloc[LOCSIZ];
-struct hashtab voc[HTSIZE];
 int fixed[101];
 int hinted[20], hintlc[20];
 int tk[21];
@@ -1040,6 +1039,137 @@ const int cval[CLSMAX] = { // section 10
 	9999
 };
 
+const struct text voc[128] = { // vocabulary (voc.bin)
+	{ 0, 6 }, /* oil */
+	{ 6, 36 }, /* broke geyse spice foe foe */
+	{ 42, 0 },
+	{ 42, 16 }, /* steps steps */
+	{ 58, 32 }, /* touch pearl mumbl smash */
+	{ 90, 31 }, /* hole carpe tride captu */
+	{ 121, 15 }, /* water turn */
+	{ 136, 23 }, /* back crack abrac */
+	{ 159, 0 },
+	{ 159, 22 }, /* dome nothi abra */
+	{ 181, 16 }, /* slabr brief */
+	{ 197, 17 }, /* go foo foo */
+	{ 214, 16 }, /* troll troll */
+	{ 230, 45 }, /* leave barre cave knife wave save */
+	{ 275, 16 }, /* dwarv infor */
+	{ 291, 16 }, /* acros shado */
+	{ 307, 36 }, /* east food chest nest mist */
+	{ 343, 8 }, /* debri */
+	{ 351, 13 }, /* in orien */
+	{ 364, 8 }, /* ratio */
+	{ 372, 7 }, /* keep */
+	{ 379, 32 }, /* valle strea persi suspe */
+	{ 411, 11 }, /* y2 jar */
+	{ 422, 15 }, /* look mirro */
+	{ 437, 33 }, /* bed pit north slit hit */
+	{ 470, 29 }, /* room vendi free tree */
+	{ 499, 0 },
+	{ 499, 15 }, /* view drago */
+	{ 514, 0 },
+	{ 514, 37 }, /* forwa passa ne secre messa */
+	{ 551, 15 }, /* floor door */
+	{ 566, 24 }, /* pillo explo follo */
+	{ 590, 0 },
+	{ 590, 59 }, /* snake stala carry take close shake fum fum */
+	{ 649, 8 }, /* chain */
+	{ 657, 7 }, /* fork */
+	{ 664, 0 },
+	{ 664, 15 }, /* oyste tote */
+	{ 679, 31 }, /* stair over climb caver */
+	{ 710, 23 }, /* attac perus info */
+	{ 733, 7 }, /* quit */
+	{ 740, 23 }, /* gully issue tame */
+	{ 763, 21 }, /* on deton excav */
+	{ 784, 0 },
+	{ 784, 35 }, /* hill hall find fill stop */
+	{ 819, 46 }, /* retre awkwa above exami plove say */
+	{ 865, 8 }, /* magaz */
+	{ 873, 28 }, /* nw cross strik toss */
+	{ 901, 15 }, /* jewel lost */
+	{ 916, 21 }, /* se fissu nugge */
+	{ 937, 0 },
+	{ 937, 8 }, /* drink */
+	{ 945, 7 }, /* lamp */
+	{ 952, 40 }, /* outsi nowhe batte potte distu */
+	{ 992, 7 }, /* pour */
+	{ 999, 22 }, /* h2o hocus pocus */
+	{ 1021, 29 }, /* out insid ignit read */
+	{ 1050, 16 }, /* bedqu emera */
+	{ 1066, 7 }, /* down */
+	{ 1073, 0 },
+	{ 1073, 47 }, /* bird bottl plant plant shard chant */
+	{ 1120, 30 }, /* tunne key velve silve */
+	{ 1150, 6 }, /* inv */
+	{ 1156, 19 }, /* eggs break ? */
+	{ 1175, 28 }, /* rod rod "spel steal */
+	{ 1203, 46 }, /* house xyzzy vase blowu pause swim */
+	{ 1249, 7 }, /* open */
+	{ 1256, 12 }, /* dark sw */
+	{ 1268, 36 }, /* up right gold light fight */
+	{ 1304, 8 }, /* grate */
+	{ 1312, 31 }, /* enter retur bear utter */
+	{ 1343, 15 }, /* treas fuck */
+	{ 1358, 21 }, /* south eat feed */
+	{ 1379, 16 }, /* chasm plati */
+	{ 1395, 0 },
+	{ 1395, 21 }, /* bars hours dig */
+	{ 1416, 15 }, /* headl drop */
+	{ 1431, 16 }, /* knive trave */
+	{ 1447, 0 },
+	{ 1447, 0 },
+	{ 1447, 15 }, /* west blast */
+	{ 1462, 23 }, /* cage pyram devou */
+	{ 1485, 8 }, /* extin */
+	{ 1493, 14 }, /* egg throw */
+	{ 1507, 30 }, /* cobbl plugh box shatt */
+	{ 1537, 22 }, /* lante axe drawi */
+	{ 1559, 6 }, /* rub */
+	{ 1565, 8 }, /* trees */
+	{ 1573, 30 }, /* road exit crawl pirat */
+	{ 1603, 44 }, /* conti surfa conti fee fee shaza */
+	{ 1647, 0 },
+	{ 1647, 14 }, /* downs rug */
+	{ 1661, 7 }, /* left */
+	{ 1668, 16 }, /* disca score */
+	{ 1684, 0 },
+	{ 1684, 16 }, /* downw unloc */
+	{ 1700, 0 },
+	{ 1700, 31 }, /* desce proce wake sesam */
+	{ 1731, 21 }, /* main run inven */
+	{ 1752, 0 },
+	{ 1752, 12 }, /* build d */
+	{ 1764, 4 }, /* e */
+	{ 1768, 31 }, /* onwar inwar upwar slab */
+	{ 1799, 37 }, /* fores rock offic keys lock */
+	{ 1836, 0 },
+	{ 1836, 20 }, /* entra fie fie */
+	{ 1856, 0 },
+	{ 1856, 7 }, /* walk */
+	{ 1863, 43 }, /* null wall shell wand wand kill */
+	{ 1906, 23 }, /* depre volca calm */
+	{ 1929, 18 }, /* n descr off */
+	{ 1947, 36 }, /* moss ming sing swing goto */
+	{ 1983, 7 }, /* help */
+	{ 1990, 7 }, /* clam */
+	{ 1997, 16 }, /* upstr ascen */
+	{ 2013, 26 }, /* low canyo s diamo */
+	{ 2039, 22 }, /* jump catch dump */
+	{ 2061, 28 }, /* u table spelu relea */
+	{ 2089, 16 }, /* reser figur */
+	{ 2105, 4 }, /* w */
+	{ 2109, 6 }, /* get */
+	{ 2115, 8 }, /* machi */
+	{ 2123, 0 },
+	{ 2123, 24 }, /* beans coins opens */
+	{ 2147, 8 }, /* giant */
+	{ 2155, 23 }, /* placa slay where */
+	{ 2178, 8 }, /* dwarf */
+	{ 2186, 8 } /* outdo */
+};
+
 const struct text travel[LOCSIZ] = { // section 3
 	{ 0, 0 },
 	{ 0, 36 },
@@ -1208,7 +1338,7 @@ const int plac[101] = { // section 7 2/2
 };
 
 const int cond[LOCSIZ] = { // section 9
-	0, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 0, 0, 7, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 0, 0, 1, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 3, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	0, 5, 1, 5, 5, 1, 1, 5, 17, 1, 1, 0, 0, 32, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 128, 128, 128, 128, 136, 136, 136, 128, 128, 128, 128, 128, 136, 128, 136, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 128, 136, 0, 0, 8, 136, 128, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 256, 257, 256, 0, 0, 0, 0, 0, 0, 512, 0, 0, 0, 0, 4, 0, 1, 1, 0, 0, 0, 0, 0, 8, 8, 8, 8, 9, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
 const int actspk[35] = { // section 8
@@ -1248,7 +1378,7 @@ int stick = 0, dtotal = 0, attack = 0;
 
 int verb = 0, obj = 0, spk = 0;
 
-struct travptr _tkk = { 0, 0, 0, /*ptr*/1, /*eod*/0 };
+struct travptr _tkk = { 0, 0, 0, /*ptr*/0, /*eod*/0 };
 struct travptr *tkk = &_tkk;
 
 char *wd1 = 0, *wd2 = 0;

@@ -151,10 +151,10 @@ int yes(int x,int y,int z)                              /* confirm with rspeak  
 // char breakch;                           /* tell which char ended rnum   */
 
 //rdata
-void rdata()                                 /* "read" data from virtual file*/
-{       
-	rvoc();
-}
+// void rdata()                                  "read" data from virtual file
+// {       
+// 	rvoc();
+// }
 
 // char nbf[12];
 
@@ -314,31 +314,31 @@ void twrite(int loq)                             /* travel options from this loc
 #endif //DEBUG
 
 //rvoc
-void rvoc()               /* read the vocabulary          */
-{
-	static char word_buf[6];
-	UINT16 len = 0;
-	while (len < VOC_BIN_SZ) {
-		UINT16 read_sz = (len + BUFFER_SIZE) >= VOC_BIN_SZ ? (VOC_BIN_SZ - len) : BUFFER_SIZE;
-		fread(VOC_BIN, buffer, len, read_sz);
-		UINT8 *ptr = buffer;
-		UINT8 *eod = buffer + read_sz;
-		while (ptr < eod) {
-			UINT8 word_len = *ptr;
-			if (++ptr + 2 + word_len > eod) { 
-				break; 
-			}
-			UINT16 word_idx = *(UINT16 *)ptr;
-			ptr += 2;
-			memcpy(word_buf, ptr, word_len);
-			word_buf[word_len] = 0;
-			ptr += word_len;
-			//printf("%s. ", word_buf); 
-			vocab(word_buf, -2, word_idx);
-			len += 3 + word_len;
-		}
-	}
-}
+// void rvoc()               /* read the vocabulary          */
+// {
+// 	static char word_buf[6];
+// 	UINT16 len = 0;
+// 	while (len < VOC_BIN_SZ) {
+// 		UINT16 read_sz = (len + BUFFER_SIZE) >= VOC_BIN_SZ ? (VOC_BIN_SZ - len) : BUFFER_SIZE;
+// 		fread(VOC_BIN, buffer, len, read_sz);
+// 		UINT8 *ptr = buffer;
+// 		UINT8 *eod = buffer + read_sz;
+// 		while (ptr < eod) {
+// 			UINT8 word_len = *ptr;
+// 			if (++ptr + 2 + word_len > eod) { 
+// 				break; 
+// 			}
+// 			UINT16 word_idx = *(UINT16 *)ptr;
+// 			ptr += 2;
+// 			memcpy(word_buf, ptr, word_len);
+// 			word_buf[word_len] = 0;
+// 			ptr += word_len;
+// 			//printf("%s. ", word_buf); 
+// 			vocab(word_buf, -2, word_idx);
+// 			len += 3 + word_len;
+// 		}
+// 	}
+// }
 
 
 //rlocs

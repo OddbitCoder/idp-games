@@ -58,6 +58,12 @@
 #include "subr.h"
 #include "utils.h"
 
+#if DEBUG
+#define L(x) x: printf(#x " "); 
+#else
+#define L(x) x: 
+#endif
+
 /*              Statement functions     */
 int toting(int objj)
 //int objj;
@@ -186,14 +192,14 @@ int fdwarf()		/* 71 */
 			{       if (j==pyram&&(loc==plac[pyram]
 				     || loc==plac[emrald])) goto l6020;
 				if (toting(j)) goto l6022;
-			l6020:  if (here(j)) k=1;
+			L(l6020)  if (here(j)) k=1;
 			}                               /* 6020 */
 			if (tally==tally2+1 && k==0 && place[chest]==0
 			    &&here(lamp) && prop[lamp]==1) goto l6025;
 			if (odloc[6]!=dloc[6]&&pct(20))
 				rspeak(127);
 			continue;       /* to 6030 */
-		l6022:  rspeak(128);
+		L(l6022)  rspeak(128);
 			if (place[messag]==0) move(chest,chloc);
 			move(messag,chloc2);
 			for (j=50; j<=maxtrs; j++)      /* loop to 6023 */
@@ -202,10 +208,10 @@ int fdwarf()		/* 71 */
 				if (at(j)&&fixed[j]==0) carry(j,loc);
 				if (toting(j)) drop(j,chloc);
 			}
-		l6024:  dloc[6]=odloc[6]=chloc;
+		L(l6024)  dloc[6]=odloc[6]=chloc;
 			dseen[6]=FALSE;
 			continue;
-		l6025:  rspeak(186);
+		L(l6025)  rspeak(186);
 			move(chest,chloc);
 			move(messag,chloc2);
 			goto l6024;
@@ -228,7 +234,7 @@ int fdwarf()		/* 71 */
 	if (attack!=1)
 	{       printf("%d of them throw knives at you!\n",attack);
 		k=6;
-	l82:    if (stick<=1)                   /* 82 */
+	L(l82)    if (stick<=1)                   /* 82 */
 		{       rspeak(k+stick);
 			if (stick==0) return(2000);
 		}
@@ -246,7 +252,7 @@ int fdwarf()		/* 71 */
 int march()                                        /* label 8              */
 {       register int ll1,ll2;
 
-	printf("march "); if (travel[newloc=loc].txtlen==0) bug(26);
+	if (travel[newloc=loc].txtlen==0) bug(26);
 	tstart(tkk,newloc);
 	if (k==null) return(2);
 	if (k==cave)                            /* 40                   */
@@ -269,21 +275,21 @@ int march()                                        /* label 8              */
 	}
 	oldlc2=oldloc;
 	oldloc=loc;
-l9:
+L(l9)
 	for (; tvalid(tkk); tnext(tkk))
 		if (tkk->tverb==1 || tkk->tverb==k) break;
 	if (!tvalid(tkk))
 	{       badmove();
 		return(2);
 	}
-l11:    ll1=tkk->conditions;                    /* 11                   */
+L(l11)    ll1=tkk->conditions;                    /* 11                   */
 	ll2=tkk->tloc;
 	newloc=ll1;                             /* newloc=conditions    */
 	k=newloc%100;                           /* k used for prob      */
 	if (newloc<=300)
 	{       if (newloc<=100)                /* 13                   */
 		{       if (newloc!=0&&!pct(newloc)) goto l12;  /* 14   */
-		l16:    newloc=ll2;             /* newloc=location      */
+		L(l16)    newloc=ll2;             /* newloc=location      */
 			if (newloc<=300) return(2);
 			if (newloc<=500)
 				switch(specials())/* to 30000           */
@@ -300,7 +306,7 @@ l11:    ll1=tkk->conditions;                    /* 11                   */
 		goto l12;
 	}
 	if (prop[k]!=(newloc/100)-3) goto l16;  /* newloc still conditions*/
-l12:    /* alternative to probability move      */
+L(l12)    /* alternative to probability move      */
 	for (; tvalid(tkk); tnext(tkk))
 		if (tkk->tloc!=ll2 || tkk->conditions!=ll1) break;
 	if (!tvalid(tkk)) bug(25);
@@ -437,12 +443,12 @@ void checkhints()                                    /* 2600 &c              */
 			goto l40010;    /* 40900 */
 		    default: bug(27);
 		}
-	l40010: hintlc[hint]=0;
+	L(l40010) hintlc[hint]=0;
 		if (!yes(hints[hint][3],0,54)) continue;
 		printf("I am prepared to give you a hint, but it will ");
 		printf("cost you %d points.\n",hints[hint][2]);
 		hinted[hint]=yes(175,hints[hint][4],54);
-	l40020: hintlc[hint]=0;
+	L(l40020) hintlc[hint]=0;
 	}
 }
 
@@ -450,7 +456,7 @@ void checkhints()                                    /* 2600 &c              */
 int trsay()                                         /* 9030                 */
 {       register int i;
 	if (*wd2!=0) copystr(wd2,wd1);
-	i=vocab(wd1,-1,0);
+	i=vocab(wd1,-1);
 	if (i==62||i==65||i==71||i==2025)
 	{       *wd2=0;
 		obj=0;
@@ -481,7 +487,7 @@ int trtake()                                        /* 9010                 */
 		if (!toting(bottle)) spk=104;
 		return(2011);
 	}
-l9017:  if (holdng>=7)
+L(l9017)  if (holdng>=7)
 	{       rspeak(92);
 		return(2012);
 	}
@@ -497,7 +503,7 @@ l9017:  if (holdng>=7)
 		}
 		prop[bird]=1;           /* 9015 */
 	}
-l9014:  if ((obj==bird||obj==cage)&&prop[bird]!=0)
+L(l9014)  if ((obj==bird||obj==cage)&&prop[bird]!=0)
 		carry(bird+cage-obj,loc);
 	carry(obj,loc);
 	k=liq(0);
@@ -697,7 +703,7 @@ int trtoss()                                /* 9170: throw                  */
 	{       if (dloc[i]==loc)
 		{       spk=48;                 /* 9172                 */
 			if (ran(3)==0||saved!= -1)
-		l9175:  {       rspeak(spk);
+		L(l9175)  {       rspeak(spk);
 				drop(axe,loc);
 				k=null;
 				return(8);

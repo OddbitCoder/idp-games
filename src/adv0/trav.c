@@ -6,13 +6,13 @@
  * Travel table "pointer"
  */
 
-#include <stdio.h>
+#include <string.h>
 #include "trav.h"
 #include "utils.h"
 
 struct travptr *tstart(struct travptr *tptr, UINT8 idx) {
 	fread(TRAV_BIN, tptr->buffer, (UINT16)travel[idx].seekadr, travel[idx].txtlen);
-	tptr->ptr = buffer;
+	tptr->ptr = tptr->buffer;
 	tptr->eod = tptr->ptr + travel[idx].txtlen;
 	tptr->tverb = *tptr->ptr & 127;
 	tptr->ptr++;
@@ -42,7 +42,7 @@ struct travptr *tnext(struct travptr *tptr) {
 
 struct travptr *tset(struct travptr *a, struct travptr *b) {
 	if (b == 0) {
-		a->ptr = (UINT8 *)1;
+		a->ptr = 0;
 		a->eod = 0;
 	} else {
 		a->tverb = b->tverb;
@@ -50,18 +50,16 @@ struct travptr *tset(struct travptr *a, struct travptr *b) {
 		a->conditions = b->conditions;
 		a->ptr = b->ptr;
 		a->eod = b->eod;
+		memcpy(a->buffer, b->buffer, 60);
 	}
 	return a;
 }
 
 BOOL tlast(struct travptr *tptr) {
-	return tptr->ptr == tptr->eod;
+	return tptr->ptr == (tptr->eod - 1);
 }
 
 BOOL tvalid(struct travptr *tptr) {
-	return tptr->ptr <= tptr->eod;
+	return tptr->ptr < tptr->eod;
 }
 
-void wtptr(struct travptr *tptr) {
-	printf("%d (%d %d) ", tptr->tverb, tptr->tloc, tptr->conditions);
-}

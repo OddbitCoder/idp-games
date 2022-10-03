@@ -3,7 +3,7 @@
  *
  * Miha Grčar 2022
  *
- * Various utils
+ * Various utils for Adventure
  */
 
 #include <bdos.h>
@@ -30,10 +30,10 @@ void exit(int status)
     bdos(P_TERMCPM, 0);
 }
 
-int atoi(char *str)
+UINT16 atoi(char *str)
 {
-    int res = 0;
-    for (int i = 0; str[i] != '\0'; ++i) {
+    UINT16 res = 0;
+    for (UINT8 i = 0; str[i] != '\0'; ++i) {
         res = res * 10 + str[i] - '0';
     }
     return res;
