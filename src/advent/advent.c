@@ -80,9 +80,7 @@ void main(int argc,char **argv)
 // 	if (setuid(getuid()) < 0)
 // 		perror("setuid");
 
-
  	init(0);         /* Initialize everything */
-
 // 	signal(SIGINT,trapdel);
 
 // 	if (argc > 1)   /* Restore file specified */
@@ -107,32 +105,32 @@ void main(int argc,char **argv)
 
 	for (;;)                        /* main command loop (label 2)  */
 	{       if (newloc<9 && newloc!=0 && closng)
- 		{       rspeak(130);    /* if closing leave only by     */
- 			newloc=loc;     /*      main office             */
- 			if (!panic) clock2=15;
- 			panic=TRUE;
- 		}
+		{       rspeak(130);    /* if closing leave only by     */
+			newloc=loc;     /*      main office             */
+			if (!panic) clock2=15;
+			panic=TRUE;
+		}
 
- 		rval=fdwarf();          /* dwarf stuff                  */
- 		if (rval==99) die(99);
+		rval=fdwarf();          /* dwarf stuff                  */
+		if (rval==99) die(99);
 
- 	L(l2000)  if (loc==0) die(99);    /* label 2000                   */
- 		kk = &stext[loc];
- 		if ((abb[loc]%abbnum)==0 || kk->seekadr==0)
- 			kk = &ltext[loc];
- 		if (!forced(loc) && dark(0))
- 		{       if (wzdark && pct(35))
- 			{       die(90);
- 				goto l2000;
- 			}
- 			kk = &rtext[16];
- 		}
- 	L(l2001)  if (toting(bear)) rspeak(141);  /* 2001                 */
- 		speak(kk);
- 		k=1;
- 		if (forced(loc))
- 			goto l8;
- 		if (loc==33 && pct(25)&&!closng) rspeak(8);
+	L(l2000)  if (loc==0) die(99);    /* label 2000                   */
+		kk = &stext[loc];
+		if ((abb[loc]%abbnum)==0 || kk->seekadr==0)
+			kk = &ltext[loc];
+		if (!forced(loc) && dark(0))
+		{       if (wzdark && pct(35))
+			{       die(90);
+				goto l2000;
+			}
+			kk = &rtext[16];
+		}
+	L(l2001)  if (toting(bear)) rspeak(141);  /* 2001                 */
+		speak(kk);
+		k=1;
+		if (forced(loc))
+			goto l8;
+		if (loc==33 && pct(25)&&!closng) rspeak(8);
 		if (!dark(0))
 		{       abb[loc]++;
 			for (i=atloc[loc]; i!=0; i=link[i])     /*2004  */
@@ -216,7 +214,7 @@ void main(int argc,char **argv)
 			done(2);                /* to 20000             */
 		}
 		if (limit<=30)
-		{       if (lmwarn|| !here(lamp)) goto l19999;  /*12200*/ 
+		{       if (lmwarn|| !here(lamp)) goto l19999;  /*12200*/
 			lmwarn=TRUE;
 			spk=187;
 			if (place[batter]==0) spk=183;
@@ -256,16 +254,16 @@ void main(int argc,char **argv)
 			exit(0);
 		}
 
- 	L(l8)
- 		switch(march())
- 		{   case 2: continue;           /* i.e. goto l2         */
- 		    case 99:
- 			switch(die(99))
- 			{   case 2000: goto l2000;
- 			    default: bug(111);
- 			}
- 		    default: bug(110);
- 		}
+	L(l8)
+		switch(march())
+		{   case 2: continue;           /* i.e. goto l2         */
+		    case 99:
+			switch(die(99))
+			{   case 2000: goto l2000;
+			    default: bug(111);
+			}
+		    default: bug(110);
+		}
 
 	L(l2800)  copystr(wd2,wd1);
 		*wd2=0;
@@ -595,5 +593,5 @@ void main(int argc,char **argv)
 	L(l5190)  if ((verb==find||verb==invent)&&*wd2==0) goto l5010;
 		printf("I see no %s here\n",wd1);
 		goto l2012;
- 	}
+	}
 }
