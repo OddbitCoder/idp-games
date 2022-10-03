@@ -60,13 +60,13 @@ foreach (var line in lines.Select(l => l.Trim()))
         {
             Console.WriteLine(msgLen > 0 
                 ? $"/* {prevMsgId} */ {{ {offset}, {msgLen} }}, /* {msg} */"
-                : $"/* {prevMsgId} */ {{ {offset}, {msgLen} }},"
+                : $"/* {prevMsgId} */ {{ 0, 0 }},"
             );
             if (msgId != -1)
             {
                 for (int i = prevMsgId; i < msgId - 1; i++)
                 {
-                    Console.WriteLine($"{{ {offset + msgLen}, 0 }},");
+                    Console.WriteLine($"/* {i + 1} */ {{ 0, 0 }},");
                 }
             }
             txtWriter.Write(msg.Select(ch => (byte)ch).ToArray());
@@ -97,7 +97,7 @@ foreach (var line in lines.Select(l => l.Trim()))
         {
             Console.WriteLine(msgLen > 0
                 ? $"{{ {offset}, {msgLen} }}, /* {msg} */"
-                : $"{{ {offset}, {msgLen} }},"
+                : $"{{ 0, 0 }},"
             );
             txtWriter.Write(msg.Select(ch => (byte)ch).ToArray());
             offset += msgLen;
@@ -290,7 +290,7 @@ for (ushort i = 0; i < 128; i++)
     }
     else
     {
-        Console.WriteLine($"{{ {wordLoc}, 0 }},");
+        Console.WriteLine($"{{ 0, 0 }},");
     }
 }
 

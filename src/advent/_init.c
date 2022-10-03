@@ -57,8 +57,9 @@
 #include "trav.h"
 #include "io.h"
 #include "vocab.h"
-#include "_init.h"
 #include "wizard.h"
+#include "utils.h"
+#include "_init.h"
 
 // int blklin = TRUE;
 
@@ -83,7 +84,6 @@ void init(char *command)                           /* everything for 1st time ru
     memset(tk, 0, 21 * sizeof(int));
     memset(abb, 0, LOCSIZ * sizeof(int));
 
-	//rdata();                        /* read data from orig. file    */
 	linkdata();
 	poof();
 }
@@ -105,8 +105,8 @@ char *decr(char a,char b,char c,char d,char e)
 
 //linkdata
 void linkdata()                              /*  secondary data manipulation */
-{       static struct trav_ptr tptr;
-    register int i,j;
+{       register int i,j;
+	static struct trav_ptr tptr;
 
 	/*      array linkages          */
 	for (i=1; i<=LOCSIZ; i++)
@@ -236,10 +236,10 @@ void linkdata()                              /*  secondary data manipulation */
 //startup
 void startup()
 {
-	//time_t time();
+//	time_t time();
 
-	//demo=Start(0);
-//    srand(timer());	/* random seed */
+//	demo=Start(0);
+	srand(timer());	/* random seed */
 	/* srand(371);				/* non-random seed */
 	hinted[3]=yes(65,1,0);
 	newloc=1;

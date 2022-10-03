@@ -1,3 +1,11 @@
+/*
+ * utils.c
+ *
+ * Miha Grčar 2022
+ *
+ * Game initialization routines
+ */
+
 #ifndef __INIT_H
 #define __INIT_H
 

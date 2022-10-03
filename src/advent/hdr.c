@@ -336,7 +336,7 @@ const struct text ltext[LOCSIZ] = { // section 1
 };
 
 const struct text stext[LOCSIZ] = { // section 2
-	/* 0 */ { 17144, 0 },
+	/* 0 */ { 0, 0 },
 	/* 1 */ { 17144, 28 }, /* You're at end of road again. */
 	/* 2 */ { 17172, 23 }, /* You're at hill in road. */
 	/* 3 */ { 17195, 23 }, /* You're inside building. */
@@ -348,89 +348,89 @@ const struct text stext[LOCSIZ] = { // section 2
 	/* 9 */ { 17318, 23 }, /* You're below the grate. */
 	/* 10 */ { 17341, 23 }, /* You're in Cobble Crawl. */
 	/* 11 */ { 17364, 22 }, /* You're in Debris Room. */
-	{ 17386, 0 },
+	/* 12 */ { 0, 0 },
 	/* 13 */ { 17386, 23 }, /* You're in Bird Chamber. */
 	/* 14 */ { 17409, 27 }, /* You're at top of small pit. */
 	/* 15 */ { 17436, 24 }, /* You're in Hall of Mists. */
-	{ 17460, 0 },
+	/* 16 */ { 0, 0 },
 	/* 17 */ { 17460, 31 }, /* You're on east bank of fissure. */
 	/* 18 */ { 17491, 30 }, /* You're in Nugget of Gold Room. */
 	/* 19 */ { 17521, 26 }, /* You're in Hall of Mt King. */
-	{ 17547, 0 },
-	{ 17547, 0 },
-	{ 17547, 0 },
+	/* 20 */ { 0, 0 },
+	/* 21 */ { 0, 0 },
+	/* 22 */ { 0, 0 },
 	/* 23 */ { 17547, 34 }, /* You're at west end of Twopit Room. */
 	/* 24 */ { 17581, 19 }, /* You're in east pit. */
 	/* 25 */ { 17600, 19 }, /* You're in west pit. */
-	{ 17619, 0 },
-	{ 17619, 0 },
-	{ 17619, 0 },
-	{ 17619, 0 },
-	{ 17619, 0 },
-	{ 17619, 0 },
-	{ 17619, 0 },
+	/* 26 */ { 0, 0 },
+	/* 27 */ { 0, 0 },
+	/* 28 */ { 0, 0 },
+	/* 29 */ { 0, 0 },
+	/* 30 */ { 0, 0 },
+	/* 31 */ { 0, 0 },
+	/* 32 */ { 0, 0 },
 	/* 33 */ { 17619, 15 }, /* You're at "Y2". */
-	{ 17634, 0 },
+	/* 34 */ { 0, 0 },
 	/* 35 */ { 17634, 24 }, /* You're at window on pit. */
 	/* 36 */ { 17658, 24 }, /* You're in dirty passage. */
-	{ 17682, 0 },
-	{ 17682, 0 },
+	/* 37 */ { 0, 0 },
+	/* 38 */ { 0, 0 },
 	/* 39 */ { 17682, 26 }, /* You're in Dusty Rock room. */
-	{ 17708, 0 },
+	/* 40 */ { 0, 0 },
 	/* 41 */ { 17708, 36 }, /* You're at west end of Hall of Mists. */
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
-	{ 17744, 0 },
+	/* 42 */ { 0, 0 },
+	/* 43 */ { 0, 0 },
+	/* 44 */ { 0, 0 },
+	/* 45 */ { 0, 0 },
+	/* 46 */ { 0, 0 },
+	/* 47 */ { 0, 0 },
+	/* 48 */ { 0, 0 },
+	/* 49 */ { 0, 0 },
+	/* 50 */ { 0, 0 },
+	/* 51 */ { 0, 0 },
+	/* 52 */ { 0, 0 },
+	/* 53 */ { 0, 0 },
+	/* 54 */ { 0, 0 },
+	/* 55 */ { 0, 0 },
+	/* 56 */ { 0, 0 },
 	/* 57 */ { 17744, 23 }, /* You're at brink of pit. */
-	{ 17767, 0 },
-	{ 17767, 0 },
+	/* 58 */ { 0, 0 },
+	/* 59 */ { 0, 0 },
 	/* 60 */ { 17767, 32 }, /* You're at east end of Long Hall. */
 	/* 61 */ { 17799, 32 }, /* You're at west end of Long Hall. */
-	{ 17831, 0 },
-	{ 17831, 0 },
+	/* 62 */ { 0, 0 },
+	/* 63 */ { 0, 0 },
 	/* 64 */ { 17831, 27 }, /* You're at Complex Junction. */
-	{ 17858, 0 },
+	/* 65 */ { 0, 0 },
 	/* 66 */ { 17858, 28 }, /* You're in Swiss Cheese room. */
 	/* 67 */ { 17886, 34 }, /* You're at east end of Twopit Room. */
 	/* 68 */ { 17920, 20 }, /* You're in Slab Room. */
-	{ 17940, 0 },
-	{ 17940, 0 },
+	/* 69 */ { 0, 0 },
+	/* 70 */ { 0, 0 },
 	/* 71 */ { 17940, 43 }, /* You're at junction of three secret canyons. */
-	{ 17983, 0 },
-	{ 17983, 0 },
+	/* 72 */ { 0, 0 },
+	/* 73 */ { 0, 0 },
 	/* 74 */ { 17983, 47 }, /* You're in secret E/W canyon above tight canyon. */
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
-	{ 18030, 0 },
+	/* 75 */ { 0, 0 },
+	/* 76 */ { 0, 0 },
+	/* 77 */ { 0, 0 },
+	/* 78 */ { 0, 0 },
+	/* 79 */ { 0, 0 },
+	/* 80 */ { 0, 0 },
+	/* 81 */ { 0, 0 },
+	/* 82 */ { 0, 0 },
+	/* 83 */ { 0, 0 },
+	/* 84 */ { 0, 0 },
+	/* 85 */ { 0, 0 },
+	/* 86 */ { 0, 0 },
+	/* 87 */ { 0, 0 },
 	/* 88 */ { 18030, 26 }, /* You're in narrow corridor. */
-	{ 18056, 0 },
-	{ 18056, 0 },
+	/* 89 */ { 0, 0 },
+	/* 90 */ { 0, 0 },
 	/* 91 */ { 18056, 41 }, /* You're at steep incline above large room. */
 	/* 92 */ { 18097, 21 }, /* You're in Giant Room. */
-	{ 18118, 0 },
-	{ 18118, 0 },
+	/* 93 */ { 0, 0 },
+	/* 94 */ { 0, 0 },
 	/* 95 */ { 18118, 32 }, /* You're in cavern with waterfall. */
 	/* 96 */ { 18150, 20 }, /* You're in Soft Room. */
 	/* 97 */ { 18170, 24 }, /* You're in Oriental Room. */
@@ -440,24 +440,24 @@ const struct text stext[LOCSIZ] = { // section 2
 	/* 101 */ { 18256, 20 }, /* You're in Dark-Room. */
 	/* 102 */ { 18276, 22 }, /* You're in Arched Hall. */
 	/* 103 */ { 18298, 21 }, /* You're in Shell Room. */
-	{ 18319, 0 },
-	{ 18319, 0 },
+	/* 104 */ { 0, 0 },
+	/* 105 */ { 0, 0 },
 	/* 106 */ { 18319, 19 }, /* You're in Anteroom. */
-	{ 18338, 0 },
+	/* 107 */ { 0, 0 },
 	/* 108 */ { 18338, 21 }, /* You're at Witt's End. */
 	/* 109 */ { 18359, 24 }, /* You're in Mirror Canyon. */
 	/* 110 */ { 18383, 24 }, /* You're at window on pit. */
 	/* 111 */ { 18407, 28 }, /* You're at top of stalactite. */
-	{ 18435, 0 },
+	/* 112 */ { 0, 0 },
 	/* 113 */ { 18435, 20 }, /* You're at Reservoir. */
-	{ 18455, 0 },
+	/* 114 */ { 0, 0 },
 	/* 115 */ { 18455, 17 }, /* You're at NE end. */
 	/* 116 */ { 18472, 17 }, /* You're at SW end. */
 	/* 117 */ { 18489, 27 }, /* You're on SW side of chasm. */
 	/* 118 */ { 18516, 27 }, /* You're in sloping corridor. */
-	{ 18543, 0 },
-	{ 18543, 0 },
-	{ 18543, 0 },
+	/* 119 */ { 0, 0 },
+	/* 120 */ { 0, 0 },
+	/* 121 */ { 0, 0 },
 	/* 122 */ { 18543, 27 }, /* You're on NE side of chasm. */
 	/* 123 */ { 18570, 19 }, /* You're in corridor. */
 	/* 124 */ { 18589, 23 }, /* You're at fork in path. */
@@ -466,11 +466,21 @@ const struct text stext[LOCSIZ] = { // section 2
 	/* 127 */ { 18676, 30 }, /* You're in Chamber of Boulders. */
 	/* 128 */ { 18706, 28 }, /* You're in limestone passage. */
 	/* 129 */ { 18734, 31 }, /* You're in front of barren room. */
-	/* 130 */ { 18765, 22 } /* You're in Barren Room. */
+	/* 130 */ { 18765, 22 }, /* You're in Barren Room. */
+	/* 131 */ { 0, 0 },
+	/* 132 */ { 0, 0 },
+	/* 133 */ { 0, 0 },
+	/* 134 */ { 0, 0 },
+	/* 135 */ { 0, 0 },
+	/* 136 */ { 0, 0 },
+	/* 137 */ { 0, 0 },
+	/* 138 */ { 0, 0 },
+	/* 139 */ { 0, 0 },
+	/* 140 */ { 0, 0 }
 };
 
 const struct text ptext[101] = { // section 5
-	/* 0 */ { 18787, 0 },
+	/* 0 */ { 0, 0 },
 	/* 1 */ { 18787, 56 }, /* Set of keys
 	000     There are some keys on the ground here. */
 	/* 2 */ { 18843, 91 }, /* Brass lantern
@@ -514,8 +524,8 @@ const struct text ptext[101] = { // section 5
 	100     The oyster. */
 	/* 16 */ { 20179, 88 }, /* "Spelunker Today"
 	000     There are a few recent issues of "Spelunker Today" magazine here. */
-	{ 20267, 0 },
-	{ 20267, 0 },
+	/* 17 */ { 0, 0 },
+	/* 18 */ { 0, 0 },
 	/* 19 */ { 20267, 35 }, /* Tasty food
 	000     There is food here. */
 	/* 20 */ { 20302, 122 }, /* Small bottle
@@ -584,15 +594,15 @@ const struct text ptext[101] = { // section 5
 	100     Some worn-out batteries have been discarded nearby. */
 	/* 40 */ { 22808, 28 }, /* *Carpet and/or moss
 	000     >$< */
-	{ 22836, 0 },
-	{ 22836, 0 },
-	{ 22836, 0 },
-	{ 22836, 0 },
-	{ 22836, 0 },
-	{ 22836, 0 },
-	{ 22836, 0 },
-	{ 22836, 0 },
-	{ 22836, 0 },
+	/* 41 */ { 0, 0 },
+	/* 42 */ { 0, 0 },
+	/* 43 */ { 0, 0 },
+	/* 44 */ { 0, 0 },
+	/* 45 */ { 0, 0 },
+	/* 46 */ { 0, 0 },
+	/* 47 */ { 0, 0 },
+	/* 48 */ { 0, 0 },
+	/* 49 */ { 0, 0 },
 	/* 50 */ { 22836, 70 }, /* Large gold nugget
 	000     There is a large sparkling nugget of gold here! */
 	/* 51 */ { 22906, 46 }, /* Several diamonds
@@ -627,14 +637,50 @@ const struct text ptext[101] = { // section 5
 	100     The dragon is sprawled out on a Persian rug!! */
 	/* 63 */ { 23892, 44 }, /* Rare spices
 	000     There are rare spices here! */
-	/* 64 */ { 23936, 177 } /* Golden chain
+	/* 64 */ { 23936, 177 }, /* Golden chain
 	000     There is a golden chain lying in a heap on the floor!
 	100     The bear is locked to the wall with a golden chain!
 	200     There is a golden chain locked to the wall! */
+	/* 65 */ { 0, 0 },
+	/* 66 */ { 0, 0 },
+	/* 67 */ { 0, 0 },
+	/* 68 */ { 0, 0 },
+	/* 69 */ { 0, 0 },
+	/* 70 */ { 0, 0 },
+	/* 71 */ { 0, 0 },
+	/* 72 */ { 0, 0 },
+	/* 73 */ { 0, 0 },
+	/* 74 */ { 0, 0 },
+	/* 75 */ { 0, 0 },
+	/* 76 */ { 0, 0 },
+	/* 77 */ { 0, 0 },
+	/* 78 */ { 0, 0 },
+	/* 79 */ { 0, 0 },
+	/* 80 */ { 0, 0 },
+	/* 81 */ { 0, 0 },
+	/* 82 */ { 0, 0 },
+	/* 83 */ { 0, 0 },
+	/* 84 */ { 0, 0 },
+	/* 85 */ { 0, 0 },
+	/* 86 */ { 0, 0 },
+	/* 87 */ { 0, 0 },
+	/* 88 */ { 0, 0 },
+	/* 89 */ { 0, 0 },
+	/* 90 */ { 0, 0 },
+	/* 91 */ { 0, 0 },
+	/* 92 */ { 0, 0 },
+	/* 93 */ { 0, 0 },
+	/* 94 */ { 0, 0 },
+	/* 95 */ { 0, 0 },
+	/* 96 */ { 0, 0 },
+	/* 97 */ { 0, 0 },
+	/* 98 */ { 0, 0 },
+	/* 99 */ { 0, 0 },
+	/* 100 */ { 0, 0 }
 };
 
 const struct text rtext[RTXSIZ] = { // section 6
-	/* 0 */ { 24113, 0 },
+	/* 0 */ { 0, 0 },
 	/* 1 */ { 24113, 758 }, /* Somewhere nearby is Colossal Cave, where others have found fortunes in
 	treasure and gold, though it is rumored that some who enter are never
 	seen again.  Magic is said to work in the cave.  I will be your eyes
@@ -783,9 +829,9 @@ const struct text rtext[RTXSIZ] = { // section 6
 	/* 85 */ { 30916, 137 }, /* Now you've really done it!  I'm out of orange smoke!  You don't expect
 	me to do a decent reincarnation without any orange smoke, do you? */
 	/* 86 */ { 31053, 55 }, /* Okay, if you're so smart, do it yourself!  I'm leaving! */
-	{ 31108, 0 },
-	{ 31108, 0 },
-	{ 31108, 0 },
+	/* 87 */ { 0, 0 },
+	/* 88 */ { 0, 0 },
+	/* 89 */ { 0, 0 },
 	/* 90 */ { 31108, 58 }, /* >>> Messages 81 thru 90 are reserved for "obituaries". <<< */
 	/* 91 */ { 31166, 64 }, /* Sorry, but I no longer seem to remember how it was you got here. */
 	/* 92 */ { 31230, 68 }, /* You can't carry anything more.  You'll have to drop something first. */
@@ -965,12 +1011,14 @@ const struct text rtext[RTXSIZ] = { // section 6
 	you, curses, and grabs for his axe. */
 	/* 200 */ { 40852, 19 }, /* Is this acceptable? */
 	/* 201 */ { 40871, 52 }, /* There's no point in suspending a demonstration game. */
-	/* 202 */ { 40923, 125 } /* You awaken only to discover your bits have been dissolving while you
+	/* 202 */ { 40923, 125 }, /* You awaken only to discover your bits have been dissolving while you
 	slept.  You disappear in a cloud of greasy black smoke. */
+	/* 203 */ { 0, 0 },
+	/* 204 */ { 0, 0 }
 };
 
 const struct text mtext[MAGSIZ] = { // section 12
-	/* 0 */ { 41520, 0 },
+	/* 0 */ { 0, 0 },
 	/* 1 */ { 41520, 322 }, /* A large cloud of green smoke appears in front of you.  It clears away
 	to reveal a tall wizard, clothed in grey.  He fixes you with a steely
 	glare and declares, "This adventure has lasted too long."  With that
@@ -1008,13 +1056,15 @@ const struct text mtext[MAGSIZ] = { // section 12
 	/* 29 */ { 43138, 40 }, /* To be called what (up to 20 characters)? */
 	/* 30 */ { 43178, 48 }, /* Too small!  Assuming minimum value (45 minutes). */
 	/* 31 */ { 43226, 43 }, /* Break out of this and save your core-image. */
-	/* 32 */ { 43269, 34 } /* Be sure to save your core-image... */
+	/* 32 */ { 43269, 34 }, /* Be sure to save your core-image... */
+	/* 33 */ { 0, 0 },
+	/* 34 */ { 0, 0 }
 };
 
 const int clsses = 10;
 
 const struct text ctext[CLSMAX] = { // section 10
-	{ 41048, 0 },
+	{ 0, 0 },
 	{ 41048, 57 }, /* You are obviously a rank amateur.  Better luck next time. */
 	{ 41105, 54 }, /* Your score qualifies you as a Novice class Adventurer. */
 	{ 41159, 55 }, /* You have achieved the rating: "Experienced Adventurer". */
@@ -1023,7 +1073,9 @@ const struct text ctext[CLSMAX] = { // section 10
 	{ 41308, 49 }, /* Your score puts you in Master Adventurer Class C. */
 	{ 41357, 49 }, /* Your score puts you in Master Adventurer Class B. */
 	{ 41406, 49 }, /* Your score puts you in Master Adventurer Class A. */
-	{ 41455, 65 } /* All of Adventuredom gives tribute to you, Adventurer Grandmaster! */
+	{ 41455, 65 }, /* All of Adventuredom gives tribute to you, Adventurer Grandmaster! */
+	{ 0, 0 }, 
+	{ 0, 0 }
 };
 
 const int cval[CLSMAX] = { // section 10
@@ -1036,19 +1088,21 @@ const int cval[CLSMAX] = { // section 10
 	300,
 	330,
 	349,
-	9999
+	9999,
+	0,
+	0
 };
 
 const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 0, 6 }, /* oil */
 	{ 6, 36 }, /* broke geyse spice foe foe */
-	{ 42, 0 },
+	{ 0, 0 },
 	{ 42, 16 }, /* steps steps */
 	{ 58, 32 }, /* touch pearl mumbl smash */
 	{ 90, 31 }, /* hole carpe tride captu */
 	{ 121, 15 }, /* water turn */
 	{ 136, 23 }, /* back crack abrac */
-	{ 159, 0 },
+	{ 0, 0 },
 	{ 159, 22 }, /* dome nothi abra */
 	{ 181, 16 }, /* slabr brief */
 	{ 197, 17 }, /* go foo foo */
@@ -1066,31 +1120,31 @@ const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 422, 15 }, /* look mirro */
 	{ 437, 33 }, /* bed pit north slit hit */
 	{ 470, 29 }, /* room vendi free tree */
-	{ 499, 0 },
+	{ 0, 0 },
 	{ 499, 15 }, /* view drago */
-	{ 514, 0 },
+	{ 0, 0 },
 	{ 514, 37 }, /* forwa passa ne secre messa */
 	{ 551, 15 }, /* floor door */
 	{ 566, 24 }, /* pillo explo follo */
-	{ 590, 0 },
+	{ 0, 0 },
 	{ 590, 59 }, /* snake stala carry take close shake fum fum */
 	{ 649, 8 }, /* chain */
 	{ 657, 7 }, /* fork */
-	{ 664, 0 },
+	{ 0, 0 },
 	{ 664, 15 }, /* oyste tote */
 	{ 679, 31 }, /* stair over climb caver */
 	{ 710, 23 }, /* attac perus info */
 	{ 733, 7 }, /* quit */
 	{ 740, 23 }, /* gully issue tame */
 	{ 763, 21 }, /* on deton excav */
-	{ 784, 0 },
+	{ 0, 0 },
 	{ 784, 35 }, /* hill hall find fill stop */
 	{ 819, 46 }, /* retre awkwa above exami plove say */
 	{ 865, 8 }, /* magaz */
 	{ 873, 28 }, /* nw cross strik toss */
 	{ 901, 15 }, /* jewel lost */
 	{ 916, 21 }, /* se fissu nugge */
-	{ 937, 0 },
+	{ 0, 0 },
 	{ 937, 8 }, /* drink */
 	{ 945, 7 }, /* lamp */
 	{ 952, 40 }, /* outsi nowhe batte potte distu */
@@ -1099,7 +1153,7 @@ const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 1021, 29 }, /* out insid ignit read */
 	{ 1050, 16 }, /* bedqu emera */
 	{ 1066, 7 }, /* down */
-	{ 1073, 0 },
+	{ 0, 0 },
 	{ 1073, 47 }, /* bird bottl plant plant shard chant */
 	{ 1120, 30 }, /* tunne key velve silve */
 	{ 1150, 6 }, /* inv */
@@ -1114,12 +1168,12 @@ const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 1343, 15 }, /* treas fuck */
 	{ 1358, 21 }, /* south eat feed */
 	{ 1379, 16 }, /* chasm plati */
-	{ 1395, 0 },
+	{ 0, 0 },
 	{ 1395, 21 }, /* bars hours dig */
 	{ 1416, 15 }, /* headl drop */
 	{ 1431, 16 }, /* knive trave */
-	{ 1447, 0 },
-	{ 1447, 0 },
+	{ 0, 0 },
+	{ 0, 0 },
 	{ 1447, 15 }, /* west blast */
 	{ 1462, 23 }, /* cage pyram devou */
 	{ 1485, 8 }, /* extin */
@@ -1130,23 +1184,23 @@ const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 1565, 8 }, /* trees */
 	{ 1573, 30 }, /* road exit crawl pirat */
 	{ 1603, 44 }, /* conti surfa conti fee fee shaza */
-	{ 1647, 0 },
+	{ 0, 0 },
 	{ 1647, 14 }, /* downs rug */
 	{ 1661, 7 }, /* left */
 	{ 1668, 16 }, /* disca score */
-	{ 1684, 0 },
+	{ 0, 0 },
 	{ 1684, 16 }, /* downw unloc */
-	{ 1700, 0 },
+	{ 0, 0 },
 	{ 1700, 31 }, /* desce proce wake sesam */
 	{ 1731, 21 }, /* main run inven */
-	{ 1752, 0 },
+	{ 0, 0 },
 	{ 1752, 12 }, /* build d */
 	{ 1764, 4 }, /* e */
 	{ 1768, 31 }, /* onwar inwar upwar slab */
 	{ 1799, 37 }, /* fores rock offic keys lock */
-	{ 1836, 0 },
+	{ 0, 0 },
 	{ 1836, 20 }, /* entra fie fie */
-	{ 1856, 0 },
+	{ 0, 0 },
 	{ 1856, 7 }, /* walk */
 	{ 1863, 43 }, /* null wall shell wand wand kill */
 	{ 1906, 23 }, /* depre volca calm */
@@ -1162,7 +1216,7 @@ const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 2105, 4 }, /* w */
 	{ 2109, 6 }, /* get */
 	{ 2115, 8 }, /* machi */
-	{ 2123, 0 },
+	{ 0, 0 },
 	{ 2123, 24 }, /* beans coins opens */
 	{ 2147, 8 }, /* giant */
 	{ 2155, 23 }, /* placa slay where */
@@ -1326,7 +1380,17 @@ const int hints[20][5] = { // section 11
 	/* 6 */	{ 0, 8, 2, 20, 21 },
 	/* 7 */	{ 0, 75, 4, 176, 177 },
 	/* 8 */	{ 0, 25, 5, 178, 179 },
-	/* 9 */	{ 0, 20, 3, 180, 181 }
+	/* 9 */	{ 0, 20, 3, 180, 181 },
+	/* 10 */ { 0, 0, 0, 0, 0 },
+	/* 11 */ { 0, 0, 0, 0, 0 },
+	/* 12 */ { 0, 0, 0, 0, 0 },
+	/* 13 */ { 0, 0, 0, 0, 0 },
+	/* 14 */ { 0, 0, 0, 0, 0 },
+	/* 15 */ { 0, 0, 0, 0, 0 },
+	/* 16 */ { 0, 0, 0, 0, 0 },
+	/* 17 */ { 0, 0, 0, 0, 0 },
+	/* 18 */ { 0, 0, 0, 0, 0 },
+	/* 19 */ { 0, 0, 0, 0, 0 }
 };
 
 const int fixd[101] = { // section 7 1/2

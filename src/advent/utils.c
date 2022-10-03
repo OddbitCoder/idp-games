@@ -12,6 +12,12 @@
 #include <string.h>
 #include "utils.h"
 
+#define BCD2BIN(val) (((val) & 15) + ((val) >> 4) * 10)
+
+__sfr __at 0xA0 CTC_TENTHS_CS;
+__sfr __at 0xA1 CTC_HUNDREDS;
+__sfr __at 0xA2 CTC_SECONDS;
+
 char *strcpy(char *destination, const char *source)
 {
 	while (*source != '\0') {
@@ -160,5 +166,24 @@ void parse_in(char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {
                 w2_buf[len] = '\0';
             }
         }
+    }
+}
+
+UINT16 timer() {
+    UINT8 s = CTC_SECONDS;
+    UINT8 s100 = CTC_HUNDREDS;
+    UINT8 cs10 = CTC_TENTHS_CS;
+    UINT8 s100_check = CTC_HUNDREDS;
+    UINT8 s_check = CTC_SECONDS;
+    UINT16 ms;
+    if (s100 == s100_check) {
+        ms = BCD2BIN(s100) * 10 + BCD2BIN(cs10 >> 4);
+    } else {
+        ms = BCD2BIN(s100_check) * 10;
+    }
+    if (s == s_check) {
+        return BCD2BIN(s) * 1000 + ms;
+    } else {
+        return BCD2BIN(s_check) * 1000;
     }
 }
