@@ -1,4 +1,4 @@
-var lines = File.ReadAllLines(@"C:\Work\idp-games\src\adv0\glorkz");
+var lines = File.ReadAllLines(@"C:\Work\idp-games-idp-udev\src\advent\glorkz");
 
 var crlf = "\n\r";
 
@@ -9,9 +9,9 @@ int offset = 0;
 
 int sect = 1;
 
-var vocWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\voc.bin", FileMode.Create));
-var txtWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\text.bin", FileMode.Create));
-var travWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\adv0\\trav.bin", FileMode.Create));
+var vocWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\advent\\voc.bin", FileMode.Create));
+var txtWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\advent\\text.bin", FileMode.Create));
+var travWriter = new BinaryWriter(File.Open("C:\\Work\\idp-games-idp-udev\\src\\advent\\trav.bin", FileMode.Create));
 
 var vocDict = new Dictionary<ushort, List<(string, ushort)>>();
 
