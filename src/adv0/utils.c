@@ -41,7 +41,7 @@ UINT16 atoi(char *str)
 
 int fparse(char *path, fcb_t *fcb, UINT8 *area);
 
-UINT8 *fread(char *path, UINT8 *out, UINT16 pos, UINT16 len) {
+UINT8 *fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len) {
 	// allocate fcb 
 	fcb_t *fcb = calloc(1, sizeof(fcb_t));
 	UINT8 *ret_val = NULL;
@@ -78,23 +78,23 @@ UINT8 *fread(char *path, UINT8 *out, UINT16 pos, UINT16 len) {
         goto fread_done;
     }
     // read
-    UINT16 rlen = 0;
-    UINT8 *pout = out;
-    while (rlen < len) {
+    UINT16 r_len = 0;
+    UINT8 *p_buf = buf;
+    while (r_len < len) {
     	bdosret(F_READ, (UINT16)fcb, &result);
         if (result.reta != 0) {
         	goto fread_done;
         }
         UINT16 count = DMA_SIZE - dma_offs;
-        if (rlen + count > len) {
-            count = len - rlen;
+        if (r_len + count > len) {
+            count = len - r_len;
         }
-		memcpy(pout, dma + dma_offs, count);
-		pout += count;
-        rlen += count;
+		memcpy(p_buf, dma + dma_offs, count);
+		p_buf += count;
+        r_len += count;
 		dma_offs = 0;
     }
-    ret_val = out;
+    ret_val = buf;
 fread_done:
     if (file_open) {
         bdosret(F_CLOSE, (UINT16)fcb, &result);
@@ -107,57 +107,57 @@ fread_done:
 	return ret_val;
 }
 
-void conin() {
+void con_in() {
     printf("? ");
     char ch;
-    UINT8 l = 0;
+    UINT8 len = 0;
     do {
         // TODO: history, back/fwd arrow, insert, delete...
         while (!(ch = kbhit()));
         if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == ' ') {
-            if (l < 2 * MAXSTR + 1) {
-                buffer[l] = ch;
+            if (len < 2 * MAXSTR + 1) {
+                buffer[len] = ch;
                 printf("%c", ch);
-                buffer[++l] = '\0'; 
+                buffer[++len] = '\0'; 
             } 
         } else if (ch == '\b') { 
-            if (l > 0) {
+            if (len > 0) {
                 printf("\b \b");
-                buffer[--l] = '\0';
+                buffer[--len] = '\0';
             }
         } 
-    } while (ch != '\r' || l == 0);
+    } while (ch != '\r' || len == 0);
     printf("\n\r");
 }
 
-void parsein(char *wd1buf, char *wd2buf, int maxwd1, int maxwd2) {
+void parse_in(char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {
     // word 1
-    char *p = buffer, *r;
-    for (; *p == ' '; p++);
-    r = p;
-    UINT8 l = 0;
-    for (; *p != ' ' && *p != '\0'; p++, l++);
-    if (l >= maxwd1) {
-        memcpy(wd1buf, r, maxwd1 - 1);
-        wd1buf[maxwd1 - 1] = '\0';
+    char *p_buf = buffer, *w_start;
+    for (; *p_buf == ' '; p_buf++);
+    w_start = p_buf;
+    UINT8 len = 0;
+    for (; *p_buf != ' ' && *p_buf != '\0'; p_buf++, len++);
+    if (len >= w1_max_len) {
+        memcpy(w1_buf, w_start, w1_max_len - 1);
+        w1_buf[w1_max_len - 1] = '\0';
     } else {
-        memcpy(wd1buf, r, l);
-        wd1buf[l] = '\0';
+        memcpy(w1_buf, w_start, len);
+        w1_buf[len] = '\0';
     }
     // word 2
-    wd2buf[0] = '\0';
-    if (maxwd2 > 0) {
-        for (; *p == ' '; p++); 
-        if (*p != '\0') { // is there a word?
-            r = p;
-            l = 0;
-            for (; *p != ' ' && *p != '\0'; p++, l++);
-            if (l >= maxwd2) {
-                memcpy(wd2buf, r, maxwd2 - 1);
-                wd2buf[maxwd2 - 1] = '\0';
+    w2_buf[0] = '\0';
+    if (w2_max_len > 0) {
+        for (; *p_buf == ' '; p_buf++); 
+        if (*p_buf != '\0') { // is there a word?
+            w_start = p_buf;
+            len = 0;
+            for (; *p_buf != ' ' && *p_buf != '\0'; p_buf++, len++);
+            if (len >= w2_max_len) {
+                memcpy(w2_buf, w_start, w2_max_len - 1);
+                w2_buf[w2_max_len - 1] = '\0';
             } else {
-                memcpy(wd2buf, r, l);
-                wd2buf[l] = '\0';
+                memcpy(w2_buf, w_start, len);
+                w2_buf[len] = '\0';
             }
         }
     }

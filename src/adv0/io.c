@@ -68,8 +68,8 @@ void getin(char **wrd1,char **wrd2)                        /* get command from u
 {       static char wd1buf[MAXSTR], wd2buf[MAXSTR];
 	*wrd1 = wd1buf;                   /* return ptr to internal string*/
  	*wrd2 = wd2buf;
- 	conin();
-	parsein(wd1buf, wd2buf, MAXSTR, MAXSTR);
+ 	con_in();
+	parse_in(wd1buf, wd2buf, MAXSTR, MAXSTR);
 }
 
 

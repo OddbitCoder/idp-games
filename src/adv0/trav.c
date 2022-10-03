@@ -7,40 +7,40 @@
  */
 
 #include <string.h>
-#include "trav.h"
 #include "utils.h"
+#include "trav.h"
 
-struct travptr *tstart(struct travptr *tptr, UINT8 idx) {
-	fread(TRAV_BIN, tptr->buffer, (UINT16)travel[idx].seekadr, travel[idx].txtlen);
-	tptr->ptr = tptr->buffer;
-	tptr->eod = tptr->ptr + travel[idx].txtlen;
-	tptr->tverb = *tptr->ptr & 127;
-	tptr->ptr++;
-	tptr->tloc = *(UINT16 *)tptr->ptr;
-	tptr->ptr += 2;
-	tptr->conditions = *(UINT16 *)tptr->ptr;
-	tptr->ptr += 2;
-	return tptr;
+struct trav_ptr *trav_start(struct trav_ptr *t_ptr, UINT8 idx) {
+	fread("TRAV.BIN", t_ptr->buffer, (UINT16)travel[idx].seekadr, travel[idx].txtlen);
+	t_ptr->ptr = t_ptr->buffer;
+	t_ptr->eod = t_ptr->ptr + travel[idx].txtlen;
+	t_ptr->tverb = *t_ptr->ptr & 127;
+	t_ptr->ptr++;
+	t_ptr->tloc = *(UINT16 *)t_ptr->ptr;
+	t_ptr->ptr += 2;
+	t_ptr->conditions = *(UINT16 *)t_ptr->ptr;
+	t_ptr->ptr += 2;
+	return t_ptr;
 }
 
-struct travptr *tnext(struct travptr *tptr) {
-	if (tlast(tptr)) {
-		tptr++;
+struct trav_ptr *trav_next(struct trav_ptr *t_ptr) {
+	if (trav_last(t_ptr)) {
+		t_ptr++;
 		return 0;
 	}
-	tptr->tverb = *tptr->ptr;
-	tptr->ptr++;
-	if ((tptr->tverb & 128) != 0) {
-		tptr->tloc = *(UINT16 *)tptr->ptr;
-		tptr->ptr += 2;
-		tptr->conditions = *(UINT16 *)tptr->ptr;
-		tptr->ptr += 2;
+	t_ptr->tverb = *t_ptr->ptr;
+	t_ptr->ptr++;
+	if ((t_ptr->tverb & 128) != 0) {
+		t_ptr->tloc = *(UINT16 *)t_ptr->ptr;
+		t_ptr->ptr += 2;
+		t_ptr->conditions = *(UINT16 *)t_ptr->ptr;
+		t_ptr->ptr += 2;
 	}	
-	tptr->tverb &= 127;
-	return tptr;
+	t_ptr->tverb &= 127;
+	return t_ptr;
 }
 
-struct travptr *tset(struct travptr *a, struct travptr *b) {
+struct trav_ptr *trav_set(struct trav_ptr *a, struct trav_ptr *b) {
 	if (b == 0) {
 		a->ptr = 0;
 		a->eod = 0;
@@ -50,16 +50,16 @@ struct travptr *tset(struct travptr *a, struct travptr *b) {
 		a->conditions = b->conditions;
 		a->ptr = b->ptr;
 		a->eod = b->eod;
-		memcpy(a->buffer, b->buffer, 60);
+		memcpy(a->buffer, b->buffer, TT_BUFFER_SIZE);
 	}
 	return a;
 }
 
-BOOL tlast(struct travptr *tptr) {
-	return tptr->ptr == (tptr->eod - 1);
+BOOL trav_last(struct trav_ptr *t_ptr) {
+	return t_ptr->ptr == (t_ptr->eod - 1);
 }
 
-BOOL tvalid(struct travptr *tptr) {
-	return tptr->ptr < tptr->eod;
+BOOL trav_valid(struct trav_ptr *t_ptr) {
+	return t_ptr->ptr < t_ptr->eod;
 }
 

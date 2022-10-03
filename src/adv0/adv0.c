@@ -66,12 +66,6 @@
 #include "wizard.h"
 #include "utils.h"
 
-#if DEBUG
-#define L(x) x: printf(#x " "); 
-#else
-#define L(x) x: 
-#endif
-
 //main
 void main(int argc,char **argv)
 //int argc;

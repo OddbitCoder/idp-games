@@ -58,7 +58,17 @@
 
 /* hdr.h: included by c advent files */
 
-#include "types.h"
+typedef unsigned int UINT16;
+typedef signed int INT16;
+typedef unsigned char UINT8;
+typedef signed char INT8;
+typedef INT8 BOOL;
+
+#if DEBUG
+#define L(x) x: printf(#x " "); 
+#else
+#define L(x) x: 
+#endif
 
 //
 // int datfd;                              /* message file descriptor      */
@@ -81,13 +91,12 @@ extern int saved,savet,mxscor,latncy;
 
 #define MAXSTR  20                      /* max length of user's words   */
 
-//#define HTSIZE  512                     /* max number of vocab words    */
+#define HTSIZE  128                     /* max number of vocab words    */
 //struct hashtab                          /* hash table for vocabulary    */
 //{       int val;                        /* word type &index (ktab)      */
 //	char *atab;                     /* pointer to actual string     */
-//};
-//extern struct hashtab voc[HTSIZE];
-extern const struct text voc[128];
+//} voc[HTSIZE];
+extern const struct text voc[HTSIZE];
 
 // #define SEED 1815622                    /* "Encryption" seed            */
 
@@ -123,13 +132,13 @@ extern const struct text stext[LOCSIZ];              /* short loc descriptions  
 //	int tverb;                      /* the verb that takes you there*/
 //}; 
 extern const struct text travel[LOCSIZ];
-extern struct travptr *tkk;
-
+extern struct trav_ptr *tkk;
+//
 extern int atloc[LOCSIZ];
 
-extern const int  plac[101];                         /* initial object placement     */
-extern const int  fixd[101];
-extern int  fixed[101];              /* location fixed?              */
+extern const int plac[101];                         /* initial object placement     */
+extern const int fixd[101];
+extern int fixed[101];              /* location fixed?              */
 
 extern const int actspk[35];                         /* rtext msg for verb <n>       */
 

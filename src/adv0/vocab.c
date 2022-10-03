@@ -139,7 +139,7 @@ int vocab(char *word,int type)                  /* look up a word      */
 		hc <<= 2;
 		hc += *p_ch;
 	}
-	hc &= 127;
+	hc &= HTSIZE - 1;
 	fread("VOC.BIN", buffer, (UINT16)voc[hc].seekadr, voc[hc].txtlen);
 	UINT8 *eod = buffer + voc[hc].txtlen;
 	// parse HT entry

@@ -11,21 +11,21 @@
 
 #include "hdr.h"
 
-#define TRAV_BIN "TRAV.BIN"
+#define TT_BUFFER_SIZE 60
 
-struct travptr {
+struct trav_ptr {
 	UINT8 tverb;
 	UINT16 tloc;
 	UINT16 conditions;
 	UINT8 *ptr;
 	UINT8 *eod;
-	UINT8 buffer[60];
+	UINT8 buffer[TT_BUFFER_SIZE];
 };
 
-struct travptr *tstart(struct travptr *tptr, UINT8 idx);
-struct travptr *tnext(struct travptr *tptr);
-struct travptr *tset(struct travptr *a, struct travptr *b); // a = b
-BOOL tlast(struct travptr *tptr);
-BOOL tvalid(struct travptr *tptr);
+struct trav_ptr *trav_start(struct trav_ptr *t_ptr, UINT8 idx);
+struct trav_ptr *trav_next(struct trav_ptr *t_ptr);
+struct trav_ptr *trav_set(struct trav_ptr *a, struct trav_ptr *b); // a = b
+BOOL trav_last(struct trav_ptr *t_ptr);
+BOOL trav_valid(struct trav_ptr *t_ptr);
 
 #endif

@@ -58,12 +58,6 @@
 #include "subr.h"
 #include "utils.h"
 
-#if DEBUG
-#define L(x) x: printf(#x " "); 
-#else
-#define L(x) x: 
-#endif
-
 /*              Statement functions     */
 int toting(int objj)
 //int objj;
@@ -105,7 +99,7 @@ int liqloc(int locc)     /* may want to clean this one up a bit */
 	return(liq2(j*l+1));
 }
 
-int bitset(int l,int n)
+int bitrav_set(int l,int n)
 //int l,n;
 {       if (cond[l] & setbit[n]) return(TRUE);
 	return(FALSE);
@@ -132,10 +126,10 @@ int pct(int n)
 
 int fdwarf()		/* 71 */
 {	register int i,j;
-	static struct travptr _kk;
-	register struct travptr *kk=&_kk;
+	static struct trav_ptr _kk;
+	register struct trav_ptr *kk=&_kk;
 
-	if (newloc!=loc&&!forced(loc)&&!bitset(loc,3))
+	if (newloc!=loc&&!forced(loc)&&!bitrav_set(loc,3))
 	{	for (i=1; i<=5; i++)
 		{	if (odloc[i]!=newloc||!dseen[i]) continue;
 			newloc=loc;
@@ -144,7 +138,7 @@ int fdwarf()		/* 71 */
 		}
 	}
 	loc=newloc;			/* 74 */
-	if (loc==0||forced(loc)||bitset(newloc,3)) return(2000);
+	if (loc==0||forced(loc)||bitrav_set(newloc,3)) return(2000);
 	if (dflag==0)
 	{	if (loc>=15) dflag=1;
 		return(2000);
@@ -168,12 +162,12 @@ int fdwarf()		/* 71 */
 	for (i=1; i<=6; i++)                    /* loop to 6030 */
 	{	if (dloc[i]==0) continue;
 		j=1;
-		for (tstart(kk,dloc[i]); tvalid(kk); tnext(kk))
+		for (trav_start(kk,dloc[i]); trav_valid(kk); trav_next(kk))
 		{	newloc=kk->tloc;
 			if (newloc>300||newloc<15||newloc==odloc[i]
 			    ||(j>1&&newloc==tk[j-1])||j>=20
 			    ||newloc==dloc[i]||forced(newloc)
-			    ||(i==6&&bitset(newloc,3))
+			    ||(i==6&&bitrav_set(newloc,3))
 			    ||kk->conditions==100) continue;
 			tk[j++]=newloc;
 		}
@@ -253,7 +247,7 @@ int march()                                        /* label 8              */
 {       register int ll1,ll2;
 
 	if (travel[newloc=loc].txtlen==0) bug(26);
-	tstart(tkk,newloc);
+	trav_start(tkk,newloc);
 	if (k==null) return(2);
 	if (k==cave)                            /* 40                   */
 	{       if (loc<8) rspeak(57);
@@ -276,9 +270,9 @@ int march()                                        /* label 8              */
 	oldlc2=oldloc;
 	oldloc=loc;
 L(l9)
-	for (; tvalid(tkk); tnext(tkk))
+	for (; trav_valid(tkk); trav_next(tkk))
 		if (tkk->tverb==1 || tkk->tverb==k) break;
-	if (!tvalid(tkk))
+	if (!trav_valid(tkk))
 	{       badmove();
 		return(2);
 	}
@@ -307,42 +301,42 @@ L(l11)    ll1=tkk->conditions;                    /* 11                   */
 	}
 	if (prop[k]!=(newloc/100)-3) goto l16;  /* newloc still conditions*/
 L(l12)    /* alternative to probability move      */
-	for (; tvalid(tkk); tnext(tkk))
+	for (; trav_valid(tkk); trav_next(tkk))
 		if (tkk->tloc!=ll2 || tkk->conditions!=ll1) break;
-	if (!tvalid(tkk)) bug(25);
+	if (!trav_valid(tkk)) bug(25);
 	goto l11;
 }
 
 
 
 int mback()                                         /* 20                   */
-{       static struct travptr _tk2,_j;
-	register struct travptr *tk2=&_tk2,*j=&_j;
+{       static struct trav_ptr _tk2,_j;
+	register struct trav_ptr *tk2=&_tk2,*j=&_j;
 	register int ll;
 	if (forced(k=oldloc)) k=oldlc2;         /* k=location           */
 	oldlc2=oldloc;
 	oldloc=loc;
-	tset(tk2,0);
+	trav_set(tk2,0);
 	if (k==loc)
 	{       rspeak(91);
 		return(2);
 	}
-	for (; tvalid(tkk); tnext(tkk))           /* 21                   */
+	for (; trav_valid(tkk); trav_next(tkk))           /* 21                   */
 	{       ll=tkk->tloc;
 		if (ll==k)
 		{       k=tkk->tverb;           /* k back to verb       */
-			tstart(tkk,loc);
+			trav_start(tkk,loc);
 			return(9);
 		}
 		if (ll<=300)
-		{       tstart(j,loc);
-			if (forced(ll) && k==j->tloc) tset(tk2,tkk);
+		{       trav_start(j,loc);
+			if (forced(ll) && k==j->tloc) trav_set(tk2,tkk);
 		}
 	}
-	tset(tkk,tk2);                                /* 23                   */
-	if (tvalid(tkk))
+	trav_set(tkk,tk2);                                /* 23                   */
+	if (trav_valid(tkk))
 	{       k=tkk->tverb;
-		tstart(tkk,loc);
+		trav_start(tkk,loc);
 		return(9);
 	}
 	rspeak(140);
@@ -419,7 +413,7 @@ void checkhints()                                    /* 2600 &c              */
 {       register int hint;
 	for (hint=4; hint<=hntmax; hint++)
 	{       if (hinted[hint]) continue;
-		if (!bitset(loc,hint)) hintlc[hint]= -1;
+		if (!bitrav_set(loc,hint)) hintlc[hint]= -1;
 		hintlc[hint]++;
 		if (hintlc[hint]<hints[hint][1]) continue;
 		switch(hint)

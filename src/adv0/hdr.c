@@ -1039,7 +1039,7 @@ const int cval[CLSMAX] = { // section 10
 	9999
 };
 
-const struct text voc[128] = { // vocabulary (voc.bin)
+const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 0, 6 }, /* oil */
 	{ 6, 36 }, /* broke geyse spice foe foe */
 	{ 42, 0 },
@@ -1378,8 +1378,8 @@ int stick = 0, dtotal = 0, attack = 0;
 
 int verb = 0, obj = 0, spk = 0;
 
-struct travptr _tkk = { 0, 0, 0, /*ptr*/0, /*eod*/0 };
-struct travptr *tkk = &_tkk;
+struct trav_ptr _tkk = { 0, 0, 0, /*ptr*/0, /*eod*/0 };
+struct trav_ptr *tkk = &_tkk;
 
 char *wd1 = 0, *wd2 = 0;
 

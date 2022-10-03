@@ -127,8 +127,8 @@ void ciao(char *cmdfile)
 {
     static char fname[80];
  	printf("What would you like to call the saved version?\n\r");
-    conin();
-    parsein(fname, NULL, 80, 0);
+    con_in();
+    parse_in(fname, NULL, 80, 0);
  	if (save(fname) != 0) return;           /* Save failed */
  	printf("To resume, say \"adventure %s\".\n\r", fname);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");

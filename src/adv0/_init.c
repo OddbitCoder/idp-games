@@ -105,13 +105,13 @@ char *decr(char a,char b,char c,char d,char e)
 
 //linkdata
 void linkdata()                              /*  secondary data manipulation */
-{       static struct travptr tptr;
+{       static struct trav_ptr tptr;
     register int i,j;
 
 	/*      array linkages          */
 	for (i=1; i<=LOCSIZ; i++)
 		if (ltext[i].seekadr!=0 && travel[i].txtlen != 0)
-			if ((tstart(&tptr,i)->tverb)==1) ((int *)cond)[i]=2;
+			if ((trav_start(&tptr,i)->tverb)==1) ((int *)cond)[i]=2;
 	for (j=100; j>0; j--)
 		if (fixd[j]>0)
 		{       drop(j+100,fixd[j]);

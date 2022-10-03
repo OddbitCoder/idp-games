@@ -115,7 +115,7 @@ struct travlist                         /* direcs & conditions of travel*/
 	int tloc;                       /* n in writeup (newloc % 1000) */
 	int tverb;                      /* the verb that takes you there*/
 } *travel[LOCSIZ],*tkk;                 /* travel is closer to keys(...)*/
-
+//
 int atloc[LOCSIZ];
 
 int  plac[101];                         /* initial object placement     */
