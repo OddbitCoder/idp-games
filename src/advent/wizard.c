@@ -112,7 +112,7 @@ void ciao(char *cmdfile)
     con_in();
     parse_in(fname, NULL, 80, 0);
  	if (save(fname) != 0) return;           /* Save failed */
- 	printf("To resume, say \"adventure %s\".\n\r", fname);
+ 	printf("To resume, say \"advent %s\".\n\r", fname);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
 	exit(0);
 }

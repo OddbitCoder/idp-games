@@ -374,7 +374,7 @@ void main(int argc,char **argv)
 			spk=201;
 			if (demo) goto l2011;
 			printf("I can suspend your adventure for you so");
-			printf(" you can resume later.");
+			printf(" you can resume later.\n\r");
 			if (!yes(200,54,54)) goto l2012;
 			//datime(&saved,&savet);
 			ciao(argv[0]);          /* Do we quit? */
