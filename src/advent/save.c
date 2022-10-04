@@ -49,6 +49,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "hdr.h"
+#include "save.h"
 
 struct savestruct
 {
