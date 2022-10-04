@@ -1,9 +1,17 @@
+/*
+ * wizard.h
+ *
+ * Miha Grčar 2022
+ *
+ * Huh... Wizard?
+ */
+
 #ifndef __WIZARD_H
 #define __WIZARD_H
 
 void poof();
-int ran(int range);
+BOOL Start();
 void ciao(char *cmdfile);
-void datime(int *d,int *t);
+int ran(int range);
 
 #endif

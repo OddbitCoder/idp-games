@@ -48,27 +48,28 @@
 
 /*      Re-coding of advent in C: privileged operations                 */
 
-# include "hdr.h"
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "hdr.h"
 #include "io.h"
 #include "save.h"
 #include "utils.h"
+#include "wizard.h"
 
 //datime
-void datime(int *d,int *t)
-//int *d,*t;
-{       int *tptr;
-//  time_t tm;
-
-// 	time(&tm);
-// 	tptr=(int *)localtime(&tm);
+// datime(d,t)
+// int *d,*t;
+// {       int tvec[2],*tptr;
+// 	int *localtime();
+// 
+// 	time(tvec);
+// 	tptr=localtime(tvec);
 // 	*d=tptr[7]+365*(tptr[5]-77);    /* day since 1977  (mod leap)   */
 // 	/* bug: this will overflow in the year 2066 AD                  */
 // 	/* it will be attributed to Wm the C's millenial celebration    */
 // 	*t=tptr[2]*60+tptr[1];          /* and minutes since midnite    */
-}                                       /* pretty painless              */
+// }                                       /* pretty painless              */
 
 
 char magic[6];
@@ -81,30 +82,11 @@ void poof()
 }
 
 //Start
-// Start(n)
-// {       int d,t,delay;
-
-// 	datime(&d,&t);
-// 	delay=(d-saved)*1440+(t-savet); /* good for about a month     */
-
-// 	if (delay >= latncy)
-// 	{       saved = -1;
-// 		return(FALSE);
-// 	}
-// 	printf("This adventure was suspended a mere %d minute%s ago.",
-// 		delay, delay == 1? "" : "s");
-// 	if (delay <= latncy/3)
-// 	{       mspeak(2);
-// 		exit(0);
-// 	}
-// 	mspeak(8);
-// 	if (!wizard())
-// 	{       mspeak(9);
-// 		exit(0);
-// 	}
-// 	saved = -1;
-// 	return(FALSE);
-// }
+BOOL Start()
+{
+    saved = -1;
+    return(FALSE);
+}
 
 //wizard
 // wizard()                /* not as complex as advent/10 (for now)        */

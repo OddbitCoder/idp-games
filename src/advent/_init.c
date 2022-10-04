@@ -238,7 +238,7 @@ void startup()
 {
 //	time_t time();
 
-//	demo=Start(0);
+	demo=Start();
 	srand(timer());	/* random seed */
 	/* srand(371);				/* non-random seed */
 	hinted[3]=yes(65,1,0);

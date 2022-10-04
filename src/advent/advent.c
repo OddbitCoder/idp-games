@@ -378,7 +378,7 @@ void main(int argc,char **argv)
 			printf("you will have to wait at least");
 			printf(" %d minutes before continuing.",latncy);
 			if (!yes(200,54,54)) goto l2012;
-			datime(&saved,&savet);
+			//datime(&saved,&savet);
 			ciao(argv[0]);          /* Do we quit? */
 			continue;               /* Maybe not */
 		    case 31:                    /* hours=8310           */
