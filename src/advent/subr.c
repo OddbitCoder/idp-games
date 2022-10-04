@@ -50,13 +50,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-# include "hdr.h"
+#include "hdr.h"
 #include "io.h"
 #include "wizard.h"
 #include "vocab.h"
 #include "trav.h"
-#include "subr.h"
 #include "utils.h"
+#include "subr.h"
 
 /*              Statement functions     */
 int toting(int objj)
@@ -99,7 +99,7 @@ int liqloc(int locc)     /* may want to clean this one up a bit */
 	return(liq2(j*l+1));
 }
 
-int bitrav_set(int l,int n)
+int bitset(int l,int n)
 //int l,n;
 {       if (cond[l] & setbit[n]) return(TRUE);
 	return(FALSE);
@@ -129,7 +129,7 @@ int fdwarf()		/* 71 */
 	static struct trav_ptr _kk;
 	register struct trav_ptr *kk=&_kk;
 
-	if (newloc!=loc&&!forced(loc)&&!bitrav_set(loc,3))
+	if (newloc!=loc&&!forced(loc)&&!bitset(loc,3))
 	{	for (i=1; i<=5; i++)
 		{	if (odloc[i]!=newloc||!dseen[i]) continue;
 			newloc=loc;
@@ -138,7 +138,7 @@ int fdwarf()		/* 71 */
 		}
 	}
 	loc=newloc;			/* 74 */
-	if (loc==0||forced(loc)||bitrav_set(newloc,3)) return(2000);
+	if (loc==0||forced(loc)||bitset(newloc,3)) return(2000);
 	if (dflag==0)
 	{	if (loc>=15) dflag=1;
 		return(2000);
@@ -167,7 +167,7 @@ int fdwarf()		/* 71 */
 			if (newloc>300||newloc<15||newloc==odloc[i]
 			    ||(j>1&&newloc==tk[j-1])||j>=20
 			    ||newloc==dloc[i]||forced(newloc)
-			    ||(i==6&&bitrav_set(newloc,3))
+			    ||(i==6&&bitset(newloc,3))
 			    ||kk->conditions==100) continue;
 			tk[j++]=newloc;
 		}
@@ -413,7 +413,7 @@ void checkhints()                                    /* 2600 &c              */
 {       register int hint;
 	for (hint=4; hint<=hntmax; hint++)
 	{       if (hinted[hint]) continue;
-		if (!bitrav_set(loc,hint)) hintlc[hint]= -1;
+		if (!bitset(loc,hint)) hintlc[hint]= -1;
 		hintlc[hint]++;
 		if (hintlc[hint]<hints[hint][1]) continue;
 		switch(hint)

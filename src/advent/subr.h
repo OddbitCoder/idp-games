@@ -1,34 +1,42 @@
+/*
+ * vocab.h
+ *
+ * Miha Grčar 2022
+ *
+ * Various subroutines
+ */
+
 #ifndef __SUBR_H
 #define __SUBR_H
 
 int toting(int objj);
-int fdwarf();
-int forced(int locc);
-int bitset(int l,int n);
-int pct(int n);
 int here(int objj);
 int at(int objj);
-int dark(int foo);
-int march();
-void bug(int n);
-int mback();
-int badmove();
-int specials();
-int trbridge();
-void checkhints();
-int closing();
-int caveclose();
-int liqloc(int locc);
 int liq2(int pbotl);
 int liq(int foo);
-int trtake();
-int trdrop();
+int liqloc(int locc);
+int bitset(int l,int n);
+int forced(int locc);
+int dark(int foo);
+int pct(int n);
+int fdwarf();
+int march();
+int mback();
+int specials();
+int trbridge();
+int badmove();
+void bug(int n);
+void checkhints();
 int trsay();
+int trtake();
+int dropper();
+int trdrop();
 int tropen();
 int trkill();
 int trtoss();
 int trfeed();
 int trfill();
-int dropper();
+int closing();
+int caveclose();
 
 #endif
