@@ -109,6 +109,7 @@ char *mesg;
 	return(result);
 }
 
+//yes
 yes(x,y,z)                              /* confirm with rspeak          */
 int x,y,z;
 {       register int result;

@@ -1,5 +1,5 @@
 /*
- * utils.c
+ * utils.h
  *
  * Miha Grčar 2022
  *

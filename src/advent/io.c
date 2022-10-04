@@ -52,22 +52,20 @@
 #include <string.h>
 #include <stdlib.h>
 #include "hdr.h"
-#include "io.h"
 #include "vocab.h"
 #include "trav.h"
 #include "subr.h"
 #include "utils.h"
-
-#define VOC_BIN "VOC.BIN"
-#define VOC_BIN_SZ 2194
-#define TEXT_BIN "TEXT.BIN"
+#include "io.h"
 
 //getin
 void getin(char **wrd1,char **wrd2)                        /* get command from user        */
 // char **wrd1,**wrd2;                     /* no prompt, usually           */
-{       static char wd1buf[MAXSTR], wd2buf[MAXSTR];
-	*wrd1 = wd1buf;                   /* return ptr to internal string*/
- 	*wrd2 = wd2buf;
+{       
+	static char wd1buf[MAXSTR],wd2buf[MAXSTR];
+
+	*wrd1=wd1buf;                   /* return ptr to internal string*/
+	*wrd2=wd2buf;
  	con_in();
 	parse_in(wd1buf, wd2buf, MAXSTR, MAXSTR);
 }
@@ -98,6 +96,7 @@ int yes(int x,int y,int z)                              /* confirm with rspeak  
 		if (ch=='y')
 			result=TRUE;
 		else if (ch=='n') result=FALSE;
+		//FLUSHLINE;
 		if (ch=='y'|| ch=='n') break;
 		printf("Please answer the question.\n\r");
 	}
@@ -151,9 +150,71 @@ int yes(int x,int y,int z)                              /* confirm with rspeak  
 // char breakch;                           /* tell which char ended rnum   */
 
 //rdata
-// void rdata()                                  "read" data from virtual file
-// {       
-// 	rvoc();
+// rdata()                                 /* "read" data from virtual file*/
+// {       register int sect;
+// 	register char ch;
+
+// 	inptr = data_file;              /* Pointer to virtual data file */
+// 	srandom(SEED);                  /* which is lightly encrypted.  */
+
+// 	clsses=1;
+// 	for (;;)                        /* read data sections           */
+// 	{       sect=next()-'0';        /* 1st digit of section number  */
+// #ifdef VERBOSE
+// 		printf("Section %c",sect+'0');
+// #endif
+// 		if ((ch=next())!=LF)    /* is there a second digit?     */
+// 		{
+// 			FLUSHLF;
+// #ifdef VERBOSE
+// 			putchar(ch);
+// #endif
+// 			sect=10*sect+ch-'0';
+// 		}
+// #ifdef VERBOSE
+// 		putchar('\n');
+// #endif
+// 		switch(sect)
+// 		{   case 0:             /* finished reading database    */
+// 			return;
+// 		    case 1:             /* long form descriptions       */
+// 			rdesc(1);
+// 			break;
+// 		    case 2:             /* short form descriptions      */
+// 			rdesc(2);
+// 			break;
+// 		    case 3:             /* travel table                 */
+// 			rtrav();   break;
+// 		    case 4:             /* vocabulary                   */
+// 			rvoc();
+// 			break;
+// 		    case 5:             /* object descriptions          */
+// 			rdesc(5);
+// 			break;
+// 		    case 6:             /* arbitrary messages           */
+// 			rdesc(6);
+// 			break;
+// 		    case 7:             /* object locations             */
+// 			rlocs();   break;
+// 		    case 8:             /* action defaults              */
+// 			rdflt();   break;
+// 		    case 9:             /* liquid assets                */
+// 			rliq();    break;
+// 		    case 10:            /* class messages               */
+// 			rdesc(10);
+// 			break;
+// 		    case 11:            /* hints                        */
+// 			rhints();  break;
+// 		    case 12:            /* magic messages               */
+// 			rdesc(12);
+// 			break;
+// 		    default:
+// 			printf("Invalid data section number: %d\n",sect);
+// 			for (;;) putchar(next());
+// 		}
+// 		if (breakch!=LF)        /* routines return after "-1"   */
+// 			FLUSHLF;
+// 	}
 // }
 
 // char nbf[12];
@@ -289,55 +350,48 @@ int yes(int x,int y,int z)                              /* confirm with rspeak  
 // 	}
 // }
 
-#ifdef DEBUG
+// #ifdef DEBUG
 
 //twrite
-void twrite(int loq)                             /* travel options from this loc */
-//int loq;
-{       static struct travptr _t;
-	register struct travptr *t=&_t;
-	printf("If");
-	speak(&ltext[loq]);
-	printf("then\n");
-	for (tstart(t,loq); tvalid(t); tnext(t))
-	{       printf("verb %d takes you to ",t->tverb);
-		if (t->tloc<=300)
-			speak(&ltext[t->tloc]);
-		else if (t->tloc<=500)
-			printf("special code %d\n",t->tloc-300);
-		else
-			rspeak(t->tloc-500);
-		printf("under conditions %d\n",t->conditions);
-	}
-}
+// void twrite(int loq)                             /* travel options from this loc */
+// int loq;
+// {       static struct trav_ptr _t;
+// 	register struct trav_ptr *t=&_t;
+// 	printf("If");
+// 	speak(&ltext[loq]);
+// 	printf("then\n");
+// 	for (trav_start(t,loq); trav_valid(t); trav_next(t))
+// 	{       printf("verb %d takes you to ",t->tverb);
+// 		if (t->tloc<=300)
+// 			speak(&ltext[t->tloc]);
+// 		else if (t->tloc<=500)
+// 			printf("special code %d\n",t->tloc-300);
+// 		else
+// 			rspeak(t->tloc-500);
+// 		printf("under conditions %d\n",t->conditions);
+// 	}
+// }
 
-#endif //DEBUG
+// #endif //DEBUG
 
 //rvoc
-// void rvoc()               /* read the vocabulary          */
-// {
-// 	static char word_buf[6];
-// 	UINT16 len = 0;
-// 	while (len < VOC_BIN_SZ) {
-// 		UINT16 read_sz = (len + BUFFER_SIZE) >= VOC_BIN_SZ ? (VOC_BIN_SZ - len) : BUFFER_SIZE;
-// 		fread(VOC_BIN, buffer, len, read_sz);
-// 		UINT8 *ptr = buffer;
-// 		UINT8 *eod = buffer + read_sz;
-// 		while (ptr < eod) {
-// 			UINT8 word_len = *ptr;
-// 			if (++ptr + 2 + word_len > eod) { 
-// 				break; 
-// 			}
-// 			UINT16 word_idx = *(UINT16 *)ptr;
-// 			ptr += 2;
-// 			memcpy(word_buf, ptr, word_len);
-// 			word_buf[word_len] = 0;
-// 			ptr += word_len;
-// 			//printf("%s. ", word_buf); 
-// 			vocab(word_buf, -2, word_idx);
-// 			len += 3 + word_len;
-// 		}
+// rvoc()
+// {       register char *s;               /* read the vocabulary          */
+// 	register int index;
+// 	char buf[6];
+// 	for (;;)
+// 	{       index=rnum();
+// 		if (index<0) break;
+// 		for (s=buf,*s=0;; s++)  /* get the word                 */
+// 			if ((*s=next())==TAB || *s=='\n' || *s==LF
+// 				|| *s==' ') break;
+// 			/* terminate word with newline, LF, tab, blank  */
+// 		if (*s!='\n' && *s!=LF) FLUSHLF;  /* can be comments    */
+// 		*s=0;
+// 	/*      printf("\"%s\"=%d\n",buf,index);*/
+// 		vocab(buf,-2,index);
 // 	}
+// /*	prht();	*/
 // }
 
 
@@ -415,7 +469,7 @@ void pspeak(int m,int skip) /* read, decrypt an print a ptext message           
 //int m;         /* msg is the number of all the p msgs for this place  */
 //int skip;       /* assumes object 1 doesn't have prop 1, obj 2 no prop 2 &c*/
 {
-	// // if skip < 0, then print the first line, else print the line that matches skip * 100
+	// if skip < 0, then print the first line, else print the line that matches skip * 100
 	struct text *msg = &ptext[m];
 	fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;

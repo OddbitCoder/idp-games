@@ -7,5 +7,5 @@
 [ ] change all '\n' to '\n\r'
 [ ] restore game (advent.c)
 [ ] what does "demo" do?
-[X] srand? (_init.c) 
-[ ] test BCD2BIN
+[X] srand? (_init.c)
+[ ] revise return val types (int -> bool) 
