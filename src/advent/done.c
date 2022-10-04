@@ -55,6 +55,7 @@
 #include "subr.h"
 #include "vocab.h"
 #include "utils.h"
+#include "done.h"
 
 int score()                                         /* sort of like 20000   */
 {       register int scor,i;
