@@ -50,7 +50,7 @@ static char rcsid[] = "$NetBSD: vocab.c,v 1.2 1995/03/21 12:05:13 cgd Exp $";
 
 # include "hdr.h"
 
-//destroy
+//dstroy
 dstroy(object)
 int object;
 {       move(object,0);
