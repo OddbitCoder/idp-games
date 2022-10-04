@@ -26,7 +26,7 @@ struct trav_ptr *trav_start(struct trav_ptr *t_ptr, UINT8 idx) {
 
 struct trav_ptr *trav_next(struct trav_ptr *t_ptr) {
 	if (trav_last(t_ptr)) {
-		t_ptr++;
+		t_ptr->ptr++;
 		return 0;
 	}
 	t_ptr->tverb = *t_ptr->ptr;
