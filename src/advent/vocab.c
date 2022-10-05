@@ -136,7 +136,8 @@ int vocab(char *word,int type)                  /* look up a word      */
 	//printf("%s. ", word);
 	UINT16 hc = 0;
 	// compute hash code
-	for (char *p_ch = word; *p_ch; p_ch++) {
+	UINT8 i = 0;
+	for (char *p_ch = word; *p_ch && i < 5; p_ch++, i++) {
 		hc <<= 2;
 		hc += *p_ch;
 	}
