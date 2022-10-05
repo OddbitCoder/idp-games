@@ -1,0 +1,1505 @@
+*** MAP ***
+
+[1] You are standing at the end of a road before a small brick building. Around you is a forest.  A small stream flows out of the building and down a gully.
+TRAVEL:
+[2:0](road, hill), [44:0](west, w), [29:0](upwar, up, u, above, ascen)
+        => [2] You have walked up a hill, still in the forest.  The road slopes back down the other side of the hill.  There is a building in the distance.
+[3:0](enter), [12:0](build, house), [19:0](inwar, insid, in), [43:0](east, e)
+        => [3] You are inside a building, a well house for a large spring.
+[5:0](downs), [13:0](gully), [14:0](strea), [46:0](south, s), [30:0](d, downw, down, desce)
+        => [4] You are in a valley in the forest beside a stream tumbling along a rocky bed.
+[6:0](fores), [45:0](north, n), [43:0](east, e)
+        => [5] You are in open forest, with a deep valley to one side.
+[63:0](depre)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+
+[2] You have walked up a hill, still in the forest.  The road slopes back down the other side of the hill.  There is a building in the distance.
+TRAVEL:
+[2:0](road, hill), [12:0](build, house), [7:0](forwa, conti, onwar), [43:0](east, e), [45:0](north, n), [30:0](d, downw, down, desce)
+        => [1] You are standing at the end of a road before a small brick building. Around you is a forest.  A small stream flows out of the building and down a gully.
+[6:0](fores), [45:0](north, n), [46:0](south, s)
+        => [5] You are in open forest, with a deep valley to one side.
+
+[3] You are inside a building, a well house for a large spring.
+TRAVEL:
+[3:0](enter), [11:0](out, outsi, exit, leave), [32:0](outdo), [44:0](west, w)
+        => [1] You are standing at the end of a road before a small brick building. Around you is a forest.  A small stream flows out of the building and down a gully.
+[62:0](xyzzy)
+        => [11] You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west.  A note on the wall says "Magic word XYZZY".
+[65:0](plugh)
+        => [33] You are in a large room, with a passage to the south, a passage to the west, and a wall of broken rock to the east.  There is a large "Y2" on a rock in the room's center.
+[5:0](downs), [14:0](strea)
+        => [79] The stream flows out through a pair of 1 foot diameter sewer pipes. It would be advisable to use the exit.
+
+[4] You are in a valley in the forest beside a stream tumbling along a rocky bed.
+TRAVEL:
+[4:0](upstr), [12:0](build, house), [45:0](north, n)
+        => [1] You are standing at the end of a road before a small brick building. Around you is a forest.  A small stream flows out of the building and down a gully.
+[6:0](fores), [43:0](east, e), [44:0](west, w), [29:0](upwar, up, u, above, ascen)
+        => [5] You are in open forest, with a deep valley to one side.
+[5:0](downs), [46:0](south, s), [30:0](d, downw, down, desce)
+        => [7] At your feet all the water of the stream splashes into a 2-inch slit in the rock.  Downstream the streambed is bare rock.
+[63:0](depre)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+
+[5] You are in open forest, with a deep valley to one side.
+TRAVEL:
+[9:0](valle), [43:0](east, e), [30:0](d, downw, down, desce)
+        => [4] You are in a valley in the forest beside a stream tumbling along a rocky bed.
+[6:50](fores), [7:50](forwa, conti, onwar), [45:50](north, n)
+        => [5] You are in open forest, with a deep valley to one side.
+[6:0](fores)
+        => [6] You are in open forest near both a valley and a road.
+[44:0](west, w), [46:0](south, s)
+        => [5] You are in open forest, with a deep valley to one side.
+
+[6] You are in open forest near both a valley and a road.
+TRAVEL:
+[2:0](road, hill), [45:0](north, n)
+        => [1] You are standing at the end of a road before a small brick building. Around you is a forest.  A small stream flows out of the building and down a gully.
+[9:0](valle), [43:0](east, e), [44:0](west, w), [30:0](d, downw, down, desce)
+        => [4] You are in a valley in the forest beside a stream tumbling along a rocky bed.
+[6:0](fores), [46:0](south, s)
+        => [5] You are in open forest, with a deep valley to one side.
+
+[7] At your feet all the water of the stream splashes into a 2-inch slit in the rock.  Downstream the streambed is bare rock.
+TRAVEL:
+[12:0](build, house)
+        => [1] You are standing at the end of a road before a small brick building. Around you is a forest.  A small stream flows out of the building and down a gully.
+[4:0](upstr), [45:0](north, n)
+        => [4] You are in a valley in the forest beside a stream tumbling along a rocky bed.
+[6:0](fores), [43:0](east, e), [44:0](west, w)
+        => [5] You are in open forest, with a deep valley to one side.
+[5:0](downs), [15:0](rock), [16:0](bed), [46:0](south, s)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+[60:0](slit), [14:0](strea), [30:0](d, downw, down, desce)
+        => [595] No desc
+
+[8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+TRAVEL:
+[6:0](fores), [43:0](east, e), [44:0](west, w), [46:0](south, s)
+        => [5] You are in open forest, with a deep valley to one side.
+[12:0](build, house)
+        => [1] You are standing at the end of a road before a small brick building. Around you is a forest.  A small stream flows out of the building and down a gully.
+[4:0](upstr), [13:0](gully), [45:0](north, n)
+        => [7] At your feet all the water of the stream splashes into a 2-inch slit in the rock.  Downstream the streambed is bare rock.
+[3:303](enter), [19:303](inwar, insid, in), [30:303](d, downw, down, desce)
+        => [9] You are in a small chamber beneath a 3x3 steel grate to the surface. A low crawl over cobbles leads inward to the west.
+[3:0](enter)
+        => [593] No desc
+
+[9] You are in a small chamber beneath a 3x3 steel grate to the surface. A low crawl over cobbles leads inward to the west.
+TRAVEL:
+[11:303](out, outsi, exit, leave), [29:303](upwar, up, u, above, ascen)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+[11:0](out, outsi, exit, leave)
+        => [593] No desc
+[17:0](crawl), [18:0](cobbl), [19:0](inwar, insid, in), [44:0](west, w)
+        => [10] You are crawling over cobbles in a low passage.  There is a dim light at the east end of the passage.
+[31:0](pit)
+        => [14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+[51:0](debri)
+        => [11] You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west.  A note on the wall says "Magic word XYZZY".
+
+[10] You are crawling over cobbles in a low passage.  There is a dim light at the east end of the passage.
+TRAVEL:
+[11:0](out, outsi, exit, leave), [20:0](surfa), [21:0](null, nowhe), [43:0](east, e)
+        => [9] You are in a small chamber beneath a 3x3 steel grate to the surface. A low crawl over cobbles leads inward to the west.
+[19:0](inwar, insid, in), [22:0](dark), [44:0](west, w), [51:0](debri)
+        => [11] You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west.  A note on the wall says "Magic word XYZZY".
+[31:0](pit)
+        => [14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+
+[11] You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west.  A note on the wall says "Magic word XYZZY".
+TRAVEL:
+[63:303](depre)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+[64:0](entra)
+        => [9] You are in a small chamber beneath a 3x3 steel grate to the surface. A low crawl over cobbles leads inward to the west.
+[17:0](crawl), [18:0](cobbl), [23:0](passa, tunne), [24:0](low), [43:0](east, e)
+        => [10] You are crawling over cobbles in a low passage.  There is a dim light at the east end of the passage.
+[25:0](canyo), [19:0](inwar, insid, in), [29:0](upwar, up, u, above, ascen), [44:0](west, w)
+        => [12] You are in an awkward sloping east/west canyon.
+[62:0](xyzzy)
+        => [3] You are inside a building, a well house for a large spring.
+[31:0](pit)
+        => [14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+
+[12] You are in an awkward sloping east/west canyon.
+TRAVEL:
+[63:303](depre)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+[64:0](entra)
+        => [9] You are in a small chamber beneath a 3x3 steel grate to the surface. A low crawl over cobbles leads inward to the west.
+[30:0](d, downw, down, desce), [43:0](east, e), [51:0](debri)
+        => [11] You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west.  A note on the wall says "Magic word XYZZY".
+[19:0](inwar, insid, in), [29:0](upwar, up, u, above, ascen), [44:0](west, w)
+        => [13] You are in a splendid chamber thirty feet high.  The walls are frozen rivers of orange stone.  An awkward canyon and a good passage exit from east and west sides of the chamber.
+[31:0](pit)
+        => [14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+
+[13] You are in a splendid chamber thirty feet high.  The walls are frozen rivers of orange stone.  An awkward canyon and a good passage exit from east and west sides of the chamber.
+TRAVEL:
+[63:303](depre)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+[64:0](entra)
+        => [9] You are in a small chamber beneath a 3x3 steel grate to the surface. A low crawl over cobbles leads inward to the west.
+[51:0](debri)
+        => [11] You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west.  A note on the wall says "Magic word XYZZY".
+[25:0](canyo), [43:0](east, e)
+        => [12] You are in an awkward sloping east/west canyon.
+[23:0](passa, tunne), [31:0](pit), [44:0](west, w)
+        => [14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+
+[14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+TRAVEL:
+[63:303](depre)
+        => [8] You are in a 20-foot depression floored with bare dirt.  Set into the dirt is a strong steel grate mounted in concrete.  A dry streambed leads into the depression.
+[64:0](entra)
+        => [9] You are in a small chamber beneath a 3x3 steel grate to the surface. A low crawl over cobbles leads inward to the west.
+[51:0](debri)
+        => [11] You are in a debris room filled with stuff washed in from the surface. A low wide passage with cobbles becomes plugged with mud and debris here, but an awkward canyon leads upward and west.  A note on the wall says "Magic word XYZZY".
+[23:0](passa, tunne), [43:0](east, e)
+        => [13] You are in a splendid chamber thirty feet high.  The walls are frozen rivers of orange stone.  An awkward canyon and a good passage exit from east and west sides of the chamber.
+[30:150](d, downw, down, desce), [31:150](pit), [34:150](steps)
+        => [20] You are at the bottom of the pit with a broken neck.
+[30:0](d, downw, down, desce)
+        => [15] You are at one end of a vast hall stretching forward out of sight to the west.  There are openings to either side.  Nearby, a wide stone staircase leads downward.  The hall is filled with wisps of white mist swaying to and fro almost as if alive.  A cold wind blows up the staircase.  There is a passage at the top of a dome behind you.
+[33:0](crack), [44:0](west, w)
+        => [16] The crack is far too small for you to follow.
+
+[15] You are at one end of a vast hall stretching forward out of sight to the west.  There are openings to either side.  Nearby, a wide stone staircase leads downward.  The hall is filled with wisps of white mist swaying to and fro almost as if alive.  A cold wind blows up the staircase.  There is a passage at the top of a dome behind you.
+TRAVEL:
+[36:0](left), [46:0](south, s)
+        => [18] This is a low room with a crude note on the wall.  The note says, "You won't get it up the steps".
+[7:0](forwa, conti, onwar), [38:0](hall), [44:0](west, w)
+        => [17] You are on the east bank of a fissure slicing clear across the hall. The mist is quite thick here, and the fissure is too wide to jump.
+[10:0](stair), [30:0](d, downw, down, desce), [45:0](north, n)
+        => [19] You are in the Hall of the Mountain King, with passages off in all directions.
+[29:150](upwar, up, u, above, ascen), [31:150](pit), [34:150](steps), [35:150](dome), [23:150](passa, tunne), [43:150](east, e)
+        => [22] The dome is unclimbable.
+[29:0](upwar, up, u, above, ascen)
+        => [14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+[55:0](y2)
+        => [34] You are in a jumble of rock, with cracks everywhere.
+
+[16] The crack is far too small for you to follow.
+TRAVEL:
+(1:0)
+        => [14] At your feet is a small pit breathing traces of white mist.  An east passage ends here except for a small crack leading on.
+
+[17] You are on the east bank of a fissure slicing clear across the hall. The mist is quite thick here, and the fissure is too wide to jump.
+TRAVEL:
+[38:0](hall), [43:0](east, e)
+        => [15] You are at one end of a vast hall stretching forward out of sight to the west.  There are openings to either side.  Nearby, a wide stone staircase leads downward.  The hall is filled with wisps of white mist swaying to and fro almost as if alive.  A cold wind blows up the staircase.  There is a passage at the top of a dome behind you.
+[39:312](jump)
+        => [596] No desc
+[7:412](forwa, conti, onwar)
+        => [21] You didn't make it.
+[41:412](over), [42:412](acros), [44:412](west, w), [69:412](cross)
+        => [597] No desc
+[41:0](over)
+        => [27] You are on the west side of the fissure in the Hall of Mists.
+
+[18] This is a low room with a crude note on the wall.  The note says, "You won't get it up the steps".
+TRAVEL:
+[38:0](hall), [11:0](out, outsi, exit, leave), [45:0](north, n)
+        => [15] You are at one end of a vast hall stretching forward out of sight to the west.  There are openings to either side.  Nearby, a wide stone staircase leads downward.  The hall is filled with wisps of white mist swaying to and fro almost as if alive.  A cold wind blows up the staircase.  There is a passage at the top of a dome behind you.
+
+[19] You are in the Hall of the Mountain King, with passages off in all directions.
+TRAVEL:
+[10:0](stair), [29:0](upwar, up, u, above, ascen), [43:0](east, e)
+        => [15] You are at one end of a vast hall stretching forward out of sight to the west.  There are openings to either side.  Nearby, a wide stone staircase leads downward.  The hall is filled with wisps of white mist swaying to and fro almost as if alive.  A cold wind blows up the staircase.  There is a passage at the top of a dome behind you.
+[45:311](north, n), [36:311](left)
+        => [28] You are in a low N/S passage at a hole in the floor.  The hole goes down to an E/W passage.
+[46:311](south, s), [37:311](right)
+        => [29] You are in the south side chamber.
+[44:311](west, w), [7:311](forwa, conti, onwar)
+        => [30] You are in the west side chamber of the Hall of the Mountain King. A passage continues west and up here.[45:0](north, n)
+        => [32] You can't get by the snake.
+[49:35](sw)
+        => [74] You are in a secret canyon which here runs e/w.  It crosses over a very tight canyon 15 feet below.  If you go down you may not be able to get back up.
+[49:211](sw)
+        => [32] You can't get by the snake.
+[66:0](secre)
+        => [74] You are in a secret canyon which here runs e/w.  It crosses over a very tight canyon 15 feet below.  If you go down you may not be able to get back up.
+
+[20] You are at the bottom of the pit with a broken neck.
+TRAVEL:
+(1:0)
+        => [0]
+
+[21] You didn't make it.
+TRAVEL:
+(1:0)
+        => [0]
+
+[22] The dome is unclimbable.
+TRAVEL:
+(1:0)
+        => [15] You are at one end of a vast hall stretching forward out of sight to the west.  There are openings to either side.  Nearby, a wide stone staircase leads downward.  The hall is filled with wisps of white mist swaying to and fro almost as if alive.  A cold wind blows up the staircase.  There is a passage at the top of a dome behind you.
+
+[23] You are at the west end of the Twopit Room.  There is a large hole in the wall above the pit at this end of the room.
+TRAVEL:
+[43:0](east, e), [42:0](acros)
+        => [67] You are at the east end of the Twopit Room.  The floor here is littered with thin rock slabs, which make it easy to descend the pits. There is a path here bypassing the pits to connect passages from east and west.  There are holes all over, but the only big one is on the wall directly over the west pit where you can't get to it.
+[44:0](west, w), [61:0](slab, slabr)
+        => [68] You are in a large low circular chamber whose floor is an immense slab fallen from the ceiling (Slab Room).  East and west there once were large passages, but they are now filled with boulders.  Low small passages go north and south, and the south one quickly bends west around the boulders.
+[30:0](d, downw, down, desce), [31:0](pit)
+        => [25] You are at the bottom of the western pit in the Twopit Room.  There is a large hole in the wall about 25 feet above you.
+[52:0](hole)
+        => [648] No desc
+
+[24] You are at the bottom of the eastern pit in the Twopit Room.  There is a small pool of oil in one corner of the pit.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [11:0](out, outsi, exit, leave)
+        => [67] You are at the east end of the Twopit Room.  The floor here is littered with thin rock slabs, which make it easy to descend the pits. There is a path here bypassing the pits to connect passages from east and west.  There are holes all over, but the only big one is on the wall directly over the west pit where you can't get to it.
+
+[25] You are at the bottom of the western pit in the Twopit Room.  There is a large hole in the wall about 25 feet above you.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [11:0](out, outsi, exit, leave)
+        => [23] You are at the west end of the Twopit Room.  There is a large hole in the wall above the pit at this end of the room.
+[56:724](climb)
+        => [31] >$<
+[56:0](climb)
+        => [26] You clamber up the plant and scurry through the hole at the top.
+
+[26] You clamber up the plant and scurry through the hole at the top.
+TRAVEL:
+(1:0)
+        => [88] You are in a long, narrow corridor stretching out of sight to the west.  At the eastern end is a hole through which you can see a profusion of leaves.
+
+[27] You are on the west side of the fissure in the Hall of Mists.
+TRAVEL:
+[39:312](jump)
+        => [596] No desc
+[7:412](forwa, conti, onwar)
+        => [21] You didn't make it.
+[41:412](over), [42:412](acros), [43:412](east, e), [69:412](cross)
+        => [597] No desc
+[41:0](over)
+        => [17] You are on the east bank of a fissure slicing clear across the hall. The mist is quite thick here, and the fissure is too wide to jump.
+[45:0](north, n)
+        => [40] You have crawled through a very low wide passage parallel to and north of the Hall of Mists.
+[44:0](west, w)
+        => [41] You are at the west end of Hall of Mists.  A low wide crawl continues west and another goes north.  To the south is a little passage 6 feet off the floor.
+
+[28] You are in a low N/S passage at a hole in the floor.  The hole goes down to an E/W passage.
+TRAVEL:
+[38:0](hall), [11:0](out, outsi, exit, leave), [46:0](south, s)
+        => [19] You are in the Hall of the Mountain King, with passages off in all directions.
+[45:0](north, n), [55:0](y2)
+        => [33] You are in a large room, with a passage to the south, a passage to the west, and a wall of broken rock to the east.  There is a large "Y2" on a rock in the room's center.
+[30:0](d, downw, down, desce), [52:0](hole)
+        => [36] You are in a dirty broken passage.  To the east is a crawl.  To the west is a large passage.  Above you is a hole to another passage.
+
+[29] You are in the south side chamber.
+TRAVEL:
+[38:0](hall), [11:0](out, outsi, exit, leave), [45:0](north, n)
+        => [19] You are in the Hall of the Mountain King, with passages off in all directions.
+
+[30] You are in the west side chamber of the Hall of the Mountain King. A passage continues west and up here.
+TRAVEL:
+[38:0](hall), [11:0](out, outsi, exit, leave), [43:0](east, e)
+        => [19] You are in the Hall of the Mountain King, with passages off in all directions.
+[44:0](west, w), [29:0](upwar, up, u, above, ascen)
+        => [62] You are at a crossover of a high N/S passage and a low E/W one.
+
+[31] >$<
+TRAVEL:
+(1:524)
+        => [89] There is nothing here to climb.  Use "up" or "out" to leave the pit.
+(1:0)
+        => [90] You have climbed up the plant and out of the pit.
+
+[32] You can't get by the snake.
+TRAVEL:
+(1:0)
+        => [19] You are in the Hall of the Mountain King, with passages off in all directions.
+
+[33] You are in a large room, with a passage to the south, a passage to the west, and a wall of broken rock to the east.  There is a large "Y2" on a rock in the room's center.
+TRAVEL:
+[65:0](plugh)
+        => [3] You are inside a building, a well house for a large spring.
+[46:0](south, s)
+        => [28] You are in a low N/S passage at a hole in the floor.  The hole goes down to an E/W passage.
+[43:0](east, e), [53:0](wall), [54:0](broke)
+        => [34] You are in a jumble of rock, with cracks everywhere.
+[44:0](west, w)
+        => [35] You're at a low window overlooking a huge pit, which extends up out of sight.  A floor is indistinctly visible over 50 feet below.  Traces of white mist cover the floor of the pit, becoming thicker to the right. Marks in the dust around the window would seem to indicate that someone has been here recently.  Directly across the pit from you and 25 feet away there is a similar window looking into a lighted room.  A shadowy figure can be seen there peering back at you.
+[71:159](plove)
+        => [302] No desc
+[71:0](plove)
+        => [100] You're in a small chamber lit by an eerie green light.  An extremely narrow tunnel exits to the west.  A dark corridor leads ne.
+
+[34] You are in a jumble of rock, with cracks everywhere.
+TRAVEL:
+[30:0](d, downw, down, desce), [55:0](y2)
+        => [33] You are in a large room, with a passage to the south, a passage to the west, and a wall of broken rock to the east.  There is a large "Y2" on a rock in the room's center.
+[29:0](upwar, up, u, above, ascen)
+        => [15] You are at one end of a vast hall stretching forward out of sight to the west.  There are openings to either side.  Nearby, a wide stone staircase leads downward.  The hall is filled with wisps of white mist swaying to and fro almost as if alive.  A cold wind blows up the staircase.  There is a passage at the top of a dome behind you.
+
+[35] You're at a low window overlooking a huge pit, which extends up out of sight.  A floor is indistinctly visible over 50 feet below.  Traces of white mist cover the floor of the pit, becoming thicker to the right. Marks in the dust around the window would seem to indicate that someone has been here recently.  Directly across the pit from you and 25 feet away there is a similar window looking into a lighted room.  A shadowy figure can be seen there peering back at you.
+TRAVEL:
+[43:0](east, e), [55:0](y2)
+        => [33] You are in a large room, with a passage to the south, a passage to the west, and a wall of broken rock to the east.  There is a large "Y2" on a rock in the room's center.
+[39:0](jump)
+        => [20] You are at the bottom of the pit with a broken neck.
+
+[36] You are in a dirty broken passage.  To the east is a crawl.  To the west is a large passage.  Above you is a hole to another passage.
+TRAVEL:
+[43:0](east, e), [17:0](crawl)
+        => [37] You are on the brink of a small clean climbable pit.  A crawl leads west.
+[29:0](upwar, up, u, above, ascen), [52:0](hole)
+        => [28] You are in a low N/S passage at a hole in the floor.  The hole goes down to an E/W passage.
+[44:0](west, w)
+        => [39] You are in a large room full of dusty rocks.  There is a big hole in the floor.  There are cracks everywhere, and a passage leading east.
+[70:0](bedqu)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+
+[37] You are on the brink of a small clean climbable pit.  A crawl leads west.
+TRAVEL:
+[44:0](west, w), [17:0](crawl)
+        => [36] You are in a dirty broken passage.  To the east is a crawl.  To the west is a large passage.  Above you is a hole to another passage.
+[30:0](d, downw, down, desce), [31:0](pit), [56:0](climb)
+        => [38] You are in the bottom of a small pit with a little stream, which enters and exits through tiny slits.
+
+[38] You are in the bottom of a small pit with a little stream, which enters and exits through tiny slits.
+TRAVEL:
+[56:0](climb), [29:0](upwar, up, u, above, ascen), [11:0](out, outsi, exit, leave)
+        => [37] You are on the brink of a small clean climbable pit.  A crawl leads west.
+[60:0](slit), [14:0](strea), [30:0](d, downw, down, desce), [4:0](upstr), [5:0](downs)
+        => [595] No desc
+
+[39] You are in a large room full of dusty rocks.  There is a big hole in the floor.  There are cracks everywhere, and a passage leading east.
+TRAVEL:
+[43:0](east, e), [23:0](passa, tunne)
+        => [36] You are in a dirty broken passage.  To the east is a crawl.  To the west is a large passage.  Above you is a hole to another passage.
+[30:0](d, downw, down, desce), [52:0](hole), [58:0](floor)
+        => [64] You are at a complex junction.  A low hands and knees passage from the north joins a higher crawl from the east to make a walking passage going west.  There is also a large room above.  The air is damp here.
+[70:0](bedqu)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+
+[40] You have crawled through a very low wide passage parallel to and north of the Hall of Mists.
+TRAVEL:
+(1:0)
+        => [41] You are at the west end of Hall of Mists.  A low wide crawl continues west and another goes north.  To the south is a little passage 6 feet off the floor.
+
+[41] You are at the west end of Hall of Mists.  A low wide crawl continues west and another goes north.  To the south is a little passage 6 feet off the floor.
+TRAVEL:
+[46:0](south, s), [29:0](upwar, up, u, above, ascen), [23:0](passa, tunne), [56:0](climb)
+        => [42] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [27] You are on the west side of the fissure in the Hall of Mists.
+[45:0](north, n)
+        => [59] You have crawled through a very low wide passage parallel to and north of the Hall of Mists.
+[44:0](west, w), [17:0](crawl)
+        => [60] You are at the east end of a very long hall apparently without side chambers.  To the east a low wide crawl slants up.  To the north a round two foot hole slants down.
+
+[42] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen)
+        => [41] You are at the west end of Hall of Mists.  A low wide crawl continues west and another goes north.  To the south is a little passage 6 feet off the floor.
+[45:0](north, n)
+        => [42] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [43] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [45] You are in a maze of twisty little passages, all alike.
+[44:0](west, w)
+        => [80] You are in a maze of twisty little passages, all alike.
+
+[43] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[44:0](west, w)
+        => [42] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [44] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [45] You are in a maze of twisty little passages, all alike.
+
+[44] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[43:0](east, e)
+        => [43] You are in a maze of twisty little passages, all alike.
+[30:0](d, downw, down, desce)
+        => [48] Dead end
+[46:0](south, s)
+        => [50] You are in a maze of twisty little passages, all alike.
+[45:0](north, n)
+        => [82] Dead end
+
+[45] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[44:0](west, w)
+        => [42] You are in a maze of twisty little passages, all alike.
+[45:0](north, n)
+        => [43] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [46] Dead end
+[46:0](south, s)
+        => [47] Dead end
+[29:0](upwar, up, u, above, ascen), [30:0](d, downw, down, desce)
+        => [87] You are in a maze of twisty little passages, all alike.
+
+[46] Dead end
+TRAVEL:
+[44:0](west, w), [11:0](out, outsi, exit, leave)
+        => [45] You are in a maze of twisty little passages, all alike.
+
+[47] Dead end
+TRAVEL:
+[43:0](east, e), [11:0](out, outsi, exit, leave)
+        => [45] You are in a maze of twisty little passages, all alike.
+
+[48] Dead end
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [11:0](out, outsi, exit, leave)
+        => [44] You are in a maze of twisty little passages, all alike.
+
+[49] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[43:0](east, e)
+        => [50] You are in a maze of twisty little passages, all alike.
+[44:0](west, w)
+        => [51] You are in a maze of twisty little passages, all alike.
+
+[50] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[43:0](east, e)
+        => [44] You are in a maze of twisty little passages, all alike.
+[44:0](west, w)
+        => [49] You are in a maze of twisty little passages, all alike.
+[30:0](d, downw, down, desce)
+        => [51] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [52] You are in a maze of twisty little passages, all alike.
+
+[51] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[44:0](west, w)
+        => [49] You are in a maze of twisty little passages, all alike.
+[29:0](upwar, up, u, above, ascen)
+        => [50] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [52] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [53] You are in a maze of twisty little passages, all alike.
+
+[52] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[44:0](west, w)
+        => [50] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [51] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [52] You are in a maze of twisty little passages, all alike.
+[29:0](upwar, up, u, above, ascen)
+        => [53] You are in a maze of twisty little passages, all alike.
+[45:0](north, n)
+        => [55] You are in a maze of twisty little passages, all alike.
+[30:0](d, downw, down, desce)
+        => [86] Dead end
+
+[53] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[44:0](west, w)
+        => [51] You are in a maze of twisty little passages, all alike.
+[45:0](north, n)
+        => [52] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [54] Dead end
+
+[54] Dead end
+TRAVEL:
+[44:0](west, w), [11:0](out, outsi, exit, leave)
+        => [53] You are in a maze of twisty little passages, all alike.
+
+[55] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[44:0](west, w)
+        => [52] You are in a maze of twisty little passages, all alike.
+[45:0](north, n)
+        => [55] You are in a maze of twisty little passages, all alike.
+[30:0](d, downw, down, desce)
+        => [56] Dead end
+[43:0](east, e)
+        => [57] You are on the brink of a thirty foot pit with a massive orange column down one wall.  You could climb down here but you could not get back up.  The maze continues at this level.
+
+[56] Dead end
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [11:0](out, outsi, exit, leave)
+        => [55] You are in a maze of twisty little passages, all alike.
+
+[57] You are on the brink of a thirty foot pit with a massive orange column down one wall.  You could climb down here but you could not get back up.  The maze continues at this level.
+TRAVEL:
+[30:0](d, downw, down, desce), [56:0](climb)
+        => [13] You are in a splendid chamber thirty feet high.  The walls are frozen rivers of orange stone.  An awkward canyon and a good passage exit from east and west sides of the chamber.
+[44:0](west, w)
+        => [55] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [58] Dead end
+[45:0](north, n)
+        => [83] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [84] You are in a maze of twisty little passages, all alike.
+
+[58] Dead end
+TRAVEL:
+[43:0](east, e), [11:0](out, outsi, exit, leave)
+        => [57] You are on the brink of a thirty foot pit with a massive orange column down one wall.  You could climb down here but you could not get back up.  The maze continues at this level.
+
+[59] You have crawled through a very low wide passage parallel to and north of the Hall of Mists.
+TRAVEL:
+(1:0)
+        => [27] You are on the west side of the fissure in the Hall of Mists.
+
+[60] You are at the east end of a very long hall apparently without side chambers.  To the east a low wide crawl slants up.  To the north a round two foot hole slants down.
+TRAVEL:
+[43:0](east, e), [29:0](upwar, up, u, above, ascen), [17:0](crawl)
+        => [41] You are at the west end of Hall of Mists.  A low wide crawl continues west and another goes north.  To the south is a little passage 6 feet off the floor.
+[44:0](west, w)
+        => [61] You are at the west end of a very long featureless hall.  The hall joins up with a narrow north/south passage.
+[45:0](north, n), [30:0](d, downw, down, desce), [52:0](hole)
+        => [62] You are at a crossover of a high N/S passage and a low E/W one.
+
+[61] You are at the west end of a very long featureless hall.  The hall joins up with a narrow north/south passage.
+TRAVEL:
+[43:0](east, e)
+        => [60] You are at the east end of a very long hall apparently without side chambers.  To the east a low wide crawl slants up.  To the north a round two foot hole slants down.
+[45:0](north, n)
+        => [62] You are at a crossover of a high N/S passage and a low E/W one.
+[46:100](south, s)
+        => [107] You are in a maze of twisty little passages, all different.
+
+[62] You are at a crossover of a high N/S passage and a low E/W one.
+TRAVEL:
+[44:0](west, w)
+        => [60] You are at the east end of a very long hall apparently without side chambers.  To the east a low wide crawl slants up.  To the north a round two foot hole slants down.
+[45:0](north, n)
+        => [63] Dead end
+[43:0](east, e)
+        => [30] You are in the west side chamber of the Hall of the Mountain King. A passage continues west and up here.[46:0](south, s)
+        => [61] You are at the west end of a very long featureless hall.  The hall joins up with a narrow north/south passage.
+
+[63] Dead end
+TRAVEL:
+[46:0](south, s), [11:0](out, outsi, exit, leave)
+        => [62] You are at a crossover of a high N/S passage and a low E/W one.
+
+[64] You are at a complex junction.  A low hands and knees passage from the north joins a higher crawl from the east to make a walking passage going west.  There is also a large room above.  The air is damp here.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [56:0](climb), [59:0](room)
+        => [39] You are in a large room full of dusty rocks.  There is a big hole in the floor.  There are cracks everywhere, and a passage leading east.
+[44:0](west, w), [70:0](bedqu)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+[45:0](north, n), [74:0](shell)
+        => [103] You're in a large room carved out of sedimentary rock.  The floor and walls are littered with bits of shells embedded in the stone.  A shallow passage proceeds downward, and a somewhat steeper one leads up.  A low hands and knees passage enters from the south.
+[43:0](east, e)
+        => [106] You are in an anteroom leading to a large passage to the east.  Small passages go west and up.  The remnants of recent digging are evident. A sign in midair here says "Cave under construction beyond this point. Proceed at own risk.  [Witt construction company]"
+
+[65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+TRAVEL:
+[43:0](east, e)
+        => [64] You are at a complex junction.  A low hands and knees passage from the north joins a higher crawl from the east to make a walking passage going west.  There is also a large room above.  The air is damp here.
+[44:0](west, w)
+        => [66] You are in a room whose walls resemble Swiss cheese.  Obvious passages go west, east, NE, and NW.  Part of the room is occupied by a large bedrock block.
+[46:80](south, s)
+        => [556] No desc
+[61:0](slab, slabr)
+        => [68] You are in a large low circular chamber whose floor is an immense slab fallen from the ceiling (Slab Room).  East and west there once were large passages, but they are now filled with boulders.  Low small passages go north and south, and the south one quickly bends west around the boulders.
+[29:80](upwar, up, u, above, ascen)
+        => [556] No desc
+[29:50](upwar, up, u, above, ascen)
+        => [70] You are in a secret N/S canyon above a sizable passage.
+[29:0](upwar, up, u, above, ascen)
+        => [39] You are in a large room full of dusty rocks.  There is a big hole in the floor.  There are cracks everywhere, and a passage leading east.
+[45:60](north, n)
+        => [556] No desc
+[45:75](north, n)
+        => [72] You are in a large low room.  Crawls lead north, SE, and SW.
+[45:0](north, n)
+        => [71] You are in a secret canyon at a junction of three canyons, bearing north, south, and SE.  The north one is as tall as the other two combined.
+[30:80](d, downw, down, desce)
+        => [556] No desc
+[30:0](d, downw, down, desce)
+        => [106] You are in an anteroom leading to a large passage to the east.  Small passages go west and up.  The remnants of recent digging are evident. A sign in midair here says "Cave under construction beyond this point. Proceed at own risk.  [Witt construction company]"
+
+[66] You are in a room whose walls resemble Swiss cheese.  Obvious passages go west, east, NE, and NW.  Part of the room is occupied by a large bedrock block.
+TRAVEL:
+[47:0](ne)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+[44:0](west, w)
+        => [67] You are at the east end of the Twopit Room.  The floor here is littered with thin rock slabs, which make it easy to descend the pits. There is a path here bypassing the pits to connect passages from east and west.  There are holes all over, but the only big one is on the wall directly over the west pit where you can't get to it.
+[46:80](south, s)
+        => [556] No desc
+[25:0](canyo)
+        => [77] You are in a tall E/W canyon.  A low tight crawl goes 3 feet north and seems to open up.
+[43:0](east, e)
+        => [96] You are in the Soft Room.  The walls are covered with heavy curtains, the floor with a thick pile carpet.  Moss covers the ceiling.
+[50:50](nw)
+        => [556] No desc
+[72:0](orien)
+        => [97] This is the Oriental Room.  Ancient oriental cave drawings cover the walls.  A gently sloping passage leads upward to the north, another passage leads SE, and a hands and knees crawl leads west.
+
+[67] You are at the east end of the Twopit Room.  The floor here is littered with thin rock slabs, which make it easy to descend the pits. There is a path here bypassing the pits to connect passages from east and west.  There are holes all over, but the only big one is on the wall directly over the west pit where you can't get to it.
+TRAVEL:
+[43:0](east, e)
+        => [66] You are in a room whose walls resemble Swiss cheese.  Obvious passages go west, east, NE, and NW.  Part of the room is occupied by a large bedrock block.
+[44:0](west, w), [42:0](acros)
+        => [23] You are at the west end of the Twopit Room.  There is a large hole in the wall above the pit at this end of the room.
+[30:0](d, downw, down, desce), [31:0](pit)
+        => [24] You are at the bottom of the eastern pit in the Twopit Room.  There is a small pool of oil in one corner of the pit.
+
+[68] You are in a large low circular chamber whose floor is an immense slab fallen from the ceiling (Slab Room).  East and west there once were large passages, but they are now filled with boulders.  Low small passages go north and south, and the south one quickly bends west around the boulders.
+TRAVEL:
+[46:0](south, s)
+        => [23] You are at the west end of the Twopit Room.  There is a large hole in the wall above the pit at this end of the room.
+[29:0](upwar, up, u, above, ascen), [56:0](climb)
+        => [69] You are in a secret N/S canyon above a large room.
+[45:0](north, n)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+
+[69] You are in a secret N/S canyon above a large room.
+TRAVEL:
+[30:0](d, downw, down, desce), [61:0](slab, slabr)
+        => [68] You are in a large low circular chamber whose floor is an immense slab fallen from the ceiling (Slab Room).  East and west there once were large passages, but they are now filled with boulders.  Low small passages go north and south, and the south one quickly bends west around the boulders.
+[46:331](south, s)
+        => [120] You are in a secret canyon which exits to the north and east.
+[46:0](south, s)
+        => [119] You are in a secret canyon which exits to the north and east.
+[45:0](north, n)
+        => [109] You are in a north/south canyon about 25 feet across.  The floor is covered by white mist seeping in from the north.  The walls extend upward for well over 100 feet.  Suspended from some unseen point far above you, an enormous two-sided mirror is hanging parallel to and midway between the canyon walls.  (The mirror is obviously provided for the use of the dwarves, who as you know, are extremely vain.)  A small window can be seen in either wall, some fifty feet up.
+[75:0](reser)
+        => [113] You are at the edge of a large underground reservoir.  An opaque cloud of white mist fills the room and rises rapidly upward.  The lake is fed by a stream, which tumbles out of a hole in the wall about 10 feet overhead and splashes noisily into the water somewhere within the mist.  The only passage goes back toward the south.
+
+[70] You are in a secret N/S canyon above a sizable passage.
+TRAVEL:
+[45:0](north, n)
+        => [71] You are in a secret canyon at a junction of three canyons, bearing north, south, and SE.  The north one is as tall as the other two combined.
+[30:0](d, downw, down, desce), [23:0](passa, tunne)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+[46:0](south, s)
+        => [111] A large stalactite extends from the roof and almost reaches the floor below.  You could climb down it, and jump from it to the floor, but having done so you would be unable to reach it to climb back up.
+
+[71] You are in a secret canyon at a junction of three canyons, bearing north, south, and SE.  The north one is as tall as the other two combined.
+TRAVEL:
+[48:0](se)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+[46:0](south, s)
+        => [70] You are in a secret N/S canyon above a sizable passage.
+[45:0](north, n)
+        => [110] You're at a low window overlooking a huge pit, which extends up out of sight.  A floor is indistinctly visible over 50 feet below.  Traces of white mist cover the floor of the pit, becoming thicker to the left. Marks in the dust around the window would seem to indicate that someone has been here recently.  Directly across the pit from you and 25 feet away there is a similar window looking into a lighted room.  A shadowy figure can be seen there peering back at you.
+
+[72] You are in a large low room.  Crawls lead north, SE, and SW.
+TRAVEL:
+[70:0](bedqu)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+[49:0](sw)
+        => [118] You are in a long winding corridor sloping out of sight in both directions.
+[45:0](north, n)
+        => [73] Dead end crawl.
+[48:0](se), [72:0](orien)
+        => [97] This is the Oriental Room.  Ancient oriental cave drawings cover the walls.  A gently sloping passage leads upward to the north, another passage leads SE, and a hands and knees crawl leads west.
+
+[73] Dead end crawl.
+TRAVEL:
+[46:0](south, s), [17:0](crawl), [11:0](out, outsi, exit, leave)
+        => [72] You are in a large low room.  Crawls lead north, SE, and SW.
+
+[74] You are in a secret canyon which here runs e/w.  It crosses over a very tight canyon 15 feet below.  If you go down you may not be able to get back up.
+TRAVEL:
+[43:0](east, e)
+        => [19] You are in the Hall of the Mountain King, with passages off in all directions.
+[44:331](west, w)
+        => [120] You are in a secret canyon which exits to the north and east.
+[44:0](west, w)
+        => [121] You are in a secret canyon which exits to the north and east.
+[30:0](d, downw, down, desce)
+        => [75] You are at a wide place in a very tight N/S canyon.
+
+[75] You are at a wide place in a very tight N/S canyon.
+TRAVEL:
+[46:0](south, s)
+        => [76] The canyon here becomes too tight to go further south.
+[45:0](north, n)
+        => [77] You are in a tall E/W canyon.  A low tight crawl goes 3 feet north and seems to open up.
+
+[76] The canyon here becomes too tight to go further south.
+TRAVEL:
+[45:0](north, n)
+        => [75] You are at a wide place in a very tight N/S canyon.
+
+[77] You are in a tall E/W canyon.  A low tight crawl goes 3 feet north and seems to open up.
+TRAVEL:
+[43:0](east, e)
+        => [75] You are at a wide place in a very tight N/S canyon.
+[44:0](west, w)
+        => [78] The canyon runs into a mass of boulders -- dead end.
+[45:0](north, n), [17:0](crawl)
+        => [66] You are in a room whose walls resemble Swiss cheese.  Obvious passages go west, east, NE, and NW.  Part of the room is occupied by a large bedrock block.
+
+[78] The canyon runs into a mass of boulders -- dead end.
+TRAVEL:
+[46:0](south, s)
+        => [77] You are in a tall E/W canyon.  A low tight crawl goes 3 feet north and seems to open up.
+
+[79] The stream flows out through a pair of 1 foot diameter sewer pipes. It would be advisable to use the exit.
+TRAVEL:
+(1:0)
+        => [3] You are inside a building, a well house for a large spring.
+
+[80] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[45:0](north, n)
+        => [42] You are in a maze of twisty little passages, all alike.
+[44:0](west, w)
+        => [80] You are in a maze of twisty little passages, all alike.
+[46:0](south, s)
+        => [80] You are in a maze of twisty little passages, all alike.
+[43:0](east, e)
+        => [81] Dead end
+
+[81] Dead end
+TRAVEL:
+[44:0](west, w), [11:0](out, outsi, exit, leave)
+        => [80] You are in a maze of twisty little passages, all alike.
+
+[82] Dead end
+TRAVEL:
+[46:0](south, s), [11:0](out, outsi, exit, leave)
+        => [44] You are in a maze of twisty little passages, all alike.
+
+[83] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[46:0](south, s)
+        => [57] You are on the brink of a thirty foot pit with a massive orange column down one wall.  You could climb down here but you could not get back up.  The maze continues at this level.
+[43:0](east, e)
+        => [84] You are in a maze of twisty little passages, all alike.
+[44:0](west, w)
+        => [85] Dead end
+
+[84] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[45:0](north, n)
+        => [57] You are on the brink of a thirty foot pit with a massive orange column down one wall.  You could climb down here but you could not get back up.  The maze continues at this level.
+[44:0](west, w)
+        => [83] You are in a maze of twisty little passages, all alike.
+[50:0](nw)
+        => [114] Dead end
+
+[85] Dead end
+TRAVEL:
+[43:0](east, e), [11:0](out, outsi, exit, leave)
+        => [83] You are in a maze of twisty little passages, all alike.
+
+[86] Dead end
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [11:0](out, outsi, exit, leave)
+        => [52] You are in a maze of twisty little passages, all alike.
+
+[87] You are in a maze of twisty little passages, all alike.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [30:0](d, downw, down, desce)
+        => [45] You are in a maze of twisty little passages, all alike.
+
+[88] You are in a long, narrow corridor stretching out of sight to the west.  At the eastern end is a hole through which you can see a profusion of leaves.
+TRAVEL:
+[30:0](d, downw, down, desce), [56:0](climb), [43:0](east, e)
+        => [25] You are at the bottom of the western pit in the Twopit Room.  There is a large hole in the wall about 25 feet above you.
+[39:0](jump)
+        => [20] You are at the bottom of the pit with a broken neck.
+[44:0](west, w), [27:0](giant)
+        => [92] You are in the Giant Room.  The ceiling here is too high up for your lamp to show it.  Cavernous passages lead east, north, and south.  On the west wall is scrawled the inscription, "Fee fie foe foo" [sic].
+
+[89] There is nothing here to climb.  Use "up" or "out" to leave the pit.
+TRAVEL:
+(1:0)
+        => [25] You are at the bottom of the western pit in the Twopit Room.  There is a large hole in the wall about 25 feet above you.
+
+[90] You have climbed up the plant and out of the pit.
+TRAVEL:
+(1:0)
+        => [23] You are at the west end of the Twopit Room.  There is a large hole in the wall above the pit at this end of the room.
+
+[91] You are at the top of a steep incline above a large room.  You could climb down here, but you would not be able to climb up.  There is a passage leading back to the north.
+TRAVEL:
+[45:0](north, n), [73:0](caver), [23:0](passa, tunne)
+        => [95] You are in a magnificent cavern with a rushing stream, which cascades over a sparkling waterfall into a roaring whirlpool which disappears through a hole in the floor.  Passages exit to the south and west.
+[30:0](d, downw, down, desce), [56:0](climb)
+        => [72] You are in a large low room.  Crawls lead north, SE, and SW.
+
+[92] You are in the Giant Room.  The ceiling here is too high up for your lamp to show it.  Cavernous passages lead east, north, and south.  On the west wall is scrawled the inscription, "Fee fie foe foo" [sic].
+TRAVEL:
+[46:0](south, s)
+        => [88] You are in a long, narrow corridor stretching out of sight to the west.  At the eastern end is a hole through which you can see a profusion of leaves.
+[43:0](east, e)
+        => [93] The passage here is blocked by a recent cave-in.
+[45:0](north, n)
+        => [94] You are at one end of an immense north/south passage.
+
+[93] The passage here is blocked by a recent cave-in.
+TRAVEL:
+[46:0](south, s), [27:0](giant), [11:0](out, outsi, exit, leave)
+        => [92] You are in the Giant Room.  The ceiling here is too high up for your lamp to show it.  Cavernous passages lead east, north, and south.  On the west wall is scrawled the inscription, "Fee fie foe foo" [sic].
+
+[94] You are at one end of an immense north/south passage.
+TRAVEL:
+[46:0](south, s), [27:0](giant), [23:0](passa, tunne)
+        => [92] You are in the Giant Room.  The ceiling here is too high up for your lamp to show it.  Cavernous passages lead east, north, and south.  On the west wall is scrawled the inscription, "Fee fie foe foo" [sic].
+[45:309](north, n), [3:309](enter), [73:309](caver)
+        => [95] You are in a magnificent cavern with a rushing stream, which cascades over a sparkling waterfall into a roaring whirlpool which disappears through a hole in the floor.  Passages exit to the south and west.
+[45:0](north, n)
+        => [611] No desc
+
+[95] You are in a magnificent cavern with a rushing stream, which cascades over a sparkling waterfall into a roaring whirlpool which disappears through a hole in the floor.  Passages exit to the south and west.
+TRAVEL:
+[46:0](south, s), [11:0](out, outsi, exit, leave)
+        => [94] You are at one end of an immense north/south passage.
+[27:0](giant)
+        => [92] You are in the Giant Room.  The ceiling here is too high up for your lamp to show it.  Cavernous passages lead east, north, and south.  On the west wall is scrawled the inscription, "Fee fie foe foo" [sic].
+[44:0](west, w)
+        => [91] You are at the top of a steep incline above a large room.  You could climb down here, but you would not be able to climb up.  There is a passage leading back to the north.
+
+[96] You are in the Soft Room.  The walls are covered with heavy curtains, the floor with a thick pile carpet.  Moss covers the ceiling.
+TRAVEL:
+[44:0](west, w), [11:0](out, outsi, exit, leave)
+        => [66] You are in a room whose walls resemble Swiss cheese.  Obvious passages go west, east, NE, and NW.  Part of the room is occupied by a large bedrock block.
+
+[97] This is the Oriental Room.  Ancient oriental cave drawings cover the walls.  A gently sloping passage leads upward to the north, another passage leads SE, and a hands and knees crawl leads west.
+TRAVEL:
+[48:0](se)
+        => [66] You are in a room whose walls resemble Swiss cheese.  Obvious passages go west, east, NE, and NW.  Part of the room is occupied by a large bedrock block.
+[44:0](west, w), [17:0](crawl)
+        => [72] You are in a large low room.  Crawls lead north, SE, and SW.
+[29:0](upwar, up, u, above, ascen), [45:0](north, n), [73:0](caver)
+        => [98] You are following a wide path around the outer edge of a large cavern. Far below, through a heavy white mist, strange splashing noises can be heard.  The mist rises up through a fissure in the ceiling.  The path exits to the south and west.
+
+[98] You are following a wide path around the outer edge of a large cavern. Far below, through a heavy white mist, strange splashing noises can be heard.  The mist rises up through a fissure in the ceiling.  The path exits to the south and west.
+TRAVEL:
+[46:0](south, s), [72:0](orien)
+        => [97] This is the Oriental Room.  Ancient oriental cave drawings cover the walls.  A gently sloping passage leads upward to the north, another passage leads SE, and a hands and knees crawl leads west.
+[44:0](west, w)
+        => [99] You are in an alcove.  A small NW path seems to widen after a short distance.  An extremely tight tunnel leads east.  It looks like a very tight squeeze.  An eerie light can be seen at the other end.
+
+[99] You are in an alcove.  A small NW path seems to widen after a short distance.  An extremely tight tunnel leads east.  It looks like a very tight squeeze.  An eerie light can be seen at the other end.
+TRAVEL:
+[50:0](nw), [73:0](caver)
+        => [98] You are following a wide path around the outer edge of a large cavern. Far below, through a heavy white mist, strange splashing noises can be heard.  The mist rises up through a fissure in the ceiling.  The path exits to the south and west.
+[43:0](east, e), [23:0](passa, tunne)
+        => [301] No desc
+[43:0](east, e)
+        => [100] You're in a small chamber lit by an eerie green light.  An extremely narrow tunnel exits to the west.  A dark corridor leads ne.
+
+[100] You're in a small chamber lit by an eerie green light.  An extremely narrow tunnel exits to the west.  A dark corridor leads ne.
+TRAVEL:
+[44:0](west, w), [23:0](passa, tunne), [11:0](out, outsi, exit, leave)
+        => [301] No desc
+[44:0](west, w)
+        => [99] You are in an alcove.  A small NW path seems to widen after a short distance.  An extremely tight tunnel leads east.  It looks like a very tight squeeze.  An eerie light can be seen at the other end.
+[71:159](plove)
+        => [302] No desc
+[71:0](plove)
+        => [33] You are in a large room, with a passage to the south, a passage to the west, and a wall of broken rock to the east.  There is a large "Y2" on a rock in the room's center.
+[47:0](ne), [22:0](dark)
+        => [101] You're in the Dark-Room.  A corridor leading south is the only exit.
+
+[101] You're in the Dark-Room.  A corridor leading south is the only exit.
+TRAVEL:
+[46:0](south, s), [71:0](plove), [11:0](out, outsi, exit, leave)
+        => [100] You're in a small chamber lit by an eerie green light.  An extremely narrow tunnel exits to the west.  A dark corridor leads ne.
+
+[102] You are in an arched hall.  A coral passage once continued up and east from here, but is now blocked by debris.  The air smells of sea water.
+TRAVEL:
+[30:0](d, downw, down, desce), [74:0](shell), [11:0](out, outsi, exit, leave)
+        => [103] You're in a large room carved out of sedimentary rock.  The floor and walls are littered with bits of shells embedded in the stone.  A shallow passage proceeds downward, and a somewhat steeper one leads up.  A low hands and knees passage enters from the south.
+
+[103] You're in a large room carved out of sedimentary rock.  The floor and walls are littered with bits of shells embedded in the stone.  A shallow passage proceeds downward, and a somewhat steeper one leads up.  A low hands and knees passage enters from the south.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [38:0](hall)
+        => [102] You are in an arched hall.  A coral passage once continued up and east from here, but is now blocked by debris.  The air smells of sea water.
+[30:0](d, downw, down, desce)
+        => [104] You are in a long sloping corridor with ragged sharp walls.
+[46:114](south, s)
+        => [618] No desc
+[46:115](south, s)
+        => [619] No desc
+[46:0](south, s)
+        => [64] You are at a complex junction.  A low hands and knees passage from the north joins a higher crawl from the east to make a walking passage going west.  There is also a large room above.  The air is damp here.
+
+[104] You are in a long sloping corridor with ragged sharp walls.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [74:0](shell)
+        => [103] You're in a large room carved out of sedimentary rock.  The floor and walls are littered with bits of shells embedded in the stone.  A shallow passage proceeds downward, and a somewhat steeper one leads up.  A low hands and knees passage enters from the south.
+[30:0](d, downw, down, desce)
+        => [105] You are in a cul-de-sac about eight feet across.
+
+[105] You are in a cul-de-sac about eight feet across.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen), [11:0](out, outsi, exit, leave)
+        => [104] You are in a long sloping corridor with ragged sharp walls.
+[74:0](shell)
+        => [103] You're in a large room carved out of sedimentary rock.  The floor and walls are littered with bits of shells embedded in the stone.  A shallow passage proceeds downward, and a somewhat steeper one leads up.  A low hands and knees passage enters from the south.
+
+[106] You are in an anteroom leading to a large passage to the east.  Small passages go west and up.  The remnants of recent digging are evident. A sign in midair here says "Cave under construction beyond this point. Proceed at own risk.  [Witt construction company]"
+TRAVEL:
+[29:0](upwar, up, u, above, ascen)
+        => [64] You are at a complex junction.  A low hands and knees passage from the north joins a higher crawl from the east to make a walking passage going west.  There is also a large room above.  The air is damp here.
+[44:0](west, w)
+        => [65] You are in Bedquilt, a long east/west passage with holes everywhere. To explore at random select north, south, up, or down.
+[43:0](east, e)
+        => [108] You are at Witt's End.  Passages lead off in *all* directions.
+
+[107] You are in a maze of twisty little passages, all different.
+TRAVEL:
+[46:0](south, s)
+        => [131] You are in a maze of twisting little passages, all different.
+[49:0](sw)
+        => [132] You are in a little maze of twisty passages, all different.
+[47:0](ne)
+        => [133] You are in a twisting maze of little passages, all different.
+[48:0](se)
+        => [134] You are in a twisting little maze of passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [135] You are in a twisty little maze of passages, all different.
+[50:0](nw)
+        => [136] You are in a twisty maze of little passages, all different.
+[43:0](east, e)
+        => [137] You are in a little twisty maze of passages, all different.
+[44:0](west, w)
+        => [138] You are in a maze of little twisting passages, all different.
+[45:0](north, n)
+        => [139] You are in a maze of little twisty passages, all different.
+[30:0](d, downw, down, desce)
+        => [61] You are at the west end of a very long featureless hall.  The hall joins up with a narrow north/south passage.
+
+[108] You are at Witt's End.  Passages lead off in *all* directions.
+TRAVEL:
+[43:95](east, e), [45:95](north, n), [46:95](south, s), [47:95](ne), [48:95](se), [49:95](sw), [50:95](nw), [29:95](upwar, up, u, above, ascen), [30:95](d, downw, down, desce)
+        => [556] No desc
+[43:0](east, e)
+        => [106] You are in an anteroom leading to a large passage to the east.  Small passages go west and up.  The remnants of recent digging are evident. A sign in midair here says "Cave under construction beyond this point. Proceed at own risk.  [Witt construction company]"
+[44:0](west, w)
+        => [626] No desc
+
+[109] You are in a north/south canyon about 25 feet across.  The floor is covered by white mist seeping in from the north.  The walls extend upward for well over 100 feet.  Suspended from some unseen point far above you, an enormous two-sided mirror is hanging parallel to and midway between the canyon walls.  (The mirror is obviously provided for the use of the dwarves, who as you know, are extremely vain.)  A small window can be seen in either wall, some fifty feet up.
+TRAVEL:
+[46:0](south, s)
+        => [69] You are in a secret N/S canyon above a large room.
+[45:0](north, n), [75:0](reser)
+        => [113] You are at the edge of a large underground reservoir.  An opaque cloud of white mist fills the room and rises rapidly upward.  The lake is fed by a stream, which tumbles out of a hole in the wall about 10 feet overhead and splashes noisily into the water somewhere within the mist.  The only passage goes back toward the south.
+
+[110] You're at a low window overlooking a huge pit, which extends up out of sight.  A floor is indistinctly visible over 50 feet below.  Traces of white mist cover the floor of the pit, becoming thicker to the left. Marks in the dust around the window would seem to indicate that someone has been here recently.  Directly across the pit from you and 25 feet away there is a similar window looking into a lighted room.  A shadowy figure can be seen there peering back at you.
+TRAVEL:
+[44:0](west, w)
+        => [71] You are in a secret canyon at a junction of three canyons, bearing north, south, and SE.  The north one is as tall as the other two combined.
+[39:0](jump)
+        => [20] You are at the bottom of the pit with a broken neck.
+
+[111] A large stalactite extends from the roof and almost reaches the floor below.  You could climb down it, and jump from it to the floor, but having done so you would be unable to reach it to climb back up.
+TRAVEL:
+[45:0](north, n)
+        => [70] You are in a secret N/S canyon above a sizable passage.
+[30:40](d, downw, down, desce), [39:40](jump), [56:40](climb)
+        => [50] You are in a maze of twisty little passages, all alike.
+[30:50](d, downw, down, desce)
+        => [53] You are in a maze of twisty little passages, all alike.
+[30:0](d, downw, down, desce)
+        => [45] You are in a maze of twisty little passages, all alike.
+
+[112] You are in a little maze of twisting passages, all different.
+TRAVEL:
+[49:0](sw)
+        => [131] You are in a maze of twisting little passages, all different.
+[45:0](north, n)
+        => [132] You are in a little maze of twisty passages, all different.
+[43:0](east, e)
+        => [133] You are in a twisting maze of little passages, all different.
+[50:0](nw)
+        => [134] You are in a twisting little maze of passages, all different.
+[48:0](se)
+        => [135] You are in a twisty little maze of passages, all different.
+[47:0](ne)
+        => [136] You are in a twisty maze of little passages, all different.
+[44:0](west, w)
+        => [137] You are in a little twisty maze of passages, all different.
+[30:0](d, downw, down, desce)
+        => [138] You are in a maze of little twisting passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [139] You are in a maze of little twisty passages, all different.
+[46:0](south, s)
+        => [140] Dead end
+
+[113] You are at the edge of a large underground reservoir.  An opaque cloud of white mist fills the room and rises rapidly upward.  The lake is fed by a stream, which tumbles out of a hole in the wall about 10 feet overhead and splashes noisily into the water somewhere within the mist.  The only passage goes back toward the south.
+TRAVEL:
+[46:0](south, s), [11:0](out, outsi, exit, leave), (109:0)
+        => [109] You are in a north/south canyon about 25 feet across.  The floor is covered by white mist seeping in from the north.  The walls extend upward for well over 100 feet.  Suspended from some unseen point far above you, an enormous two-sided mirror is hanging parallel to and midway between the canyon walls.  (The mirror is obviously provided for the use of the dwarves, who as you know, are extremely vain.)  A small window can be seen in either wall, some fifty feet up.
+
+[114] Dead end
+TRAVEL:
+[48:0](se)
+        => [84] You are in a maze of twisty little passages, all alike.
+
+[115] You are at the northeast end of an immense room, even larger than the Giant Room.  It appears to be a repository for the "Adventure" program.  Massive torches far overhead bathe the room with smoky yellow light.  Scattered about you can be seen a pile of bottles (all of them empty), a nursery of young beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with rusty stars on their ends, and a collection of brass lanterns.  Off to one side a great many dwarves are sleeping on the floor, snoring loudly.  A sign nearby reads: "Do not disturb the dwarves!"  An immense mirror is hanging against one wall, and stretches to the other end of the room, where various other sundry objects can be glimpsed dimly in the distance.
+TRAVEL:
+[49:0](sw)
+        => [116] You are at the southwest end of the Repository.  To one side is a pit full of fierce green snakes.  On the other side is a row of small wicker cages, each of which contains a little sulking bird.  In one corner is a bundle of black rods with rusty marks on their ends.  A large number of velvet pillows are scattered about on the floor.  A vast mirror stretches off to the northeast.  At your feet is a large steel grate, next to which is a sign which reads, "Treasure Vault. Keys in Main Office."
+
+[116] You are at the southwest end of the Repository.  To one side is a pit full of fierce green snakes.  On the other side is a row of small wicker cages, each of which contains a little sulking bird.  In one corner is a bundle of black rods with rusty marks on their ends.  A large number of velvet pillows are scattered about on the floor.  A vast mirror stretches off to the northeast.  At your feet is a large steel grate, next to which is a sign which reads, "Treasure Vault. Keys in Main Office."
+TRAVEL:
+[47:0](ne)
+        => [115] You are at the northeast end of an immense room, even larger than the Giant Room.  It appears to be a repository for the "Adventure" program.  Massive torches far overhead bathe the room with smoky yellow light.  Scattered about you can be seen a pile of bottles (all of them empty), a nursery of young beanstalks murmuring quietly, a bed of oysters, a bundle of black rods with rusty stars on their ends, and a collection of brass lanterns.  Off to one side a great many dwarves are sleeping on the floor, snoring loudly.  A sign nearby reads: "Do not disturb the dwarves!"  An immense mirror is hanging against one wall, and stretches to the other end of the room, where various other sundry objects can be glimpsed dimly in the distance.
+[30:0](d, downw, down, desce)
+        => [593] No desc
+
+[117] You are on one side of a large, deep chasm.  A heavy white mist rising up from below obscures all view of the far side.  A SW path leads away from the chasm into a winding corridor.
+TRAVEL:
+[49:0](sw)
+        => [118] You are in a long winding corridor sloping out of sight in both directions.
+[41:233](over), [42:233](acros), [69:233](cross), [47:233](ne)
+        => [660] No desc
+[41:332](over)
+        => [661] No desc
+[41:0](over)
+        => [303] No desc
+[39:332](jump)
+        => [21] You didn't make it.
+[39:0](jump)
+        => [596] No desc
+
+[118] You are in a long winding corridor sloping out of sight in both directions.
+TRAVEL:
+[30:0](d, downw, down, desce)
+        => [72] You are in a large low room.  Crawls lead north, SE, and SW.
+[29:0](upwar, up, u, above, ascen)
+        => [117] You are on one side of a large, deep chasm.  A heavy white mist rising up from below obscures all view of the far side.  A SW path leads away from the chasm into a winding corridor.
+
+[119] You are in a secret canyon which exits to the north and east.
+TRAVEL:
+[45:0](north, n), [11:0](out, outsi, exit, leave)
+        => [69] You are in a secret N/S canyon above a large room.
+[43:0](east, e), [7:0](forwa, conti, onwar)
+        => [653] No desc
+
+[120] You are in a secret canyon which exits to the north and east.
+TRAVEL:
+[45:0](north, n)
+        => [69] You are in a secret N/S canyon above a large room.
+[43:0](east, e)
+        => [74] You are in a secret canyon which here runs e/w.  It crosses over a very tight canyon 15 feet below.  If you go down you may not be able to get back up.
+
+[121] You are in a secret canyon which exits to the north and east.
+TRAVEL:
+[43:0](east, e), [11:0](out, outsi, exit, leave)
+        => [74] You are in a secret canyon which here runs e/w.  It crosses over a very tight canyon 15 feet below.  If you go down you may not be able to get back up.
+[45:0](north, n), [7:0](forwa, conti, onwar)
+        => [653] No desc
+
+[122] You are on the far side of the chasm.  A ne path leads away from the chasm on this side.
+TRAVEL:
+[47:0](ne)
+        => [123] You're in a long east/west corridor.  A faint rumbling noise can be heard in the distance.
+[41:233](over), [42:233](acros), [69:233](cross), [49:233](sw)
+        => [660] No desc
+[41:0](over)
+        => [303] No desc
+[39:0](jump)
+        => [596] No desc
+[77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+[40:0](barre)
+        => [129] You are standing at the entrance to a large, barren room.  A sign posted above the entrance reads:  "Caution!  Bear in room!"
+
+[123] You're in a long east/west corridor.  A faint rumbling noise can be heard in the distance.
+TRAVEL:
+[44:0](west, w)
+        => [122] You are on the far side of the chasm.  A ne path leads away from the chasm on this side.
+[43:0](east, e), [77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+[40:0](barre)
+        => [129] You are standing at the entrance to a large, barren room.  A sign posted above the entrance reads:  "Caution!  Bear in room!"
+
+[124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+TRAVEL:
+[44:0](west, w)
+        => [123] You're in a long east/west corridor.  A faint rumbling noise can be heard in the distance.
+[47:0](ne), [36:0](left)
+        => [125] The walls are quite warm here.  From the north can be heard a steady roar, so loud that the entire cave seems to be trembling.  Another passage leads south, and a low crawl goes east.
+[48:0](se), [37:0](right), [30:0](d, downw, down, desce)
+        => [128] You are walking along a gently sloping north/south passage lined with oddly shaped limestone formations.
+[28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+[40:0](barre)
+        => [129] You are standing at the entrance to a large, barren room.  A sign posted above the entrance reads:  "Caution!  Bear in room!"
+
+[125] The walls are quite warm here.  From the north can be heard a steady roar, so loud that the entire cave seems to be trembling.  Another passage leads south, and a low crawl goes east.
+TRAVEL:
+[46:0](south, s), [77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[45:0](north, n), [28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+[43:0](east, e), [17:0](crawl)
+        => [127] You are in a small chamber filled with large boulders.  The walls are very warm, causing the air in the room to be almost stifling from the heat.  The only exit is a crawl heading west, through which is coming a low rumbling.
+
+[126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+TRAVEL:
+[46:0](south, s), [23:0](passa, tunne), [11:0](out, outsi, exit, leave)
+        => [125] The walls are quite warm here.  From the north can be heard a steady roar, so loud that the entire cave seems to be trembling.  Another passage leads south, and a low crawl goes east.
+[77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[30:0](d, downw, down, desce), [39:0](jump)
+        => [610] No desc
+
+[127] You are in a small chamber filled with large boulders.  The walls are very warm, causing the air in the room to be almost stifling from the heat.  The only exit is a crawl heading west, through which is coming a low rumbling.
+TRAVEL:
+[44:0](west, w), [11:0](out, outsi, exit, leave), [17:0](crawl)
+        => [125] The walls are quite warm here.  From the north can be heard a steady roar, so loud that the entire cave seems to be trembling.  Another passage leads south, and a low crawl goes east.
+[77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+
+[128] You are walking along a gently sloping north/south passage lined with oddly shaped limestone formations.
+TRAVEL:
+[45:0](north, n), [29:0](upwar, up, u, above, ascen), [77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[46:0](south, s), [30:0](d, downw, down, desce), [40:0](barre)
+        => [129] You are standing at the entrance to a large, barren room.  A sign posted above the entrance reads:  "Caution!  Bear in room!"
+[28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+
+[129] You are standing at the entrance to a large, barren room.  A sign posted above the entrance reads:  "Caution!  Bear in room!"
+TRAVEL:
+[44:0](west, w), [29:0](upwar, up, u, above, ascen)
+        => [128] You are walking along a gently sloping north/south passage lined with oddly shaped limestone formations.
+[77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[43:0](east, e), [19:0](inwar, insid, in), [40:0](barre), [3:0](enter)
+        => [130] You are inside a barren room.  The center of the room is completely empty except for some dust.  Marks in the dust lead away toward the far end of the room.  The only exit is the way you came in.
+[28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+
+[130] You are inside a barren room.  The center of the room is completely empty except for some dust.  Marks in the dust lead away toward the far end of the room.  The only exit is the way you came in.
+TRAVEL:
+[44:0](west, w), [11:0](out, outsi, exit, leave)
+        => [129] You are standing at the entrance to a large, barren room.  A sign posted above the entrance reads:  "Caution!  Bear in room!"
+[77:0](fork)
+        => [124] The path forks here.  The left fork leads northeast.  A dull rumbling seems to get louder in that direction.  The right fork leads southeast down a gentle slope.  The main corridor enters from the west.
+[28:0](view)
+        => [126] You are on the edge of a breath-taking view.  Far below you is an active volcano, from which great gouts of molten lava come surging out, cascading back down into the depths.  The glowing rock fills the farthest reaches of the cavern with a blood-red glare, giving every- thing an eerie, macabre appearance.  The air is filled with flickering sparks of ash and a heavy smell of brimstone.  The walls are hot to the touch, and the thundering of the volcano drowns out all other sounds.  Embedded in the jagged roof far overhead are myriad twisted formations composed of pure white alabaster, which scatter the murky light into sinister apparitions upon the walls.  To one side is a deep gorge, filled with a bizarre chaos of tortured rock which seems to have been crafted by the devil himself.  An immense river of fire crashes out from the depths of the volcano, burns its way through the gorge, and plummets into a bottomless pit far off to your left.  To the right, an immense geyser of blistering steam erupts continuously from a barren island in the center of a sulfurous lake, which bubbles ominously.  The far right wall is aflame with an incandescence of its own, which lends an additional infernal splendor to the already hellish scene.  A dark, foreboding passage exits to the south.
+
+[131] You are in a maze of twisting little passages, all different.
+TRAVEL:
+[44:0](west, w)
+        => [107] You are in a maze of twisty little passages, all different.
+[48:0](se)
+        => [132] You are in a little maze of twisty passages, all different.
+[50:0](nw)
+        => [133] You are in a twisting maze of little passages, all different.
+[49:0](sw)
+        => [134] You are in a twisting little maze of passages, all different.
+[47:0](ne)
+        => [135] You are in a twisty little maze of passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [136] You are in a twisty maze of little passages, all different.
+[30:0](d, downw, down, desce)
+        => [137] You are in a little twisty maze of passages, all different.
+[45:0](north, n)
+        => [138] You are in a maze of little twisting passages, all different.
+[46:0](south, s)
+        => [139] You are in a maze of little twisty passages, all different.
+[43:0](east, e)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[132] You are in a little maze of twisty passages, all different.
+TRAVEL:
+[50:0](nw)
+        => [107] You are in a maze of twisty little passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [131] You are in a maze of twisting little passages, all different.
+[45:0](north, n)
+        => [133] You are in a twisting maze of little passages, all different.
+[46:0](south, s)
+        => [134] You are in a twisting little maze of passages, all different.
+[44:0](west, w)
+        => [135] You are in a twisty little maze of passages, all different.
+[49:0](sw)
+        => [136] You are in a twisty maze of little passages, all different.
+[47:0](ne)
+        => [137] You are in a little twisty maze of passages, all different.
+[43:0](east, e)
+        => [138] You are in a maze of little twisting passages, all different.
+[30:0](d, downw, down, desce)
+        => [139] You are in a maze of little twisty passages, all different.
+[48:0](se)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[133] You are in a twisting maze of little passages, all different.
+TRAVEL:
+[29:0](upwar, up, u, above, ascen)
+        => [107] You are in a maze of twisty little passages, all different.
+[30:0](d, downw, down, desce)
+        => [131] You are in a maze of twisting little passages, all different.
+[44:0](west, w)
+        => [132] You are in a little maze of twisty passages, all different.
+[47:0](ne)
+        => [134] You are in a twisting little maze of passages, all different.
+[49:0](sw)
+        => [135] You are in a twisty little maze of passages, all different.
+[43:0](east, e)
+        => [136] You are in a twisty maze of little passages, all different.
+[45:0](north, n)
+        => [137] You are in a little twisty maze of passages, all different.
+[50:0](nw)
+        => [138] You are in a maze of little twisting passages, all different.
+[48:0](se)
+        => [139] You are in a maze of little twisty passages, all different.
+[46:0](south, s)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[134] You are in a twisting little maze of passages, all different.
+TRAVEL:
+[47:0](ne)
+        => [107] You are in a maze of twisty little passages, all different.
+[45:0](north, n)
+        => [131] You are in a maze of twisting little passages, all different.
+[50:0](nw)
+        => [132] You are in a little maze of twisty passages, all different.
+[48:0](se)
+        => [133] You are in a twisting maze of little passages, all different.
+[43:0](east, e)
+        => [135] You are in a twisty little maze of passages, all different.
+[30:0](d, downw, down, desce)
+        => [136] You are in a twisty maze of little passages, all different.
+[46:0](south, s)
+        => [137] You are in a little twisty maze of passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [138] You are in a maze of little twisting passages, all different.
+[44:0](west, w)
+        => [139] You are in a maze of little twisty passages, all different.
+[49:0](sw)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[135] You are in a twisty little maze of passages, all different.
+TRAVEL:
+[45:0](north, n)
+        => [107] You are in a maze of twisty little passages, all different.
+[48:0](se)
+        => [131] You are in a maze of twisting little passages, all different.
+[30:0](d, downw, down, desce)
+        => [132] You are in a little maze of twisty passages, all different.
+[46:0](south, s)
+        => [133] You are in a twisting maze of little passages, all different.
+[43:0](east, e)
+        => [134] You are in a twisting little maze of passages, all different.
+[44:0](west, w)
+        => [136] You are in a twisty maze of little passages, all different.
+[49:0](sw)
+        => [137] You are in a little twisty maze of passages, all different.
+[47:0](ne)
+        => [138] You are in a maze of little twisting passages, all different.
+[50:0](nw)
+        => [139] You are in a maze of little twisty passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[136] You are in a twisty maze of little passages, all different.
+TRAVEL:
+[43:0](east, e)
+        => [107] You are in a maze of twisty little passages, all different.
+[44:0](west, w)
+        => [131] You are in a maze of twisting little passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [132] You are in a little maze of twisty passages, all different.
+[49:0](sw)
+        => [133] You are in a twisting maze of little passages, all different.
+[30:0](d, downw, down, desce)
+        => [134] You are in a twisting little maze of passages, all different.
+[46:0](south, s)
+        => [135] You are in a twisty little maze of passages, all different.
+[50:0](nw)
+        => [137] You are in a little twisty maze of passages, all different.
+[48:0](se)
+        => [138] You are in a maze of little twisting passages, all different.
+[47:0](ne)
+        => [139] You are in a maze of little twisty passages, all different.
+[45:0](north, n)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[137] You are in a little twisty maze of passages, all different.
+TRAVEL:
+[48:0](se)
+        => [107] You are in a maze of twisty little passages, all different.
+[47:0](ne)
+        => [131] You are in a maze of twisting little passages, all different.
+[46:0](south, s)
+        => [132] You are in a little maze of twisty passages, all different.
+[30:0](d, downw, down, desce)
+        => [133] You are in a twisting maze of little passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [134] You are in a twisting little maze of passages, all different.
+[50:0](nw)
+        => [135] You are in a twisty little maze of passages, all different.
+[45:0](north, n)
+        => [136] You are in a twisty maze of little passages, all different.
+[49:0](sw)
+        => [138] You are in a maze of little twisting passages, all different.
+[43:0](east, e)
+        => [139] You are in a maze of little twisty passages, all different.
+[44:0](west, w)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[138] You are in a maze of little twisting passages, all different.
+TRAVEL:
+[30:0](d, downw, down, desce)
+        => [107] You are in a maze of twisty little passages, all different.
+[43:0](east, e)
+        => [131] You are in a maze of twisting little passages, all different.
+[47:0](ne)
+        => [132] You are in a little maze of twisty passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [133] You are in a twisting maze of little passages, all different.
+[44:0](west, w)
+        => [134] You are in a twisting little maze of passages, all different.
+[45:0](north, n)
+        => [135] You are in a twisty little maze of passages, all different.
+[46:0](south, s)
+        => [136] You are in a twisty maze of little passages, all different.
+[48:0](se)
+        => [137] You are in a little twisty maze of passages, all different.
+[49:0](sw)
+        => [139] You are in a maze of little twisty passages, all different.
+[50:0](nw)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[139] You are in a maze of little twisty passages, all different.
+TRAVEL:
+[49:0](sw)
+        => [107] You are in a maze of twisty little passages, all different.
+[50:0](nw)
+        => [131] You are in a maze of twisting little passages, all different.
+[43:0](east, e)
+        => [132] You are in a little maze of twisty passages, all different.
+[44:0](west, w)
+        => [133] You are in a twisting maze of little passages, all different.
+[45:0](north, n)
+        => [134] You are in a twisting little maze of passages, all different.
+[30:0](d, downw, down, desce)
+        => [135] You are in a twisty little maze of passages, all different.
+[48:0](se)
+        => [136] You are in a twisty maze of little passages, all different.
+[29:0](upwar, up, u, above, ascen)
+        => [137] You are in a little twisty maze of passages, all different.
+[46:0](south, s)
+        => [138] You are in a maze of little twisting passages, all different.
+[47:0](ne)
+        => [112] You are in a little maze of twisting passages, all different.
+
+[140] Dead end
+TRAVEL:
+[45:0](north, n), [11:0](out, outsi, exit, leave)
+        => [112] You are in a little maze of twisting passages, all different.
+
+
+C:\Work\GlorkzProcessor\GlorkzProcessor\bin\Debug\net6.0\GlorkzProcessor.exe (process 23596) exited with code 0.
+Press any key to close this window . . .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

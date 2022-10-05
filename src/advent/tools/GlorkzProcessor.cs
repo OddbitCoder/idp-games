@@ -27,6 +27,11 @@ int[] plac = new int[101];
 
 int[] actspk = new int[35];
 
+LocInfo[] locInfo = new LocInfo[141];
+for (int i = 0; i < locInfo.Length; i++) { locInfo[i] = new LocInfo(); }
+
+Dictionary<int, List<string>> words = new Dictionary<int, List<string>>();
+
 static ushort GetHashCode(string word)
 {
     ushort hcode = 0;
@@ -58,6 +63,11 @@ foreach (var line in lines.Select(l => l.Trim()))
         int msgId = Convert.ToInt32(split[0]);
         if ((prevMsgId != msgId) && !(sect == 5 && (msgId == 0 || msgId >= 100)))
         {
+            if (sect == 1)
+            {
+                locInfo[prevMsgId].Desc = msg;
+                locInfo[prevMsgId].Idx = prevMsgId;
+            }
             Console.WriteLine(msgLen > 0 
                 ? $"/* {prevMsgId} */ {{ {offset}, {msgLen} }}, /* {msg} */"
                 : $"/* {prevMsgId} */ {{ 0, 0 }},"
@@ -123,9 +133,10 @@ foreach (var line in lines.Select(l => l.Trim()))
     else if (sect == 4)
     {
         int wordId = Convert.ToInt32(split[0]);
+        string word = null;
         if (wordId != -1)
         {
-            var word = split[1].Trim();
+            word = split[1].Trim();
             //vocWriter.Write((byte)word.Length);
             //vocWriter.Write((ushort)wordId);
             //vocWriter.Write(word.Select(ch => (byte)ch).ToArray());
@@ -138,6 +149,14 @@ foreach (var line in lines.Select(l => l.Trim()))
             {
                 vocDict.Add(hcode, new List<(string, ushort)>(new[] { (word, (ushort)wordId) }));
             }
+        }
+        if (words.TryGetValue(wordId, out List<string> items))
+        {
+            items.Add(word);
+        }
+        else
+        {
+            words.Add(wordId, new List<string>(new[] { word }));
         }
     }
     else if (sect == 3)
@@ -165,9 +184,20 @@ foreach (var line in lines.Select(l => l.Trim()))
             trav[id].Add((byte)(m & 0xFF));
             trav[id].Add((byte)((m >> 8) & 0xFF));
             // add tverbs
+            var tmp = new List<(int, int)>();
+            tmp.Add((tverbs.First(), m));
             foreach (byte tverb in tverbs.Skip(1))
             {
                 trav[id].Add(tverb);
+                tmp.Add((tverb, m)); 
+            }
+            if (n > 140)
+            {
+                locInfo[id].TravelInfo.Add((tmp, new LocInfo { Idx = n, Desc = "No desc" }));
+            }
+            else
+            {
+                locInfo[id].TravelInfo.Add((tmp, locInfo[n]));
             }
         }
     }
@@ -295,3 +325,35 @@ for (ushort i = 0; i < 128; i++)
 }
 
 vocWriter.Close();
+
+string GetWord(int id, int cond)
+{
+    if (words.TryGetValue(id, out List<string> wordList))
+    {
+        return $"[{id}:{cond}]({wordList.Aggregate((a, b) => a + ", " + b)})";
+    }
+    else
+    {
+        return $"({id}:{cond})";
+    }
+}
+
+foreach (var item in locInfo.Skip(1))
+{
+    Console.WriteLine($"[{item.Idx}] {item.Desc.Replace('\n', ' ').Replace("\r", "")}");
+    Console.WriteLine("TRAVEL:");
+    foreach (var travItem in item.TravelInfo) 
+    {
+        Console.WriteLine(travItem.Item1.Select(x => GetWord(x.Item1, x.Item2)).Aggregate((a, b) => a + ", " + b));
+        Console.WriteLine($"\t=> [{travItem.Item2.Idx}] {travItem.Item2.Desc.Replace('\n', ' ').Replace("\r", "")}");
+    }
+    Console.WriteLine();
+}
+
+class LocInfo
+{
+    public string Desc { get; set; }
+    public int Idx { get; set; }
+    public List<(List<(int, int)>, LocInfo)> TravelInfo { get; set; }
+        = new List<(List<(int verb, int conditions)>, LocInfo)>();
+}
