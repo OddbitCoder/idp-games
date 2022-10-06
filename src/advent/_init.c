@@ -50,7 +50,7 @@
 
 // #include <sys/types.h>
 // #include <signal.h>
-// #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "hdr.h"
@@ -242,6 +242,7 @@ void startup()
 	srand(timer());	/* random seed */
 	/* srand(371);				/* non-random seed */
 	hinted[3]=yes(65,1,0);
+	printf("\n\r");
 	newloc=1;
 	delhit = 0;
 	limit=330;
