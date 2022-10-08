@@ -133,6 +133,7 @@ extern const struct text stext[LOCSIZ];              /* short loc descriptions  
 //}; 
 extern const struct text travel[LOCSIZ];
 extern struct trav_ptr *tkk;
+extern struct trav_ptr _tkk;
 //
 extern int atloc[LOCSIZ];
 
@@ -188,5 +189,7 @@ char *decr(char a,char b,char c,char d,char e);
 #define BUFFER_SIZE 1024
 
 extern UINT8 buffer[BUFFER_SIZE];
+
+extern char fname[13];
 
 #endif

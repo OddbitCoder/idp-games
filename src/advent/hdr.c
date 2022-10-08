@@ -1450,3 +1450,5 @@ char *wd1 = 0, *wd2 = 0;
 int blklin = 0;
 
 UINT8 buffer[BUFFER_SIZE];
+
+char fname[13];

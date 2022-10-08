@@ -15,6 +15,8 @@ char *strcpy(char *destination, const char *source);
 void exit(int status);
 UINT16 atoi(char *str);
 
+void set_fname(char *in_str);
+
 UINT8 *fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len);
 BOOL fwrite(char *path, UINT8 *buf, UINT16 len);
 

@@ -10,5 +10,6 @@
 #define __SAVE_H
 
 int save(char *outfile);
+int restore(char *infile);
 
 #endif

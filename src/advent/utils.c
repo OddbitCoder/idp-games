@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "utils.h"
+#include "vocab.h"
 
 #define BCD2BIN(val) (((val) & 15) + ((val) >> 4) * 10)
 
@@ -48,6 +49,16 @@ UINT16 atoi(char *str)
         res = res * 10 + str[i] - '0';
     }
     return res;
+}
+
+void set_fname(char *in_str) {
+    int len = length(in_str);
+    memcpy(fname, in_str, len > 8 ? 8 : len);
+    fname[8] = '\0';
+    to_upper(fname);
+    char *p = fname;
+    for (; *p; p++);
+    memcpy(p, ".SAV", 5);
 }
 
 UINT8 *fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len) {

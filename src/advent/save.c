@@ -48,8 +48,17 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "hdr.h"
+#include "utils.h"
+#include "vocab.h"
+#include "trav.h"
 #include "save.h"
+
+#define SAVE_GAME_SIZE 1524
+#define SIG_SIZE 10
+
+char sig[] = "ADVENT_IDP";
 
 struct savestruct
 {
@@ -59,6 +68,7 @@ struct savestruct
 
 struct savestruct save_array[] =
 {
+	{ sig,            SIG_SIZE },
 	{ &abbnum,        sizeof(abbnum) },
 	{ &attack,        sizeof(attack) },
 	{ &blklin,        sizeof(blklin) },
@@ -102,7 +112,7 @@ struct savestruct save_array[] =
 	{ &stick,         sizeof(stick) },
 	{ &tally,         sizeof(tally) },
 	{ &tally2,        sizeof(tally2) },
-	{ &tkk,           sizeof(tkk) },
+	{ &_tkk,          sizeof(_tkk) },
 	{ &turns,         sizeof(turns) },
 	{ &verb,          sizeof(verb) },
 	{ &wd1,           sizeof(wd1) },
@@ -123,70 +133,55 @@ struct savestruct save_array[] =
 	{ NULL,   0 }
 };
 
-int save(char *outfile)   /* Two passes on data: first to get checksum, second */
-//char *outfile;  /* to output the data using checksum to start random #s */
+int save(char *outfile)   /* Two passes on data: first to get size, */
+//char *outfile;  /* second to output the data */
 {
-	// FILE *out;
-	// struct savestruct *p;
-	// char *s;
-	// long sum;
-	// int i;
-
-	// crc_start();
-	// for (p = save_array; p->address != NULL; p++)
-	// 	sum = crc(p->address, p->width);
-	// srandom((int) sum);
-
-	// if ((out = fopen(outfile, "wb")) == NULL)
-	// {
-	//     fprintf(stderr,
-	// 	"Hmm.  The name \"%s\" appears to be magically blocked.\n",
-	// 	outfile);
-	//     return 1;
-	// }
-	// fwrite(&sum, sizeof(sum), 1, out);      /* Here's the random() key */
-	// for (p = save_array; p->address != NULL; p++)
-	// {
-	// 	for (s = p->address, i = 0; i < p->width; i++, s++)
-	// 		*s = (*s ^ random()) & 0xFF;      /* Lightly encrypt */
-	// 	fwrite(p->address, p->width, 1, out);
-	// }
-	// fclose(out);
+	UINT8 *buf = malloc(SAVE_GAME_SIZE);
+	UINT8 *p_buf = buf;
+	// write game state
+	for (struct savestruct *p = save_array; p->address != NULL; p++) {
+		memcpy(p_buf, p->address, p->width);
+		p_buf += p->width;
+	}
+	if (!fwrite(outfile, buf, SAVE_GAME_SIZE)) {
+		printf("Hmm.  The name \"%s\" appears to be magically blocked.\n\r", outfile);
+		free(buf);
+		return 1;
+	}
+	free(buf);
 	return 0;
 }
 
-// restore(infile)
+int restore(char *infile)
 // char *infile;
-// {
-// 	FILE *in;
-// 	struct savestruct *p;
-// 	char *s;
-// 	long sum, cksum;
-// 	int i;
-
-// 	if ((in = fopen(infile, "rb")) == NULL)
-// 	{
-// 	    fprintf(stderr,
-// 		"Hmm.  The file \"%s\" appears to be magically blocked.\n",
-// 		infile);
-// 	    return 1;
-// 	}
-// 	fread(&sum, sizeof(sum), 1, in);        /* Get the seed */
-// 	srandom((int) sum);
-// 	for (p = save_array; p->address != NULL; p++)
-// 	{
-// 		fread(p->address, p->width, 1, in);
-// 		for (s = p->address, i = 0; i < p->width; i++, s++)
-// 			*s = (*s ^ random()) & 0xFF;  /* Lightly decrypt */
-// 	}
-// 	fclose(in);
-
-// 	crc_start();                            /* See if she cheated */
-// 	for (p = save_array; p->address != NULL; p++)
-// 		cksum = crc(p->address, p->width);
-// 	if (sum != cksum)                       /* Tsk tsk */
-// 	    return 2;                           /* Altered the file */
-// 	/* We successfully restored, so this really was a save file */
-// 	/* Get rid of the file, but don't bother checking that we did */
-// 	return 0;
-// }
+{
+	UINT8 *buf = malloc(SAVE_GAME_SIZE);
+	UINT8 *p_buf = buf;
+	if (!fread(infile, buf, 0, SIG_SIZE)) {
+		goto restore_fail;
+	}
+	buf[SIG_SIZE] = '\0';
+	if (length(buf) - 1 != SIG_SIZE) {
+		free(buf);
+		return 2;
+	}
+	for (UINT8 i = 0; *p_buf; p_buf++, i++) {
+		if (*p_buf != sig[i]) {
+			free(buf);
+			return 2;
+		}
+	}
+	if (!fread(infile, buf, 0, SAVE_GAME_SIZE)) {
+		goto restore_fail;
+	}
+	p_buf = buf;
+	for (struct savestruct *p = save_array; p->address != NULL; p++) {
+		memcpy(p->address, p_buf, p->width);
+		p_buf += p->width;
+	}
+	return 0;
+restore_fail:
+	printf("Hmm.  The name \"%s\" appears to be magically blocked.\n\r", infile);
+	free(buf);
+	return 1;
+}

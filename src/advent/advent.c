@@ -65,6 +65,7 @@
 #include "subr.h"
 #include "wizard.h"
 #include "utils.h"
+#include "save.h"
 
 //main
 void main(int argc,char **argv)
@@ -83,23 +84,24 @@ void main(int argc,char **argv)
  	init(0);         /* Initialize everything */
 // 	signal(SIGINT,trapdel);
 
-// 	if (argc > 1)   /* Restore file specified */
-// 	{               /* Restart is label 8305 (Fortran) */
-// 		i = restore(argv[1]);       /* See what we've got */
-// 		switch(i)
-// 		{
-// 		    case 0:     /* The restore worked fine */
-// 			yea=Start(0);
-// 			k=null;
-// 			unlink(argv[1]);/* Don't re-use the save */
-// 			goto l8;        /* Get where we're going */
-// 		    case 1:             /* Couldn't open it */
-// 			exit(0);        /* So give up */
-// 		    case 2:             /* Oops -- file was altered */
-// 			rspeak(202);    /* You dissolve */
-// 			exit(0);        /* File could be non-adventure */
-// 		}                       /* So don't unlink it. */
-// 	}
+	if (argc > 1)   /* Restore file specified */
+	{               /* Restart is label 8305 (Fortran) */
+		set_fname(argv[1]);
+		i = restore(fname);       /* See what we've got */
+		switch(i)
+		{
+		    case 0:     /* The restore worked fine */
+			yea=Start();
+			k=null;
+			//unlink(argv[1]);/* Don't re-use the save */
+			goto l8;        /* Get where we're going */
+		    case 1:             /* Couldn't open it */
+			exit(0);        /* So give up */
+		    case 2:             /* Oops -- file was altered */
+			rspeak(202);    /* You dissolve */
+			exit(0);        /* File could be non-adventure */
+		}                       /* So don't unlink it. */
+	}
 
 	startup();              /* prepare for a user           */
 
@@ -374,7 +376,8 @@ void main(int argc,char **argv)
 			spk=201;
 			if (demo) goto l2011;
 			printf("I can suspend your adventure for you so");
-			printf(" you can resume later.\n\r");
+			printf(" you can resume later, but\n\r");
+			printf("your current game will end.\n\r");
 			if (!yes(200,54,54)) goto l2012;
 			//datime(&saved,&savet);
 			ciao(argv[0]);          /* Do we quit? */
