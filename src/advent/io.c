@@ -62,7 +62,7 @@
 void getin(char **wrd1,char **wrd2)                        /* get command from user        */
 // char **wrd1,**wrd2;                     /* no prompt, usually           */
 {       
-	static char wd1buf[MAXSTR],wd2buf[MAXSTR];
+	static char wd1buf[MAXSTR + 1],wd2buf[MAXSTR + 1];
 
 	*wrd1=wd1buf;                   /* return ptr to internal string*/
 	*wrd2=wd2buf;
