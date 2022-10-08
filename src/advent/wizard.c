@@ -107,11 +107,16 @@ BOOL Start()
 void ciao(char *cmdfile)
 //char *cmdfile;
 {
-    static char fname[80];
+    static char fname[13];
  	printf("What would you like to call the saved version?\n\r");
     con_in();
-    parse_in(fname, NULL, 80, 0);
+    parse_in(fname, NULL, 8, 0);
+    UINT8 i = 0;
+    for (; fname[i] != '\0'; i++);
+    memcpy(fname + i, ".SAV", 5);
+    to_upper(fname);
  	if (save(fname) != 0) return;           /* Save failed */
+    fname[i] = '\0';
  	printf("To resume, say \"advent %s\".\n\r", fname);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
 	exit(0);
