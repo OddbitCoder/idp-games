@@ -93,11 +93,14 @@ int yes(int x,int y,int z)                              /* confirm with rspeak  
 		printf("? ");
 		while (!(ch=kbhit()));
 		printf("%c\n\r", ch);
-		if (ch=='y')
+		if (ch=='y' || ch=='Y') {
 			result=TRUE;
-		else if (ch=='n') result=FALSE;
+			break;
+		} else if (ch=='n' || ch=='N') {
+			result=FALSE;
+			break;
+		}
 		//FLUSHLINE;
-		if (ch=='y'|| ch=='n') break;
 		printf("Please answer the question.\n\r");
 	}
 	if (result==TRUE) rspeak(y);
