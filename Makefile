@@ -1,7 +1,7 @@
 ROOT = $(realpath .)
 SRC_DIR = $(ROOT)/src
 SRC_DIRS = $(wildcard $(SRC_DIR)/*)
-IDP_DEV_DIR = $(ROOT)/idp-dev
+IDP_DEV_DIR = $(ROOT)/idp-udev
 BIN_DIR = $(ROOT)/bin
 IMG = $(BIN_DIR)/idp-games.img
 HFE = $(BIN_DIR)/idp-games.hfe

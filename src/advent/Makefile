@@ -1,5 +1,5 @@
 ROOT = $(realpath .)
-IDP_DEV_ROOT = $(realpath ../..)/idp-dev
+IDP_DEV_ROOT = $(realpath ../..)/idp-udev
 INC_DIR = $(IDP_DEV_ROOT)/include
 UNC_DIR_CPM = $(IDP_DEV_ROOT)/src/ulibc
 BUILD_DIR = $(ROOT)/build
