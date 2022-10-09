@@ -9,11 +9,9 @@
  */
 
 #include <bdos.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "utils.h"
-#include "vocab.h"
 
 #define BCD2BIN(val) (((val) & 15) + ((val) >> 4) * 10)
 

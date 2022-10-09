@@ -96,3 +96,4 @@ $(HFE): $(IMG)
 
 $(BUILD_DIR)/wizard.rel: hdr.h save.h utils.h
 $(BUILD_DIR)/vocab.rel: hdr.h utils.h io.h
+$(BUILD_DIR)/utils.rel: hdr.h utils.h
