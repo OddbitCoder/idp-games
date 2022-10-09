@@ -4,6 +4,8 @@
  * Miha Grčar 2022
  *
  * Various utils for Adventure
+ *
+ * Parts of this written by Tomaž Štih
  */
 
 #include <bdos.h>
