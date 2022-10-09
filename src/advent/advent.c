@@ -53,10 +53,7 @@
 
 /*      Re-coding of advent in C: main program                          */
 
-// #include <sys/file.h>
-// #include <signal.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "hdr.h"
 #include "_init.h"
