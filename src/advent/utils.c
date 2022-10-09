@@ -51,12 +51,10 @@ UINT16 atoi(char *str)
     return res;
 }
 
-void set_fname(char *in_str) {
-    int len = length(in_str);
-    memcpy(fname, in_str, len > 8 ? 8 : len);
-    fname[8] = '\0';
-    to_upper(fname);
-    char *p = fname;
+void create_fn(char *buffer) {
+    buffer[8] = '\0';
+    to_upper(buffer);
+    char *p = buffer;
     for (; *p; p++);
     memcpy(p, ".SAV", 5);
 }

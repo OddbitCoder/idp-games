@@ -57,6 +57,7 @@
 // #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "hdr.h"
 #include "_init.h"
 #include "vocab.h"
@@ -86,8 +87,9 @@ void main(int argc,char **argv)
 
 	if (argc > 1)   /* Restore file specified */
 	{               /* Restart is label 8305 (Fortran) */
-		set_fname(argv[1]);
-		i = restore(fname);       /* See what we've got */
+		memcpy(buffer, argv[1], length(argv[1]));
+		create_fn(buffer);
+		i = restore(buffer);       /* See what we've got */
 		switch(i)
 		{
 		    case 0:     /* The restore worked fine */

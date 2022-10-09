@@ -110,11 +110,13 @@ void ciao(char *cmdfile)
  	printf("What would you like to call the saved version?\n\r");
     con_in();
     parse_in(buffer, NULL, 8, 0);
-    set_fname(buffer);
-    if (save(fname) != 0) return;           /* Save failed */
-    buffer[8] = '\0';
-    to_upper(buffer);
- 	printf("To resume, say \"advent %s\".\n\r", buffer);
+    create_fn(buffer);
+    if (save(buffer) != 0) return;           /* Save failed */
+    // replace '.' with '\0'
+ 	char *p = buffer;
+    for (; *p != '.'; p++);
+    *p = '\0';
+    printf("To resume, say \"advent %s\".\n\r", buffer);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
 	exit(0);
 }

@@ -190,6 +190,4 @@ char *decr(char a,char b,char c,char d,char e);
 
 extern UINT8 buffer[BUFFER_SIZE];
 
-extern char fname[13];
-
 #endif
