@@ -19,7 +19,7 @@ void drop(int object,int where);
 int vocab(char *word,int type);
 
 void copystr(char *w1,char *w2);
-int weq(char *w1,char *w2);
+BOOL weq(char *w1,char *w2);
 int length(char *str);
 
 #endif

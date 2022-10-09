@@ -168,7 +168,7 @@ void copystr(char *w1,char *w2)                          /* copy one string to a
 }
 
 //weq
-int weq(char *w1,char *w2)                              /* compare words                */
+BOOL weq(char *w1,char *w2)                              /* compare words                */
 //char *w1,*w2;                           /* w1 is user, w2 is system     */
 {       register char *s,*t;
 	register int i;
