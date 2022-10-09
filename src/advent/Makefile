@@ -93,3 +93,5 @@ $(IMG): $(COM) $(BIN_SRC)
 
 $(HFE): $(IMG)
 	-hxcfe -uselayout:IDP -conv:HXC_HFE -finput:$(IMG) -foutput:$(HFE)
+
+$(BUILD_DIR)/wizard.rel: hdr.h save.h utils.h

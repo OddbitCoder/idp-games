@@ -50,9 +50,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "hdr.h"
-#include "io.h"
 #include "save.h"
 #include "utils.h"
 #include "wizard.h"
