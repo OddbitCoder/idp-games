@@ -98,25 +98,25 @@ void done(int entry)     /* entry=1 means goto 13000 */  /* game is over        
 {       register int i,sc;
 	if (entry==1) mspeak(1);
 	if (entry==3) rspeak(136);
-	printf("\n\n\nYou scored %d out of a ",(sc=score()));
-	printf("possible %d using %d turns.\n",mxscor,turns);
+	printf("\n\r\n\r\n\rYou scored %d out of a ",(sc=score()));
+	printf("possible %d using %d turns.\n\r",mxscor,turns);
 	for (i=1; i<=clsses; i++)
 		if (cval[i]>=sc)
 		{       speak(&ctext[i]);
 			if (i==clsses-1)
 			{       printf("To achieve the next higher rating");
-				printf(" would be a neat trick!\n\n");
-				printf("Congratulations!!\n");
+				printf(" would be a neat trick!\n\r\n\r");
+				printf("Congratulations!!\n\r");
 				exit(0);
 			}
 			k=cval[i]+1-sc;
 			printf("To achieve the next higher rating, you need");
 			printf(" %d more point",k);
-			if (k==1) printf(".\n");
-			else printf("s.\n");
+			if (k==1) printf(".\n\r");
+			else printf("s.\n\r");
 			exit(0);
 		}
-	printf("You just went off my scale!!!\n");
+	printf("You just went off my scale!!!\n\r");
 	exit(0);
 }
 
