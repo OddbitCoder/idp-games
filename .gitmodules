@@ -1,3 +1,6 @@
 [submodule "idp-udev"]
-	path = idp-dev
+	path = idp-udev
 	url = https://github.com/tstih/idp-udev.git
+[submodule "idp-dev"]
+	path = idp-dev
+	url = https://github.com/tstih/idp-dev.git
