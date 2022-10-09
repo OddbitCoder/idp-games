@@ -48,8 +48,6 @@
 
 /*      Re-coding of advent in C: data initialization                   */
 
-// #include <sys/types.h>
-// #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

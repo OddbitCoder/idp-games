@@ -104,3 +104,4 @@ $(BUILD_DIR)/io.rel: hdr.h subr.h utils.h
 $(BUILD_DIR)/hdr.rel: trav.h
 $(BUILD_DIR)/done.rel: hdr.h io.h subr.h vocab.h utils.h
 $(BUILD_DIR)/advent.rel: hdr.h _init.h vocab.h io.h done.h subr.h wizard.h utils.h save.h
+$(BUILD_DIR)/_init.rel: hdr.h trav.h io.h vocab.h wizard.h utils.h

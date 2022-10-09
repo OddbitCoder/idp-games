@@ -1,6 +1,6 @@
 [X] fix static data (problems with indices)
 [/] assert data types
-[ ] remove unused #includes + fix Makefile dependencies
+[X] remove unused #includes + fix Makefile dependencies
 [X] optimize mem usage for static vars and arrays (use const, cast to write data)
 [/] all ints (now 2 bytes) should be long (4 bytes); make all data const to see which ones we need to promote to long
 [X] revise travel ptr usage in every function + tkk usage
