@@ -49,11 +49,6 @@
 /*      Re-coding of advent in C: file i/o and user i/o                 */
 
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "hdr.h"
-#include "vocab.h"
-#include "trav.h"
 #include "subr.h"
 #include "utils.h"
 #include "io.h"
@@ -493,7 +488,7 @@ void pspeak(int m,int skip) /* read, decrypt an print a ptext message           
 		for (; *p != '\n' && p != eod; p++); // skip the first line
 		if (p == eod) { bug(-1); }
 		p += 2; // \n\r
-		while (true) {
+		while (TRUE) {
 			char *r = p;
 			for (; *p != '\t'; p++);
 			*p = '\0';
