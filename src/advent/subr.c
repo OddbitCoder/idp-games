@@ -219,21 +219,21 @@ int fdwarf()		/* 71 */
 	if (dtotal==0) return(2000);
 	if (dtotal!=1)
 	{       printf("There are %d threatening little dwarves ",dtotal);
-		printf("in the room with you.\n");
+		printf("in the room with you.\n\r");
 	}
 	else rspeak(4);
 	if (attack==0) return(2000);
 	if (dflag==2) dflag=3;
 	if (saved!= -1) dflag=20;
 	if (attack!=1)
-	{       printf("%d of them throw knives at you!\n",attack);
+	{       printf("%d of them throw knives at you!\n\r",attack);
 		k=6;
 	L(l82)    if (stick<=1)                   /* 82 */
 		{       rspeak(k+stick);
 			if (stick==0) return(2000);
 		}
 		else
-			printf("%d of them get you!\n",stick);  /* 83 */
+			printf("%d of them get you!\n\r",stick);  /* 83 */
 		oldlc2=loc;
 		return(99);
 	}
@@ -404,7 +404,7 @@ int badmove()                                       /* 20                   */
 
 void bug(int n)
 //int n;
-{       printf("Please tell jim@rand.org that fatal bug %d happened.\n",n);
+{       printf("Please tell jim@rand.org that fatal bug %d happened.\n\r",n);
 	exit(0);
 }
 
@@ -440,7 +440,7 @@ void checkhints()                                    /* 2600 &c              */
 	L(l40010) hintlc[hint]=0;
 		if (!yes(hints[hint][3],0,54)) continue;
 		printf("I am prepared to give you a hint, but it will ");
-		printf("cost you %d points.\n",hints[hint][2]);
+		printf("cost you %d points.\n\r",hints[hint][2]);
 		hinted[hint]=yes(175,hints[hint][4],54);
 	L(l40020) hintlc[hint]=0;
 	}
@@ -456,7 +456,7 @@ int trsay()                                         /* 9030                 */
 		obj=0;
 		return(2630);
 	}
-	printf("\nOkay, \"%s\".\n",wd2);
+	printf("\nOkay, \"%s\".\n\r",wd2);
 	return(2012);
 }
 
