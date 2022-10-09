@@ -48,9 +48,6 @@
 
 /*      Re-coding of advent in C: data structure routines               */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "hdr.h"
 #include "utils.h"
 #include "io.h"
