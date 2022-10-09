@@ -79,7 +79,7 @@ void main(int argc,char **argv)
 // 	if (setuid(getuid()) < 0)
 // 		perror("setuid");
 
- 	init(0);         /* Initialize everything */
+ 	init();         /* Initialize everything */
 // 	signal(SIGINT,trapdel);
 
 	if (argc > 1)   /* Restore file specified */
@@ -119,7 +119,7 @@ void main(int argc,char **argv)
 		kk = &stext[loc];
 		if ((abb[loc]%abbnum)==0 || kk->seekadr==0)
 			kk = &ltext[loc];
-		if (!forced(loc) && dark(0))
+		if (!forced(loc) && dark())
 		{       if (wzdark && pct(35))
 			{       die(90);
 				goto l2000;
@@ -132,7 +132,7 @@ void main(int argc,char **argv)
 		if (forced(loc))
 			goto l8;
 		if (loc==33 && pct(25)&&!closng) rspeak(8);
-		if (!dark(0))
+		if (!dark())
 		{       abb[loc]++;
 			for (i=atloc[loc]; i!=0; i=link[i])     /*2004  */
 			{       obj=i;
@@ -167,7 +167,7 @@ void main(int argc,char **argv)
 				if (toting(i)&&prop[i]<0)       /*2604  */
 					prop[i] = -1-prop[i];
 		}
-		wzdark=dark(0);                 /* 2605                 */
+		wzdark=dark();                 /* 2605                 */
 		if (knfloc>0 && knfloc!=loc) knfloc=1;
 		getin(&wd1,&wd2);
 		if (delhit)                     /* user typed a DEL     */
@@ -369,7 +369,7 @@ void main(int argc,char **argv)
 			if (here(tablet)) obj=obj*100+tablet;
 			if (here(messag)) obj=obj*100+messag;
 			if (closed&&toting(oyster)) obj=oyster;
-			if (obj>100||obj==0||dark(0)) goto l8000;
+			if (obj>100||obj==0||dark()) goto l8000;
 			goto l9270;
 		    case 30:                    /* suspend=8300         */
 			spk=201;
@@ -431,7 +431,7 @@ void main(int argc,char **argv)
 	L(l9080)          if (!here(lamp)) goto l2011;
 			prop[lamp]=0;
 			rspeak(40);
-			if (dark(0)) rspeak(16);
+			if (dark()) rspeak(16);
 			goto l2012;
 
 		    case 9:                     /* wave                 */
@@ -456,7 +456,7 @@ void main(int argc,char **argv)
 			    default: bug(112);
 			}
 	L(l9130)      case 13:                    /* pour                 */
-			if (obj==bottle||obj==0) obj=liq(0);
+			if (obj==bottle||obj==0) obj=liq();
 			if (obj==0) goto l8000;
 			if (!toting(obj)) goto l2011;
 			spk=78;
@@ -485,10 +485,10 @@ void main(int argc,char **argv)
 			    ||obj==bear) spk=71;
 			goto l2011;
 	L(l9150)      case 15:                    /* 9150 - drink         */
-			if (obj==0&&liqloc(loc)!=water&&(liq(0)!=water
+			if (obj==0&&liqloc(loc)!=water&&(liq()!=water
 				||!here(bottle))) goto l8000;
 			if (obj!=0&&obj!=water) spk=110;
-			if (spk==110||liq(0)!=water||!here(bottle))
+			if (spk==110||liq()!=water||!here(bottle))
 				goto l2011;
 			prop[bottle]=1;
 			place[water]=0;
@@ -507,7 +507,7 @@ void main(int argc,char **argv)
 			    default: bug(113);
 			}
 		    case 19: case 20:           /* 9190: find, invent   */
-			if (at(obj)||(liq(0)==obj&&at(bottle))
+			if (at(obj)||(liq()==obj&&at(bottle))
 				||k==liqloc(loc)) spk=94;
 			for (i=1; i<=5; i++)
 				if (dloc[i]==loc&&dflag>=2&&obj==dwarf)
@@ -535,7 +535,7 @@ void main(int argc,char **argv)
 			rspeak(bonus);
 			done(2);
 	L(l9270)      case 27:                    /* read                 */
-			if (dark(0)) goto l5190;
+			if (dark()) goto l5190;
 			if (obj==magzin) spk=190;
 			if (obj==tablet) spk=196;
 			if (obj==messag) spk=191;
@@ -579,7 +579,7 @@ void main(int argc,char **argv)
 	L(l5110)  if (k!=dwarf) goto l5120;
 		for (i=1; i<=5; i++)
 			if (dloc[i]==loc&&dflag>=2) goto l5010;
-	L(l5120)  if ((liq(0)==k&&here(bottle))||k==liqloc(loc)) goto l5010;
+	L(l5120)  if ((liq()==k&&here(bottle))||k==liqloc(loc)) goto l5010;
 		if (obj!=plant||!at(plant2)||prop[plant2]==0) goto l5130;
 		obj=plant2;
 		goto l5010;

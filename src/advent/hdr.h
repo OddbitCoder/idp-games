@@ -58,6 +58,8 @@
 
 /* hdr.h: included by c advent files */
 
+#pragma disable_warning 196
+
 typedef unsigned int UINT16;
 typedef signed int INT16;
 typedef unsigned char UINT8;

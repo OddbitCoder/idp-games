@@ -62,11 +62,11 @@
 // int blklin = TRUE;
 
 int setbit[16] = {1,2,4,010,020,040,0100,0200,0400,01000,02000,04000,
-		  010000,020000,040000,0100000};
+		  010000,020000,040000/*,0100000*/};
 
 
 //init
-void init(char *command)                           /* everything for 1st time run  */
+void init()                           /* everything for 1st time run  */
 //char *command;                          /* command we were called with  */
 {
     memset(fixed, 0, 101 * sizeof(int));
@@ -238,7 +238,7 @@ void startup()
 
 	demo=Start();
 	srand(timer());	/* random seed */
-	/* srand(371);				/* non-random seed */
+	// srand(371);				/* non-random seed */
 	hinted[3]=yes(65,1,0);
 	printf("\n\r");
 	newloc=1;

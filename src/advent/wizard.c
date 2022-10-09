@@ -114,7 +114,7 @@ void ciao(char *cmdfile)
  	char *p = buffer;
     for (; *p != '.'; p++);
     *p = '\0';
-    printf("To resume, say \"advent %s\".\n\r", buffer);
+    printf("To resume, say \"%s %s\".\n\r", cmdfile, buffer);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
 	exit(0);
 }

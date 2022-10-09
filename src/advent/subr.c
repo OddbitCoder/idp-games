@@ -81,7 +81,7 @@ int liq2(int pbotl)
 {       return((1-pbotl)*water+(pbotl/2)*(water+oil));
 }
 
-int liq(int foo)
+int liq()
 {       register int i;
 	i=prop[bottle];
 	if (i>-1-i) return(liq2(i));
@@ -110,7 +110,7 @@ int forced(int locc)
 	return(FALSE);
 }
 
-int dark(int foo)
+int dark()
 {       if ((cond[loc]%2)==0 && (prop[lamp]==0 || !here(lamp)))
 		return(TRUE);
 	return(FALSE);
@@ -357,6 +357,7 @@ int specials()                                      /* 30000                */
 	    case 3:                             /* to 30300             */
 		return(trbridge());
 	    default: bug(29);
+	    return(0);
 	}
 }
 
@@ -461,7 +462,7 @@ int trsay()                                         /* 9030                 */
 
 
 int trtake()                                        /* 9010                 */
-{       register int i;
+{
 	if (toting(obj)) return(2011);  /* 9010 */
 	spk=25;
 	if (obj==plant&&prop[plant]<=0) spk=115;
@@ -469,7 +470,7 @@ int trtake()                                        /* 9010                 */
 	if (obj==chain&&prop[bear]!=0) spk=170;
 	if (fixed[obj]!=0) return(2011);
 	if (obj==water||obj==oil)
-	{       if (here(bottle)&&liq(0)==obj)
+	{       if (here(bottle)&&liq()==obj)
 		{       obj=bottle;
 			goto l9017;
 		}
@@ -499,14 +500,14 @@ L(l9017)  if (holdng>=7)
 L(l9014)  if ((obj==bird||obj==cage)&&prop[bird]!=0)
 		carry(bird+cage-obj,loc);
 	carry(obj,loc);
-	k=liq(0);
+	k=liq();
 	if (obj==bottle && k!=0) place[k] = -1;
 	return(2009);
 }
 
 
 int dropper()                                       /* 9021                 */
-{       k=liq(0);
+{       k=liq();
 	if (k==obj) obj=bottle;
 	if (obj==bottle&&k!=0) place[k]=0;
 	if (obj==cage&&prop[bird]!=0) drop(bird,loc);
@@ -779,10 +780,10 @@ int trfill()                                        /* 9220 */
 	if (obj==0&&!here(bottle)) return(8000);
 	spk=107;
 	if (liqloc(loc)==0) spk=106;
-	if (liq(0)!=0) spk=105;
+	if (liq()!=0) spk=105;
 	if (spk!=107) return(2011);
 	prop[bottle]=((cond[loc]%4)/2)*2;
-	k=liq(0);
+	k=liq();
 	if (toting(bottle)) place[k]= -1;
 	if (k==oil) spk=108;
 	return(2011);

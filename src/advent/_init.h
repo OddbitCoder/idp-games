@@ -9,7 +9,7 @@
 #ifndef __INIT_H
 #define __INIT_H
 
-void init(char *command);
+void init();
 char *decr(char a,char b,char c,char d,char e);
 void linkdata();
 void startup();
