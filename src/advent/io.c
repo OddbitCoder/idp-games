@@ -79,7 +79,7 @@ void getin(char **wrd1,char **wrd2)                        /* get command from u
 // }
 
 //yes
-int yes(int x,int y,int z)                              /* confirm with rspeak          */
+BOOL yes(int x,int y,int z)                              /* confirm with rspeak          */
 //int x,y,z;
 {       register int result;
 	register char ch;

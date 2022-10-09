@@ -9,4 +9,4 @@
 [X] what does "demo" do?
 [X] srand? (_init.c)
 [X] fix all warnings
-[ ] revise return val types (int -> bool) 
+[X] revise return val types (int -> bool) 

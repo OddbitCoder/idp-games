@@ -16,7 +16,7 @@
 #define TRAV_BIN "TRAV.BIN"
 
 void getin(char **wrd1,char **wrd2);
-int yes(int x,int y,int z);
+BOOL yes(int x,int y,int z);
 void rspeak(int msg);
 void mspeak(int msg);
 void speak(struct text *msg);
