@@ -11,7 +11,7 @@
 
 void poof();
 BOOL Start();
-void ciao(char *cmdfile);
+void ciao();
 int ran(int range);
 
 #endif

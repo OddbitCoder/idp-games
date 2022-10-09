@@ -102,7 +102,7 @@ BOOL Start()
 // }
 
 //ciao
-void ciao(char *cmdfile)
+void ciao()
 //char *cmdfile;
 {
  	printf("What would you like to call the saved version?\n\r");
@@ -114,7 +114,7 @@ void ciao(char *cmdfile)
  	char *p = buffer;
     for (; *p != '.'; p++);
     *p = '\0';
-    printf("To resume, say \"%s %s\".\n\r", cmdfile, buffer);
+    printf("To resume, say \"ADVENT %s\".\n\r", buffer);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
 	exit(0);
 }

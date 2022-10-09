@@ -379,7 +379,7 @@ void main(int argc,char **argv)
 			printf("your current game will end.\n\r");
 			if (!yes(200,54,54)) goto l2012;
 			//datime(&saved,&savet);
-			ciao(argv[0]);          /* Do we quit? */
+			ciao();          /* Do we quit? */
 			continue;               /* Maybe not */
 		    case 31:                    /* hours=8310           */
 			printf("Colossal cave is closed 9am-5pm Mon ");
