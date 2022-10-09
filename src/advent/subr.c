@@ -49,7 +49,6 @@
 /*      Re-coding of advent in C: subroutines from main                 */
 
 #include <stdio.h>
-#include "hdr.h"
 #include "io.h"
 #include "wizard.h"
 #include "vocab.h"
@@ -58,19 +57,19 @@
 #include "subr.h"
 
 /*              Statement functions     */
-int toting(int objj)
+BOOL toting(int objj)
 //int objj;
 {       if (place[objj] == -1) return(TRUE);
 	else return(FALSE);
 }
 
-int here(int objj)
+BOOL here(int objj)
 //int objj;
 {       if (place[objj]==loc || toting(objj)) return(TRUE);
 	else return(FALSE);
 }
 
-int at(int objj)
+BOOL at(int objj)
 //int objj;
 {       if (place[objj]==loc || fixed[objj]==loc) return(TRUE);
 	else return (FALSE);
@@ -98,25 +97,25 @@ int liqloc(int locc)     /* may want to clean this one up a bit */
 	return(liq2(j*l+1));
 }
 
-int bitset(int l,int n)
+BOOL bitset(int l,int n)
 //int l,n;
 {       if (cond[l] & setbit[n]) return(TRUE);
 	return(FALSE);
 }
 
-int forced(int locc)
+BOOL forced(int locc)
 //int locc;
 {       if (cond[locc]==2) return(TRUE);
 	return(FALSE);
 }
 
-int dark()
+BOOL dark()
 {       if ((cond[loc]%2)==0 && (prop[lamp]==0 || !here(lamp)))
 		return(TRUE);
 	return(FALSE);
 }
 
-int pct(int n)
+BOOL pct(int n)
 //int n;
 {       if (ran(100)<n) return(TRUE);
 	return(FALSE);

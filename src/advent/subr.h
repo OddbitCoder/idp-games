@@ -9,16 +9,18 @@
 #ifndef __SUBR_H
 #define __SUBR_H
 
-int toting(int objj);
-int here(int objj);
-int at(int objj);
+#include "hdr.h"
+
+BOOL toting(int objj);
+BOOL here(int objj);
+BOOL at(int objj);
 int liq2(int pbotl);
 int liq();
 int liqloc(int locc);
-int bitset(int l,int n);
-int forced(int locc);
-int dark();
-int pct(int n);
+BOOL bitset(int l,int n);
+BOOL forced(int locc);
+BOOL dark();
+BOOL pct(int n);
 int fdwarf();
 int march();
 int mback();
