@@ -188,8 +188,9 @@ char *decr(char a,char b,char c,char d,char e);
 /* We need to get a little tricky to avoid strings */
 #define DECR(a,b,c,d,e) decr((char)(a+'+'),(char)(b+'-'),(char)(c+'#'),(char)(d+'&'),(char)(e+'%'))
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1600
 
 extern UINT8 buffer[BUFFER_SIZE];
+extern char fn[13];
 
 #endif

@@ -136,45 +136,39 @@ struct savestruct save_array[] =
 int save(char *outfile)   /* Two passes on data: first to get size, */
 //char *outfile;  /* second to output the data */
 {
-	UINT8 *buf = malloc(SAVE_GAME_SIZE);
-	UINT8 *p_buf = buf;
+	UINT8 *p_buf = buffer;
 	// write game state
 	for (struct savestruct *p = save_array; p->address != NULL; p++) {
 		memcpy(p_buf, p->address, p->width);
 		p_buf += p->width;
 	}
-	if (!fwrite(outfile, buf, SAVE_GAME_SIZE)) {
+	if (!fwrite(outfile, buffer, SAVE_GAME_SIZE)) {
 		printf("Hmm.  The name \"%s\" appears to be magically blocked.\n\r", outfile);
-		free(buf);
 		return 1;
 	}
-	free(buf);
 	return 0;
 }
 
 int restore(char *infile)
 // char *infile;
 {
-	UINT8 *buf = malloc(SAVE_GAME_SIZE);
-	UINT8 *p_buf = buf;
-	if (!fread(infile, buf, 0, SIG_SIZE)) {
+	UINT8 *p_buf = buffer;
+	if (!fread(infile, buffer, 0, SIG_SIZE)) {
 		goto restore_fail;
 	}
-	buf[SIG_SIZE] = '\0';
-	if (length(buf) - 1 != SIG_SIZE) {
-		free(buf);
+	buffer[SIG_SIZE] = '\0';
+	if (length(buffer) - 1 != SIG_SIZE) {
 		return 2;
 	}
 	for (UINT8 i = 0; *p_buf; p_buf++, i++) {
 		if (*p_buf != sig[i]) {
-			free(buf);
 			return 2;
 		}
 	}
-	if (!fread(infile, buf, 0, SAVE_GAME_SIZE)) {
+	if (!fread(infile, buffer, 0, SAVE_GAME_SIZE)) {
 		goto restore_fail;
 	}
-	p_buf = buf;
+	p_buf = buffer;
 	for (struct savestruct *p = save_array; p->address != NULL; p++) {
 		memcpy(p->address, p_buf, p->width);
 		p_buf += p->width;
@@ -182,6 +176,5 @@ int restore(char *infile)
 	return 0;
 restore_fail:
 	printf("Hmm.  The name \"%s\" appears to be magically blocked.\n\r", infile);
-	free(buf);
 	return 1;
 }
