@@ -403,7 +403,7 @@ int badmove()                                       /* 20                   */
 
 void bug(int n)
 //int n;
-{       printf("Please tell jim@rand.org that fatal bug %d happened.\n\r",n);
+{       printf("Fatal bug %d happened.\n\r",n);
 	exit(0);
 }
 
