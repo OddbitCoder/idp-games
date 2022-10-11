@@ -96,7 +96,7 @@ $(HFE): $(IMG)
 
 $(BUILD_DIR)/wizard.rel: hdr.h save.h utils.h
 $(BUILD_DIR)/vocab.rel: hdr.h utils.h io.h
-$(BUILD_DIR)/utils.rel: hdr.h utils.h
+$(BUILD_DIR)/utils.rel: hdr.h vocab.h
 $(BUILD_DIR)/trav.rel: hdr.h utils.h io.h
 $(BUILD_DIR)/subr.rel: hdr.h io.h wizard.h vocab.h trav.h utils.h
 $(BUILD_DIR)/save.rel: hdr.h utils.h vocab.h trav.h

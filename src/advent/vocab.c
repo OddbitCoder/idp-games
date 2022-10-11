@@ -48,7 +48,6 @@
 
 /*      Re-coding of advent in C: data structure routines               */
 
-#include "hdr.h"
 #include "utils.h"
 #include "io.h"
 #include "vocab.h"

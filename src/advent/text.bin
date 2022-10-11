@@ -264,8 +264,9 @@ You are standing at the end of a road before a small brick building.
 information on how to end your adventure, etc., type "info".)
 - - -
 This program was originally developed by Will Crowther.  Most of the
-features of the current program were added by Don Woods.  Address
-complaints about the UNIX version to Jim Gillogly (jim@rand.org).A little dwarf with a big knife blocks your way.A little dwarf just walked around a corner, saw you, threw a little
+features of the current program were added by Don Woods.  This
+Iskra Delta Partner port is based on the UNIX version by Jim Gillogly.
+Ported by Miha Grcar in 2022.A little dwarf with a big knife blocks your way.A little dwarf just walked around a corner, saw you, threw a little
 axe at you (which missed), cursed, and ran away.There is a threatening little dwarf in the room with you!One sharp nasty knife is thrown at you!None of them hit you!One of them gets you!A hollow voice says "Plugh".There is no way to go that direction.I am unsure how you are facing.  Use compass points or nearby objects.I don't know in from out here.  Use compass points or name something
 in the general direction you want to go.I don't know how to apply that word here.I don't understand that!I'm game.  Would you care to explain how?Sorry, but I am not allowed to give more detail.  I will repeat the
 long description of your location.It is now pitch dark.  If you proceed you will likely fall into a pit.If you prefer, simply type w rather than west.Are you trying to catch the bird?The bird is frightened right now and you cannot catch it no matter

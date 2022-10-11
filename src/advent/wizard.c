@@ -107,14 +107,12 @@ void ciao()
 {
  	printf("What would you like to call the saved version?\n\r");
     con_in();
-    parse_in(buffer, NULL, 8, 0);
-    create_fn(buffer);
-    if (save(buffer) != 0) return;           /* Save failed */
+    parse_in(buffer, NULL, 8, 0); // WARNME: reads buffer, writes buffer (but it works)
+    create_fn(buffer, fn);
+    if (save(fn) != 0) return;           /* Save failed */
     // replace '.' with '\0'
- 	char *p = buffer;
-    for (; *p != '.'; p++);
-    *p = '\0';
-    printf("To resume, say \"ADVENT %s\".\n\r", buffer);
+    for (char *p = fn; *p != '.' || (*p = '\0'); p++);
+    printf("To resume, say \"ADVENT %s\".\n\r", fn);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
 	exit(0);
 }
