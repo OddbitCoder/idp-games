@@ -9,6 +9,8 @@
 #ifndef __VOCAB_H
 #define __VOCAB_H
 
+#include "hdr.h"
+
 void dstroy(int object);
 void juggle(int object);
 void move(int object,int where);
