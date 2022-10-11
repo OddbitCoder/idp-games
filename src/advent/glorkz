@@ -1325,8 +1325,9 @@
 1       information on how to end your adventure, etc., type "info".)
 1				      - - -
 1       This program was originally developed by Will Crowther.  Most of the
-1       features of the current program were added by Don Woods.  Address
-1       complaints about the UNIX version to Jim Gillogly (jim@rand.org).
+1       features of the current program were added by Don Woods.  This
+1       Iskra Delta Partner port is based on the UNIX version by Jim Gillogly.
+1       Ported by Miha Grcar in 2022.
 2	A little dwarf with a big knife blocks your way.
 3	A little dwarf just walked around a corner, saw you, threw a little
 3       axe at you (which missed), cursed, and ran away.
