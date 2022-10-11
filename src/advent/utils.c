@@ -11,6 +11,7 @@
 #include <bdos.h>
 #include <stdio.h>
 #include <string.h>
+#include "vocab.h"
 #include "utils.h"
 
 #define BCD2BIN(val) (((val) & 15) + ((val) >> 4) * 10)
@@ -51,12 +52,12 @@ UINT16 atoi(char *str)
     return res;
 }
 
-void create_fn(char *buffer) {
-    buffer[8] = '\0';
-    to_upper(buffer);
-    char *p = buffer;
-    for (; *p; p++);
-    memcpy(p, ".SAV", 5);
+void create_fn(char *name, char *fn) {
+    UINT8 len = length(name) - 1;
+    if (len > 8) { len = 8; }
+    memcpy(fn, name, len);
+    memcpy(fn + len, ".SAV", 5);
+    to_upper(fn);
 }
 
 UINT8 *fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len) {
