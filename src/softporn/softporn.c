@@ -33,7 +33,7 @@ void writeLongMessage(int msg, bool wrap/* = true*/)
 
 #include "part2.h"
 #include "part3.h"
-//#include "parts456.h"
+#include "parts456.h"
 
 // extern void loadDict();
 // extern char *dict;

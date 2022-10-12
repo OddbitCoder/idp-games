@@ -39,7 +39,7 @@ void PartsFourToSix()
 				fallingDown();
 			else
 			{
-				places newPlace = (places)state.path[state.yourPlace][state.direction];
+				enum places newPlace = (enum places)state.path[state.yourPlace][state.direction];
 				if (newPlace != nowhere)
 					state.yourPlace = newPlace;
 				else
@@ -58,7 +58,7 @@ void PartsFourToSix()
 			puts("I'm not in the street.");
 		else
 		{
-			writeLongMessage(36);
+			writeLongMessage(36, true);
 
 			char dest[128];
 			putchar('>');
@@ -66,7 +66,7 @@ void PartsFourToSix()
 			for (int i = 0; i < 4; i++)
 				dest[i] = (char)toupper(dest[i]);
 			dest[4] = 0;
-			places newPlace = nowhere;
+			enum places newPlace = nowhere;
 			if      (!strcmp(dest, "DISC")) newPlace = dStreet;
 			else if (!strcmp(dest, "CASI")) newPlace = cStreet;
 			else if (!strcmp(dest, "BAR" )) newPlace = bStreet;
@@ -93,7 +93,7 @@ void PartsFourToSix()
 			bool anythingCarried = false;
 			for (int o = firstObject; o < lastObject; o++)
 			{
-				if (objectIsCarried((objects)o))
+				if (objectIsCarried((enum objects)o))
 				{
 					if (!anythingCarried)
 						printf("I'm carrying the following:");
@@ -116,12 +116,12 @@ void PartsFourToSix()
 			delay(300);
 			for (int o = firstObject; o < lastObject; o++)
 			{
-				if (objectIsHere((objects)o))
+				if (objectIsHere((enum objects)o))
 				{
 					printf("%s: ", objectNames[o]);
 					if (state.objectsCarried >= maxCarried)
 						puts("I'm carrying too much!");
-					else if (objectCanBeTaken((objects)o))
+					else if (objectCanBeTaken((enum objects)o))
 					{
 						if (youAreIn(dPharmacy) && (o == magazine || o == rubber))
 						{
@@ -184,7 +184,7 @@ void PartsFourToSix()
 			bool anythingCarried = false;
 			for (int o = firstObject; o < lastObject; o++)
 			{
-				if (objectIsCarried((objects)o))
+				if (objectIsCarried((enum objects)o))
 				{
 					anythingCarried = true;
 					printf("%s: Dropped.\n", objectNames[o]);
@@ -261,13 +261,13 @@ void PartsFourToSix()
 			}
 			else if (objectIsHere(blonde) && state.noun == pills)
 			{
-				writeLongMessage(57);
+				writeLongMessage(57, true);
 				state.objectPlace[blonde] = nowhere;
 				state.objectPlace[pills] = nowhere;
 			}
 			else if (state.noun == apple && youAreIn(pJacuzzi) && objectIsHere(girl))
 			{
-				writeLongMessage(50);
+				writeLongMessage(50, true);
 				state.appleGiven = true;
 			}
 			else
@@ -279,7 +279,7 @@ void PartsFourToSix()
 	{
 		if (haveNoObject)
 		{
-			writeLongMessage(state.yourPlace);
+			writeLongMessage(state.yourPlace, true);
 			noImAt = true;
 		}
 		else if (state.noun == all)
@@ -342,7 +342,7 @@ void PartsFourToSix()
 			}
 			case hooker:
 			{
-				writeLongMessage(31);
+				writeLongMessage(31, true);
 				break;
 			}
 			case billboard:
@@ -372,7 +372,7 @@ void PartsFourToSix()
 			}
 			case blonde:
 			{
-				writeLongMessage(40);
+				writeLongMessage(40, true);
 				break;
 			}
 			case bum:
@@ -386,7 +386,7 @@ void PartsFourToSix()
 					puts("All windows at the hotel across the road have their curtains shut.");
 				else
 				{
-					writeLongMessage(55);
+					writeLongMessage(55, true);
 					state.holePeeped = true;
 				}
 				break;
@@ -467,9 +467,9 @@ void PartsFourToSix()
 			case girl:
 			{
 				if (youAreIn(pJacuzzi))
-					writeLongMessage(35);
+					writeLongMessage(35, true);
 				else if (youAreIn(dDisco) || youAreIn(cChapel))
-					writeLongMessage(34);
+					writeLongMessage(34, true);
 				else
 					puts("She slaps me for staring.");
 				break;
@@ -477,7 +477,7 @@ void PartsFourToSix()
 			case newspaper:
 			{
 				if (objectIsCarried(newspaper))
-					writeLongMessage(32);
+					writeLongMessage(32, true);
 				else
 					dontHaveIt();
 				break;
@@ -522,7 +522,7 @@ void PartsFourToSix()
 			case magazine:
 			{
 				if (objectIsCarried(magazine))
-					writeLongMessage(33);
+					writeLongMessage(33, true);
 				else
 					dontHaveIt();
 				break;
@@ -589,7 +589,7 @@ void PartsFourToSix()
 			findMeOne();
 		else if (state.noun == toilet)
 		{
-			writeLongMessage(69); //tsk! Nice! -- Kawa
+			writeLongMessage(69, true); //tsk! Nice! -- Kawa
 			purgatory();
 		}
 		else
@@ -746,7 +746,7 @@ void PartsFourToSix()
 					puts("The blonde calls out, \"You can't go there!\"");
 				else
 				{
-					writeLongMessage(37);
+					writeLongMessage(37, true);
 					if (youAreIn(cHtDesk))
 						state.yourPlace = pFoyer;
 					else
@@ -792,13 +792,13 @@ void PartsFourToSix()
 			findMeOne();
 		else if (state.noun == blonde || state.noun == waitress || state.noun == hooker || state.noun == girl)
 		{
-			writeLongMessage(38);
+			writeLongMessage(38, true);
 			purgatory();
 		}
 		else if (state.noun == mushroom)
 		{
-			writeLongMessage(64);
-			state.yourPlace = (places)getRandom(3);
+			writeLongMessage(64, true);
+			state.yourPlace = (enum places)getRandom(3);
 			delay(600);
 			state.placeVisited[state.yourPlace] = false;
 		}
@@ -808,7 +808,7 @@ void PartsFourToSix()
 			puts("I'm not that hungry.");
 		else if (state.noun == pills)
 		{
-			writeLongMessage(56);
+			writeLongMessage(56, true);
 			purgatory();
 		}
 		else
@@ -1124,7 +1124,7 @@ void PartsFourToSix()
 		}
 		else
 		{
-			writeLongMessage(66);
+			writeLongMessage(66, true);
 			state.money -= 30;
 			state.objectPlace[girl] = cSuite;
 			state.marriedToGirl = true;
@@ -1151,7 +1151,7 @@ void PartsFourToSix()
 				{
 					state.hookerFucked = true;
 					state.score++;
-					writeLongMessage(51);
+					writeLongMessage(51, true);
 				}
 				else
 				{
@@ -1167,7 +1167,7 @@ void PartsFourToSix()
 			{
 				if (state.dollInflated)
 				{
-					writeLongMessage(52);
+					writeLongMessage(52, true);
 					state.objectPlace[doll] = nowhere;
 					state.objectsCarried--;
 				}
@@ -1186,7 +1186,7 @@ void PartsFourToSix()
 			{
 				if (state.wineOrdered)
 				{
-					writeLongMessage(54);
+					writeLongMessage(54, true);
 					state.girl2Fucked = true;
 					state.score++;
 					state.tiedToBed = true;
@@ -1202,7 +1202,7 @@ void PartsFourToSix()
 				if (state.appleGiven)
 				{
 					state.score++;
-					writeLongMessage(53);
+					writeLongMessage(53, true);
 					state.gameEnded = true;
 				}
 				else
@@ -1403,12 +1403,12 @@ void PartsFourToSix()
 		}
 		else if (!strcmp(fullNoun, "0439") && !state.called5550439)
 		{
-			writeLongMessage(67);
+			writeLongMessage(67, true);
 			state.called5550439 = true;
 		}
 		else if (!strcmp(fullNoun, "0987") && state.marriedToGirl && !state.called5550987)
 		{
-			writeLongMessage(68);
+			writeLongMessage(68, true);
 			state.wineOrdered = true;
 			state.called5550987 = true;
 			state.objectPlace[wine] = cSuite;
@@ -1632,19 +1632,20 @@ void PartsFourToSix()
 		}
 		char fileName[24] = "SOFTP-#.SAV";
 		fileName[6] = '0' + slot;
-#ifdef HAVESAFE
-		FILE *f = NULL;
-		if (fopen_s(&f, fileName, "wb+"))
-#else
-		FILE *f = fopen(fileName, "wb+");
-		if (f != 0)
-#endif
-		{
-			printf("Couldn't open %s.\n", fileName);
-			break;
-		}
-		fwrite(&state, sizeof(gameState), 1, f);
-		fclose(f);
+// WARNME
+// #ifdef HAVESAFE
+// 		FILE *f = NULL;
+// 		if (fopen_s(&f, fileName, "wb+"))
+// #else
+// 		FILE *f = fopen(fileName, "wb+");
+// 		if (f != 0)
+// #endif
+// 		{
+// 			printf("Couldn't open %s.\n", fileName);
+// 			break;
+// 		}
+//		fwrite(&state, sizeof(gameState), 1, f);
+//		fclose(f);
 		printf("Saved game to %s.\n", fileName);
 		break;
 	}
@@ -1663,19 +1664,20 @@ void PartsFourToSix()
 		}
 		char fileName[24] = "SOFTP-#.SAV";
 		fileName[6] = '0' + slot;
-#ifdef HAVESAFE
-		FILE *f = NULL;
-		if (fopen_s(&f, fileName, "rb+"))
-#else
-		FILE *f = fopen(fileName, "rb+");
-		if (f != 0)
-#endif
-		{
-			printf("Couldn't open %s.\n", fileName);
-			break;
-		}
-		fread(&state, sizeof(gameState), 1, f);
-		fclose(f);
+// WARNME
+// #ifdef HAVESAFE
+// 		FILE *f = NULL;
+// 		if (fopen_s(&f, fileName, "rb+"))
+// #else
+// 		FILE *f = fopen(fileName, "rb+");
+// 		if (f != 0)
+// #endif
+// 		{
+// 			printf("Couldn't open %s.\n", fileName);
+// 			break;
+// 		}
+//		fread(&state, sizeof(gameState), 1, f);
+//		fclose(f);
 		printf("Loaded game from %s.\n", fileName);
 
 		//force full description

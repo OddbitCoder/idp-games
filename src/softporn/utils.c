@@ -16,6 +16,10 @@ char tolower(char arg) {
 	return 0;
 }
 
+char toupper(char arg) {
+	return 0;
+}
+
 int atoi(const char *str) {
 	return 0;
 }
@@ -33,5 +37,9 @@ bool isspace(int arg) {
 }
 
 bool ispunct(int arg) {
+	return 0;
+}
+
+int strcmp(const char *str1, const char *str2) {
 	return 0;
 }
