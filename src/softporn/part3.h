@@ -329,8 +329,6 @@ char* trimWhiteSpace(char* str)
 	return str;
 }
 
-extern void parse(char*);
-extern int results[];
 bool agiParse(char* str)
 {
 	for (unsigned int i = 0; i < strlen(str); i++)

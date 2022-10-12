@@ -1,14 +1,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-// #include <time.h>
 // #include <ctype.h>
 
 #include "metrics.h"
 #include "utils.h"
 #include "conio.h"
+#include "parser.h"
 
-// #include "messages.h"
+#include "messages.h"
 #include "part1.h"
 
 int getRandom(int max)
@@ -16,24 +16,24 @@ int getRandom(int max)
 	static bool initialized = false;
 	if (!initialized)
 	{
-		//srand((unsigned int)time(NULL));
+		srand(0/*(unsigned int)time(NULL)*/); // WARNME
 		initialized = true;
 	}
-	return 0;//rand() / ((RAND_MAX + 1u) / max);
+	return rand() / ((RAND_MAX + 1u) / max);
 }
 
-// void putw(const char*);
+void putw(const char*);
 void writeLongMessage(int msg, bool wrap/* = true*/)
 {
 	if (wrap)
-		/*putw(messages[msg])*/;
+		putw(messages[msg]);
 	else
-		/*puts(messages[msg])*/;
+		puts(messages[msg]);
 }
 
 #include "part2.h"
 #include "part3.h"
-// #include "parts456.h"
+//#include "parts456.h"
 
 // extern void loadDict();
 // extern char *dict;
