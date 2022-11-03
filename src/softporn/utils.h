@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+typedef signed char INT8;
 typedef unsigned char UINT8;
 typedef unsigned int UINT16;
 
@@ -11,12 +12,11 @@ typedef unsigned int UINT16;
 UINT16 timer();
 
 UINT16 strlen(const char *str);
-char *strchr(const char *str, UINT16 c);
+char *strchr(const char *str, char c);
 char *strcpy(char *dest, const char *src);
 //char tolower(char arg);
 //char toupper(char arg);
 int atoi(const char *str);
-char *itoa(int num, char *str, int base);
 char *strcat(char *dest, const char *src);
 bool isspace(int arg);
 bool ispunct(int arg);

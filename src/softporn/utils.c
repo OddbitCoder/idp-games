@@ -39,7 +39,7 @@ UINT16 strlen(const char *str) { // TODO: test
 	return len;
 }
 
-char *strchr(const char *str, UINT16 c) { // TODO: test
+char *strchr(const char *str, char c) { // TODO: test
 	for (; *str; str++) {
 		if (*str == c) {
 			return str;
@@ -73,8 +73,8 @@ char *strcpy(char *dest, const char *src) { // TODO: test
 
 int atoi(const char *str) { // TODO: test
     int val = 0;
-    int sign = 1;
-    int i = 0;
+    INT8 sign = 1;
+    UINT8 i = 0;
     if (str[0] == '-') {
         sign = -1;
         i++;
@@ -83,41 +83,6 @@ int atoi(const char *str) { // TODO: test
         val = val * 10 + str[i] - '0';
     }
     return sign * val;
-}
-
-char *itoa(int num, char *str, int base) { // TODO: test
-	int i = 0;
-	bool isneg = false;
-	if (num == 0) {
-		str[i++] = '0';
-		str[i] = '\0';
-		return str;
-	}
-	if (num < 0 && base == 10) {
-		isneg = true;
-		num = -num;
-	}
-	while (num != 0) {
-		int rem = num % base;
-		str[i++] = (rem > 9) ? (rem-10) + 'a' : rem + '0';
-		num = num / base;
-	}
-	if (isneg) {
-		str[i++] = '-';
-	}
-	str[i] = '\0';
-	//strrev(str, i);
-	i--;
-	UINT8 j = 0, t;
-	while (j < i) {
-		// swap
-		t = str[j];
-		str[j] = str[i];
-		str[i] = t;
-		j++;
-		i--;
-	}
-	return str;
 }
 
 char *strcat(char *dest, const char *src) { // TODO: test
@@ -131,13 +96,13 @@ char *strcat(char *dest, const char *src) { // TODO: test
 }
 
 bool isspace(int arg) { // TODO: test
-	return (arg == '\t' || arg == '\n' ||
-	    arg == '\v' || arg == '\f' || arg == '\r' || arg == ' ' ? 1 : 0);
+	return arg == '\t' || arg == '\n' ||
+	    arg == '\v' || arg == '\f' || arg == '\r' || arg == ' ';
 }
 
 bool ispunct(int arg) { // TODO: test
-	return ((arg >= 33 && arg <= 47) || (arg >= 58 && arg <= 64) 
-		|| (arg >= 91 && arg <= 96) || (arg >= 123 && arg <= 126) ? 1 : 0);
+	return (arg >= 33 && arg <= 47) || (arg >= 58 && arg <= 64) 
+		|| (arg >= 91 && arg <= 96) || (arg >= 123 && arg <= 126);
 }
 
 int strcmp(const char *str1, const char *str2) { // TODO: test
@@ -213,11 +178,12 @@ fread_done:
 }
 
 void setScoreText(char *dest, int score) {
+	// WARNME: we assume that 'score' is a single digit
 	strcpy(dest, "Score: ");
-	char *ptr = dest + 7;
-	itoa(score, ptr, 10);
-	for (; *ptr; ptr++);
-	strcat(ptr, "/3"); // NOTE: this means "'out of' 3"
+	dest += 7;
+	*dest = score + '0';
+	dest++;
+	strcpy(dest, "/3"); // "'out of' 3"
 }
 
 void setWindowSize() {
