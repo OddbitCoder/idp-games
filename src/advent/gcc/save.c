@@ -142,7 +142,7 @@ int save(char *outfile)   /* Two passes on data: first to get size, */
 		memcpy(p_buf, p->address, p->width);
 		p_buf += p->width;
 	}
-	if (!fwrite(outfile, buffer, SAVE_GAME_SIZE)) {
+	if (!__fwrite(outfile, buffer, SAVE_GAME_SIZE)) {
 		printf("Hmm.  The name \"%s\" appears to be magically blocked.\n\r", outfile);
 		return 1;
 	}
@@ -153,7 +153,7 @@ int restore(char *infile)
 // char *infile;
 {
 	UINT8 *p_buf = buffer;
-	if (!fread(infile, buffer, 0, SIG_SIZE)) {
+	if (!__fread(infile, buffer, 0, SIG_SIZE)) {
 		goto restore_fail;
 	}
 	buffer[SIG_SIZE] = '\0';
@@ -165,7 +165,7 @@ int restore(char *infile)
 			return 2;
 		}
 	}
-	if (!fread(infile, buffer, 0, SAVE_GAME_SIZE)) {
+	if (!__fread(infile, buffer, 0, SAVE_GAME_SIZE)) {
 		goto restore_fail;
 	}
 	p_buf = buffer;

@@ -55,6 +55,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "hdr.h"
 #include "_init.h"
 #include "vocab.h"

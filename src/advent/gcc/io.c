@@ -49,6 +49,7 @@
 /*      Re-coding of advent in C: file i/o and user i/o                 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "subr.h"
 #include "utils.h"
 #include "io.h"
@@ -453,7 +454,7 @@ void mspeak(int msg)
 void speak(struct text *msg)       /* read, decrypt, and print a message (not ptext)      */
 //struct text *msg;/* msg is a pointer to seek address and length of mess */
 {
-	fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
+	__fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;
 	printf(buffer);
 	printf("\n\r");
@@ -467,7 +468,7 @@ void pspeak(int m,int skip) /* read, decrypt an print a ptext message           
 {
 	// if skip < 0, then print the first line, else print the line that matches skip * 100
 	struct text *msg = &ptext[m];
-	fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
+	__fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;
 	char *eod = buffer + msg->txtlen;
 	// do we print the first line? (inventory item)

@@ -1,12 +1,4 @@
-[X] fix static data (problems with indices)
-[/] assert data types
-[X] remove unused #includes + fix Makefile dependencies
-[X] optimize mem usage for static vars and arrays (use const, cast to write data)
-[/] all ints (now 2 bytes) should be long (4 bytes); make all data const to see which ones we need to promote to long
-[X] revise travel ptr usage in every function + tkk usage
-[X] change all '\n' to '\n\r' // grep -E '(\"|.)*\\n(\"|.)*' src/advent/* -n
-[X] save / restore game 
-[X] what does "demo" do?
-[X] srand? (_init.c)
-[X] fix all warnings
-[X] revise return val types (int -> bool) 
+[ ] put data into the code
+[ ] what to do with __fread, __fwrite?
+[ ] implement kbhit
+[ ] what does exit do in javascript?

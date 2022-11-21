@@ -51,6 +51,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "hdr.h"
 #include "trav.h"
 #include "io.h"
@@ -62,7 +63,7 @@
 // int blklin = TRUE;
 
 int setbit[16] = {1,2,4,010,020,040,0100,0200,0400,01000,02000,04000,
-		  010000,020000,040000/*,0100000*/};
+		  010000,020000,040000,0100000};
 
 
 //init
@@ -237,7 +238,8 @@ void startup()
 //	time_t time();
 
 	demo=Start();
-	srand(timer());	/* random seed */
+	time_t t;
+	srand(time(&t));	/* random seed */
 	// srand(371);				/* non-random seed */
 	hinted[3]=yes(65,1,0);
 	printf("\n\r");

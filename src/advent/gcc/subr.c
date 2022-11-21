@@ -49,6 +49,7 @@
 /*      Re-coding of advent in C: subroutines from main                 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "io.h"
 #include "wizard.h"
 #include "vocab.h"

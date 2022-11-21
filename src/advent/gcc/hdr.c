@@ -31,7 +31,7 @@ Text file contents (TEXT.BIN):
 * Sect 12 mtext
 */
 
-const struct text ltext[LOCSIZ] = { // section 1
+struct text ltext[LOCSIZ] = { // section 1
 	/* 0 */ { 0, 0 },
 	/* 1 */ { 0, 154 }, /* You are standing at the end of a road before a small brick building.
 	Around you is a forest.  A small stream flows out of the building and
@@ -335,7 +335,7 @@ const struct text ltext[LOCSIZ] = { // section 1
 	/* 140 */ { 17136, 8 } /* Dead end */
 };
 
-const struct text stext[LOCSIZ] = { // section 2
+struct text stext[LOCSIZ] = { // section 2
 	/* 0 */ { 0, 0 },
 	/* 1 */ { 17144, 28 }, /* You're at end of road again. */
 	/* 2 */ { 17172, 23 }, /* You're at hill in road. */
@@ -479,7 +479,7 @@ const struct text stext[LOCSIZ] = { // section 2
 	/* 140 */ { 0, 0 }
 };
 
-const struct text ptext[101] = { // section 5
+struct text ptext[101] = { // section 5
 	/* 0 */ { 0, 0 },
 	/* 1 */ { 18787, 56 }, /* Set of keys
 	000     There are some keys on the ground here. */
@@ -679,7 +679,7 @@ const struct text ptext[101] = { // section 5
 	/* 100 */ { 0, 0 }
 };
 
-const struct text rtext[RTXSIZ] = { // section 6
+struct text rtext[RTXSIZ] = { // section 6
 	/* 0 */ { 0, 0 },
 	/* 1 */ { 24113, 791 }, /* Somewhere nearby is Colossal Cave, where others have found fortunes in
 	treasure and gold, though it is rumored that some who enter are never
@@ -1018,7 +1018,7 @@ const struct text rtext[RTXSIZ] = { // section 6
 	/* 204 */ { 0, 0 }
 };
 
-const struct text mtext[MAGSIZ] = { // section 12
+struct text mtext[MAGSIZ] = { // section 12
 	/* 0 */ { 0, 0 },
 	/* 1 */ { 41553, 322 }, /* A large cloud of green smoke appears in front of you.  It clears away
 	to reveal a tall wizard, clothed in grey.  He fixes you with a steely
@@ -1062,9 +1062,9 @@ const struct text mtext[MAGSIZ] = { // section 12
 	/* 34 */ { 0, 0 }
 };
 
-const int clsses = 10;
+int clsses = 10;
 
-const struct text ctext[CLSMAX] = { // section 10
+struct text ctext[CLSMAX] = { // section 10
 	{ 0, 0 },
 	{ 41081, 57 }, /* You are obviously a rank amateur.  Better luck next time. */
 	{ 41138, 54 }, /* Your score qualifies you as a Novice class Adventurer. */
@@ -1079,7 +1079,7 @@ const struct text ctext[CLSMAX] = { // section 10
 	{ 0, 0 }
 };
 
-const int cval[CLSMAX] = { // section 10
+int cval[CLSMAX] = { // section 10
 	0,
 	35,
 	100,
@@ -1094,7 +1094,7 @@ const int cval[CLSMAX] = { // section 10
 	0
 };
 
-const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
+struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 0, 6 }, /* oil */
 	{ 6, 36 }, /* broke geyse spice foe foe */
 	{ 0, 0 },
@@ -1225,7 +1225,7 @@ const struct text voc[HTSIZE] = { // vocabulary (voc.bin)
 	{ 2186, 8 } /* outdo */
 };
 
-const struct text travel[LOCSIZ] = { // section 3
+struct text travel[LOCSIZ] = { // section 3
 	{ 0, 0 },
 	{ 0, 36 },
 	{ 36, 17 },
@@ -1369,9 +1369,9 @@ const struct text travel[LOCSIZ] = { // section 3
 	{ 2707, 6 }
 };
 
-const int hntmax = 9;
+int hntmax = 9;
 
-const int hints[20][5] = { // section 11
+int hints[20][5] = { // section 11
 	/* 0 */	{ 0, 0, 0, 0, 0 },
 	/* 1 */	{ 0, 0, 0, 0, 0 },
 	/* 2 */	{ 0, 9999, 10, 0, 0 },
@@ -1394,19 +1394,19 @@ const int hints[20][5] = { // section 11
 	/* 19 */ { 0, 0, 0, 0, 0 }
 };
 
-const int fixd[101] = { // section 7 1/2
+int fixd[101] = { // section 7 1/2
 	0, 0, 0, 9, 0, 0, 0, 15, 0, -1, 0, -1, 27, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1, 67, -1, 110, 0, -1, -1, 121, 122, 122, 0, -1, -1, -1, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 121, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-const int plac[101] = { // section 7 2/2
+int plac[101] = { // section 7 2/2
 	0, 3, 3, 8, 10, 11, 0, 14, 13, 94, 96, 19, 17, 101, 103, 0, 106, 0, 0, 3, 3, 0, 0, 109, 25, 23, 111, 35, 0, 97, 0, 119, 117, 117, 0, 130, 0, 126, 140, 0, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 27, 28, 29, 30, 0, 92, 95, 97, 100, 101, 0, 119, 127, 130, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0	
 };
 
-const int cond[LOCSIZ] = { // section 9
+int cond[LOCSIZ] = { // section 9
 	0, 5, 1, 5, 5, 1, 1, 5, 17, 1, 1, 0, 0, 32, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 128, 128, 128, 128, 136, 136, 136, 128, 128, 128, 128, 128, 136, 128, 136, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 128, 136, 0, 0, 8, 136, 128, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 256, 257, 256, 0, 0, 0, 0, 0, 0, 512, 0, 0, 0, 0, 4, 0, 1, 1, 0, 0, 0, 0, 0, 8, 8, 8, 8, 9, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-const int actspk[35] = { // section 8
+int actspk[35] = { // section 8
 	0, 24, 29, 0, 33, 0, 33, 38, 38, 42, 14, 43, 110, 29, 110, 73, 75, 29, 13, 59, 59, 174, 109, 67, 13, 147, 155, 195, 146, 110, 13, 13, 0, 0, 0
 };
 

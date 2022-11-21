@@ -2,13 +2,17 @@ ROOT = $(realpath .)
 BUILD_DIR = $(ROOT)/build
 BIN_DIR = $(ROOT)/bin
 
+SRC = $(wildcard *.c)
+OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
+
+.PHONY: all
 all: $(BIN_DIR)/advent
 
-$(BIN_DIR)/advent: $(BUILD_DIR)/advent.o | $(BIN_DIR)
-	gcc -o $@ $<
+$(BIN_DIR)/advent: $(OBJ) | $(BIN_DIR)
+	gcc $(OBJ) -o $(BIN_DIR)/advent 
 
 $(BUILD_DIR)/%.o: %.c %.h | $(BUILD_DIR)
-	gcc -o $@ $<
+	gcc -Wno-format-security -c -o $@ $<
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)

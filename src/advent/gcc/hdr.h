@@ -89,6 +89,15 @@ extern int verb,obj,spk;
 extern int blklin;
 extern int saved,savet,mxscor,latncy;
 
+struct text
+#ifdef OLDSTUFF
+{       int seekadr;                    /* DATFILE must be < 2**16      */
+#endif //OLDSTUFF
+{       /*char *seekadr;*/                  /* Msg start in virtual disk    */
+        int seekadr;
+    int txtlen;                     /* length of msg starting here  */
+};
+
 #define SHORT 50                        /* How short is a demo game?    */
 
 #define MAXSTR  20                      /* max length of user's words   */
@@ -98,34 +107,26 @@ extern int saved,savet,mxscor,latncy;
 //{       int val;                        /* word type &index (ktab)      */
 //	char *atab;                     /* pointer to actual string     */
 //} voc[HTSIZE];
-extern const struct text voc[HTSIZE];
+extern struct text voc[HTSIZE];
 
 // #define SEED 1815622                    /* "Encryption" seed            */
 
-struct text
-#ifdef OLDSTUFF
-{       int seekadr;                    /* DATFILE must be < 2**16      */
-#endif //OLDSTUFF
-{       char *seekadr;                  /* Msg start in virtual disk    */
-	int txtlen;                     /* length of msg starting here  */
-};
-
 #define RTXSIZ  205
-extern const struct text rtext[RTXSIZ];              /* random text messages         */
+extern struct text rtext[RTXSIZ];              /* random text messages         */
 
 #define MAGSIZ  35
-extern const struct text mtext[MAGSIZ];              /* magic messages               */
+extern struct text mtext[MAGSIZ];              /* magic messages               */
 
-extern const int clsses;
+extern int clsses;
 #define CLSMAX  12
-extern const struct text ctext[CLSMAX];              /* classes of adventurer        */
-extern const int cval[CLSMAX];
+extern struct text ctext[CLSMAX];              /* classes of adventurer        */
+extern int cval[CLSMAX];
 
-extern const struct text ptext[101];                 /* object descriptions          */
+extern struct text ptext[101];                 /* object descriptions          */
 
 #define LOCSIZ  141                     /* number of locations          */
-extern const struct text ltext[LOCSIZ];              /* long loc description         */
-extern const struct text stext[LOCSIZ];              /* short loc descriptions       */
+extern struct text ltext[LOCSIZ];              /* long loc description         */
+extern struct text stext[LOCSIZ];              /* short loc descriptions       */
 
 //struct travlist                         /* direcs & conditions of travel*/
 //{       struct travlist *next;          /* ptr to next list entry       */
@@ -133,24 +134,24 @@ extern const struct text stext[LOCSIZ];              /* short loc descriptions  
 //	int tloc;                       /* n in writeup (newloc % 1000) */
 //	int tverb;                      /* the verb that takes you there*/
 //}; 
-extern const struct text travel[LOCSIZ];
+extern struct text travel[LOCSIZ];
 extern struct trav_ptr *tkk;
 extern struct trav_ptr _tkk;
 //
 extern int atloc[LOCSIZ];
 
-extern const int plac[101];                         /* initial object placement     */
-extern const int fixd[101];
+extern int plac[101];                         /* initial object placement     */
+extern int fixd[101];
 extern int fixed[101];              /* location fixed?              */
 
-extern const int actspk[35];                         /* rtext msg for verb <n>       */
+extern int actspk[35];                         /* rtext msg for verb <n>       */
 
-extern const int cond[LOCSIZ];                       /* various condition bits       */
+extern int cond[LOCSIZ];                       /* various condition bits       */
 
 extern int setbit[16];                  /* bit defn masks 1,2,4,...     */
 
-extern const int hntmax;
-extern const int hints[20][5];                       /* info on hints                */
+extern int hntmax;
+extern int hints[20][5];                       /* info on hints                */
 extern int hinted[20],hintlc[20];
 
 extern int place[101], prop[101],link[201];
