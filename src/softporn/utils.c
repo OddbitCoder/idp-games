@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <bdos.h>
 #include <string.h>
+#include <ctype.h>
+#include "metrics.h"
 #include "utils.h"
 
 #define BCD2BIN(val) (((val) & 15) + ((val) >> 4) * 10)
@@ -190,35 +192,107 @@ void setWindowSize() {
 }
 
 void clearScreen() {
+	printf("\x1B[2J");
+	setPos(0, 0);
 }
 
 void setPos(int x, int y) {
+	printf("\x1B[%d;%dH", y, x);
 }
 
-void getPos(int *x, int *y) {
+void savePos() {
+	printf("\x1B""7");
+}
+
+void restorePos() {
+	printf("\x1B""8");
 }
 
 void setColor(int color) {
+	switch (color) {
+		case REGULARCOLOR:
+			printf("\x1B[0m");
+			break;
+		case BOLDCOLOR:
+			printf("\x1B[1m");
+			break;
+		case HEADERCOLOR:
+			printf("\x1B[7m");
+			break;
+	}
 }
 
 void writeHeader(int line, const char *leftText, const char *rightText) {
+	savePos();
+	setPos(0, line);
+	setColor(HEADERCOLOR);
+	for (int i = 0; i < COLS; i++) {
+		putchar(' ');
+	}
+	if (leftText != NULL) {
+		setPos(1, line);
+		puts(leftText);
+	}
+	if (rightText != NULL) {
+		setPos(COLS - 1 - strlen(rightText), line);
+		puts(rightText);
+	}
+	//setColor(REGULARCOLOR); // WARNME: do we need this?
+	restorePos();
 }
 
 void delay(int ms) {
+	// TODO
 }
 
 char getKey() {
-	return 0;
+	char ch;
+	while (!(ch = toupper(kbhit())));
+	putchar(ch);
+	puts("");
+	return ch;
 }
 
 char getKeySilent() {
-	return 0;
+	char ch;
+	while (!(ch = toupper(kbhit())));
+	return ch;
 }
 
 char getOneOf(char key1, char key2, char key3) {
-	return 0;
+	key1 = toupper(key1);
+	key2 = toupper(key2);
+	key3 = toupper(key3);
+	char answer;
+loop:
+	while (!(answer = toupper(kbhit())));
+	if (answer == key1 || answer == key2 || (key3 != 0 && answer == key3)) {
+		putchar(answer);
+		puts("");
+		return answer;
+	} else {
+		//Beep(1000, 10); // TODO
+		goto loop;
+	}
 }
 
 char *getString(char *buffer, int max) {
-	return 0;
+    char ch;
+    UINT8 len = 0;
+    do {
+        while (!(ch = toupper(kbhit())));
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == ' ') {
+            if (len < max) {
+                buffer[len] = ch;
+                printf("%c", ch);
+                buffer[++len] = '\0'; 
+            } 
+        } else if (ch == '\b') { 
+            if (len > 0) {
+                printf("\b \b");
+                buffer[--len] = '\0';
+            }
+        } 
+    } while (ch != '\r' || len == 0);
+    printf("\n\r");
 }

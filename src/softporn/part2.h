@@ -204,8 +204,7 @@ void playSlots(int* money)
 		}
 		if (answer == 'Y')
 		{
-			int cx, cy;
-			getPos(&cx, &cy);
+			savePos();
 			for (int i = 0; i < 30; i++)
 			{
 				x1 = getRandom(slotFigs);
@@ -213,7 +212,7 @@ void playSlots(int* money)
 				x3 = getRandom(slotFigs);
 				if (cheat) x3 = x2 = x1;
 				delay(100);
-				setPos(cx, cy);
+				restorePos();
 				printf("%c %c %c", slot[x1], slot[x2], slot[x3]);
 			}
 			puts("");
