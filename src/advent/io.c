@@ -56,13 +56,11 @@
 //getin
 void getin(char **wrd1,char **wrd2)                        /* get command from user        */
 // char **wrd1,**wrd2;                     /* no prompt, usually           */
-{       
-	static char wd1buf[MAXSTR + 1],wd2buf[MAXSTR + 1];
-
-	*wrd1=wd1buf;                   /* return ptr to internal string*/
-	*wrd2=wd2buf;
- 	con_in();
-	parse_in(wd1buf, wd2buf, MAXSTR, MAXSTR);
+{
+	*wrd1=strbuf1;                   /* return ptr to internal string*/
+	*wrd2=strbuf2;
+ 	con_in(buffer);
+	parse_in(buffer, strbuf1, strbuf2, MAXSTR, MAXSTR);
 }
 
 

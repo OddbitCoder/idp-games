@@ -84,9 +84,8 @@ void main(int argc,char **argv)
 
 	if (argc > 1)   /* Restore file specified */
 	{               /* Restart is label 8305 (Fortran) */
-		memcpy(buffer, argv[1], length(argv[1]));
-		create_fn(buffer, fn);
-		i = restore(fn);       /* See what we've got */
+		create_fn(argv[1], strbuf1);
+		i = restore(strbuf1);       /* See what we've got */
 		switch(i)
 		{
 		    case 0:     /* The restore worked fine */

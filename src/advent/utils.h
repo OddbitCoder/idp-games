@@ -23,8 +23,8 @@ BOOL fwrite(char *path, UINT8 *buf, UINT16 len);
 void to_lower(char *str);
 void to_upper(char *str);
 
-void con_in();
-void parse_in(char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len);
+void con_in(char *buffer);
+void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len);
 
 UINT16 timer();
 

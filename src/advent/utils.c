@@ -191,7 +191,7 @@ void to_upper(char *str) {
     }
 }
 
-void con_in() {
+void con_in(char *buffer) {
     printf("? ");
     char ch;
     UINT8 len = 0;
@@ -214,7 +214,7 @@ void con_in() {
     printf("\n\r");
 }
 
-void parse_in(char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {
+void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {
     // word 1
     char *p_buf = buffer, *w_start;
     for (; *p_buf == ' '; p_buf++);
