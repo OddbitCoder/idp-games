@@ -20,13 +20,13 @@ void create_fn(char *name, char *fn) {
     to_upper(fn);
 }
 
-UINT8 *__fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len) {
+/*UINT8 *__fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len) {
     return NULL;
-}
+}*/
 
-BOOL __fwrite(char *path, UINT8 *buf, UINT16 len) {
+/*BOOL __fwrite(char *path, UINT8 *buf, UINT16 len) {
     return FALSE;
-}
+}*/
 
 void to_lower(char *str) {
     for (; *str; str++) {

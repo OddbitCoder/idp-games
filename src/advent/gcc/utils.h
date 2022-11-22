@@ -13,8 +13,8 @@
 
 void create_fn(char *name, char *fn);
 
-UINT8 *__fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len);
-BOOL __fwrite(char *path, UINT8 *buf, UINT16 len);
+//UINT8 *__fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len);
+//BOOL __fwrite(char *path, UINT8 *buf, UINT16 len);
 
 void to_lower(char *str);
 void to_upper(char *str);
