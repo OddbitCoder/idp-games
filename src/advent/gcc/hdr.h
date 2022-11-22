@@ -67,10 +67,12 @@ typedef signed char INT8;
 typedef INT8 BOOL;
 
 #if DEBUG
-#define L(x) x: printf(#x " "); 
+#define L(x) x: printf(#x " \n"); 
 #else
 #define L(x) x: 
 #endif
+
+#define AS_UINT16(x) ((*((x) + 1) << 8) + *(x))
 
 //
 // int datfd;                              /* message file descriptor      */
@@ -90,10 +92,7 @@ extern int blklin;
 extern int saved,savet,mxscor,latncy;
 
 struct text
-#ifdef OLDSTUFF
-{       int seekadr;                    /* DATFILE must be < 2**16      */
-#endif //OLDSTUFF
-{       char *seekadr;                  /* Msg start in virtual disk    */
+{       const char *seekadr;                  /* Msg start in virtual disk    */
     int txtlen;                     /* length of msg starting here  */
 };
 

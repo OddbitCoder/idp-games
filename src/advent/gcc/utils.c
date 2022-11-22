@@ -46,25 +46,10 @@ void to_upper(char *str) {
 
 void con_in(char *buffer) {
     printf("? ");
-    char ch;
-    UINT8 len = 0;
-    do {
-        // TODO: history, back/fwd arrow, insert, delete...
-        //while (!(ch = kbhit()));
-        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch == ' ') {
-            if (len < 2 * MAXSTR + 1) {
-                buffer[len] = ch;
-                printf("%c", ch);
-                buffer[++len] = '\0'; 
-            } 
-        } else if (ch == '\b') { 
-            if (len > 0) {
-                printf("\b \b");
-                buffer[--len] = '\0';
-            }
-        } 
-    } while (ch != '\r' || len == 0);
-    printf("\n\r");
+    fgets(buffer, BUFFER_SIZE, stdin);
+    char *p = buffer;
+    for (; *p != '\n'; p++);
+    *p = '\0';
 }
 
 void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {
@@ -100,8 +85,4 @@ void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_m
             to_lower(w2_buf);
         }
     }
-}
-
-char kbhit() {
-    return 0;
 }

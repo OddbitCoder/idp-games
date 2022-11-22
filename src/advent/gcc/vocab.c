@@ -148,7 +148,8 @@ int vocab(char *word,int type)                  /* look up a word      */
 		for (; *ptr != '\0'; ptr++);
 		//printf("%s* ", w_start);
 		if (weq(word, w_start)) { // check if we have a match
-			UINT16 val = *(UINT16 *)(ptr + 1);
+			//UINT16 val = *(UINT16 *)(ptr + 1);
+			UINT16 val = AS_UINT16(ptr + 1);
 			//printf("(weq %d %d) ", type, val);
 			if (type == -1) { return val; }
 			if (type == val / 1000) { return val % 1000; }

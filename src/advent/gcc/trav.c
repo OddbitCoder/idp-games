@@ -18,9 +18,9 @@ struct trav_ptr *trav_start(struct trav_ptr *t_ptr, UINT8 idx) {
 	t_ptr->eod = t_ptr->ptr + travel[idx].txtlen;
 	t_ptr->tverb = *t_ptr->ptr & 127;
 	t_ptr->ptr++;
-	t_ptr->tloc = *(UINT16 *)t_ptr->ptr;
+	t_ptr->tloc = AS_UINT16(t_ptr->ptr);
 	t_ptr->ptr += 2;
-	t_ptr->conditions = *(UINT16 *)t_ptr->ptr;
+	t_ptr->conditions = AS_UINT16(t_ptr->ptr);
 	t_ptr->ptr += 2;
 	return t_ptr;
 }
@@ -33,9 +33,9 @@ struct trav_ptr *trav_next(struct trav_ptr *t_ptr) {
 	t_ptr->tverb = *t_ptr->ptr;
 	t_ptr->ptr++;
 	if ((t_ptr->tverb & 128) != 0) {
-		t_ptr->tloc = *(UINT16 *)t_ptr->ptr;
+		t_ptr->tloc = AS_UINT16(t_ptr->ptr);
 		t_ptr->ptr += 2;
-		t_ptr->conditions = *(UINT16 *)t_ptr->ptr;
+		t_ptr->conditions = AS_UINT16(t_ptr->ptr);
 		t_ptr->ptr += 2;
 	}	
 	t_ptr->tverb &= 127;
