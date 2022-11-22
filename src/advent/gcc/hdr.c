@@ -33,335 +33,175 @@ Text file contents (TEXT.BIN):
 
 struct text ltext[LOCSIZ] = { // section 1
 	/* 0 */ { 0, 0 },
-	/* 1 */ { 0, 154 }, /* You are standing at the end of a road before a small brick building.
-	Around you is a forest.  A small stream flows out of the building and
-	down a gully. */
-	/* 2 */ { 154, 141 }, /* You have walked up a hill, still in the forest.  The road slopes back
-	down the other side of the hill.  There is a building in the distance. */
-	/* 3 */ { 295, 59 }, /* You are inside a building, a well house for a large spring. */
-	/* 4 */ { 354, 78 }, /* You are in a valley in the forest beside a stream tumbling along a
-	rocky bed. */
-	/* 5 */ { 432, 55 }, /* You are in open forest, with a deep valley to one side. */
-	/* 6 */ { 487, 53 }, /* You are in open forest near both a valley and a road. */
-	/* 7 */ { 540, 122 }, /* At your feet all the water of the stream splashes into a 2-inch slit
-	in the rock.  Downstream the streambed is bare rock. */
-	/* 8 */ { 662, 165 }, /* You are in a 20-foot depression floored with bare dirt.  Set into the
-	dirt is a strong steel grate mounted in concrete.  A dry streambed
-	leads into the depression. */
-	/* 9 */ { 827, 120 }, /* You are in a small chamber beneath a 3x3 steel grate to the surface.
-	A low crawl over cobbles leads inward to the west. */
-	/* 10 */ { 947, 102 }, /* You are crawling over cobbles in a low passage.  There is a dim light
-	at the east end of the passage. */
-	/* 11 */ { 1049, 237 }, /* You are in a debris room filled with stuff washed in from the surface.
-	A low wide passage with cobbles becomes plugged with mud and debris
-	here, but an awkward canyon leads upward and west.  A note on the wall
-	says "Magic word XYZZY". */
-	/* 12 */ { 1286, 47 }, /* You are in an awkward sloping east/west canyon. */
-	/* 13 */ { 1333, 179 }, /* You are in a splendid chamber thirty feet high.  The walls are frozen
-	rivers of orange stone.  An awkward canyon and a good passage exit
-	from east and west sides of the chamber. */
-	/* 14 */ { 1512, 124 }, /* At your feet is a small pit breathing traces of white mist.  An east
-	passage ends here except for a small crack leading on. */
-	/* 15 */ { 1636, 340 }, /* You are at one end of a vast hall stretching forward out of sight to
-	the west.  There are openings to either side.  Nearby, a wide stone
-	staircase leads downward.  The hall is filled with wisps of white mist
-	swaying to and fro almost as if alive.  A cold wind blows up the
-	staircase.  There is a passage at the top of a dome behind you. */
-	/* 16 */ { 1976, 45 }, /* The crack is far too small for you to follow. */
-	/* 17 */ { 2021, 136 }, /* You are on the east bank of a fissure slicing clear across the hall.
-	The mist is quite thick here, and the fissure is too wide to jump. */
-	/* 18 */ { 2157, 99 }, /* This is a low room with a crude note on the wall.  The note says,
-	"You won't get it up the steps". */
-	/* 19 */ { 2256, 79 }, /* You are in the Hall of the Mountain King, with passages off in all
-	directions. */
-	/* 20 */ { 2335, 52 }, /* You are at the bottom of the pit with a broken neck. */
-	/* 21 */ { 2387, 19 }, /* You didn't make it. */
-	/* 22 */ { 2406, 24 }, /* The dome is unclimbable. */
-	/* 23 */ { 2430, 118 }, /* You are at the west end of the Twopit Room.  There is a large hole in
-	the wall above the pit at this end of the room. */
-	/* 24 */ { 2548, 117 }, /* You are at the bottom of the eastern pit in the Twopit Room.  There is
-	a small pool of oil in one corner of the pit. */
-	/* 25 */ { 2665, 121 }, /* You are at the bottom of the western pit in the Twopit Room.  There is
-	a large hole in the wall about 25 feet above you. */
-	/* 26 */ { 2786, 64 }, /* You clamber up the plant and scurry through the hole at the top. */
-	/* 27 */ { 2850, 61 }, /* You are on the west side of the fissure in the Hall of Mists. */
-	/* 28 */ { 2911, 92 }, /* You are in a low N/S passage at a hole in the floor.  The hole goes
-	down to an E/W passage. */
-	/* 29 */ { 3003, 34 }, /* You are in the south side chamber. */
-	/* 30 */ { 3037, 105 }, /* You are in the west side chamber of the Hall of the Mountain King.
-	A passage continues west and up here. */
-	/* 31 */ { 3142, 3 }, /* >$< */
-	/* 32 */ { 3145, 27 }, /* You can't get by the snake. */
-	/* 33 */ { 3172, 172 }, /* You are in a large room, with a passage to the south, a passage to the
-	west, and a wall of broken rock to the east.  There is a large "Y2" on
-	a rock in the room's center. */
-	/* 34 */ { 3344, 52 }, /* You are in a jumble of rock, with cracks everywhere. */
-	/* 35 */ { 3396, 476 }, /* You're at a low window overlooking a huge pit, which extends up out of
-	sight.  A floor is indistinctly visible over 50 feet below.  Traces of
-	white mist cover the floor of the pit, becoming thicker to the right.
-	Marks in the dust around the window would seem to indicate that
-	someone has been here recently.  Directly across the pit from you and
-	25 feet away there is a similar window looking into a lighted room.  A
-	shadowy figure can be seen there peering back at you. */
-	/* 36 */ { 3872, 134 }, /* You are in a dirty broken passage.  To the east is a crawl.  To the
-	west is a large passage.  Above you is a hole to another passage. */
-	/* 37 */ { 4006, 74 }, /* You are on the brink of a small clean climbable pit.  A crawl leads
-	west. */
-	/* 38 */ { 4080, 102 }, /* You are in the bottom of a small pit with a little stream, which
-	enters and exits through tiny slits. */
-	/* 39 */ { 4182, 138 }, /* You are in a large room full of dusty rocks.  There is a big hole in
-	the floor.  There are cracks everywhere, and a passage leading east. */
-	/* 40 */ { 4320, 93 }, /* You have crawled through a very low wide passage parallel to and north
-	of the Hall of Mists. */
-	/* 41 */ { 4413, 156 }, /* You are at the west end of Hall of Mists.  A low wide crawl continues
-	west and another goes north.  To the south is a little passage 6 feet
-	off the floor. */
-	/* 42 */ { 4569, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 43 */ { 4624, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 44 */ { 4679, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 45 */ { 4734, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 46 */ { 4789, 8 }, /* Dead end */
-	/* 47 */ { 4797, 8 }, /* Dead end */
-	/* 48 */ { 4805, 8 }, /* Dead end */
-	/* 49 */ { 4813, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 50 */ { 4868, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 51 */ { 4923, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 52 */ { 4978, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 53 */ { 5033, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 54 */ { 5088, 8 }, /* Dead end */
-	/* 55 */ { 5096, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 56 */ { 5151, 8 }, /* Dead end */
-	/* 57 */ { 5159, 180 }, /* You are on the brink of a thirty foot pit with a massive orange column
-	down one wall.  You could climb down here but you could not get back
-	up.  The maze continues at this level. */
-	/* 58 */ { 5339, 8 }, /* Dead end */
-	/* 59 */ { 5347, 93 }, /* You have crawled through a very low wide passage parallel to and north
-	of the Hall of Mists. */
-	/* 60 */ { 5440, 169 }, /* You are at the east end of a very long hall apparently without side
-	chambers.  To the east a low wide crawl slants up.  To the north a
-	round two foot hole slants down. */
-	/* 61 */ { 5609, 111 }, /* You are at the west end of a very long featureless hall.  The hall
-	joins up with a narrow north/south passage. */
-	/* 62 */ { 5720, 63 }, /* You are at a crossover of a high N/S passage and a low E/W one. */
-	/* 63 */ { 5783, 8 }, /* Dead end */
-	/* 64 */ { 5791, 209 }, /* You are at a complex junction.  A low hands and knees passage from the
-	north joins a higher crawl from the east to make a walking passage
-	going west.  There is also a large room above.  The air is damp here. */
-	/* 65 */ { 6000, 124 }, /* You are in Bedquilt, a long east/west passage with holes everywhere.
-	To explore at random select north, south, up, or down. */
-	/* 66 */ { 6124, 155 }, /* You are in a room whose walls resemble Swiss cheese.  Obvious passages
-	go west, east, NE, and NW.  Part of the room is occupied by a large
-	bedrock block. */
-	/* 67 */ { 6279, 334 }, /* You are at the east end of the Twopit Room.  The floor here is
-	littered with thin rock slabs, which make it easy to descend the pits.
-	There is a path here bypassing the pits to connect passages from east
-	and west.  There are holes all over, but the only big one is on the
-	wall directly over the west pit where you can't get to it. */
-	/* 68 */ { 6613, 295 }, /* You are in a large low circular chamber whose floor is an immense slab
-	fallen from the ceiling (Slab Room).  East and west there once were
-	large passages, but they are now filled with boulders.  Low small
-	passages go north and south, and the south one quickly bends west
-	around the boulders. */
-	/* 69 */ { 6908, 50 }, /* You are in a secret N/S canyon above a large room. */
-	/* 70 */ { 6958, 55 }, /* You are in a secret N/S canyon above a sizable passage. */
-	/* 71 */ { 7013, 143 }, /* You are in a secret canyon at a junction of three canyons, bearing
-	north, south, and SE.  The north one is as tall as the other two
-	combined. */
-	/* 72 */ { 7156, 60 }, /* You are in a large low room.  Crawls lead north, SE, and SW. */
-	/* 73 */ { 7216, 15 }, /* Dead end crawl. */
-	/* 74 */ { 7231, 153 }, /* You are in a secret canyon which here runs e/w.  It crosses over a
-	very tight canyon 15 feet below.  If you go down you may not be able
-	to get back up. */
-	/* 75 */ { 7384, 51 }, /* You are at a wide place in a very tight N/S canyon. */
-	/* 76 */ { 7435, 54 }, /* The canyon here becomes too tight to go further south. */
-	/* 77 */ { 7489, 89 }, /* You are in a tall E/W canyon.  A low tight crawl goes 3 feet north and
-	seems to open up. */
-	/* 78 */ { 7578, 52 }, /* The canyon runs into a mass of boulders -- dead end. */
-	/* 79 */ { 7630, 107 }, /* The stream flows out through a pair of 1 foot diameter sewer pipes.
-	It would be advisable to use the exit. */
-	/* 80 */ { 7737, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 81 */ { 7792, 8 }, /* Dead end */
-	/* 82 */ { 7800, 8 }, /* Dead end */
-	/* 83 */ { 7808, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 84 */ { 7863, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 85 */ { 7918, 8 }, /* Dead end */
-	/* 86 */ { 7926, 8 }, /* Dead end */
-	/* 87 */ { 7934, 55 }, /* You are in a maze of twisty little passages, all alike. */
-	/* 88 */ { 7989, 152 }, /* You are in a long, narrow corridor stretching out of sight to the
-	west.  At the eastern end is a hole through which you can see a
-	profusion of leaves. */
-	/* 89 */ { 8141, 68 }, /* There is nothing here to climb.  Use "up" or "out" to leave the pit. */
-	/* 90 */ { 8209, 49 }, /* You have climbed up the plant and out of the pit. */
-	/* 91 */ { 8258, 173 }, /* You are at the top of a steep incline above a large room.  You could
-	climb down here, but you would not be able to climb up.  There is a
-	passage leading back to the north. */
-	/* 92 */ { 8431, 208 }, /* You are in the Giant Room.  The ceiling here is too high up for your
-	lamp to show it.  Cavernous passages lead east, north, and south.  On
-	the west wall is scrawled the inscription, "Fee fie foe foo" [sic]. */
-	/* 93 */ { 8639, 48 }, /* The passage here is blocked by a recent cave-in. */
-	/* 94 */ { 8687, 53 }, /* You are at one end of an immense north/south passage. */
-	/* 95 */ { 8740, 207 }, /* You are in a magnificent cavern with a rushing stream, which cascades
-	over a sparkling waterfall into a roaring whirlpool which disappears
-	through a hole in the floor.  Passages exit to the south and west. */
-	/* 96 */ { 8947, 132 }, /* You are in the Soft Room.  The walls are covered with heavy curtains,
-	the floor with a thick pile carpet.  Moss covers the ceiling. */
-	/* 97 */ { 9079, 196 }, /* This is the Oriental Room.  Ancient oriental cave drawings cover the
-	walls.  A gently sloping passage leads upward to the north, another
-	passage leads SE, and a hands and knees crawl leads west. */
-	/* 98 */ { 9275, 243 }, /* You are following a wide path around the outer edge of a large cavern.
-	Far below, through a heavy white mist, strange splashing noises can be
-	heard.  The mist rises up through a fissure in the ceiling.  The path
-	exits to the south and west. */
-	/* 99 */ { 9518, 201 }, /* You are in an alcove.  A small NW path seems to widen after a short
-	distance.  An extremely tight tunnel leads east.  It looks like a very
-	tight squeeze.  An eerie light can be seen at the other end. */
-	/* 100 */ { 9719, 129 }, /* You're in a small chamber lit by an eerie green light.  An extremely
-	narrow tunnel exits to the west.  A dark corridor leads ne. */
-	/* 101 */ { 9848, 68 }, /* You're in the Dark-Room.  A corridor leading south is the only exit. */
-	/* 102 */ { 9916, 142 }, /* You are in an arched hall.  A coral passage once continued up and east
-	from here, but is now blocked by debris.  The air smells of sea water. */
-	/* 103 */ { 10058, 263 }, /* You're in a large room carved out of sedimentary rock.  The floor and
-	walls are littered with bits of shells embedded in the stone.  A
-	shallow passage proceeds downward, and a somewhat steeper one leads
-	up.  A low hands and knees passage enters from the south. */
-	/* 104 */ { 10321, 59 }, /* You are in a long sloping corridor with ragged sharp walls. */
-	/* 105 */ { 10380, 48 }, /* You are in a cul-de-sac about eight feet across. */
-	/* 106 */ { 10428, 264 }, /* You are in an anteroom leading to a large passage to the east.  Small
-	passages go west and up.  The remnants of recent digging are evident.
-	A sign in midair here says "Cave under construction beyond this point.
-	Proceed at own risk.  [Witt construction company]" */
-	/* 107 */ { 10692, 59 }, /* You are in a maze of twisty little passages, all different. */
-	/* 108 */ { 10751, 62 }, /* You are at Witt's End.  Passages lead off in *all* directions. */
-	/* 109 */ { 10813, 474 }, /* You are in a north/south canyon about 25 feet across.  The floor is
-	covered by white mist seeping in from the north.  The walls extend
-	upward for well over 100 feet.  Suspended from some unseen point far
-	above you, an enormous two-sided mirror is hanging parallel to and
-	midway between the canyon walls.  (The mirror is obviously provided
-	for the use of the dwarves, who as you know, are extremely vain.)  A
-	small window can be seen in either wall, some fifty feet up. */
-	/* 110 */ { 11287, 475 }, /* You're at a low window overlooking a huge pit, which extends up out of
-	sight.  A floor is indistinctly visible over 50 feet below.  Traces of
-	white mist cover the floor of the pit, becoming thicker to the left.
-	Marks in the dust around the window would seem to indicate that
-	someone has been here recently.  Directly across the pit from you and
-	25 feet away there is a similar window looking into a lighted room.  A
-	shadowy figure can be seen there peering back at you. */
-	/* 111 */ { 11762, 204 }, /* A large stalactite extends from the roof and almost reaches the floor
-	below.  You could climb down it, and jump from it to the floor, but
-	having done so you would be unable to reach it to climb back up. */
-	/* 112 */ { 11966, 61 }, /* You are in a little maze of twisting passages, all different. */
-	/* 113 */ { 12027, 331 }, /* You are at the edge of a large underground reservoir.  An opaque cloud
-	of white mist fills the room and rises rapidly upward.  The lake is
-	fed by a stream, which tumbles out of a hole in the wall about 10 feet
-	overhead and splashes noisily into the water somewhere within the
-	mist.  The only passage goes back toward the south. */
-	/* 114 */ { 12358, 8 }, /* Dead end */
-	/* 115 */ { 12366, 750 }, /* You are at the northeast end of an immense room, even larger than the
-	Giant Room.  It appears to be a repository for the "Adventure"
-	program.  Massive torches far overhead bathe the room with smoky
-	yellow light.  Scattered about you can be seen a pile of bottles (all
-	of them empty), a nursery of young beanstalks murmuring quietly, a bed
-	of oysters, a bundle of black rods with rusty stars on their ends, and
-	a collection of brass lanterns.  Off to one side a great many dwarves
-	are sleeping on the floor, snoring loudly.  A sign nearby reads: "Do
-	not disturb the dwarves!"  An immense mirror is hanging against one
-	wall, and stretches to the other end of the room, where various other
-	sundry objects can be glimpsed dimly in the distance. */
-	/* 116 */ { 13116, 504 }, /* You are at the southwest end of the Repository.  To one side is a pit
-	full of fierce green snakes.  On the other side is a row of small
-	wicker cages, each of which contains a little sulking bird.  In one
-	corner is a bundle of black rods with rusty marks on their ends.  A
-	large number of velvet pillows are scattered about on the floor.  A
-	vast mirror stretches off to the northeast.  At your feet is a large
-	steel grate, next to which is a sign which reads, "Treasure Vault.
-	Keys in Main Office." */
-	/* 117 */ { 13620, 183 }, /* You are on one side of a large, deep chasm.  A heavy white mist rising
-	up from below obscures all view of the far side.  A SW path leads away
-	from the chasm into a winding corridor. */
-	/* 118 */ { 13803, 76 }, /* You are in a long winding corridor sloping out of sight in both
-	directions. */
-	/* 119 */ { 13879, 61 }, /* You are in a secret canyon which exits to the north and east. */
-	/* 120 */ { 13940, 61 }, /* You are in a secret canyon which exits to the north and east. */
-	/* 121 */ { 14001, 61 }, /* You are in a secret canyon which exits to the north and east. */
-	/* 122 */ { 14062, 89 }, /* You are on the far side of the chasm.  A ne path leads away from the
-	chasm on this side. */
-	/* 123 */ { 14151, 91 }, /* You're in a long east/west corridor.  A faint rumbling noise can be
-	heard in the distance. */
-	/* 124 */ { 14242, 204 }, /* The path forks here.  The left fork leads northeast.  A dull rumbling
-	seems to get louder in that direction.  The right fork leads southeast
-	down a gentle slope.  The main corridor enters from the west. */
-	/* 125 */ { 14446, 185 }, /* The walls are quite warm here.  From the north can be heard a steady
-	roar, so loud that the entire cave seems to be trembling.  Another
-	passage leads south, and a low crawl goes east. */
-	/* 126 */ { 14631, 1310 }, /* You are on the edge of a breath-taking view.  Far below you is an
-	active volcano, from which great gouts of molten lava come surging
-	out, cascading back down into the depths.  The glowing rock fills the
-	farthest reaches of the cavern with a blood-red glare, giving every-
-	thing an eerie, macabre appearance.  The air is filled with flickering
-	sparks of ash and a heavy smell of brimstone.  The walls are hot to
-	the touch, and the thundering of the volcano drowns out all other
-	sounds.  Embedded in the jagged roof far overhead are myriad twisted
-	formations composed of pure white alabaster, which scatter the murky
-	light into sinister apparitions upon the walls.  To one side is a deep
-	gorge, filled with a bizarre chaos of tortured rock which seems to
-	have been crafted by the devil himself.  An immense river of fire
-	crashes out from the depths of the volcano, burns its way through the
-	gorge, and plummets into a bottomless pit far off to your left.  To
-	the right, an immense geyser of blistering steam erupts continuously
-	from a barren island in the center of a sulfurous lake, which bubbles
-	ominously.  The far right wall is aflame with an incandescence of its
-	own, which lends an additional infernal splendor to the already
-	hellish scene.  A dark, foreboding passage exits to the south. */
-	/* 127 */ { 15941, 228 }, /* You are in a small chamber filled with large boulders.  The walls are
-	very warm, causing the air in the room to be almost stifling from the
-	heat.  The only exit is a crawl heading west, through which is coming
-	a low rumbling. */
-	/* 128 */ { 16169, 105 }, /* You are walking along a gently sloping north/south passage lined with
-	oddly shaped limestone formations. */
-	/* 129 */ { 16274, 126 }, /* You are standing at the entrance to a large, barren room.  A sign
-	posted above the entrance reads:  "Caution!  Bear in room!" */
-	/* 130 */ { 16400, 197 }, /* You are inside a barren room.  The center of the room is completely
-	empty except for some dust.  Marks in the dust lead away toward the
-	far end of the room.  The only exit is the way you came in. */
-	/* 131 */ { 16597, 61 }, /* You are in a maze of twisting little passages, all different. */
-	/* 132 */ { 16658, 59 }, /* You are in a little maze of twisty passages, all different. */
-	/* 133 */ { 16717, 61 }, /* You are in a twisting maze of little passages, all different. */
-	/* 134 */ { 16778, 61 }, /* You are in a twisting little maze of passages, all different. */
-	/* 135 */ { 16839, 59 }, /* You are in a twisty little maze of passages, all different. */
-	/* 136 */ { 16898, 59 }, /* You are in a twisty maze of little passages, all different. */
-	/* 137 */ { 16957, 59 }, /* You are in a little twisty maze of passages, all different. */
-	/* 138 */ { 17016, 61 }, /* You are in a maze of little twisting passages, all different. */
-	/* 139 */ { 17077, 59 }, /* You are in a maze of little twisty passages, all different. */
-	/* 140 */ { 17136, 8 } /* Dead end */
+	/* 1 */ { "You are standing at the end of a road before a small brick building.\n\rAround you is a forest.  A small stream flows out of the building and\n\rdown a gully.", 154 },
+	/* 2 */ { "You have walked up a hill, still in the forest.  The road slopes back\n\rdown the other side of the hill.  There is a building in the distance.", 141 },
+	/* 3 */ { "You are inside a building, a well house for a large spring.", 59 },
+	/* 4 */ { "You are in a valley in the forest beside a stream tumbling along a\n\rrocky bed.", 78 },
+	/* 5 */ { "You are in open forest, with a deep valley to one side.", 55 },
+	/* 6 */ { "You are in open forest near both a valley and a road.", 53 },
+	/* 7 */ { "At your feet all the water of the stream splashes into a 2-inch slit\n\rin the rock.  Downstream the streambed is bare rock.", 122 },
+	/* 8 */ { "You are in a 20-foot depression floored with bare dirt.  Set into the\n\rdirt is a strong steel grate mounted in concrete.  A dry streambed\n\rleads into the depression.", 165 },
+	/* 9 */ { "You are in a small chamber beneath a 3x3 steel grate to the surface.\n\rA low crawl over cobbles leads inward to the west.", 120 },
+	/* 10 */ { "You are crawling over cobbles in a low passage.  There is a dim light\n\rat the east end of the passage.", 102 },
+	/* 11 */ { "You are in a debris room filled with stuff washed in from the surface.\n\rA low wide passage with cobbles becomes plugged with mud and debris\n\rhere, but an awkward canyon leads upward and west.  A note on the wall\n\rsays \"Magic word XYZZY\".", 237 },
+	/* 12 */ { "You are in an awkward sloping east/west canyon.", 47 },
+	/* 13 */ { "You are in a splendid chamber thirty feet high.  The walls are frozen\n\rrivers of orange stone.  An awkward canyon and a good passage exit\n\rfrom east and west sides of the chamber.", 179 },
+	/* 14 */ { "At your feet is a small pit breathing traces of white mist.  An east\n\rpassage ends here except for a small crack leading on.", 124 },
+	/* 15 */ { "You are at one end of a vast hall stretching forward out of sight to\n\rthe west.  There are openings to either side.  Nearby, a wide stone\n\rstaircase leads downward.  The hall is filled with wisps of white mist\n\rswaying to and fro almost as if alive.  A cold wind blows up the\n\rstaircase.  There is a passage at the top of a dome behind you.", 340 },
+	/* 16 */ { "The crack is far too small for you to follow.", 45 },
+	/* 17 */ { "You are on the east bank of a fissure slicing clear across the hall.\n\rThe mist is quite thick here, and the fissure is too wide to jump.", 136 },
+	/* 18 */ { "This is a low room with a crude note on the wall.  The note says,\n\r\"You won't get it up the steps\".", 99 },
+	/* 19 */ { "You are in the Hall of the Mountain King, with passages off in all\n\rdirections.", 79 },
+	/* 20 */ { "You are at the bottom of the pit with a broken neck.", 52 },
+	/* 21 */ { "You didn't make it.", 19 },
+	/* 22 */ { "The dome is unclimbable.", 24 },
+	/* 23 */ { "You are at the west end of the Twopit Room.  There is a large hole in\n\rthe wall above the pit at this end of the room.", 118 },
+	/* 24 */ { "You are at the bottom of the eastern pit in the Twopit Room.  There is\n\ra small pool of oil in one corner of the pit.", 117 },
+	/* 25 */ { "You are at the bottom of the western pit in the Twopit Room.  There is\n\ra large hole in the wall about 25 feet above you.", 121 },
+	/* 26 */ { "You clamber up the plant and scurry through the hole at the top.", 64 },
+	/* 27 */ { "You are on the west side of the fissure in the Hall of Mists.", 61 },
+	/* 28 */ { "You are in a low N/S passage at a hole in the floor.  The hole goes\n\rdown to an E/W passage.", 92 },
+	/* 29 */ { "You are in the south side chamber.", 34 },
+	/* 30 */ { "You are in the west side chamber of the Hall of the Mountain King.\n\rA passage continues west and up here.", 105 },
+	/* 31 */ { ">$<", 3 },
+	/* 32 */ { "You can't get by the snake.", 27 },
+	/* 33 */ { "You are in a large room, with a passage to the south, a passage to the\n\rwest, and a wall of broken rock to the east.  There is a large \"Y2\" on\n\ra rock in the room's center.", 172 },
+	/* 34 */ { "You are in a jumble of rock, with cracks everywhere.", 52 },
+	/* 35 */ { "You're at a low window overlooking a huge pit, which extends up out of\n\rsight.  A floor is indistinctly visible over 50 feet below.  Traces of\n\rwhite mist cover the floor of the pit, becoming thicker to the right.\n\rMarks in the dust around the window would seem to indicate that\n\rsomeone has been here recently.  Directly across the pit from you and\n\r25 feet away there is a similar window looking into a lighted room.  A\n\rshadowy figure can be seen there peering back at you.", 476 },
+	/* 36 */ { "You are in a dirty broken passage.  To the east is a crawl.  To the\n\rwest is a large passage.  Above you is a hole to another passage.", 134 },
+	/* 37 */ { "You are on the brink of a small clean climbable pit.  A crawl leads\n\rwest.", 74 },
+	/* 38 */ { "You are in the bottom of a small pit with a little stream, which\n\renters and exits through tiny slits.", 102 },
+	/* 39 */ { "You are in a large room full of dusty rocks.  There is a big hole in\n\rthe floor.  There are cracks everywhere, and a passage leading east.", 138 },
+	/* 40 */ { "You have crawled through a very low wide passage parallel to and north\n\rof the Hall of Mists.", 93 },
+	/* 41 */ { "You are at the west end of Hall of Mists.  A low wide crawl continues\n\rwest and another goes north.  To the south is a little passage 6 feet\n\roff the floor.", 156 },
+	/* 42 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 43 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 44 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 45 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 46 */ { "Dead end", 8 },
+	/* 47 */ { "Dead end", 8 },
+	/* 48 */ { "Dead end", 8 },
+	/* 49 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 50 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 51 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 52 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 53 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 54 */ { "Dead end", 8 },
+	/* 55 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 56 */ { "Dead end", 8 },
+	/* 57 */ { "You are on the brink of a thirty foot pit with a massive orange column\n\rdown one wall.  You could climb down here but you could not get back\n\rup.  The maze continues at this level.", 180 },
+	/* 58 */ { "Dead end", 8 },
+	/* 59 */ { "You have crawled through a very low wide passage parallel to and north\n\rof the Hall of Mists.", 93 },
+	/* 60 */ { "You are at the east end of a very long hall apparently without side\n\rchambers.  To the east a low wide crawl slants up.  To the north a\n\rround two foot hole slants down.", 169 },
+	/* 61 */ { "You are at the west end of a very long featureless hall.  The hall\n\rjoins up with a narrow north/south passage.", 111 },
+	/* 62 */ { "You are at a crossover of a high N/S passage and a low E/W one.", 63 },
+	/* 63 */ { "Dead end", 8 },
+	/* 64 */ { "You are at a complex junction.  A low hands and knees passage from the\n\rnorth joins a higher crawl from the east to make a walking passage\n\rgoing west.  There is also a large room above.  The air is damp here.", 209 },
+	/* 65 */ { "You are in Bedquilt, a long east/west passage with holes everywhere.\n\rTo explore at random select north, south, up, or down.", 124 },
+	/* 66 */ { "You are in a room whose walls resemble Swiss cheese.  Obvious passages\n\rgo west, east, NE, and NW.  Part of the room is occupied by a large\n\rbedrock block.", 155 },
+	/* 67 */ { "You are at the east end of the Twopit Room.  The floor here is\n\rlittered with thin rock slabs, which make it easy to descend the pits.\n\rThere is a path here bypassing the pits to connect passages from east\n\rand west.  There are holes all over, but the only big one is on the\n\rwall directly over the west pit where you can't get to it.", 334 },
+	/* 68 */ { "You are in a large low circular chamber whose floor is an immense slab\n\rfallen from the ceiling (Slab Room).  East and west there once were\n\rlarge passages, but they are now filled with boulders.  Low small\n\rpassages go north and south, and the south one quickly bends west\n\raround the boulders.", 295 },
+	/* 69 */ { "You are in a secret N/S canyon above a large room.", 50 },
+	/* 70 */ { "You are in a secret N/S canyon above a sizable passage.", 55 },
+	/* 71 */ { "You are in a secret canyon at a junction of three canyons, bearing\n\rnorth, south, and SE.  The north one is as tall as the other two\n\rcombined.", 143 },
+	/* 72 */ { "You are in a large low room.  Crawls lead north, SE, and SW.", 60 },
+	/* 73 */ { "Dead end crawl.", 15 },
+	/* 74 */ { "You are in a secret canyon which here runs e/w.  It crosses over a\n\rvery tight canyon 15 feet below.  If you go down you may not be able\n\rto get back up.", 153 },
+	/* 75 */ { "You are at a wide place in a very tight N/S canyon.", 51 },
+	/* 76 */ { "The canyon here becomes too tight to go further south.", 54 },
+	/* 77 */ { "You are in a tall E/W canyon.  A low tight crawl goes 3 feet north and\n\rseems to open up.", 89 },
+	/* 78 */ { "The canyon runs into a mass of boulders -- dead end.", 52 },
+	/* 79 */ { "The stream flows out through a pair of 1 foot diameter sewer pipes.\n\rIt would be advisable to use the exit.", 107 },
+	/* 80 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 81 */ { "Dead end", 8 },
+	/* 82 */ { "Dead end", 8 },
+	/* 83 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 84 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 85 */ { "Dead end", 8 },
+	/* 86 */ { "Dead end", 8 },
+	/* 87 */ { "You are in a maze of twisty little passages, all alike.", 55 },
+	/* 88 */ { "You are in a long, narrow corridor stretching out of sight to the\n\rwest.  At the eastern end is a hole through which you can see a\n\rprofusion of leaves.", 152 },
+	/* 89 */ { "There is nothing here to climb.  Use \"up\" or \"out\" to leave the pit.", 68 },
+	/* 90 */ { "You have climbed up the plant and out of the pit.", 49 },
+	/* 91 */ { "You are at the top of a steep incline above a large room.  You could\n\rclimb down here, but you would not be able to climb up.  There is a\n\rpassage leading back to the north.", 173 },
+	/* 92 */ { "You are in the Giant Room.  The ceiling here is too high up for your\n\rlamp to show it.  Cavernous passages lead east, north, and south.  On\n\rthe west wall is scrawled the inscription, \"Fee fie foe foo\" [sic].", 208 },
+	/* 93 */ { "The passage here is blocked by a recent cave-in.", 48 },
+	/* 94 */ { "You are at one end of an immense north/south passage.", 53 },
+	/* 95 */ { "You are in a magnificent cavern with a rushing stream, which cascades\n\rover a sparkling waterfall into a roaring whirlpool which disappears\n\rthrough a hole in the floor.  Passages exit to the south and west.", 207 },
+	/* 96 */ { "You are in the Soft Room.  The walls are covered with heavy curtains,\n\rthe floor with a thick pile carpet.  Moss covers the ceiling.", 132 },
+	/* 97 */ { "This is the Oriental Room.  Ancient oriental cave drawings cover the\n\rwalls.  A gently sloping passage leads upward to the north, another\n\rpassage leads SE, and a hands and knees crawl leads west.", 196 },
+	/* 98 */ { "You are following a wide path around the outer edge of a large cavern.\n\rFar below, through a heavy white mist, strange splashing noises can be\n\rheard.  The mist rises up through a fissure in the ceiling.  The path\n\rexits to the south and west.", 243 },
+	/* 99 */ { "You are in an alcove.  A small NW path seems to widen after a short\n\rdistance.  An extremely tight tunnel leads east.  It looks like a very\n\rtight squeeze.  An eerie light can be seen at the other end.", 201 },
+	/* 100 */ { "You're in a small chamber lit by an eerie green light.  An extremely\n\rnarrow tunnel exits to the west.  A dark corridor leads ne.", 129 },
+	/* 101 */ { "You're in the Dark-Room.  A corridor leading south is the only exit.", 68 },
+	/* 102 */ { "You are in an arched hall.  A coral passage once continued up and east\n\rfrom here, but is now blocked by debris.  The air smells of sea water.", 142 },
+	/* 103 */ { "You're in a large room carved out of sedimentary rock.  The floor and\n\rwalls are littered with bits of shells embedded in the stone.  A\n\rshallow passage proceeds downward, and a somewhat steeper one leads\n\rup.  A low hands and knees passage enters from the south.", 263 },
+	/* 104 */ { "You are in a long sloping corridor with ragged sharp walls.", 59 },
+	/* 105 */ { "You are in a cul-de-sac about eight feet across.", 48 },
+	/* 106 */ { "You are in an anteroom leading to a large passage to the east.  Small\n\rpassages go west and up.  The remnants of recent digging are evident.\n\rA sign in midair here says \"Cave under construction beyond this point.\n\rProceed at own risk.  [Witt construction company]\"", 264 },
+	/* 107 */ { "You are in a maze of twisty little passages, all different.", 59 },
+	/* 108 */ { "You are at Witt's End.  Passages lead off in *all* directions.", 62 },
+	/* 109 */ { "You are in a north/south canyon about 25 feet across.  The floor is\n\rcovered by white mist seeping in from the north.  The walls extend\n\rupward for well over 100 feet.  Suspended from some unseen point far\n\rabove you, an enormous two-sided mirror is hanging parallel to and\n\rmidway between the canyon walls.  (The mirror is obviously provided\n\rfor the use of the dwarves, who as you know, are extremely vain.)  A\n\rsmall window can be seen in either wall, some fifty feet up.", 474 },
+	/* 110 */ { "You're at a low window overlooking a huge pit, which extends up out of\n\rsight.  A floor is indistinctly visible over 50 feet below.  Traces of\n\rwhite mist cover the floor of the pit, becoming thicker to the left.\n\rMarks in the dust around the window would seem to indicate that\n\rsomeone has been here recently.  Directly across the pit from you and\n\r25 feet away there is a similar window looking into a lighted room.  A\n\rshadowy figure can be seen there peering back at you.", 475 },
+	/* 111 */ { "A large stalactite extends from the roof and almost reaches the floor\n\rbelow.  You could climb down it, and jump from it to the floor, but\n\rhaving done so you would be unable to reach it to climb back up.", 204 },
+	/* 112 */ { "You are in a little maze of twisting passages, all different.", 61 },
+	/* 113 */ { "You are at the edge of a large underground reservoir.  An opaque cloud\n\rof white mist fills the room and rises rapidly upward.  The lake is\n\rfed by a stream, which tumbles out of a hole in the wall about 10 feet\n\roverhead and splashes noisily into the water somewhere within the\n\rmist.  The only passage goes back toward the south.", 331 },
+	/* 114 */ { "Dead end", 8 },
+	/* 115 */ { "You are at the northeast end of an immense room, even larger than the\n\rGiant Room.  It appears to be a repository for the \"Adventure\"\n\rprogram.  Massive torches far overhead bathe the room with smoky\n\ryellow light.  Scattered about you can be seen a pile of bottles (all\n\rof them empty), a nursery of young beanstalks murmuring quietly, a bed\n\rof oysters, a bundle of black rods with rusty stars on their ends, and\n\ra collection of brass lanterns.  Off to one side a great many dwarves\n\rare sleeping on the floor, snoring loudly.  A sign nearby reads: \"Do\n\rnot disturb the dwarves!\"  An immense mirror is hanging against one\n\rwall, and stretches to the other end of the room, where various other\n\rsundry objects can be glimpsed dimly in the distance.", 750 },
+	/* 116 */ { "You are at the southwest end of the Repository.  To one side is a pit\n\rfull of fierce green snakes.  On the other side is a row of small\n\rwicker cages, each of which contains a little sulking bird.  In one\n\rcorner is a bundle of black rods with rusty marks on their ends.  A\n\rlarge number of velvet pillows are scattered about on the floor.  A\n\rvast mirror stretches off to the northeast.  At your feet is a large\n\rsteel grate, next to which is a sign which reads, \"Treasure Vault.\n\rKeys in Main Office.\"", 504 },
+	/* 117 */ { "You are on one side of a large, deep chasm.  A heavy white mist rising\n\rup from below obscures all view of the far side.  A SW path leads away\n\rfrom the chasm into a winding corridor.", 183 },
+	/* 118 */ { "You are in a long winding corridor sloping out of sight in both\n\rdirections.", 76 },
+	/* 119 */ { "You are in a secret canyon which exits to the north and east.", 61 },
+	/* 120 */ { "You are in a secret canyon which exits to the north and east.", 61 },
+	/* 121 */ { "You are in a secret canyon which exits to the north and east.", 61 },
+	/* 122 */ { "You are on the far side of the chasm.  A ne path leads away from the\n\rchasm on this side.", 89 },
+	/* 123 */ { "You're in a long east/west corridor.  A faint rumbling noise can be\n\rheard in the distance.", 91 },
+	/* 124 */ { "The path forks here.  The left fork leads northeast.  A dull rumbling\n\rseems to get louder in that direction.  The right fork leads southeast\n\rdown a gentle slope.  The main corridor enters from the west.", 204 },
+	/* 125 */ { "The walls are quite warm here.  From the north can be heard a steady\n\rroar, so loud that the entire cave seems to be trembling.  Another\n\rpassage leads south, and a low crawl goes east.", 185 },
+	/* 126 */ { "You are on the edge of a breath-taking view.  Far below you is an\n\ractive volcano, from which great gouts of molten lava come surging\n\rout, cascading back down into the depths.  The glowing rock fills the\n\rfarthest reaches of the cavern with a blood-red glare, giving every-\n\rthing an eerie, macabre appearance.  The air is filled with flickering\n\rsparks of ash and a heavy smell of brimstone.  The walls are hot to\n\rthe touch, and the thundering of the volcano drowns out all other\n\rsounds.  Embedded in the jagged roof far overhead are myriad twisted\n\rformations composed of pure white alabaster, which scatter the murky\n\rlight into sinister apparitions upon the walls.  To one side is a deep\n\rgorge, filled with a bizarre chaos of tortured rock which seems to\n\rhave been crafted by the devil himself.  An immense river of fire\n\rcrashes out from the depths of the volcano, burns its way through the\n\rgorge, and plummets into a bottomless pit far off to your left.  To\n\rthe right, an immense geyser of blistering steam erupts continuously\n\rfrom a barren island in the center of a sulfurous lake, which bubbles\n\rominously.  The far right wall is aflame with an incandescence of its\n\rown, which lends an additional infernal splendor to the already\n\rhellish scene.  A dark, foreboding passage exits to the south.", 1310 },
+	/* 127 */ { "You are in a small chamber filled with large boulders.  The walls are\n\rvery warm, causing the air in the room to be almost stifling from the\n\rheat.  The only exit is a crawl heading west, through which is coming\n\ra low rumbling.", 228 },
+	/* 128 */ { "You are walking along a gently sloping north/south passage lined with\n\roddly shaped limestone formations.", 105 },
+	/* 129 */ { "You are standing at the entrance to a large, barren room.  A sign\n\rposted above the entrance reads:  \"Caution!  Bear in room!\"", 126 },
+	/* 130 */ { "You are inside a barren room.  The center of the room is completely\n\rempty except for some dust.  Marks in the dust lead away toward the\n\rfar end of the room.  The only exit is the way you came in.", 197 },
+	/* 131 */ { "You are in a maze of twisting little passages, all different.", 61 },
+	/* 132 */ { "You are in a little maze of twisty passages, all different.", 59 },
+	/* 133 */ { "You are in a twisting maze of little passages, all different.", 61 },
+	/* 134 */ { "You are in a twisting little maze of passages, all different.", 61 },
+	/* 135 */ { "You are in a twisty little maze of passages, all different.", 59 },
+	/* 136 */ { "You are in a twisty maze of little passages, all different.", 59 },
+	/* 137 */ { "You are in a little twisty maze of passages, all different.", 59 },
+	/* 138 */ { "You are in a maze of little twisting passages, all different.", 61 },
+	/* 139 */ { "You are in a maze of little twisty passages, all different.", 59 },
+	/* 140 */ { "Dead end", 8 }
 };
 
 struct text stext[LOCSIZ] = { // section 2
 	/* 0 */ { 0, 0 },
-	/* 1 */ { 17144, 28 }, /* You're at end of road again. */
-	/* 2 */ { 17172, 23 }, /* You're at hill in road. */
-	/* 3 */ { 17195, 23 }, /* You're inside building. */
-	/* 4 */ { 17218, 17 }, /* You're in valley. */
-	/* 5 */ { 17235, 17 }, /* You're in forest. */
-	/* 6 */ { 17252, 17 }, /* You're in forest. */
-	/* 7 */ { 17269, 28 }, /* You're at slit in streambed. */
-	/* 8 */ { 17297, 21 }, /* You're outside grate. */
-	/* 9 */ { 17318, 23 }, /* You're below the grate. */
-	/* 10 */ { 17341, 23 }, /* You're in Cobble Crawl. */
-	/* 11 */ { 17364, 22 }, /* You're in Debris Room. */
+	/* 1 */ { "You're at end of road again.", 28 },
+	/* 2 */ { "You're at hill in road.", 23 },
+	/* 3 */ { "You're inside building.", 23 },
+	/* 4 */ { "You're in valley.", 17 },
+	/* 5 */ { "You're in forest.", 17 },
+	/* 6 */ { "You're in forest.", 17 },
+	/* 7 */ { "You're at slit in streambed.", 28 },
+	/* 8 */ { "You're outside grate.", 21 },
+	/* 9 */ { "You're below the grate.", 23 },
+	/* 10 */ { "You're in Cobble Crawl.", 23 },
+	/* 11 */ { "You're in Debris Room.", 22 },
 	/* 12 */ { 0, 0 },
-	/* 13 */ { 17386, 23 }, /* You're in Bird Chamber. */
-	/* 14 */ { 17409, 27 }, /* You're at top of small pit. */
-	/* 15 */ { 17436, 24 }, /* You're in Hall of Mists. */
+	/* 13 */ { "You're in Bird Chamber.", 23 },
+	/* 14 */ { "You're at top of small pit.", 27 },
+	/* 15 */ { "You're in Hall of Mists.", 24 },
 	/* 16 */ { 0, 0 },
-	/* 17 */ { 17460, 31 }, /* You're on east bank of fissure. */
-	/* 18 */ { 17491, 30 }, /* You're in Nugget of Gold Room. */
-	/* 19 */ { 17521, 26 }, /* You're in Hall of Mt King. */
+	/* 17 */ { "You're on east bank of fissure.", 31 },
+	/* 18 */ { "You're in Nugget of Gold Room.", 30 },
+	/* 19 */ { "You're in Hall of Mt King.", 26 },
 	/* 20 */ { 0, 0 },
 	/* 21 */ { 0, 0 },
 	/* 22 */ { 0, 0 },
-	/* 23 */ { 17547, 34 }, /* You're at west end of Twopit Room. */
-	/* 24 */ { 17581, 19 }, /* You're in east pit. */
-	/* 25 */ { 17600, 19 }, /* You're in west pit. */
+	/* 23 */ { "You're at west end of Twopit Room.", 34 },
+	/* 24 */ { "You're in east pit.", 19 },
+	/* 25 */ { "You're in west pit.", 19 },
 	/* 26 */ { 0, 0 },
 	/* 27 */ { 0, 0 },
 	/* 28 */ { 0, 0 },
@@ -369,15 +209,15 @@ struct text stext[LOCSIZ] = { // section 2
 	/* 30 */ { 0, 0 },
 	/* 31 */ { 0, 0 },
 	/* 32 */ { 0, 0 },
-	/* 33 */ { 17619, 15 }, /* You're at "Y2". */
+	/* 33 */ { "You're at \"Y2\".", 15 },
 	/* 34 */ { 0, 0 },
-	/* 35 */ { 17634, 24 }, /* You're at window on pit. */
-	/* 36 */ { 17658, 24 }, /* You're in dirty passage. */
+	/* 35 */ { "You're at window on pit.", 24 },
+	/* 36 */ { "You're in dirty passage.", 24 },
 	/* 37 */ { 0, 0 },
 	/* 38 */ { 0, 0 },
-	/* 39 */ { 17682, 26 }, /* You're in Dusty Rock room. */
+	/* 39 */ { "You're in Dusty Rock room.", 26 },
 	/* 40 */ { 0, 0 },
-	/* 41 */ { 17708, 36 }, /* You're at west end of Hall of Mists. */
+	/* 41 */ { "You're at west end of Hall of Mists.", 36 },
 	/* 42 */ { 0, 0 },
 	/* 43 */ { 0, 0 },
 	/* 44 */ { 0, 0 },
@@ -393,24 +233,24 @@ struct text stext[LOCSIZ] = { // section 2
 	/* 54 */ { 0, 0 },
 	/* 55 */ { 0, 0 },
 	/* 56 */ { 0, 0 },
-	/* 57 */ { 17744, 23 }, /* You're at brink of pit. */
+	/* 57 */ { "You're at brink of pit.", 23 },
 	/* 58 */ { 0, 0 },
 	/* 59 */ { 0, 0 },
-	/* 60 */ { 17767, 32 }, /* You're at east end of Long Hall. */
-	/* 61 */ { 17799, 32 }, /* You're at west end of Long Hall. */
+	/* 60 */ { "You're at east end of Long Hall.", 32 },
+	/* 61 */ { "You're at west end of Long Hall.", 32 },
 	/* 62 */ { 0, 0 },
 	/* 63 */ { 0, 0 },
-	/* 64 */ { 17831, 27 }, /* You're at Complex Junction. */
+	/* 64 */ { "You're at Complex Junction.", 27 },
 	/* 65 */ { 0, 0 },
-	/* 66 */ { 17858, 28 }, /* You're in Swiss Cheese room. */
-	/* 67 */ { 17886, 34 }, /* You're at east end of Twopit Room. */
-	/* 68 */ { 17920, 20 }, /* You're in Slab Room. */
+	/* 66 */ { "You're in Swiss Cheese room.", 28 },
+	/* 67 */ { "You're at east end of Twopit Room.", 34 },
+	/* 68 */ { "You're in Slab Room.", 20 },
 	/* 69 */ { 0, 0 },
 	/* 70 */ { 0, 0 },
-	/* 71 */ { 17940, 43 }, /* You're at junction of three secret canyons. */
+	/* 71 */ { "You're at junction of three secret canyons.", 43 },
 	/* 72 */ { 0, 0 },
 	/* 73 */ { 0, 0 },
-	/* 74 */ { 17983, 47 }, /* You're in secret E/W canyon above tight canyon. */
+	/* 74 */ { "You're in secret E/W canyon above tight canyon.", 47 },
 	/* 75 */ { 0, 0 },
 	/* 76 */ { 0, 0 },
 	/* 77 */ { 0, 0 },
@@ -424,49 +264,49 @@ struct text stext[LOCSIZ] = { // section 2
 	/* 85 */ { 0, 0 },
 	/* 86 */ { 0, 0 },
 	/* 87 */ { 0, 0 },
-	/* 88 */ { 18030, 26 }, /* You're in narrow corridor. */
+	/* 88 */ { "You're in narrow corridor.", 26 },
 	/* 89 */ { 0, 0 },
 	/* 90 */ { 0, 0 },
-	/* 91 */ { 18056, 41 }, /* You're at steep incline above large room. */
-	/* 92 */ { 18097, 21 }, /* You're in Giant Room. */
+	/* 91 */ { "You're at steep incline above large room.", 41 },
+	/* 92 */ { "You're in Giant Room.", 21 },
 	/* 93 */ { 0, 0 },
 	/* 94 */ { 0, 0 },
-	/* 95 */ { 18118, 32 }, /* You're in cavern with waterfall. */
-	/* 96 */ { 18150, 20 }, /* You're in Soft Room. */
-	/* 97 */ { 18170, 24 }, /* You're in Oriental Room. */
-	/* 98 */ { 18194, 23 }, /* You're in Misty Cavern. */
-	/* 99 */ { 18217, 17 }, /* You're in Alcove. */
-	/* 100 */ { 18234, 22 }, /* You're in Plover Room. */
-	/* 101 */ { 18256, 20 }, /* You're in Dark-Room. */
-	/* 102 */ { 18276, 22 }, /* You're in Arched Hall. */
-	/* 103 */ { 18298, 21 }, /* You're in Shell Room. */
+	/* 95 */ { "You're in cavern with waterfall.", 32 },
+	/* 96 */ { "You're in Soft Room.", 20 },
+	/* 97 */ { "You're in Oriental Room.", 24 },
+	/* 98 */ { "You're in Misty Cavern.", 23 },
+	/* 99 */ { "You're in Alcove.", 17 },
+	/* 100 */ { "You're in Plover Room.", 22 },
+	/* 101 */ { "You're in Dark-Room.", 20 },
+	/* 102 */ { "You're in Arched Hall.", 22 },
+	/* 103 */ { "You're in Shell Room.", 21 },
 	/* 104 */ { 0, 0 },
 	/* 105 */ { 0, 0 },
-	/* 106 */ { 18319, 19 }, /* You're in Anteroom. */
+	/* 106 */ { "You're in Anteroom.", 19 },
 	/* 107 */ { 0, 0 },
-	/* 108 */ { 18338, 21 }, /* You're at Witt's End. */
-	/* 109 */ { 18359, 24 }, /* You're in Mirror Canyon. */
-	/* 110 */ { 18383, 24 }, /* You're at window on pit. */
-	/* 111 */ { 18407, 28 }, /* You're at top of stalactite. */
+	/* 108 */ { "You're at Witt's End.", 21 },
+	/* 109 */ { "You're in Mirror Canyon.", 24 },
+	/* 110 */ { "You're at window on pit.", 24 },
+	/* 111 */ { "You're at top of stalactite.", 28 },
 	/* 112 */ { 0, 0 },
-	/* 113 */ { 18435, 20 }, /* You're at Reservoir. */
+	/* 113 */ { "You're at Reservoir.", 20 },
 	/* 114 */ { 0, 0 },
-	/* 115 */ { 18455, 17 }, /* You're at NE end. */
-	/* 116 */ { 18472, 17 }, /* You're at SW end. */
-	/* 117 */ { 18489, 27 }, /* You're on SW side of chasm. */
-	/* 118 */ { 18516, 27 }, /* You're in sloping corridor. */
+	/* 115 */ { "You're at NE end.", 17 },
+	/* 116 */ { "You're at SW end.", 17 },
+	/* 117 */ { "You're on SW side of chasm.", 27 },
+	/* 118 */ { "You're in sloping corridor.", 27 },
 	/* 119 */ { 0, 0 },
 	/* 120 */ { 0, 0 },
 	/* 121 */ { 0, 0 },
-	/* 122 */ { 18543, 27 }, /* You're on NE side of chasm. */
-	/* 123 */ { 18570, 19 }, /* You're in corridor. */
-	/* 124 */ { 18589, 23 }, /* You're at fork in path. */
-	/* 125 */ { 18612, 35 }, /* You're at junction with warm walls. */
-	/* 126 */ { 18647, 29 }, /* You're at Breath-taking View. */
-	/* 127 */ { 18676, 30 }, /* You're in Chamber of Boulders. */
-	/* 128 */ { 18706, 28 }, /* You're in limestone passage. */
-	/* 129 */ { 18734, 31 }, /* You're in front of barren room. */
-	/* 130 */ { 18765, 22 }, /* You're in Barren Room. */
+	/* 122 */ { "You're on NE side of chasm.", 27 },
+	/* 123 */ { "You're in corridor.", 19 },
+	/* 124 */ { "You're at fork in path.", 23 },
+	/* 125 */ { "You're at junction with warm walls.", 35 },
+	/* 126 */ { "You're at Breath-taking View.", 29 },
+	/* 127 */ { "You're in Chamber of Boulders.", 30 },
+	/* 128 */ { "You're in limestone passage.", 28 },
+	/* 129 */ { "You're in front of barren room.", 31 },
+	/* 130 */ { "You're in Barren Room.", 22 },
 	/* 131 */ { 0, 0 },
 	/* 132 */ { 0, 0 },
 	/* 133 */ { 0, 0 },
@@ -481,119 +321,46 @@ struct text stext[LOCSIZ] = { // section 2
 
 struct text ptext[101] = { // section 5
 	/* 0 */ { 0, 0 },
-	/* 1 */ { 18787, 56 }, /* Set of keys
-	000     There are some keys on the ground here. */
-	/* 2 */ { 18843, 91 }, /* Brass lantern
-	000     There is a shiny brass lamp nearby.
-	100     There is a lamp shining nearby. */
-	/* 3 */ { 18934, 56 }, /* *Grate
-	000     The grate is locked.
-	100     The grate is open. */
-	/* 4 */ { 18990, 63 }, /* Wicker cage
-	000     There is a small wicker cage discarded nearby. */
-	/* 5 */ { 19053, 78 }, /* Black rod
-	000     A three foot black rod with a rusty star on an end lies nearby. */
-	/* 6 */ { 19131, 78 }, /* Black rod
-	000     A three foot black rod with a rusty mark on an end lies nearby. */
-	/* 7 */ { 19209, 89 }, /* *Steps
-	000     Rough stone steps lead down the pit.
-	100     Rough stone steps lead up the dome. */
-	/* 8 */ { 19298, 113 }, /* Little bird in cage
-	000     A cheerful little bird is sitting here singing.
-	100     There is a little bird in the cage. */
-	/* 9 */ { 19411, 134 }, /* *Rusty door
-	000     The way north is barred by a massive, rusty, iron door.
-	100     The way north leads through a massive, rusty, iron door. */
-	/* 10 */ { 19545, 59 }, /* Velvet pillow
-	000     A small velvet pillow lies on the floor. */
-	/* 11 */ { 19604, 75 }, /* *Snake
-	000     A huge green fierce snake bars the way!
-	100     >$<  (Chased away) */
-	/* 12 */ { 19679, 100 }, /* *Fissure
-	000     >$<
-	100     A crystal bridge now spans the fissure.
-	200     The crystal bridge has vanished! */
-	/* 13 */ { 19779, 130 }, /* *Stone tablet
-	000     A massive stone tablet embedded in the wall reads:
-	000     "Congratulations on bringing light into the Dark-Room!" */
-	/* 14 */ { 19909, 87 }, /* Giant clam  >grunt!<
-	000     There is an enormous clam here with its shell tightly closed. */
-	/* 15 */ { 19996, 183 }, /* Giant oyster  >groan!<
-	000     There is an enormous oyster here with its shell tightly closed.
-	100     Interesting.  There seems to be something written on the underside of
-	100     The oyster. */
-	/* 16 */ { 20179, 88 }, /* "Spelunker Today"
-	000     There are a few recent issues of "Spelunker Today" magazine here. */
+	/* 1 */ { "Set of keys\n\r000	There are some keys on the ground here.", 56 },
+	/* 2 */ { "Brass lantern\n\r000	There is a shiny brass lamp nearby.\n\r100	There is a lamp shining nearby.", 91 },
+	/* 3 */ { "*Grate\n\r000	The grate is locked.\n\r100	The grate is open.", 56 },
+	/* 4 */ { "Wicker cage\n\r000	There is a small wicker cage discarded nearby.", 63 },
+	/* 5 */ { "Black rod\n\r000	A three foot black rod with a rusty star on an end lies nearby.", 78 },
+	/* 6 */ { "Black rod\n\r000	A three foot black rod with a rusty mark on an end lies nearby.", 78 },
+	/* 7 */ { "*Steps\n\r000	Rough stone steps lead down the pit.\n\r100	Rough stone steps lead up the dome.", 89 },
+	/* 8 */ { "Little bird in cage\n\r000	A cheerful little bird is sitting here singing.\n\r100	There is a little bird in the cage.", 113 },
+	/* 9 */ { "*Rusty door\n\r000	The way north is barred by a massive, rusty, iron door.\n\r100	The way north leads through a massive, rusty, iron door.", 134 },
+	/* 10 */ { "Velvet pillow\n\r000	A small velvet pillow lies on the floor.", 59 },
+	/* 11 */ { "*Snake\n\r000	A huge green fierce snake bars the way!\n\r100	>$<  (Chased away)", 75 },
+	/* 12 */ { "*Fissure\n\r000	>$<\n\r100	A crystal bridge now spans the fissure.\n\r200	The crystal bridge has vanished!", 100 },
+	/* 13 */ { "*Stone tablet\n\r000	A massive stone tablet embedded in the wall reads:\n\r000	\"Congratulations on bringing light into the Dark-Room!\"", 130 },
+	/* 14 */ { "Giant clam  >grunt!<\n\r000	There is an enormous clam here with its shell tightly closed.", 87 },
+	/* 15 */ { "Giant oyster  >groan!<\n\r000	There is an enormous oyster here with its shell tightly closed.\n\r100	Interesting.  There seems to be something written on the underside of\n\r100	The oyster.", 183 },
+	/* 16 */ { "\"Spelunker Today\"\n\r000	There are a few recent issues of \"Spelunker Today\" magazine here.", 88 },
 	/* 17 */ { 0, 0 },
 	/* 18 */ { 0, 0 },
-	/* 19 */ { 20267, 35 }, /* Tasty food
-	000     There is food here. */
-	/* 20 */ { 20302, 122 }, /* Small bottle
-	000     There is a bottle of water here.
-	100     There is an empty bottle here.
-	200     There is a bottle of oil here. */
-	/* 21 */ { 20424, 19 }, /* Water in the bottle */
-	/* 22 */ { 20443, 17 }, /* Oil in the bottle */
-	/* 23 */ { 20460, 16 }, /* *Mirror
-	000     >$< */
-	/* 24 */ { 20476, 463 }, /* *Plant
-	000     There is a tiny little plant in the pit, murmuring "Water, water, ..."
-	100     The plant spurts into furious growth for a few seconds.
-	200     There is a 12-foot-tall beanstalk stretching up out of the pit,
-	200     bellowing "WATER!! WATER!!"
-	300     The plant grows explosively, almost filling the bottom of the pit.
-	400     There is a gigantic beanstalk stretching all the way up to the hole.
-	500     You've over-watered the plant!  It's shriveling up!  It's, it's... */
-	/* 25 */ { 20939, 212 }, /* *Phony plant (seen in twopit room only when tall enough)
-	000     >$<
-	100     The top of a 12-foot-tall beanstalk is poking out of the west pit.
-	200     There is a huge beanstalk growing out of the west pit up to the hole. */
-	/* 26 */ { 21151, 20 }, /* *Stalactite
-	000     >$< */
-	/* 27 */ { 21171, 85 }, /* *Shadowy figure
-	000     The shadowy figure seems to be trying to attract your attention. */
-	/* 28 */ { 21256, 94 }, /* Dwarf's axe
-	000     There is a little axe here.
-	100     There is a little axe lying beside the bear. */
-	/* 29 */ { 21350, 23 }, /* *Cave drawings
-	000     >$< */
-	/* 30 */ { 21373, 16 }, /* *Pirate
-	000     >$< */
-	/* 31 */ { 21389, 232 }, /* *Dragon
-	000     A huge green fierce dragon bars the way!
-	100     Congratulations!  You have just vanquished a dragon with your bare
-	100     hands!  (Unbelievable, isn't it?)
-	200     The body of a huge green dead dragon is lying off to one side. */
-	/* 32 */ { 21621, 239 }, /* *Chasm
-	000     A rickety wooden bridge extends across the chasm, vanishing into the
-	000     mist.  A sign posted on the bridge reads, "Stop! Pay troll!"
-	100     The wreckage of a bridge (and a dead bear) can be seen at the bottom
-	100     of the chasm. */
-	/* 33 */ { 21860, 204 }, /* *Troll
-	000     A burly troll stands by the bridge and insists you throw him a
-	000     treasure before you may cross.
-	100     The troll steps out from beneath the bridge and blocks your way.
-	200     >$<  (Chased away) */
-	/* 34 */ { 22064, 50 }, /* *Phony troll
-	000     The troll is nowhere to be seen. */
-	/* 35 */ { 22114, 247 }, /* >$<  (Bear uses rtext 141)
-	000     There is a ferocious cave bear eying you from the far end of the room!
-	100     There is a gentle cave bear sitting placidly in one corner.
-	200     There is a contented-looking bear wandering about nearby.
-	300     >$<  (Dead) */
-	/* 36 */ { 22361, 170 }, /* *Message in second maze
-	000     There is a message scrawled in the dust in a flowery script, reading:
-	000     "This is not the maze where the pirate leaves his treasure chest." */
-	/* 37 */ { 22531, 31 }, /* *Volcano and/or geyser
-	000     >$< */
-	/* 38 */ { 22562, 143 }, /* *Vending machine
-	000     There is a massive vending machine here.  The instructions on it read:
-	000     "Drop coins here to receive fresh batteries." */
-	/* 39 */ { 22705, 103 }, /* Batteries
-	000     There are fresh batteries here.
-	100     Some worn-out batteries have been discarded nearby. */
-	/* 40 */ { 22808, 28 }, /* *Carpet and/or moss
-	000     >$< */
+	/* 19 */ { "Tasty food\n\r000	There is food here.", 35 },
+	/* 20 */ { "Small bottle\n\r000	There is a bottle of water here.\n\r100	There is an empty bottle here.\n\r200	There is a bottle of oil here.", 122 },
+	/* 21 */ { "Water in the bottle", 19 },
+	/* 22 */ { "Oil in the bottle", 17 },
+	/* 23 */ { "*Mirror\n\r000	>$<", 16 },
+	/* 24 */ { "*Plant\n\r000	There is a tiny little plant in the pit, murmuring \"Water, water, ...\"\n\r100	The plant spurts into furious growth for a few seconds.\n\r200	There is a 12-foot-tall beanstalk stretching up out of the pit,\n\r200	bellowing \"WATER!! WATER!!\"\n\r300	The plant grows explosively, almost filling the bottom of the pit.\n\r400	There is a gigantic beanstalk stretching all the way up to the hole.\n\r500	You've over-watered the plant!  It's shriveling up!  It's, it's...", 463 },
+	/* 25 */ { "*Phony plant (seen in twopit room only when tall enough)\n\r000	>$<\n\r100	The top of a 12-foot-tall beanstalk is poking out of the west pit.\n\r200	There is a huge beanstalk growing out of the west pit up to the hole.", 212 },
+	/* 26 */ { "*Stalactite\n\r000	>$<", 20 },
+	/* 27 */ { "*Shadowy figure\n\r000	The shadowy figure seems to be trying to attract your attention.", 85 },
+	/* 28 */ { "Dwarf's axe\n\r000	There is a little axe here.\n\r100	There is a little axe lying beside the bear.", 94 },
+	/* 29 */ { "*Cave drawings\n\r000	>$<", 23 },
+	/* 30 */ { "*Pirate\n\r000	>$<", 16 },
+	/* 31 */ { "*Dragon\n\r000	A huge green fierce dragon bars the way!\n\r100	Congratulations!  You have just vanquished a dragon with your bare\n\r100	hands!  (Unbelievable, isn't it?)\n\r200	The body of a huge green dead dragon is lying off to one side.", 232 },
+	/* 32 */ { "*Chasm\n\r000	A rickety wooden bridge extends across the chasm, vanishing into the\n\r000	mist.  A sign posted on the bridge reads, \"Stop! Pay troll!\"\n\r100	The wreckage of a bridge (and a dead bear) can be seen at the bottom\n\r100	of the chasm.", 239 },
+	/* 33 */ { "*Troll\n\r000	A burly troll stands by the bridge and insists you throw him a\n\r000	treasure before you may cross.\n\r100	The troll steps out from beneath the bridge and blocks your way.\n\r200	>$<  (Chased away)", 204 },
+	/* 34 */ { "*Phony troll\n\r000	The troll is nowhere to be seen.", 50 },
+	/* 35 */ { ">$<  (Bear uses rtext 141)\n\r000	There is a ferocious cave bear eying you from the far end of the room!\n\r100	There is a gentle cave bear sitting placidly in one corner.\n\r200	There is a contented-looking bear wandering about nearby.\n\r300	>$<  (Dead)", 247 },
+	/* 36 */ { "*Message in second maze\n\r000	There is a message scrawled in the dust in a flowery script, reading:\n\r000	\"This is not the maze where the pirate leaves his treasure chest.\"", 170 },
+	/* 37 */ { "*Volcano and/or geyser\n\r000	>$<", 31 },
+	/* 38 */ { "*Vending machine\n\r000	There is a massive vending machine here.  The instructions on it read:\n\r000	\"Drop coins here to receive fresh batteries.\"", 143 },
+	/* 39 */ { "Batteries\n\r000	There are fresh batteries here.\n\r100	Some worn-out batteries have been discarded nearby.", 103 },
+	/* 40 */ { "*Carpet and/or moss\n\r000	>$<", 28 },
 	/* 41 */ { 0, 0 },
 	/* 42 */ { 0, 0 },
 	/* 43 */ { 0, 0 },
@@ -603,44 +370,21 @@ struct text ptext[101] = { // section 5
 	/* 47 */ { 0, 0 },
 	/* 48 */ { 0, 0 },
 	/* 49 */ { 0, 0 },
-	/* 50 */ { 22836, 70 }, /* Large gold nugget
-	000     There is a large sparkling nugget of gold here! */
-	/* 51 */ { 22906, 46 }, /* Several diamonds
-	000     There are diamonds here! */
-	/* 52 */ { 22952, 50 }, /* Bars of silver
-	000     There are bars of silver here! */
-	/* 53 */ { 23002, 53 }, /* Precious jewelry
-	000     There is precious jewelry here! */
-	/* 54 */ { 23055, 42 }, /* Rare coins
-	000     There are many coins here! */
-	/* 55 */ { 23097, 56 }, /* Treasure chest
-	000     The pirate's treasure chest is here! */
-	/* 56 */ { 23153, 119 }, /* Golden eggs
-	000     There is a large nest here, full of golden eggs!
-	100     The nest of golden eggs has vanished!
-	200     Done! */
-	/* 57 */ { 23272, 61 }, /* Jeweled trident
-	000     There is a jewel-encrusted trident here! */
-	/* 58 */ { 23333, 232 }, /* Ming vase
-	000     There is a delicate, precious, Ming vase here!
-	100     The vase is now resting, delicately, on a velvet pillow.
-	200     The floor is littered with worthless shards of pottery.
-	300     The Ming vase drops with a delicate crash. */
-	/* 59 */ { 23565, 75 }, /* Egg-sized emerald
-	000     There is an emerald here the size of a plover's egg! */
-	/* 60 */ { 23640, 75 }, /* Platinum pyramid
-	000     There is a platinum pyramid here, 8 inches on a side! */
-	/* 61 */ { 23715, 62 }, /* Glistening pearl
-	000     Off to one side lies a glistening pearl! */
-	/* 62 */ { 23777, 115 }, /* Persian rug
-	000     There is a Persian rug spread out on the floor!
-	100     The dragon is sprawled out on a Persian rug!! */
-	/* 63 */ { 23892, 44 }, /* Rare spices
-	000     There are rare spices here! */
-	/* 64 */ { 23936, 177 }, /* Golden chain
-	000     There is a golden chain lying in a heap on the floor!
-	100     The bear is locked to the wall with a golden chain!
-	200     There is a golden chain locked to the wall! */
+	/* 50 */ { "Large gold nugget\n\r000	There is a large sparkling nugget of gold here!", 70 },
+	/* 51 */ { "Several diamonds\n\r000	There are diamonds here!", 46 },
+	/* 52 */ { "Bars of silver\n\r000	There are bars of silver here!", 50 },
+	/* 53 */ { "Precious jewelry\n\r000	There is precious jewelry here!", 53 },
+	/* 54 */ { "Rare coins\n\r000	There are many coins here!", 42 },
+	/* 55 */ { "Treasure chest\n\r000	The pirate's treasure chest is here!", 56 },
+	/* 56 */ { "Golden eggs\n\r000	There is a large nest here, full of golden eggs!\n\r100	The nest of golden eggs has vanished!\n\r200	Done!", 119 },
+	/* 57 */ { "Jeweled trident\n\r000	There is a jewel-encrusted trident here!", 61 },
+	/* 58 */ { "Ming vase\n\r000	There is a delicate, precious, Ming vase here!\n\r100	The vase is now resting, delicately, on a velvet pillow.\n\r200	The floor is littered with worthless shards of pottery.\n\r300	The Ming vase drops with a delicate crash.", 232 },
+	/* 59 */ { "Egg-sized emerald\n\r000	There is an emerald here the size of a plover's egg!", 75 },
+	/* 60 */ { "Platinum pyramid\n\r000	There is a platinum pyramid here, 8 inches on a side!", 75 },
+	/* 61 */ { "Glistening pearl\n\r000	Off to one side lies a glistening pearl!", 62 },
+	/* 62 */ { "Persian rug\n\r000	There is a Persian rug spread out on the floor!\n\r100	The dragon is sprawled out on a Persian rug!!", 115 },
+	/* 63 */ { "Rare spices\n\r000	There are rare spices here!", 44 },
+	/* 64 */ { "Golden chain\n\r000	There is a golden chain lying in a heap on the floor!\n\r100	The bear is locked to the wall with a golden chain!\n\r200	There is a golden chain locked to the wall!", 177 },
 	/* 65 */ { 0, 0 },
 	/* 66 */ { 0, 0 },
 	/* 67 */ { 0, 0 },
@@ -681,383 +425,246 @@ struct text ptext[101] = { // section 5
 
 struct text rtext[RTXSIZ] = { // section 6
 	/* 0 */ { 0, 0 },
-	/* 1 */ { 24113, 791 }, /* Somewhere nearby is Colossal Cave, where others have found fortunes in
-	treasure and gold, though it is rumored that some who enter are never
-	seen again.  Magic is said to work in the cave.  I will be your eyes
-	and hands.  Direct me with commands of 1 or 2 words.  I should warn
-	you that I look at only the first five letters of each word, so you'll
-	have to enter "northeast" as "ne" to distinguish it from "north".
-	(Should you get stuck, type "help" for some general hints.  For
-	information on how to end your adventure, etc., type "info".)
-	- - -
-	This program was originally developed by Will Crowther.  Most of the
-	features of the current program were added by Don Woods.  This
-	Iskra Delta Partner port is based on the UNIX version by Jim Gillogly.
-	Ported by Miha Grcar in 2022. */
-	/* 2 */ { 24904, 48 }, /* A little dwarf with a big knife blocks your way. */
-	/* 3 */ { 24952, 117 }, /* A little dwarf just walked around a corner, saw you, threw a little
-	axe at you (which missed), cursed, and ran away. */
-	/* 4 */ { 25069, 57 }, /* There is a threatening little dwarf in the room with you! */
-	/* 5 */ { 25126, 39 }, /* One sharp nasty knife is thrown at you! */
-	/* 6 */ { 25165, 21 }, /* None of them hit you! */
-	/* 7 */ { 25186, 21 }, /* One of them gets you! */
-	/* 8 */ { 25207, 28 }, /* A hollow voice says "Plugh". */
-	/* 9 */ { 25235, 37 }, /* There is no way to go that direction. */
-	/* 10 */ { 25272, 70 }, /* I am unsure how you are facing.  Use compass points or nearby objects. */
-	/* 11 */ { 25342, 110 }, /* I don't know in from out here.  Use compass points or name something
-	in the general direction you want to go. */
-	/* 12 */ { 25452, 41 }, /* I don't know how to apply that word here. */
-	/* 13 */ { 25493, 24 }, /* I don't understand that! */
-	/* 14 */ { 25517, 41 }, /* I'm game.  Would you care to explain how? */
-	/* 15 */ { 25558, 103 }, /* Sorry, but I am not allowed to give more detail.  I will repeat the
-	long description of your location. */
-	/* 16 */ { 25661, 70 }, /* It is now pitch dark.  If you proceed you will likely fall into a pit. */
-	/* 17 */ { 25731, 46 }, /* If you prefer, simply type w rather than west. */
-	/* 18 */ { 25777, 33 }, /* Are you trying to catch the bird? */
-	/* 19 */ { 25810, 111 }, /* The bird is frightened right now and you cannot catch it no matter
-	what you try.  Perhaps you might try later. */
-	/* 20 */ { 25921, 46 }, /* Are you trying to somehow deal with the snake? */
-	/* 21 */ { 25967, 162 }, /* You can't kill the snake, or drive it away, or avoid it, or anything
-	like that.  There is a way to get by, but you don't have the necessary
-	resources right now. */
-	/* 22 */ { 26129, 31 }, /* Do you really want to quit now? */
-	/* 23 */ { 26160, 54 }, /* You fell into a pit and broke every bone in your body! */
-	/* 24 */ { 26214, 28 }, /* You are already carrying it! */
-	/* 25 */ { 26242, 21 }, /* You can't be serious! */
-	/* 26 */ { 26263, 106 }, /* The bird was unafraid when you entered, but as you approach it becomes
-	disturbed and you cannot catch it. */
-	/* 27 */ { 26369, 48 }, /* You can catch the bird, but you cannot carry it. */
-	/* 28 */ { 26417, 34 }, /* There is nothing here with a lock! */
-	/* 29 */ { 26451, 23 }, /* You aren't carrying it! */
-	/* 30 */ { 26474, 92 }, /* The little bird attacks the green snake, and in an astounding flurry
-	drives the snake away. */
-	/* 31 */ { 26566, 17 }, /* You have no keys! */
-	/* 32 */ { 26583, 15 }, /* It has no lock. */
-	/* 33 */ { 26598, 48 }, /* I don't know how to lock or unlock such a thing. */
-	/* 34 */ { 26646, 22 }, /* It was already locked. */
-	/* 35 */ { 26668, 24 }, /* The grate is now locked. */
-	/* 36 */ { 26692, 26 }, /* The grate is now unlocked. */
-	/* 37 */ { 26718, 24 }, /* It was already unlocked. */
-	/* 38 */ { 26742, 28 }, /* You have no source of light. */
-	/* 39 */ { 26770, 20 }, /* Your lamp is now on. */
-	/* 40 */ { 26790, 21 }, /* Your lamp is now off. */
-	/* 41 */ { 26811, 90 }, /* There is no way to get past the bear to unlock the chain, which is
-	probably just as well. */
-	/* 42 */ { 26901, 16 }, /* Nothing happens. */
-	/* 43 */ { 26917, 6 }, /* Where? */
-	/* 44 */ { 26923, 32 }, /* There is nothing here to attack. */
-	/* 45 */ { 26955, 50 }, /* The little bird is now dead.  Its body disappears. */
-	/* 46 */ { 27005, 60 }, /* Attacking the snake both doesn't work and is very dangerous. */
-	/* 47 */ { 27065, 26 }, /* You killed a little dwarf. */
-	/* 48 */ { 27091, 56 }, /* You attack a little dwarf, but he dodges out of the way. */
-	/* 49 */ { 27147, 28 }, /* With what?  Your bare hands? */
-	/* 50 */ { 27175, 49 }, /* Good try, but that is an old worn-out magic word. */
-	/* 51 */ { 27224, 1315 }, /* I know of places, actions, and things.  Most of my vocabulary
-	describes places and is used to move you there.  To move, try words
-	like forest, building, downstream, enter, east, west, north, south,
-	up, or down.  I know about a few special objects, like a black rod
-	hidden in the cave.  These objects can be manipulated using some of
-	the action words that I know.  Usually you will need to give both the
-	object and action words (in either order), but sometimes I can infer
-	the object from the verb alone.  Some objects also imply verbs; in
-	particular, "inventory" implies "take inventory", which causes me to
-	give you a list of what you're carrying.  The objects have side
-	effects; for instance, the rod scares the bird.  Usually people having
-	trouble moving just need to try a few more words.  Usually people
-	trying unsuccessfully to manipulate an object are attempting something
-	beyond their (or my!) capabilities and should try a completely
-	different tack.  To speed the game you can sometimes move long
-	distances with a single word.  For example, "building" usually gets
-	you to the building from anywhere above ground except when lost in the
-	forest.  Also, note that cave passages turn a lot, and that leaving a
-	room to the north does not guarantee entering the next from the south.
-	Good luck! */
-	/* 52 */ { 28539, 10 }, /* It misses! */
-	/* 53 */ { 28549, 12 }, /* It gets you! */
-	/* 54 */ { 28561, 2 }, /* OK */
-	/* 55 */ { 28563, 26 }, /* You can't unlock the keys. */
-	/* 56 */ { 28589, 84 }, /* You have crawled around in some little holes and wound up back in the
-	main passage. */
-	/* 57 */ { 28673, 115 }, /* I don't know where the cave is, but hereabouts no stream can run on
-	the surface for long.  I would try the stream. */
-	/* 58 */ { 28788, 45 }, /* I need more detailed instructions to do that. */
-	/* 59 */ { 28833, 118 }, /* I can only tell you what you see as you move about and manipulate
-	things.  I cannot tell you where remote things are. */
-	/* 60 */ { 28951, 23 }, /* I don't know that word. */
-	/* 61 */ { 28974, 5 }, /* What? */
-	/* 62 */ { 28979, 36 }, /* Are you trying to get into the cave? */
-	/* 63 */ { 29015, 170 }, /* The grate is very solid and has a hardened steel lock.  You cannot
-	enter without a key, and there are no keys nearby.  I would recommend
-	looking elsewhere for the keys. */
-	/* 64 */ { 29185, 363 }, /* The trees of the forest are large hardwood oak and maple, with an
-	occasional grove of pine or spruce.  There is quite a bit of under-
-	growth, largely birch and ash saplings plus nondescript bushes of
-	various sorts.  This time of year visibility is quite restricted by
-	all the leaves, but travel is quite easy if you detour around the
-	spruce and berry bushes. */
-	/* 65 */ { 29548, 52 }, /* Welcome to Adventure!!  Would you like instructions? */
-	/* 66 */ { 29600, 89 }, /* Digging without a shovel is quite impractical.  Even with a shovel
-	progress is unlikely. */
-	/* 67 */ { 29689, 27 }, /* Blasting requires dynamite. */
-	/* 68 */ { 29716, 27 }, /* I'm as confused as you are. */
-	/* 69 */ { 29743, 162 }, /* Mist is a white vapor, usually water, seen from time to time in
-	caverns.  It can be found anywhere but is frequently a sign of a deep
-	pit leading down to water. */
-	/* 70 */ { 29905, 22 }, /* Your feet are now wet. */
-	/* 71 */ { 29927, 32 }, /* I think I just lost my appetite. */
-	/* 72 */ { 29959, 28 }, /* Thank you, it was delicious! */
-	/* 73 */ { 29987, 126 }, /* You have taken a drink from the stream.  The water tastes strongly of
-	minerals, but is not unpleasant.  It is extremely cold. */
-	/* 74 */ { 30113, 33 }, /* The bottle of water is now empty. */
-	/* 75 */ { 30146, 92 }, /* Rubbing the electric lamp is not particularly rewarding.  Anyway,
-	nothing exciting happens. */
-	/* 76 */ { 30238, 38 }, /* Peculiar.  Nothing unexpected happens. */
-	/* 77 */ { 30276, 43 }, /* Your bottle is empty and the ground is wet. */
-	/* 78 */ { 30319, 20 }, /* You can't pour that. */
-	/* 79 */ { 30339, 9 }, /* Watch it! */
-	/* 80 */ { 30348, 10 }, /* Which way? */
-	/* 81 */ { 30358, 168 }, /* Oh dear, you seem to have gotten yourself killed.  I might be able to
-	help you out, but I've never really done this before.  Do you want me
-	to try to reincarnate you? */
-	/* 82 */ { 30526, 182 }, /* All right.  But don't blame me if something goes wr......
-	--- Poof!! ---
-	You are engulfed in a cloud of orange smoke.  Coughing and gasping,
-	you emerge from the smoke and find.... */
-	/* 83 */ { 30708, 129 }, /* You clumsy oaf, you've done it again!  I don't know how long I can
-	keep this up.  Do you want me to try reincarnating you again? */
-	/* 84 */ { 30837, 112 }, /* Okay, now where did I put my orange smoke?....  >poof!<
-	Everything disappears in a dense cloud of orange smoke. */
-	/* 85 */ { 30949, 137 }, /* Now you've really done it!  I'm out of orange smoke!  You don't expect
-	me to do a decent reincarnation without any orange smoke, do you? */
-	/* 86 */ { 31086, 55 }, /* Okay, if you're so smart, do it yourself!  I'm leaving! */
+	/* 1 */ { "Somewhere nearby is Colossal Cave, where others have found fortunes in\n\rtreasure and gold, though it is rumored that some who enter are never\n\rseen again.  Magic is said to work in the cave.  I will be your eyes\n\rand hands.  Direct me with commands of 1 or 2 words.  I should warn\n\ryou that I look at only the first five letters of each word, so you'll\n\rhave to enter \"northeast\" as \"ne\" to distinguish it from \"north\".\n\r(Should you get stuck, type \"help\" for some general hints.  For\n\rinformation on how to end your adventure, etc., type \"info\".)\n\r- - -\n\rThis program was originally developed by Will Crowther.  Most of the\n\rfeatures of the current program were added by Don Woods.  This\n\rIskra Delta Partner port is based on the UNIX version by Jim Gillogly.\n\rPorted by Miha Grcar in 2022.", 791 },
+	/* 2 */ { "A little dwarf with a big knife blocks your way.", 48 },
+	/* 3 */ { "A little dwarf just walked around a corner, saw you, threw a little\n\raxe at you (which missed), cursed, and ran away.", 117 },
+	/* 4 */ { "There is a threatening little dwarf in the room with you!", 57 },
+	/* 5 */ { "One sharp nasty knife is thrown at you!", 39 },
+	/* 6 */ { "None of them hit you!", 21 },
+	/* 7 */ { "One of them gets you!", 21 },
+	/* 8 */ { "A hollow voice says \"Plugh\".", 28 },
+	/* 9 */ { "There is no way to go that direction.", 37 },
+	/* 10 */ { "I am unsure how you are facing.  Use compass points or nearby objects.", 70 },
+	/* 11 */ { "I don't know in from out here.  Use compass points or name something\n\rin the general direction you want to go.", 110 },
+	/* 12 */ { "I don't know how to apply that word here.", 41 },
+	/* 13 */ { "I don't understand that!", 24 },
+	/* 14 */ { "I'm game.  Would you care to explain how?", 41 },
+	/* 15 */ { "Sorry, but I am not allowed to give more detail.  I will repeat the\n\rlong description of your location.", 103 },
+	/* 16 */ { "It is now pitch dark.  If you proceed you will likely fall into a pit.", 70 },
+	/* 17 */ { "If you prefer, simply type w rather than west.", 46 },
+	/* 18 */ { "Are you trying to catch the bird?", 33 },
+	/* 19 */ { "The bird is frightened right now and you cannot catch it no matter\n\rwhat you try.  Perhaps you might try later.", 111 },
+	/* 20 */ { "Are you trying to somehow deal with the snake?", 46 },
+	/* 21 */ { "You can't kill the snake, or drive it away, or avoid it, or anything\n\rlike that.  There is a way to get by, but you don't have the necessary\n\rresources right now.", 162 },
+	/* 22 */ { "Do you really want to quit now?", 31 },
+	/* 23 */ { "You fell into a pit and broke every bone in your body!", 54 },
+	/* 24 */ { "You are already carrying it!", 28 },
+	/* 25 */ { "You can't be serious!", 21 },
+	/* 26 */ { "The bird was unafraid when you entered, but as you approach it becomes\n\rdisturbed and you cannot catch it.", 106 },
+	/* 27 */ { "You can catch the bird, but you cannot carry it.", 48 },
+	/* 28 */ { "There is nothing here with a lock!", 34 },
+	/* 29 */ { "You aren't carrying it!", 23 },
+	/* 30 */ { "The little bird attacks the green snake, and in an astounding flurry\n\rdrives the snake away.", 92 },
+	/* 31 */ { "You have no keys!", 17 },
+	/* 32 */ { "It has no lock.", 15 },
+	/* 33 */ { "I don't know how to lock or unlock such a thing.", 48 },
+	/* 34 */ { "It was already locked.", 22 },
+	/* 35 */ { "The grate is now locked.", 24 },
+	/* 36 */ { "The grate is now unlocked.", 26 },
+	/* 37 */ { "It was already unlocked.", 24 },
+	/* 38 */ { "You have no source of light.", 28 },
+	/* 39 */ { "Your lamp is now on.", 20 },
+	/* 40 */ { "Your lamp is now off.", 21 },
+	/* 41 */ { "There is no way to get past the bear to unlock the chain, which is\n\rprobably just as well.", 90 },
+	/* 42 */ { "Nothing happens.", 16 },
+	/* 43 */ { "Where?", 6 },
+	/* 44 */ { "There is nothing here to attack.", 32 },
+	/* 45 */ { "The little bird is now dead.  Its body disappears.", 50 },
+	/* 46 */ { "Attacking the snake both doesn't work and is very dangerous.", 60 },
+	/* 47 */ { "You killed a little dwarf.", 26 },
+	/* 48 */ { "You attack a little dwarf, but he dodges out of the way.", 56 },
+	/* 49 */ { "With what?  Your bare hands?", 28 },
+	/* 50 */ { "Good try, but that is an old worn-out magic word.", 49 },
+	/* 51 */ { "I know of places, actions, and things.  Most of my vocabulary\n\rdescribes places and is used to move you there.  To move, try words\n\rlike forest, building, downstream, enter, east, west, north, south,\n\rup, or down.  I know about a few special objects, like a black rod\n\rhidden in the cave.  These objects can be manipulated using some of\n\rthe action words that I know.  Usually you will need to give both the\n\robject and action words (in either order), but sometimes I can infer\n\rthe object from the verb alone.  Some objects also imply verbs; in\n\rparticular, \"inventory\" implies \"take inventory\", which causes me to\n\rgive you a list of what you're carrying.  The objects have side\n\reffects; for instance, the rod scares the bird.  Usually people having\n\rtrouble moving just need to try a few more words.  Usually people\n\rtrying unsuccessfully to manipulate an object are attempting something\n\rbeyond their (or my!) capabilities and should try a completely\n\rdifferent tack.  To speed the game you can sometimes move long\n\rdistances with a single word.  For example, \"building\" usually gets\n\ryou to the building from anywhere above ground except when lost in the\n\rforest.  Also, note that cave passages turn a lot, and that leaving a\n\rroom to the north does not guarantee entering the next from the south.\n\rGood luck!", 1315 },
+	/* 52 */ { "It misses!", 10 },
+	/* 53 */ { "It gets you!", 12 },
+	/* 54 */ { "OK", 2 },
+	/* 55 */ { "You can't unlock the keys.", 26 },
+	/* 56 */ { "You have crawled around in some little holes and wound up back in the\n\rmain passage.", 84 },
+	/* 57 */ { "I don't know where the cave is, but hereabouts no stream can run on\n\rthe surface for long.  I would try the stream.", 115 },
+	/* 58 */ { "I need more detailed instructions to do that.", 45 },
+	/* 59 */ { "I can only tell you what you see as you move about and manipulate\n\rthings.  I cannot tell you where remote things are.", 118 },
+	/* 60 */ { "I don't know that word.", 23 },
+	/* 61 */ { "What?", 5 },
+	/* 62 */ { "Are you trying to get into the cave?", 36 },
+	/* 63 */ { "The grate is very solid and has a hardened steel lock.  You cannot\n\renter without a key, and there are no keys nearby.  I would recommend\n\rlooking elsewhere for the keys.", 170 },
+	/* 64 */ { "The trees of the forest are large hardwood oak and maple, with an\n\roccasional grove of pine or spruce.  There is quite a bit of under-\n\rgrowth, largely birch and ash saplings plus nondescript bushes of\n\rvarious sorts.  This time of year visibility is quite restricted by\n\rall the leaves, but travel is quite easy if you detour around the\n\rspruce and berry bushes.", 363 },
+	/* 65 */ { "Welcome to Adventure!!  Would you like instructions?", 52 },
+	/* 66 */ { "Digging without a shovel is quite impractical.  Even with a shovel\n\rprogress is unlikely.", 89 },
+	/* 67 */ { "Blasting requires dynamite.", 27 },
+	/* 68 */ { "I'm as confused as you are.", 27 },
+	/* 69 */ { "Mist is a white vapor, usually water, seen from time to time in\n\rcaverns.  It can be found anywhere but is frequently a sign of a deep\n\rpit leading down to water.", 162 },
+	/* 70 */ { "Your feet are now wet.", 22 },
+	/* 71 */ { "I think I just lost my appetite.", 32 },
+	/* 72 */ { "Thank you, it was delicious!", 28 },
+	/* 73 */ { "You have taken a drink from the stream.  The water tastes strongly of\n\rminerals, but is not unpleasant.  It is extremely cold.", 126 },
+	/* 74 */ { "The bottle of water is now empty.", 33 },
+	/* 75 */ { "Rubbing the electric lamp is not particularly rewarding.  Anyway,\n\rnothing exciting happens.", 92 },
+	/* 76 */ { "Peculiar.  Nothing unexpected happens.", 38 },
+	/* 77 */ { "Your bottle is empty and the ground is wet.", 43 },
+	/* 78 */ { "You can't pour that.", 20 },
+	/* 79 */ { "Watch it!", 9 },
+	/* 80 */ { "Which way?", 10 },
+	/* 81 */ { "Oh dear, you seem to have gotten yourself killed.  I might be able to\n\rhelp you out, but I've never really done this before.  Do you want me\n\rto try to reincarnate you?", 168 },
+	/* 82 */ { "All right.  But don't blame me if something goes wr......\n\r--- Poof!! ---\n\rYou are engulfed in a cloud of orange smoke.  Coughing and gasping,\n\ryou emerge from the smoke and find....", 182 },
+	/* 83 */ { "You clumsy oaf, you've done it again!  I don't know how long I can\n\rkeep this up.  Do you want me to try reincarnating you again?", 129 },
+	/* 84 */ { "Okay, now where did I put my orange smoke?....  >poof!<\n\rEverything disappears in a dense cloud of orange smoke.", 112 },
+	/* 85 */ { "Now you've really done it!  I'm out of orange smoke!  You don't expect\n\rme to do a decent reincarnation without any orange smoke, do you?", 137 },
+	/* 86 */ { "Okay, if you're so smart, do it yourself!  I'm leaving!", 55 },
 	/* 87 */ { 0, 0 },
 	/* 88 */ { 0, 0 },
 	/* 89 */ { 0, 0 },
-	/* 90 */ { 31141, 58 }, /* >>> Messages 81 thru 90 are reserved for "obituaries". <<< */
-	/* 91 */ { 31199, 64 }, /* Sorry, but I no longer seem to remember how it was you got here. */
-	/* 92 */ { 31263, 68 }, /* You can't carry anything more.  You'll have to drop something first. */
-	/* 93 */ { 31331, 42 }, /* You can't go through a locked steel grate! */
-	/* 94 */ { 31373, 47 }, /* I believe what you want is right here with you. */
-	/* 95 */ { 31420, 38 }, /* You don't fit through a two-inch slit! */
-	/* 96 */ { 31458, 67 }, /* I respectfully suggest you go across the bridge instead of jumping. */
-	/* 97 */ { 31525, 35 }, /* There is no way across the fissure. */
-	/* 98 */ { 31560, 29 }, /* You're not carrying anything. */
-	/* 99 */ { 31589, 40 }, /* You are currently holding the following: */
-	/* 100 */ { 31629, 86 }, /* It's not hungry (it's merely pinin' for the fjords).  Besides, you
-	have no bird seed. */
-	/* 101 */ { 31715, 37 }, /* The snake has now devoured your bird. */
-	/* 102 */ { 31752, 58 }, /* There's nothing here it wants to eat (except perhaps you). */
-	/* 103 */ { 31810, 68 }, /* You fool, dwarves eat only coal!  Now you've made him *really* mad!! */
-	/* 104 */ { 31878, 38 }, /* You have nothing in which to carry it. */
-	/* 105 */ { 31916, 28 }, /* Your bottle is already full. */
-	/* 106 */ { 31944, 52 }, /* There is nothing here with which to fill the bottle. */
-	/* 107 */ { 31996, 33 }, /* Your bottle is now full of water. */
-	/* 108 */ { 32029, 31 }, /* Your bottle is now full of oil. */
-	/* 109 */ { 32060, 20 }, /* You can't fill that. */
-	/* 110 */ { 32080, 20 }, /* Don't be ridiculous! */
-	/* 111 */ { 32100, 48 }, /* The door is extremely rusty and refuses to open. */
-	/* 112 */ { 32148, 70 }, /* The plant indignantly shakes the oil off its leaves and asks, "water?" */
-	/* 113 */ { 32218, 59 }, /* The hinges are quite thoroughly rusted now and won't budge. */
-	/* 114 */ { 32277, 98 }, /* The oil has freed up the hinges so that the door will now move,
-	although it requires some effort. */
-	/* 115 */ { 32375, 65 }, /* The plant has exceptionally deep roots and cannot be pulled free. */
-	/* 116 */ { 32440, 64 }, /* The dwarves' knives vanish as they strike the walls of the cave. */
-	/* 117 */ { 32504, 111 }, /* Something you're carrying won't fit through the tunnel with you.
-	You'd best take inventory and drop something. */
-	/* 118 */ { 32615, 62 }, /* You can't fit this five-foot clam through that little passage! */
-	/* 119 */ { 32677, 64 }, /* You can't fit this five-foot oyster through that little passage! */
-	/* 120 */ { 32741, 63 }, /* I advise you to put down the clam before opening it.  >strain!< */
-	/* 121 */ { 32804, 65 }, /* I advise you to put down the oyster before opening it.  >wrench!< */
-	/* 122 */ { 32869, 55 }, /* You don't have anything strong enough to open the clam. */
-	/* 123 */ { 32924, 57 }, /* You don't have anything strong enough to open the oyster. */
-	/* 124 */ { 32981, 198 }, /* A glistening pearl falls out of the clam and rolls away.  Goodness,
-	this must really be an oyster.  (I never was very good at identifying
-	bivalves.)  Whatever it is, it has now snapped shut again. */
-	/* 125 */ { 33179, 92 }, /* The oyster creaks open, revealing nothing but oyster inside.  It
-	promptly snaps shut again. */
-	/* 126 */ { 33271, 132 }, /* You have crawled around in some little holes and found your way
-	blocked by a recent cave-in.  You are now back in the main passage. */
-	/* 127 */ { 33403, 61 }, /* There are faint rustling noises from the darkness behind you. */
-	/* 128 */ { 33464, 223 }, /* Out from the shadows behind you pounces a bearded pirate!  "Har, har,"
-	he chortles, "I'll just take all this booty and hide it away with me
-	chest deep in the maze!"  He snatches your treasure and vanishes into
-	the gloom. */
-	/* 129 */ { 33687, 133 }, /* A sepulchral voice reverberating through the cave, says, "Cave closing
-	soon.  All adventurers exit immediately through Main Office." */
-	/* 130 */ { 33820, 114 }, /* A mysterious recorded voice groans into life and announces:
-	"This exit is closed.  Please leave via Main Office." */
-	/* 131 */ { 33934, 125 }, /* It looks as though you're dead.  Well, seeing as how it's so close to
-	closing time anyway, I think we'll just call it a day. */
-	/* 132 */ { 34059, 208 }, /* The sepulchral voice intones, "The cave is now closed."  As the echoes
-	fade, there is a blinding flash of light (and a small puff of orange
-	smoke). . . .    As your eyes refocus, you look around and find... */
-	/* 133 */ { 34267, 271 }, /* There is a loud explosion, and a twenty-foot hole appears in the far
-	wall, burying the dwarves in the rubble.  You march through the hole
-	and find yourself in the Main Office, where a cheering band of
-	friendly elves carry the conquering adventurer off into the sunset. */
-	/* 134 */ { 34538, 211 }, /* There is a loud explosion, and a twenty-foot hole appears in the far
-	wall, burying the snakes in the rubble.  A river of molten lava pours
-	in through the hole, destroying everything in its path, including you! */
-	/* 135 */ { 34749, 87 }, /* There is a loud explosion, and you are suddenly splashed across the
-	walls of the room. */
-	/* 136 */ { 34836, 177 }, /* The resulting ruckus has awakened the dwarves.  There are now several
-	threatening little dwarves in the room with you!  Most of them throw
-	knives at you!  All of them get you! */
-	/* 137 */ { 35013, 38 }, /* Oh, leave the poor unhappy bird alone. */
-	/* 138 */ { 35051, 54 }, /* I dare say whatever you want is around here somewhere. */
-	/* 139 */ { 35105, 65 }, /* I don't know the word "stop".  Use "quit" if you want to give up. */
-	/* 140 */ { 35170, 30 }, /* You can't get there from here. */
-	/* 141 */ { 35200, 50 }, /* You are being followed by a very large, tame bear. */
-	/* 142 */ { 35250, 1398 }, /* If you want to end your adventure early, say "quit".  To suspend your
-	adventure such that you can continue later, say "suspend" (or "pause"
-	or "save").  To see what hours the cave is normally open, say "hours".
-	To see how well you're doing, say "score".  To get full credit for a
-	treasure, you must have left it safely in the building, though you get
-	partial credit just for locating it.  You lose points for getting
-	killed, or for quitting, though the former costs you more.  There are
-	also points based on how much (if any) of the cave you've managed to
-	explore; in particular, there is a large bonus just for getting in (to
-	distinguish the beginners from the rest of the pack), and there are
-	other ways to determine whether you've been through some of the more
-	harrowing sections.  If you think you've found all the treasures, just
-	keep exploring for a while.  If nothing interesting happens, you
-	haven't found them all yet.  If something interesting *does* happen,
-	it means you're getting a bonus and have an opportunity to garner many
-	more points in the Master's Section.  I may occasionally offer hints
-	if you seem to be having trouble.  If I do, I'll warn you in advance
-	how much it will affect your score to accept the hints.  Finally, to
-	save paper, you may specify "brief", which tells me never to repeat
-	the full description of a place unless you explicitly ask me to. */
-	/* 143 */ { 36648, 31 }, /* Do you indeed wish to quit now? */
-	/* 144 */ { 36679, 50 }, /* There is nothing here with which to fill the vase. */
-	/* 145 */ { 36729, 67 }, /* The sudden change in temperature has delicately shattered the vase. */
-	/* 146 */ { 36796, 35 }, /* It is beyond your power to do that. */
-	/* 147 */ { 36831, 17 }, /* I don't know how. */
-	/* 148 */ { 36848, 34 }, /* It is too far up for you to reach. */
-	/* 149 */ { 36882, 80 }, /* You killed a little dwarf.  The body vanishes in a cloud of greasy
-	black smoke. */
-	/* 150 */ { 36962, 53 }, /* The shell is very strong and is impervious to attack. */
-	/* 151 */ { 37015, 62 }, /* What's the matter, can't you read?  Now you'd best start over. */
-	/* 152 */ { 37077, 57 }, /* The axe bounces harmlessly off the dragon's thick scales. */
-	/* 153 */ { 37134, 61 }, /* The dragon looks rather nasty.  You'd best not try to get by. */
-	/* 154 */ { 37195, 116 }, /* The little bird attacks the green dragon, and in an astounding flurry
-	gets burnt to a cinder.  The ashes blow away. */
-	/* 155 */ { 37311, 8 }, /* On what? */
-	/* 156 */ { 37319, 126 }, /* Okay, from now on I'll only describe a place in full the first time
-	you come to it.  To get the full description, say "look". */
-	/* 157 */ { 37445, 136 }, /* Trolls are close relatives with the rocks and have skin as tough as
-	that of a rhinoceros.  The troll fends off your blows effortlessly. */
-	/* 158 */ { 37581, 138 }, /* The troll deftly catches the axe, examines it carefully, and tosses it
-	back, declaring, "Good workmanship, but it's not valuable enough." */
-	/* 159 */ { 37719, 63 }, /* The troll catches your treasure and scurries away out of sight. */
-	/* 160 */ { 37782, 35 }, /* The troll refuses to let you cross. */
-	/* 161 */ { 37817, 44 }, /* There is no longer any way across the chasm. */
-	/* 162 */ { 37861, 234 }, /* Just as you reach the other side, the bridge buckles beneath the
-	weight of the bear, which was still following you around.  You
-	scrabble desperately for support, but as the bridge collapses you
-	stumble back and fall into the chasm. */
-	/* 163 */ { 38095, 139 }, /* The bear lumbers toward the troll, who lets out a startled shriek and
-	scurries away.  The bear soon gives up the pursuit and wanders back. */
-	/* 164 */ { 38234, 65 }, /* The axe misses and lands near the bear where you can't get at it. */
-	/* 165 */ { 38299, 56 }, /* With what?  Your bare hands?  Against *his* bear hands?? */
-	/* 166 */ { 38355, 54 }, /* The bear is confused; he only wants to be your friend. */
-	/* 167 */ { 38409, 52 }, /* For crying out loud, the poor thing is already dead! */
-	/* 168 */ { 38461, 120 }, /* The bear eagerly wolfs down your food, after which he seems to calm
-	down considerably and even becomes rather friendly. */
-	/* 169 */ { 38581, 38 }, /* The bear is still chained to the wall. */
-	/* 170 */ { 38619, 26 }, /* The chain is still locked. */
-	/* 171 */ { 38645, 26 }, /* The chain is now unlocked. */
-	/* 172 */ { 38671, 24 }, /* The chain is now locked. */
-	/* 173 */ { 38695, 55 }, /* There is nothing here to which the chain can be locked. */
-	/* 174 */ { 38750, 29 }, /* There is nothing here to eat. */
-	/* 175 */ { 38779, 21 }, /* Do you want the hint? */
-	/* 176 */ { 38800, 41 }, /* Do you need help getting out of the maze? */
-	/* 177 */ { 38841, 61 }, /* You can make the passages look less alike by dropping things. */
-	/* 178 */ { 38902, 49 }, /* Are you trying to explore beyond the Plover Room? */
-	/* 179 */ { 38951, 169 }, /* There is a way to explore that region without having to worry about
-	falling into a pit.  None of the objects available is immediately
-	useful in discovering the secret. */
-	/* 180 */ { 39120, 37 }, /* Do you need help getting out of here? */
-	/* 181 */ { 39157, 14 }, /* Don't go west. */
-	/* 182 */ { 39171, 64 }, /* Gluttony is not one of the troll's vices.  Avarice, however, is. */
-	/* 183 */ { 39235, 190 }, /* Your lamp is getting dim.  You'd best start wrapping this up, unless
-	You can find some fresh batteries.  I seem to recall there's a vending
-	machine in the maze.  Bring some coins with you. */
-	/* 184 */ { 39425, 31 }, /* Your lamp has run out of power. */
-	/* 185 */ { 39456, 130 }, /* There's not much point in wandering around out here, and you can't
-	explore the cave without a lamp.  So let's just call it a day. */
-	/* 186 */ { 39586, 321 }, /* There are faint rustling noises from the darkness behind you.  As you
-	turn toward them, the beam of your lamp falls across a bearded pirate.
-	He is carrying a large chest.  "Shiver me timbers!" he cries, "I've
-	been spotted!  I'd best hie meself off to the maze to hide me chest!"
-	With that, he vanishes into the gloom. */
-	/* 187 */ { 39907, 66 }, /* Your lamp is getting dim.  You'd best go back for those batteries. */
-	/* 188 */ { 39973, 78 }, /* Your lamp is getting dim.  I'm taking the liberty of replacing the
-	batteries. */
-	/* 189 */ { 40051, 97 }, /* Your lamp is getting dim, and you're out of spare batteries.  You'd
-	best start wrapping this up. */
-	/* 190 */ { 40148, 47 }, /* I'm afraid the magazine is written in Dwarvish. */
-	/* 191 */ { 40195, 66 }, /* "This is not the maze where the pirate leaves his treasure chest." */
-	/* 192 */ { 40261, 118 }, /* Hmmm, this looks like a clue, which means it'll cost you 10 points to
-	read it.  Should I go ahead and read it anyway? */
-	/* 193 */ { 40379, 123 }, /* It says, "there is something strange about this place, such that one
-	of the words I've always known now has a new effect." */
-	/* 194 */ { 40502, 37 }, /* It says the same thing it did before. */
-	/* 195 */ { 40539, 30 }, /* I'm afraid I don't understand. */
-	/* 196 */ { 40569, 55 }, /* "Congratulations on bringing light into the Dark-Room!" */
-	/* 197 */ { 40624, 93 }, /* You strike the mirror a resounding blow, whereupon it shatters into a
-	myriad tiny fragments. */
-	/* 198 */ { 40717, 63 }, /* You have taken the vase and hurled it delicately to the ground. */
-	/* 199 */ { 40780, 105 }, /* You prod the nearest dwarf, who wakes up grumpily, takes one look at
-	you, curses, and grabs for his axe. */
-	/* 200 */ { 40885, 19 }, /* Is this acceptable? */
-	/* 201 */ { 40904, 52 }, /* There's no point in suspending a demonstration game. */
-	/* 202 */ { 40956, 125 }, /* You awaken only to discover your bits have been dissolving while you
-	slept.  You disappear in a cloud of greasy black smoke. */
+	/* 90 */ { ">>> Messages 81 thru 90 are reserved for \"obituaries\". <<<", 58 },
+	/* 91 */ { "Sorry, but I no longer seem to remember how it was you got here.", 64 },
+	/* 92 */ { "You can't carry anything more.  You'll have to drop something first.", 68 },
+	/* 93 */ { "You can't go through a locked steel grate!", 42 },
+	/* 94 */ { "I believe what you want is right here with you.", 47 },
+	/* 95 */ { "You don't fit through a two-inch slit!", 38 },
+	/* 96 */ { "I respectfully suggest you go across the bridge instead of jumping.", 67 },
+	/* 97 */ { "There is no way across the fissure.", 35 },
+	/* 98 */ { "You're not carrying anything.", 29 },
+	/* 99 */ { "You are currently holding the following:", 40 },
+	/* 100 */ { "It's not hungry (it's merely pinin' for the fjords).  Besides, you\n\rhave no bird seed.", 86 },
+	/* 101 */ { "The snake has now devoured your bird.", 37 },
+	/* 102 */ { "There's nothing here it wants to eat (except perhaps you).", 58 },
+	/* 103 */ { "You fool, dwarves eat only coal!  Now you've made him *really* mad!!", 68 },
+	/* 104 */ { "You have nothing in which to carry it.", 38 },
+	/* 105 */ { "Your bottle is already full.", 28 },
+	/* 106 */ { "There is nothing here with which to fill the bottle.", 52 },
+	/* 107 */ { "Your bottle is now full of water.", 33 },
+	/* 108 */ { "Your bottle is now full of oil.", 31 },
+	/* 109 */ { "You can't fill that.", 20 },
+	/* 110 */ { "Don't be ridiculous!", 20 },
+	/* 111 */ { "The door is extremely rusty and refuses to open.", 48 },
+	/* 112 */ { "The plant indignantly shakes the oil off its leaves and asks, \"water?\"", 70 },
+	/* 113 */ { "The hinges are quite thoroughly rusted now and won't budge.", 59 },
+	/* 114 */ { "The oil has freed up the hinges so that the door will now move,\n\ralthough it requires some effort.", 98 },
+	/* 115 */ { "The plant has exceptionally deep roots and cannot be pulled free.", 65 },
+	/* 116 */ { "The dwarves' knives vanish as they strike the walls of the cave.", 64 },
+	/* 117 */ { "Something you're carrying won't fit through the tunnel with you.\n\rYou'd best take inventory and drop something.", 111 },
+	/* 118 */ { "You can't fit this five-foot clam through that little passage!", 62 },
+	/* 119 */ { "You can't fit this five-foot oyster through that little passage!", 64 },
+	/* 120 */ { "I advise you to put down the clam before opening it.  >strain!<", 63 },
+	/* 121 */ { "I advise you to put down the oyster before opening it.  >wrench!<", 65 },
+	/* 122 */ { "You don't have anything strong enough to open the clam.", 55 },
+	/* 123 */ { "You don't have anything strong enough to open the oyster.", 57 },
+	/* 124 */ { "A glistening pearl falls out of the clam and rolls away.  Goodness,\n\rthis must really be an oyster.  (I never was very good at identifying\n\rbivalves.)  Whatever it is, it has now snapped shut again.", 198 },
+	/* 125 */ { "The oyster creaks open, revealing nothing but oyster inside.  It\n\rpromptly snaps shut again.", 92 },
+	/* 126 */ { "You have crawled around in some little holes and found your way\n\rblocked by a recent cave-in.  You are now back in the main passage.", 132 },
+	/* 127 */ { "There are faint rustling noises from the darkness behind you.", 61 },
+	/* 128 */ { "Out from the shadows behind you pounces a bearded pirate!  \"Har, har,\"\n\rhe chortles, \"I'll just take all this booty and hide it away with me\n\rchest deep in the maze!\"  He snatches your treasure and vanishes into\n\rthe gloom.", 223 },
+	/* 129 */ { "A sepulchral voice reverberating through the cave, says, \"Cave closing\n\rsoon.  All adventurers exit immediately through Main Office.\"", 133 },
+	/* 130 */ { "A mysterious recorded voice groans into life and announces:\n\r\"This exit is closed.  Please leave via Main Office.\"", 114 },
+	/* 131 */ { "It looks as though you're dead.  Well, seeing as how it's so close to\n\rclosing time anyway, I think we'll just call it a day.", 125 },
+	/* 132 */ { "The sepulchral voice intones, \"The cave is now closed.\"  As the echoes\n\rfade, there is a blinding flash of light (and a small puff of orange\n\rsmoke). . . .    As your eyes refocus, you look around and find...", 208 },
+	/* 133 */ { "There is a loud explosion, and a twenty-foot hole appears in the far\n\rwall, burying the dwarves in the rubble.  You march through the hole\n\rand find yourself in the Main Office, where a cheering band of\n\rfriendly elves carry the conquering adventurer off into the sunset.", 271 },
+	/* 134 */ { "There is a loud explosion, and a twenty-foot hole appears in the far\n\rwall, burying the snakes in the rubble.  A river of molten lava pours\n\rin through the hole, destroying everything in its path, including you!", 211 },
+	/* 135 */ { "There is a loud explosion, and you are suddenly splashed across the\n\rwalls of the room.", 87 },
+	/* 136 */ { "The resulting ruckus has awakened the dwarves.  There are now several\n\rthreatening little dwarves in the room with you!  Most of them throw\n\rknives at you!  All of them get you!", 177 },
+	/* 137 */ { "Oh, leave the poor unhappy bird alone.", 38 },
+	/* 138 */ { "I dare say whatever you want is around here somewhere.", 54 },
+	/* 139 */ { "I don't know the word \"stop\".  Use \"quit\" if you want to give up.", 65 },
+	/* 140 */ { "You can't get there from here.", 30 },
+	/* 141 */ { "You are being followed by a very large, tame bear.", 50 },
+	/* 142 */ { "If you want to end your adventure early, say \"quit\".  To suspend your\n\radventure such that you can continue later, say \"suspend\" (or \"pause\"\n\ror \"save\").  To see what hours the cave is normally open, say \"hours\".\n\rTo see how well you're doing, say \"score\".  To get full credit for a\n\rtreasure, you must have left it safely in the building, though you get\n\rpartial credit just for locating it.  You lose points for getting\n\rkilled, or for quitting, though the former costs you more.  There are\n\ralso points based on how much (if any) of the cave you've managed to\n\rexplore; in particular, there is a large bonus just for getting in (to\n\rdistinguish the beginners from the rest of the pack), and there are\n\rother ways to determine whether you've been through some of the more\n\rharrowing sections.  If you think you've found all the treasures, just\n\rkeep exploring for a while.  If nothing interesting happens, you\n\rhaven't found them all yet.  If something interesting *does* happen,\n\rit means you're getting a bonus and have an opportunity to garner many\n\rmore points in the Master's Section.  I may occasionally offer hints\n\rif you seem to be having trouble.  If I do, I'll warn you in advance\n\rhow much it will affect your score to accept the hints.  Finally, to\n\rsave paper, you may specify \"brief\", which tells me never to repeat\n\rthe full description of a place unless you explicitly ask me to.", 1398 },
+	/* 143 */ { "Do you indeed wish to quit now?", 31 },
+	/* 144 */ { "There is nothing here with which to fill the vase.", 50 },
+	/* 145 */ { "The sudden change in temperature has delicately shattered the vase.", 67 },
+	/* 146 */ { "It is beyond your power to do that.", 35 },
+	/* 147 */ { "I don't know how.", 17 },
+	/* 148 */ { "It is too far up for you to reach.", 34 },
+	/* 149 */ { "You killed a little dwarf.  The body vanishes in a cloud of greasy\n\rblack smoke.", 80 },
+	/* 150 */ { "The shell is very strong and is impervious to attack.", 53 },
+	/* 151 */ { "What's the matter, can't you read?  Now you'd best start over.", 62 },
+	/* 152 */ { "The axe bounces harmlessly off the dragon's thick scales.", 57 },
+	/* 153 */ { "The dragon looks rather nasty.  You'd best not try to get by.", 61 },
+	/* 154 */ { "The little bird attacks the green dragon, and in an astounding flurry\n\rgets burnt to a cinder.  The ashes blow away.", 116 },
+	/* 155 */ { "On what?", 8 },
+	/* 156 */ { "Okay, from now on I'll only describe a place in full the first time\n\ryou come to it.  To get the full description, say \"look\".", 126 },
+	/* 157 */ { "Trolls are close relatives with the rocks and have skin as tough as\n\rthat of a rhinoceros.  The troll fends off your blows effortlessly.", 136 },
+	/* 158 */ { "The troll deftly catches the axe, examines it carefully, and tosses it\n\rback, declaring, \"Good workmanship, but it's not valuable enough.\"", 138 },
+	/* 159 */ { "The troll catches your treasure and scurries away out of sight.", 63 },
+	/* 160 */ { "The troll refuses to let you cross.", 35 },
+	/* 161 */ { "There is no longer any way across the chasm.", 44 },
+	/* 162 */ { "Just as you reach the other side, the bridge buckles beneath the\n\rweight of the bear, which was still following you around.  You\n\rscrabble desperately for support, but as the bridge collapses you\n\rstumble back and fall into the chasm.", 234 },
+	/* 163 */ { "The bear lumbers toward the troll, who lets out a startled shriek and\n\rscurries away.  The bear soon gives up the pursuit and wanders back.", 139 },
+	/* 164 */ { "The axe misses and lands near the bear where you can't get at it.", 65 },
+	/* 165 */ { "With what?  Your bare hands?  Against *his* bear hands??", 56 },
+	/* 166 */ { "The bear is confused; he only wants to be your friend.", 54 },
+	/* 167 */ { "For crying out loud, the poor thing is already dead!", 52 },
+	/* 168 */ { "The bear eagerly wolfs down your food, after which he seems to calm\n\rdown considerably and even becomes rather friendly.", 120 },
+	/* 169 */ { "The bear is still chained to the wall.", 38 },
+	/* 170 */ { "The chain is still locked.", 26 },
+	/* 171 */ { "The chain is now unlocked.", 26 },
+	/* 172 */ { "The chain is now locked.", 24 },
+	/* 173 */ { "There is nothing here to which the chain can be locked.", 55 },
+	/* 174 */ { "There is nothing here to eat.", 29 },
+	/* 175 */ { "Do you want the hint?", 21 },
+	/* 176 */ { "Do you need help getting out of the maze?", 41 },
+	/* 177 */ { "You can make the passages look less alike by dropping things.", 61 },
+	/* 178 */ { "Are you trying to explore beyond the Plover Room?", 49 },
+	/* 179 */ { "There is a way to explore that region without having to worry about\n\rfalling into a pit.  None of the objects available is immediately\n\ruseful in discovering the secret.", 169 },
+	/* 180 */ { "Do you need help getting out of here?", 37 },
+	/* 181 */ { "Don't go west.", 14 },
+	/* 182 */ { "Gluttony is not one of the troll's vices.  Avarice, however, is.", 64 },
+	/* 183 */ { "Your lamp is getting dim.  You'd best start wrapping this up, unless\n\rYou can find some fresh batteries.  I seem to recall there's a vending\n\rmachine in the maze.  Bring some coins with you.", 190 },
+	/* 184 */ { "Your lamp has run out of power.", 31 },
+	/* 185 */ { "There's not much point in wandering around out here, and you can't\n\rexplore the cave without a lamp.  So let's just call it a day.", 130 },
+	/* 186 */ { "There are faint rustling noises from the darkness behind you.  As you\n\rturn toward them, the beam of your lamp falls across a bearded pirate.\n\rHe is carrying a large chest.  \"Shiver me timbers!\" he cries, \"I've\n\rbeen spotted!  I'd best hie meself off to the maze to hide me chest!\"\n\rWith that, he vanishes into the gloom.", 321 },
+	/* 187 */ { "Your lamp is getting dim.  You'd best go back for those batteries.", 66 },
+	/* 188 */ { "Your lamp is getting dim.  I'm taking the liberty of replacing the\n\rbatteries.", 78 },
+	/* 189 */ { "Your lamp is getting dim, and you're out of spare batteries.  You'd\n\rbest start wrapping this up.", 97 },
+	/* 190 */ { "I'm afraid the magazine is written in Dwarvish.", 47 },
+	/* 191 */ { "\"This is not the maze where the pirate leaves his treasure chest.\"", 66 },
+	/* 192 */ { "Hmmm, this looks like a clue, which means it'll cost you 10 points to\n\rread it.  Should I go ahead and read it anyway?", 118 },
+	/* 193 */ { "It says, \"there is something strange about this place, such that one\n\rof the words I've always known now has a new effect.\"", 123 },
+	/* 194 */ { "It says the same thing it did before.", 37 },
+	/* 195 */ { "I'm afraid I don't understand.", 30 },
+	/* 196 */ { "\"Congratulations on bringing light into the Dark-Room!\"", 55 },
+	/* 197 */ { "You strike the mirror a resounding blow, whereupon it shatters into a\n\rmyriad tiny fragments.", 93 },
+	/* 198 */ { "You have taken the vase and hurled it delicately to the ground.", 63 },
+	/* 199 */ { "You prod the nearest dwarf, who wakes up grumpily, takes one look at\n\ryou, curses, and grabs for his axe.", 105 },
+	/* 200 */ { "Is this acceptable?", 19 },
+	/* 201 */ { "There's no point in suspending a demonstration game.", 52 },
+	/* 202 */ { "You awaken only to discover your bits have been dissolving while you\n\rslept.  You disappear in a cloud of greasy black smoke.", 125 },
 	/* 203 */ { 0, 0 },
 	/* 204 */ { 0, 0 }
 };
 
 struct text mtext[MAGSIZ] = { // section 12
 	/* 0 */ { 0, 0 },
-	/* 1 */ { 41553, 322 }, /* A large cloud of green smoke appears in front of you.  It clears away
-	to reveal a tall wizard, clothed in grey.  He fixes you with a steely
-	glare and declares, "This adventure has lasted too long."  With that
-	he makes a single pass over you with his hands, and everything around
-	you fades away into a grey nothingness. */
-	/* 2 */ { 41875, 43 }, /* Even wizards have to wait longer than that! */
-	/* 3 */ { 41918, 64 }, /* I'm terribly sorry, but Colossal Cave is closed.  Our hours are: */
-	/* 4 */ { 41982, 53 }, /* Only wizards are permitted within the cave right now. */
-	/* 5 */ { 42035, 97 }, /* We do allow visitors to make short explorations during our off hours.
-	Would you like to do that? */
-	/* 6 */ { 42132, 68 }, /* Colossal Cave is open to regular adventurers at the following hours: */
-	/* 7 */ { 42200, 10 }, /* Very well. */
-	/* 8 */ { 42210, 50 }, /* Only a wizard may continue an adventure this soon. */
-	/* 9 */ { 42260, 52 }, /* I suggest you resume your adventure at a later time. */
-	/* 10 */ { 42312, 29 }, /* Do you wish to see the hours? */
-	/* 11 */ { 42341, 32 }, /* Do you wish to change the hours? */
-	/* 12 */ { 42373, 41 }, /* New magic word (null to leave unchanged): */
-	/* 13 */ { 42414, 43 }, /* New magic number (null to leave unchanged): */
-	/* 14 */ { 42457, 45 }, /* Do you wish to change the message of the day? */
-	/* 15 */ { 42502, 37 }, /* Okay.  You can save this version now. */
-	/* 16 */ { 42539, 17 }, /* Are you a wizard? */
-	/* 17 */ { 42556, 30 }, /* Prove it!  Say the magic word! */
-	/* 18 */ { 42586, 70 }, /* That is not what I thought it was.  Do you know what I thought it was? */
-	/* 19 */ { 42656, 69 }, /* Oh dear, you really *are* a wizard!  Sorry to have bothered you . . . */
-	/* 20 */ { 42725, 37 }, /* Foo, you are nothing but a charlatan! */
-	/* 21 */ { 42762, 137 }, /* New hours specified by defining "prime time".  Give only the hour
-	(E.g. 14, not 14:00 or 2pm).  Enter a negative number after last pair. */
-	/* 22 */ { 42899, 28 }, /* New hours for Colossal Cave: */
-	/* 23 */ { 42927, 45 }, /* Limit lines to 70 chars.  End with null line. */
-	/* 24 */ { 42972, 22 }, /* Line too long, retype: */
-	/* 25 */ { 42994, 55 }, /* Not enough room for another line.  Ending message here. */
-	/* 26 */ { 43049, 45 }, /* Do you wish to (re)schedule the next holiday? */
-	/* 27 */ { 43094, 34 }, /* To begin how many days from today? */
-	/* 28 */ { 43128, 43 }, /* To last how many days (zero if no holiday)? */
-	/* 29 */ { 43171, 40 }, /* To be called what (up to 20 characters)? */
-	/* 30 */ { 43211, 48 }, /* Too small!  Assuming minimum value (45 minutes). */
-	/* 31 */ { 43259, 43 }, /* Break out of this and save your core-image. */
-	/* 32 */ { 43302, 34 }, /* Be sure to save your core-image... */
+	/* 1 */ { "A large cloud of green smoke appears in front of you.  It clears away\n\rto reveal a tall wizard, clothed in grey.  He fixes you with a steely\n\rglare and declares, \"This adventure has lasted too long.\"  With that\n\rhe makes a single pass over you with his hands, and everything around\n\ryou fades away into a grey nothingness.", 322 },
+	/* 2 */ { "Even wizards have to wait longer than that!", 43 },
+	/* 3 */ { "I'm terribly sorry, but Colossal Cave is closed.  Our hours are:", 64 },
+	/* 4 */ { "Only wizards are permitted within the cave right now.", 53 },
+	/* 5 */ { "We do allow visitors to make short explorations during our off hours.\n\rWould you like to do that?", 97 },
+	/* 6 */ { "Colossal Cave is open to regular adventurers at the following hours:", 68 },
+	/* 7 */ { "Very well.", 10 },
+	/* 8 */ { "Only a wizard may continue an adventure this soon.", 50 },
+	/* 9 */ { "I suggest you resume your adventure at a later time.", 52 },
+	/* 10 */ { "Do you wish to see the hours?", 29 },
+	/* 11 */ { "Do you wish to change the hours?", 32 },
+	/* 12 */ { "New magic word (null to leave unchanged):", 41 },
+	/* 13 */ { "New magic number (null to leave unchanged):", 43 },
+	/* 14 */ { "Do you wish to change the message of the day?", 45 },
+	/* 15 */ { "Okay.  You can save this version now.", 37 },
+	/* 16 */ { "Are you a wizard?", 17 },
+	/* 17 */ { "Prove it!  Say the magic word!", 30 },
+	/* 18 */ { "That is not what I thought it was.  Do you know what I thought it was?", 70 },
+	/* 19 */ { "Oh dear, you really *are* a wizard!  Sorry to have bothered you . . .", 69 },
+	/* 20 */ { "Foo, you are nothing but a charlatan!", 37 },
+	/* 21 */ { "New hours specified by defining \"prime time\".  Give only the hour\n\r(E.g. 14, not 14:00 or 2pm).  Enter a negative number after last pair.", 137 },
+	/* 22 */ { "New hours for Colossal Cave:", 28 },
+	/* 23 */ { "Limit lines to 70 chars.  End with null line.", 45 },
+	/* 24 */ { "Line too long, retype:", 22 },
+	/* 25 */ { "Not enough room for another line.  Ending message here.", 55 },
+	/* 26 */ { "Do you wish to (re)schedule the next holiday?", 45 },
+	/* 27 */ { "To begin how many days from today?", 34 },
+	/* 28 */ { "To last how many days (zero if no holiday)?", 43 },
+	/* 29 */ { "To be called what (up to 20 characters)?", 40 },
+	/* 30 */ { "Too small!  Assuming minimum value (45 minutes).", 48 },
+	/* 31 */ { "Break out of this and save your core-image.", 43 },
+	/* 32 */ { "Be sure to save your core-image...", 34 },
 	/* 33 */ { 0, 0 },
 	/* 34 */ { 0, 0 }
 };
@@ -1066,15 +673,15 @@ int clsses = 10;
 
 struct text ctext[CLSMAX] = { // section 10
 	{ 0, 0 },
-	{ 41081, 57 }, /* You are obviously a rank amateur.  Better luck next time. */
-	{ 41138, 54 }, /* Your score qualifies you as a Novice class Adventurer. */
-	{ 41192, 55 }, /* You have achieved the rating: "Experienced Adventurer". */
-	{ 41247, 54 }, /* You may now consider yourself a "Seasoned Adventurer". */
-	{ 41301, 40 }, /* You have reached "Junior Master" status. */
-	{ 41341, 49 }, /* Your score puts you in Master Adventurer Class C. */
-	{ 41390, 49 }, /* Your score puts you in Master Adventurer Class B. */
-	{ 41439, 49 }, /* Your score puts you in Master Adventurer Class A. */
-	{ 41488, 65 }, /* All of Adventuredom gives tribute to you, Adventurer Grandmaster! */
+	{ "You are obviously a rank amateur.  Better luck next time.", 57 }, 
+	{ "Your score qualifies you as a Novice class Adventurer.", 54 }, 
+	{ "You have achieved the rating: \"Experienced Adventurer\".", 55 }, 
+	{ "You may now consider yourself a \"Seasoned Adventurer\".", 54 }, 
+	{ "You have reached \"Junior Master\" status.", 40 }, 
+	{ "Your score puts you in Master Adventurer Class C.", 49 }, 
+	{ "Your score puts you in Master Adventurer Class B.", 49 }, 
+	{ "Your score puts you in Master Adventurer Class A.", 49 }, 
+	{ "All of Adventuredom gives tribute to you, Adventurer Grandmaster!", 65 }, 
 	{ 0, 0 }, 
 	{ 0, 0 }
 };
@@ -1095,278 +702,259 @@ int cval[CLSMAX] = { // section 10
 };
 
 struct text voc[HTSIZE] = { // vocabulary (voc.bin)
-	{ 0, 6 }, /* oil */
-	{ 6, 36 }, /* broke geyse spice foe foe */
-	{ 0, 0 },
-	{ 42, 16 }, /* steps steps */
-	{ 58, 32 }, /* touch pearl mumbl smash */
-	{ 90, 31 }, /* hole carpe tride captu */
-	{ 121, 15 }, /* water turn */
-	{ 136, 23 }, /* back crack abrac */
-	{ 0, 0 },
-	{ 159, 22 }, /* dome nothi abra */
-	{ 181, 16 }, /* slabr brief */
-	{ 197, 17 }, /* go foo foo */
-	{ 214, 16 }, /* troll troll */
-	{ 230, 45 }, /* leave barre cave knife wave save */
-	{ 275, 16 }, /* dwarv infor */
-	{ 291, 16 }, /* acros shado */
-	{ 307, 36 }, /* east food chest nest mist */
-	{ 343, 8 }, /* debri */
-	{ 351, 13 }, /* in orien */
-	{ 364, 8 }, /* ratio */
-	{ 372, 7 }, /* keep */
-	{ 379, 32 }, /* valle strea persi suspe */
-	{ 411, 11 }, /* y2 jar */
-	{ 422, 15 }, /* look mirro */
-	{ 437, 33 }, /* bed pit north slit hit */
-	{ 470, 29 }, /* room vendi free tree */
-	{ 0, 0 },
-	{ 499, 15 }, /* view drago */
-	{ 0, 0 },
-	{ 514, 37 }, /* forwa passa ne secre messa */
-	{ 551, 15 }, /* floor door */
-	{ 566, 24 }, /* pillo explo follo */
-	{ 0, 0 },
-	{ 590, 59 }, /* snake stala carry take close shake fum fum */
-	{ 649, 8 }, /* chain */
-	{ 657, 7 }, /* fork */
-	{ 0, 0 },
-	{ 664, 15 }, /* oyste tote */
-	{ 679, 31 }, /* stair over climb caver */
-	{ 710, 23 }, /* attac perus info */
-	{ 733, 7 }, /* quit */
-	{ 740, 23 }, /* gully issue tame */
-	{ 763, 21 }, /* on deton excav */
-	{ 0, 0 },
-	{ 784, 35 }, /* hill hall find fill stop */
-	{ 819, 46 }, /* retre awkwa above exami plove say */
-	{ 865, 8 }, /* magaz */
-	{ 873, 28 }, /* nw cross strik toss */
-	{ 901, 15 }, /* jewel lost */
-	{ 916, 21 }, /* se fissu nugge */
-	{ 0, 0 },
-	{ 937, 8 }, /* drink */
-	{ 945, 7 }, /* lamp */
-	{ 952, 40 }, /* outsi nowhe batte potte distu */
-	{ 992, 7 }, /* pour */
-	{ 999, 22 }, /* h2o hocus pocus */
-	{ 1021, 29 }, /* out insid ignit read */
-	{ 1050, 16 }, /* bedqu emera */
-	{ 1066, 7 }, /* down */
-	{ 0, 0 },
-	{ 1073, 47 }, /* bird bottl plant plant shard chant */
-	{ 1120, 30 }, /* tunne key velve silve */
-	{ 1150, 6 }, /* inv */
-	{ 1156, 19 }, /* eggs break ? */
-	{ 1175, 28 }, /* rod rod "spel steal */
-	{ 1203, 46 }, /* house xyzzy vase blowu pause swim */
-	{ 1249, 7 }, /* open */
-	{ 1256, 12 }, /* dark sw */
-	{ 1268, 36 }, /* up right gold light fight */
-	{ 1304, 8 }, /* grate */
-	{ 1312, 31 }, /* enter retur bear utter */
-	{ 1343, 15 }, /* treas fuck */
-	{ 1358, 21 }, /* south eat feed */
-	{ 1379, 16 }, /* chasm plati */
-	{ 0, 0 },
-	{ 1395, 21 }, /* bars hours dig */
-	{ 1416, 15 }, /* headl drop */
-	{ 1431, 16 }, /* knive trave */
-	{ 0, 0 },
-	{ 0, 0 },
-	{ 1447, 15 }, /* west blast */
-	{ 1462, 23 }, /* cage pyram devou */
-	{ 1485, 8 }, /* extin */
-	{ 1493, 14 }, /* egg throw */
-	{ 1507, 30 }, /* cobbl plugh box shatt */
-	{ 1537, 22 }, /* lante axe drawi */
-	{ 1559, 6 }, /* rub */
-	{ 1565, 8 }, /* trees */
-	{ 1573, 30 }, /* road exit crawl pirat */
-	{ 1603, 44 }, /* conti surfa conti fee fee shaza */
-	{ 0, 0 },
-	{ 1647, 14 }, /* downs rug */
-	{ 1661, 7 }, /* left */
-	{ 1668, 16 }, /* disca score */
-	{ 0, 0 },
-	{ 1684, 16 }, /* downw unloc */
-	{ 0, 0 },
-	{ 1700, 31 }, /* desce proce wake sesam */
-	{ 1731, 21 }, /* main run inven */
-	{ 0, 0 },
-	{ 1752, 12 }, /* build d */
-	{ 1764, 4 }, /* e */
-	{ 1768, 31 }, /* onwar inwar upwar slab */
-	{ 1799, 37 }, /* fores rock offic keys lock */
-	{ 0, 0 },
-	{ 1836, 20 }, /* entra fie fie */
-	{ 0, 0 },
-	{ 1856, 7 }, /* walk */
-	{ 1863, 43 }, /* null wall shell wand wand kill */
-	{ 1906, 23 }, /* depre volca calm */
-	{ 1929, 18 }, /* n descr off */
-	{ 1947, 36 }, /* moss ming sing swing goto */
-	{ 1983, 7 }, /* help */
-	{ 1990, 7 }, /* clam */
-	{ 1997, 16 }, /* upstr ascen */
-	{ 2013, 26 }, /* low canyo s diamo */
-	{ 2039, 22 }, /* jump catch dump */
-	{ 2061, 28 }, /* u table spelu relea */
-	{ 2089, 16 }, /* reser figur */
-	{ 2105, 4 }, /* w */
-	{ 2109, 6 }, /* get */
-	{ 2115, 8 }, /* machi */
-	{ 0, 0 },
-	{ 2123, 24 }, /* beans coins opens */
-	{ 2147, 8 }, /* giant */
-	{ 2155, 23 }, /* placa slay where */
-	{ 2178, 8 }, /* dwarf */
-	{ 2186, 8 } /* outdo */
+	{ "oil\0\xFE\x03", 6 },
+	{ "broke\0\x36\x00""geyse\0\x0D\x04""spice\0\x27\x04""foe\0\xE9\x07""foe\0\xBB\x0B", 36 },
+	{ "steps\0\x22\x00""steps\0\xEF\x03", 16 },
+	{ "touch\0\x39\x00""pearl\0\x25\x04""mumbl\0\xD3\x07""smash\0\xEC\x07", 32 },
+	{ "hole\0\x34\x00""carpe\0\x10\x04""tride\0\x21\x04""captu\0\xD1\x07", 31 },
+	{ "water\0\xFD\x03""turn\0\xDB\x07", 15 },
+	{ "back\0\x08\x00""crack\0\x21\x00""abrac\0\xEA\x0B", 23 },
+	{ "dome\0\x23\x00""nothi\0\xD5\x07""abra\0\xEA\x0B", 22 },
+	{ "slabr\0\x3D\x00""brief\0\xEA\x07", 16 },
+	{ "go\0\xDB\x07""foo\0\xE9\x07""foo\0\xBC\x0B", 17 },
+	{ "troll\0\x09\x04""troll\0\x0A\x04", 16 },
+	{ "leave\0\x0B\x00""barre\0\x28\x00""cave\0\x43\x00""knife\0\xFA\x03""wave\0\xD9\x07""save\0\xEE\x07", 45 },
+	{ "dwarv\0\xF9\x03""infor\0\x46\x0C", 16 },
+	{ "acros\0\x2A\x00""shado\0\x03\x04", 16 },
+	{ "east\0\x2B\x00""food\0\xFB\x03""chest\0\x1F\x04""nest\0\x20\x04""mist\0\xFD\x0B", 36 },
+	{ "debri\0\x33\x00", 8 },
+	{ "in\0\x13\x00""orien\0\x48\x00", 13 },
+	{ "ratio\0\xFB\x03", 8 },
+	{ "keep\0\xD1\x07", 7 },
+	{ "valle\0\x09\x00""strea\0\x0E\x00""persi\0\x26\x04""suspe\0\xEE\x07", 32 },
+	{ "y2\0\x37\x00""jar\0\xFC\x03", 11 },
+	{ "look\0\x39\x00""mirro\0\xFF\x03", 15 },
+	{ "bed\0\x10\x00""pit\0\x1F\x00""north\0\x2D\x00""slit\0\x3C\x00""hit\0\xDC\x07", 33 },
+	{ "room\0\x3B\x00""vendi\0\x0E\x04""free\0\xD2\x07""tree\0\xF8\x0B", 29 },
+	{ "view\0\x1C\x00""drago\0\x07\x04", 15 },
+	{ "forwa\0\x07\x00""passa\0\x17\x00""ne\0\x2F\x00""secre\0\x42\x00""messa\0\x0C\x04", 37 },
+	{ "floor\0\x3A\x00""door\0\xF1\x03", 15 },
+	{ "pillo\0\xF2\x03""explo\0\xDB\x07""follo\0\xDB\x07", 24 },
+	{ "snake\0\xF3\x03""stala\0\x02\x04""carry\0\xD1\x07""take\0\xD1\x07""close\0\xD6\x07""shake\0\xD9\x07""fum\0\xE9\x07""fum\0\xBD\x0B", 59 },
+	{ "chain\0\x28\x04", 8 },
+	{ "fork\0\x4D\x00", 7 },
+	{ "oyste\0\xF7\x03""tote\0\xD1\x07", 15 },
+	{ "stair\0\x0A\x00""over\0\x29\x00""climb\0\x38\x00""caver\0\x49\x00", 31 },
+	{ "attac\0\xDC\x07""perus\0\xEB\x07""info\0\x46\x0C", 23 },
+	{ "quit\0\xE2\x07", 7 },
+	{ "gully\0\x0D\x00""issue\0\xF8\x03""tame\0\xDA\x07", 23 },
+	{ "on\0\xD7\x07""deton\0\xE7\x07""excav\0\xFA\x0B", 21 },
+	{ "hill\0\x02\x00""hall\0\x26\x00""find\0\xE3\x07""fill\0\xE6\x07""stop\0\x43\x0C", 35 },
+	{ "retre\0\x08\x00""awkwa\0\x1A\x00""above\0\x1D\x00""exami\0\x39\x00""plove\0\x47\x00""say\0\xD3\x07", 46 },
+	{ "magaz\0\xF8\x03", 8 },
+	{ "nw\0\x32\x00""cross\0\x45\x00""strik\0\xDC\x07""toss\0\xE1\x07", 28 },
+	{ "jewel\0\x1D\x04""lost\0\xFC\x0B", 15 },
+	{ "se\0\x30\x00""fissu\0\xF4\x03""nugge\0\x1A\x04", 21 },
+	{ "drink\0\xDF\x07", 8 },
+	{ "lamp\0\xEA\x03", 7 },
+	{ "outsi\0\x0B\x00""nowhe\0\x15\x00""batte\0\x0F\x04""potte\0\x22\x04""distu\0\xED\x07", 40 },
+	{ "pour\0\xDD\x07", 7 },
+	{ "h2o\0\xFD\x03""hocus\0\xEA\x0B""pocus\0\xEA\x0B", 22 },
+	{ "out\0\x0B\x00""insid\0\x13\x00""ignit\0\xE7\x07""read\0\xEB\x07", 29 },
+	{ "bedqu\0\x46\x00""emera\0\x23\x04", 16 },
+	{ "down\0\x1E\x00", 7 },
+	{ "bird\0\xF0\x03""bottl\0\xFC\x03""plant\0\x00\x04""plant\0\x01\x04""shard\0\x22\x04""chant\0\xD3\x07", 47 },
+	{ "tunne\0\x17\x00""key\0\xE9\x03""velve\0\xF2\x03""silve\0\x1C\x04", 30 },
+	{ "inv\0\xE4\x07", 6 },
+	{ "eggs\0\x20\x04""break\0\xEC\x07""?\0\xEB\x0B", 19 },
+	{ "rod\0\xED\x03""rod\0\xEE\x03""\"spel\0\xF8\x03""steal\0\xD1\x07", 28 },
+	{ "house\0\x0C\x00""xyzzy\0\x3E\x00""vase\0\x22\x04""blowu\0\xE7\x07""pause\0\xEE\x07""swim\0\x4B\x0C", 46 },
+	{ "open\0\xD4\x07", 7 },
+	{ "dark\0\x16\x00""sw\0\x31\x00", 12 },
+	{ "up\0\x1D\x00""right\0\x25\x00""gold\0\x1A\x04""light\0\xD7\x07""fight\0\xDC\x07", 36 },
+	{ "grate\0\xEB\x03", 8 },
+	{ "enter\0\x03\x00""retur\0\x08\x00""bear\0\x0B\x04""utter\0\xD3\x07", 31 },
+	{ "treas\0\x1F\x04""fuck\0\x07\x0C", 15 },
+	{ "south\0\x2E\x00""eat\0\xDE\x07""feed\0\xE5\x07", 21 },
+	{ "chasm\0\x08\x04""plati\0\x24\x04", 16 },
+	{ "bars\0\x1C\x04""hours\0\xEF\x07""dig\0\xFA\x0B", 21 },
+	{ "headl\0\xEA\x03""drop\0\xD2\x07", 15 },
+	{ "knive\0\xFA\x03""trave\0\xDB\x07", 16 },
+	{ "west\0\x2C\x00""blast\0\xE7\x07", 15 },
+	{ "cage\0\xEC\x03""pyram\0\x24\x04""devou\0\xDE\x07", 23 },
+	{ "extin\0\xD8\x07", 8 },
+	{ "egg\0\x20\x04""throw\0\xE1\x07", 14 },
+	{ "cobbl\0\x12\x00""plugh\0\x41\x00""box\0\x1F\x04""shatt\0\xEC\x07", 30 },
+	{ "lante\0\xEA\x03""axe\0\x04\x04""drawi\0\x05\x04", 22 },
+	{ "rub\0\xE0\x07", 6 },
+	{ "trees\0\xF8\x0B", 8 },
+	{ "road\0\x02\x00""exit\0\x0B\x00""crawl\0\x11\x00""pirat\0\x06\x04", 30 },
+	{ "conti\0\x07\x00""surfa\0\x14\x00""conti\0\xDB\x07""fee\0\xE9\x07""fee\0\xB9\x0B""shaza\0\xEA\x0B", 44 },
+	{ "downs\0\x05\x00""rug\0\x26\x04", 14 },
+	{ "left\0\x24\x00", 7 },
+	{ "disca\0\xD2\x07""score\0\xE8\x07", 16 },
+	{ "downw\0\x1E\x00""unloc\0\xD4\x07", 16 },
+	{ "desce\0\x1E\x00""proce\0\xDB\x07""wake\0\xED\x07""sesam\0\xEA\x0B", 31 },
+	{ "main\0\x4C\x00""run\0\xDB\x07""inven\0\xE4\x07", 21 },
+	{ "build\0\x0C\x00""d\0\x1E\x00", 12 },
+	{ "e\0\x2B\x00", 4 },
+	{ "onwar\0\x07\x00""inwar\0\x13\x00""upwar\0\x1D\x00""slab\0\x3D\x00", 31 },
+	{ "fores\0\x06\x00""rock\0\x0F\x00""offic\0\x4C\x00""keys\0\xE9\x03""lock\0\xD6\x07", 37 },
+	{ "entra\0\x40\x00""fie\0\xE9\x07""fie\0\xBA\x0B", 20 },
+	{ "walk\0\xDB\x07", 7 },
+	{ "null\0\x15\x00""wall\0\x35\x00""shell\0\x4A\x00""wand\0\xED\x03""wand\0\xEE\x03""kill\0\xDC\x07", 43 },
+	{ "depre\0\x3F\x00""volca\0\x0D\x04""calm\0\xDA\x07", 23 },
+	{ "n\0\x2D\x00""descr\0\x39\x00""off\0\xD8\x07", 18 },
+	{ "moss\0\x10\x04""ming\0\x22\x04""sing\0\xD3\x07""swing\0\xD9\x07""goto\0\xDB\x07", 36 },
+	{ "help\0\xEB\x0B", 7 },
+	{ "clam\0\xF6\x03", 7 },
+	{ "upstr\0\x04\x00""ascen\0\x1D\x00", 16 },
+	{ "low\0\x18\x00""canyo\0\x19\x00""s\0\x2E\x00""diamo\0\x1B\x04", 26 },
+	{ "jump\0\x27\x00""catch\0\xD1\x07""dump\0\xD2\x07", 22 },
+	{ "u\0\x1D\x00""table\0\xF5\x03""spelu\0\xF8\x03""relea\0\xD2\x07", 28 },
+	{ "reser\0\x4B\x00""figur\0\x03\x04", 16 },
+	{ "w\0\x2C\x00", 4 },
+	{ "get\0\xD1\x07", 6 },
+	{ "machi\0\x0E\x04", 8 },
+	{ "beans\0\x00\x04""coins\0\x1E\x04""opens\0\xEA\x0B", 24 },
+	{ "giant\0\x1B\x00", 8 },
+	{ "placa\0\xDA\x07""slay\0\xDC\x07""where\0\xE3\x07", 23 },
+	{ "dwarf\0\xF9\x03", 8 },
+	{ "outdo\0\x20\x00", 8 }
 };
 
 struct text travel[LOCSIZ] = { // section 3
 	{ 0, 0 },
-	{ 0, 36 },
-	{ 36, 17 },
-	{ 53, 24 },
-	{ 77, 27 },
-	{ 104, 25 },
-	{ 129, 20 },
-	{ 149, 33 },
-	{ 182, 32 },
-	{ 214, 29 },
-	{ 243, 21 },
-	{ 264, 37 },
-	{ 301, 29 },
-	{ 330, 28 },
-	{ 358, 39 },
-	{ 397, 40 },
-	{ 437, 5 },
-	{ 442, 29 },
-	{ 471, 7 },
-	{ 478, 45 },
-	{ 523, 5 },
-	{ 528, 5 },
-	{ 533, 5 },
-	{ 538, 23 },
-	{ 561, 6 },
-	{ 567, 16 },
-	{ 583, 5 },
-	{ 588, 33 },
-	{ 621, 19 },
-	{ 640, 7 },
-	{ 647, 13 },
-	{ 660, 10 },
-	{ 670, 5 },
-	{ 675, 32 },
-	{ 707, 11 },
-	{ 718, 11 },
-	{ 729, 22 },
-	{ 751, 13 },
-	{ 764, 16 },
-	{ 780, 18 },
-	{ 798, 5 },
-	{ 803, 24 },
-	{ 827, 25 },
-	{ 852, 15 },
-	{ 867, 20 },
-	{ 887, 26 },
-	{ 913, 6 },
-	{ 919, 6 },
-	{ 925, 6 },
-	{ 931, 10 },
-	{ 941, 20 },
-	{ 961, 20 },
-	{ 981, 30 },
-	{ 1011, 15 },
-	{ 1026, 6 },
-	{ 1032, 20 },
-	{ 1052, 6 },
-	{ 1058, 26 },
-	{ 1084, 6 },
-	{ 1090, 5 },
-	{ 1095, 19 },
-	{ 1114, 15 },
-	{ 1129, 20 },
-	{ 1149, 6 },
-	{ 1155, 24 },
-	{ 1179, 60 },
-	{ 1239, 35 },
-	{ 1274, 17 },
-	{ 1291, 16 },
-	{ 1307, 26 },
-	{ 1333, 16 },
-	{ 1349, 15 },
-	{ 1364, 21 },
-	{ 1385, 7 },
-	{ 1392, 20 },
-	{ 1412, 10 },
-	{ 1422, 5 },
-	{ 1427, 16 },
-	{ 1443, 5 },
-	{ 1448, 5 },
-	{ 1453, 20 },
-	{ 1473, 6 },
-	{ 1479, 6 },
-	{ 1485, 15 },
-	{ 1500, 15 },
-	{ 1515, 6 },
-	{ 1521, 6 },
-	{ 1527, 6 },
-	{ 1533, 18 },
-	{ 1551, 5 },
-	{ 1556, 5 },
-	{ 1561, 13 },
-	{ 1574, 15 },
-	{ 1589, 7 },
-	{ 1596, 19 },
-	{ 1615, 16 },
-	{ 1631, 6 },
-	{ 1637, 18 },
-	{ 1655, 11 },
-	{ 1666, 17 },
-	{ 1683, 28 },
-	{ 1711, 7 },
-	{ 1718, 7 },
-	{ 1725, 26 },
-	{ 1751, 11 },
-	{ 1762, 11 },
-	{ 1773, 15 },
-	{ 1788, 50 },
-	{ 1838, 23 },
-	{ 1861, 11 },
-	{ 1872, 10 },
-	{ 1882, 22 },
-	{ 1904, 50 },
-	{ 1954, 7 },
-	{ 1961, 5 },
-	{ 1966, 5 },
-	{ 1971, 10 },
-	{ 1981, 33 },
-	{ 2014, 10 },
-	{ 2024, 12 },
-	{ 2036, 10 },
-	{ 2046, 12 },
-	{ 2058, 38 },
-	{ 2096, 21 },
-	{ 2117, 28 },
-	{ 2145, 18 },
-	{ 2163, 18 },
-	{ 2181, 17 },
-	{ 2198, 19 },
-	{ 2217, 24 },
-	{ 2241, 16 },
-	{ 2257, 50 },
-	{ 2307, 50 },
-	{ 2357, 50 },
-	{ 2407, 50 },
-	{ 2457, 50 },
-	{ 2507, 50 },
-	{ 2557, 50 },
-	{ 2607, 50 },
-	{ 2657, 50 },
-	{ 2707, 6 }
+	{ "\x82\x02\x00\x00\x00\x2C\x1D\x83\x03\x00\x00\x00\x0C\x13\x2B\x85\x04\x00\x00\x00\x0D\x0E\x2E\x1E\x86\x05\x00\x00\x00\x2D\x2B\xBF\x08\x00\x00\x00", 36 },
+	{ "\x82\x01\x00\x00\x00\x0C\x07\x2B\x2D\x1E\x86\x05\x00\x00\x00\x2D\x2E", 17 },
+	{ "\x83\x01\x00\x00\x00\x0B\x20\x2C\xBE\x0B\x00\x00\x00\xC1\x21\x00\x00\x00\x85\x4F\x00\x00\x00\x0E", 24 },
+	{ "\x84\x01\x00\x00\x00\x0C\x2D\x86\x05\x00\x00\x00\x2B\x2C\x1D\x85\x07\x00\x00\x00\x2E\x1E\xBF\x08\x00\x00\x00", 27 },
+	{ "\x89\x04\x00\x00\x00\x2B\x1E\x86\x05\x00\x32\x00\x07\x2D\x86\x06\x00\x00\x00\xAC\x05\x00\x00\x00\x2E", 25 },
+	{ "\x82\x01\x00\x00\x00\x2D\x89\x04\x00\x00\x00\x2B\x2C\x1E\x86\x05\x00\x00\x00\x2E", 20 },
+	{ "\x8C\x01\x00\x00\x00\x84\x04\x00\x00\x00\x2D\x86\x05\x00\x00\x00\x2B\x2C\x85\x08\x00\x00\x00\x0F\x10\x2E\xBC\x53\x02\x00\x00\x0E\x1E", 33 },
+	{ "\x86\x05\x00\x00\x00\x2B\x2C\x2E\x8C\x01\x00\x00\x00\x84\x07\x00\x00\x00\x0D\x2D\x83\x09\x00\x2F\x01\x13\x1E\x83\x51\x02\x00\x00", 32 },
+	{ "\x8B\x08\x00\x2F\x01\x1D\x8B\x51\x02\x00\x00\x91\x0A\x00\x00\x00\x12\x13\x2C\x9F\x0E\x00\x00\x00\xB3\x0B\x00\x00\x00", 29 },
+	{ "\x8B\x09\x00\x00\x00\x14\x15\x2B\x93\x0B\x00\x00\x00\x16\x2C\x33\x9F\x0E\x00\x00\x00", 21 },
+	{ "\xBF\x08\x00\x2F\x01\xC0\x09\x00\x00\x00\x91\x0A\x00\x00\x00\x12\x17\x18\x2B\x99\x0C\x00\x00\x00\x13\x1D\x2C\xBE\x03\x00\x00\x00\x9F\x0E\x00\x00\x00", 37 },
+	{ "\xBF\x08\x00\x2F\x01\xC0\x09\x00\x00\x00\x9E\x0B\x00\x00\x00\x2B\x33\x93\x0D\x00\x00\x00\x1D\x2C\x9F\x0E\x00\x00\x00", 29 },
+	{ "\xBF\x08\x00\x2F\x01\xC0\x09\x00\x00\x00\xB3\x0B\x00\x00\x00\x99\x0C\x00\x00\x00\x2B\x97\x0E\x00\x00\x00\x1F\x2C", 28 },
+	{ "\xBF\x08\x00\x2F\x01\xC0\x09\x00\x00\x00\xB3\x0B\x00\x00\x00\x97\x0D\x00\x00\x00\x2B\x9E\x14\x00\x96\x00\x1F\x22\x9E\x0F\x00\x00\x00\xA1\x10\x00\x00\x00\x2C", 39 },
+	{ "\xA4\x12\x00\x00\x00\x2E\x87\x11\x00\x00\x00\x26\x2C\x8A\x13\x00\x00\x00\x1E\x2D\x9D\x16\x00\x96\x00\x1F\x22\x23\x17\x2B\x9D\x0E\x00\x00\x00\xB7\x22\x00\x00\x00", 40 },
+	{ "\x81\x0E\x00\x00\x00", 5 },
+	{ "\xA6\x0F\x00\x00\x00\x2B\xA7\x54\x02\x38\x01\x87\x15\x00\x9C\x01\xA9\x55\x02\x9C\x01\x2A\x2C\x45\xA9\x1B\x00\x00\x00", 29 },
+	{ "\xA6\x0F\x00\x00\x00\x0B\x2D", 7 },
+	{ "\x8A\x0F\x00\x00\x00\x1D\x2B\xAD\x1C\x00\x37\x01\x24\xAE\x1D\x00\x37\x01\x25\xAC\x1E\x00\x37\x01\x07\xAD\x20\x00\x00\x00\xB1\x4A\x00\x23\x00\xB1\x20\x00\xD3\x00\xC2\x4A\x00\x00\x00", 45 },
+	{ "\x81\x00\x00\x00\x00", 5 },
+	{ "\x81\x00\x00\x00\x00", 5 },
+	{ "\x81\x0F\x00\x00\x00", 5 },
+	{ "\xAB\x43\x00\x00\x00\x2A\xAC\x44\x00\x00\x00\x3D\x9E\x19\x00\x00\x00\x1F\xB4\x88\x02\x00\x00", 23 },
+	{ "\x9D\x43\x00\x00\x00\x0B", 6 },
+	{ "\x9D\x17\x00\x00\x00\x0B\xB8\x1F\x00\xD4\x02\xB8\x1A\x00\x00\x00", 16 },
+	{ "\x81\x58\x00\x00\x00", 5 },
+	{ "\xA7\x54\x02\x38\x01\x87\x15\x00\x9C\x01\xA9\x55\x02\x9C\x01\x2A\x2B\x45\xA9\x11\x00\x00\x00\xAD\x28\x00\x00\x00\xAC\x29\x00\x00\x00", 33 },
+	{ "\xA6\x13\x00\x00\x00\x0B\x2E\xAD\x21\x00\x00\x00\x37\x9E\x24\x00\x00\x00\x34", 19 },
+	{ "\xA6\x13\x00\x00\x00\x0B\x2D", 7 },
+	{ "\xA6\x13\x00\x00\x00\x0B\x2B\xAC\x3E\x00\x00\x00\x1D", 13 },
+	{ "\x81\x59\x00\x0C\x02\x81\x5A\x00\x00\x00", 10 },
+	{ "\x81\x13\x00\x00\x00", 5 },
+	{ "\xC1\x03\x00\x00\x00\xAE\x1C\x00\x00\x00\xAB\x22\x00\x00\x00\x35\x36\xAC\x23\x00\x00\x00\xC7\x2E\x01\x9F\x00\xC7\x64\x00\x00\x00", 32 },
+	{ "\x9E\x21\x00\x00\x00\x37\x9D\x0F\x00\x00\x00", 11 },
+	{ "\xAB\x21\x00\x00\x00\x37\xA7\x14\x00\x00\x00", 11 },
+	{ "\xAB\x25\x00\x00\x00\x11\x9D\x1C\x00\x00\x00\x34\xAC\x27\x00\x00\x00\xC6\x41\x00\x00\x00", 22 },
+	{ "\xAC\x24\x00\x00\x00\x11\x9E\x26\x00\x00\x00\x1F\x38", 13 },
+	{ "\xB8\x25\x00\x00\x00\x1D\x0B\xBC\x53\x02\x00\x00\x0E\x1E\x04\x05", 16 },
+	{ "\xAB\x24\x00\x00\x00\x17\x9E\x40\x00\x00\x00\x34\x3A\xC6\x41\x00\x00\x00", 18 },
+	{ "\x81\x29\x00\x00\x00", 5 },
+	{ "\xAE\x2A\x00\x00\x00\x1D\x17\x38\xAB\x1B\x00\x00\x00\xAD\x3B\x00\x00\x00\xAC\x3C\x00\x00\x00\x11", 24 },
+	{ "\x9D\x29\x00\x00\x00\xAD\x2A\x00\x00\x00\xAB\x2B\x00\x00\x00\xAE\x2D\x00\x00\x00\xAC\x50\x00\x00\x00", 25 },
+	{ "\xAC\x2A\x00\x00\x00\xAE\x2C\x00\x00\x00\xAB\x2D\x00\x00\x00", 15 },
+	{ "\xAB\x2B\x00\x00\x00\x9E\x30\x00\x00\x00\xAE\x32\x00\x00\x00\xAD\x52\x00\x00\x00", 20 },
+	{ "\xAC\x2A\x00\x00\x00\xAD\x2B\x00\x00\x00\xAB\x2E\x00\x00\x00\xAE\x2F\x00\x00\x00\x9D\x57\x00\x00\x00\x1E", 26 },
+	{ "\xAC\x2D\x00\x00\x00\x0B", 6 },
+	{ "\xAB\x2D\x00\x00\x00\x0B", 6 },
+	{ "\x9D\x2C\x00\x00\x00\x0B", 6 },
+	{ "\xAB\x32\x00\x00\x00\xAC\x33\x00\x00\x00", 10 },
+	{ "\xAB\x2C\x00\x00\x00\xAC\x31\x00\x00\x00\x9E\x33\x00\x00\x00\xAE\x34\x00\x00\x00", 20 },
+	{ "\xAC\x31\x00\x00\x00\x9D\x32\x00\x00\x00\xAB\x34\x00\x00\x00\xAE\x35\x00\x00\x00", 20 },
+	{ "\xAC\x32\x00\x00\x00\xAB\x33\x00\x00\x00\xAE\x34\x00\x00\x00\x9D\x35\x00\x00\x00\xAD\x37\x00\x00\x00\x9E\x56\x00\x00\x00", 30 },
+	{ "\xAC\x33\x00\x00\x00\xAD\x34\x00\x00\x00\xAE\x36\x00\x00\x00", 15 },
+	{ "\xAC\x35\x00\x00\x00\x0B", 6 },
+	{ "\xAC\x34\x00\x00\x00\xAD\x37\x00\x00\x00\x9E\x38\x00\x00\x00\xAB\x39\x00\x00\x00", 20 },
+	{ "\x9D\x37\x00\x00\x00\x0B", 6 },
+	{ "\x9E\x0D\x00\x00\x00\x38\xAC\x37\x00\x00\x00\xAE\x3A\x00\x00\x00\xAD\x53\x00\x00\x00\xAB\x54\x00\x00\x00", 26 },
+	{ "\xAB\x39\x00\x00\x00\x0B", 6 },
+	{ "\x81\x1B\x00\x00\x00", 5 },
+	{ "\xAB\x29\x00\x00\x00\x1D\x11\xAC\x3D\x00\x00\x00\xAD\x3E\x00\x00\x00\x1E\x34", 19 },
+	{ "\xAB\x3C\x00\x00\x00\xAD\x3E\x00\x00\x00\xAE\x6B\x00\x64\x00", 15 },
+	{ "\xAC\x3C\x00\x00\x00\xAD\x3F\x00\x00\x00\xAB\x1E\x00\x00\x00\xAE\x3D\x00\x00\x00", 20 },
+	{ "\xAE\x3E\x00\x00\x00\x0B", 6 },
+	{ "\x9D\x27\x00\x00\x00\x38\x3B\xAC\x41\x00\x00\x00\x46\xAD\x67\x00\x00\x00\x4A\xAB\x6A\x00\x00\x00", 24 },
+	{ "\xAB\x40\x00\x00\x00\xAC\x42\x00\x00\x00\xAE\x2C\x02\x50\x00\xBD\x44\x00\x00\x00\x9D\x2C\x02\x50\x00\x9D\x46\x00\x32\x00\x9D\x27\x00\x00\x00\xAD\x2C\x02\x3C\x00\xAD\x48\x00\x4B\x00\xAD\x47\x00\x00\x00\x9E\x2C\x02\x50\x00\x9E\x6A\x00\x00\x00", 60 },
+	{ "\xAF\x41\x00\x00\x00\xAC\x43\x00\x00\x00\xAE\x2C\x02\x50\x00\x99\x4D\x00\x00\x00\xAB\x60\x00\x00\x00\xB2\x2C\x02\x32\x00\xC8\x61\x00\x00\x00", 35 },
+	{ "\xAB\x42\x00\x00\x00\xAC\x17\x00\x00\x00\x2A\x9E\x18\x00\x00\x00\x1F", 17 },
+	{ "\xAE\x17\x00\x00\x00\x9D\x45\x00\x00\x00\x38\xAD\x41\x00\x00\x00", 16 },
+	{ "\x9E\x44\x00\x00\x00\x3D\xAE\x78\x00\x4B\x01\xAE\x77\x00\x00\x00\xAD\x6D\x00\x00\x00\xCB\x71\x00\x00\x00", 26 },
+	{ "\xAD\x47\x00\x00\x00\x9E\x41\x00\x00\x00\x17\xAE\x6F\x00\x00\x00", 16 },
+	{ "\xB0\x41\x00\x00\x00\xAE\x46\x00\x00\x00\xAD\x6E\x00\x00\x00", 15 },
+	{ "\xC6\x41\x00\x00\x00\xB1\x76\x00\x00\x00\xAD\x49\x00\x00\x00\xB0\x61\x00\x00\x00\x48", 21 },
+	{ "\xAE\x48\x00\x00\x00\x11\x0B", 7 },
+	{ "\xAB\x13\x00\x00\x00\xAC\x78\x00\x4B\x01\xAC\x79\x00\x00\x00\x9E\x4B\x00\x00\x00", 20 },
+	{ "\xAE\x4C\x00\x00\x00\xAD\x4D\x00\x00\x00", 10 },
+	{ "\xAD\x4B\x00\x00\x00", 5 },
+	{ "\xAB\x4B\x00\x00\x00\xAC\x4E\x00\x00\x00\xAD\x42\x00\x00\x00\x11", 16 },
+	{ "\xAE\x4D\x00\x00\x00", 5 },
+	{ "\x81\x03\x00\x00\x00", 5 },
+	{ "\xAD\x2A\x00\x00\x00\xAC\x50\x00\x00\x00\xAE\x50\x00\x00\x00\xAB\x51\x00\x00\x00", 20 },
+	{ "\xAC\x50\x00\x00\x00\x0B", 6 },
+	{ "\xAE\x2C\x00\x00\x00\x0B", 6 },
+	{ "\xAE\x39\x00\x00\x00\xAB\x54\x00\x00\x00\xAC\x55\x00\x00\x00", 15 },
+	{ "\xAD\x39\x00\x00\x00\xAC\x53\x00\x00\x00\xB2\x72\x00\x00\x00", 15 },
+	{ "\xAB\x53\x00\x00\x00\x0B", 6 },
+	{ "\x9D\x34\x00\x00\x00\x0B", 6 },
+	{ "\x9D\x2D\x00\x00\x00\x1E", 6 },
+	{ "\x9E\x19\x00\x00\x00\x38\x2B\xA7\x14\x00\x00\x00\xAC\x5C\x00\x00\x00\x1B", 18 },
+	{ "\x81\x19\x00\x00\x00", 5 },
+	{ "\x81\x17\x00\x00\x00", 5 },
+	{ "\xAD\x5F\x00\x00\x00\x49\x17\x9E\x48\x00\x00\x00\x38", 13 },
+	{ "\xAE\x58\x00\x00\x00\xAB\x5D\x00\x00\x00\xAD\x5E\x00\x00\x00", 15 },
+	{ "\xAE\x5C\x00\x00\x00\x1B\x0B", 7 },
+	{ "\xAE\x5C\x00\x00\x00\x1B\x17\xAD\x5F\x00\x35\x01\x03\x49\xAD\x63\x02\x00\x00", 19 },
+	{ "\xAE\x5E\x00\x00\x00\x0B\x9B\x5C\x00\x00\x00\xAC\x5B\x00\x00\x00", 16 },
+	{ "\xAC\x42\x00\x00\x00\x0B", 6 },
+	{ "\xB0\x42\x00\x00\x00\xAC\x48\x00\x00\x00\x11\x9D\x62\x00\x00\x00\x2D\x49", 18 },
+	{ "\xAE\x61\x00\x00\x00\x48\xAC\x63\x00\x00\x00", 11 },
+	{ "\xB2\x62\x00\x00\x00\x49\xAB\x2D\x01\x00\x00\x17\xAB\x64\x00\x00\x00", 17 },
+	{ "\xAC\x2D\x01\x00\x00\x17\x0B\xAC\x63\x00\x00\x00\xC7\x2E\x01\x9F\x00\xC7\x21\x00\x00\x00\xAF\x65\x00\x00\x00\x16", 28 },
+	{ "\xAE\x64\x00\x00\x00\x47\x0B", 7 },
+	{ "\x9E\x67\x00\x00\x00\x4A\x0B", 7 },
+	{ "\x9D\x66\x00\x00\x00\x26\x9E\x68\x00\x00\x00\xAE\x6A\x02\x72\x00\xAE\x6B\x02\x73\x00\xAE\x40\x00\x00\x00", 26 },
+	{ "\x9D\x67\x00\x00\x00\x4A\x9E\x69\x00\x00\x00", 11 },
+	{ "\x9D\x68\x00\x00\x00\x0B\xCA\x67\x00\x00\x00", 11 },
+	{ "\x9D\x40\x00\x00\x00\xAC\x41\x00\x00\x00\xAB\x6C\x00\x00\x00", 15 },
+	{ "\xAE\x83\x00\x00\x00\xB1\x84\x00\x00\x00\xAF\x85\x00\x00\x00\xB0\x86\x00\x00\x00\x9D\x87\x00\x00\x00\xB2\x88\x00\x00\x00\xAB\x89\x00\x00\x00\xAC\x8A\x00\x00\x00\xAD\x8B\x00\x00\x00\x9E\x3D\x00\x00\x00", 50 },
+	{ "\xAB\x2C\x02\x5F\x00\x2D\x2E\x2F\x30\x31\x32\x1D\x1E\xAB\x6A\x00\x00\x00\xAC\x72\x02\x00\x00", 23 },
+	{ "\xAE\x45\x00\x00\x00\xAD\x71\x00\x00\x00\x4B", 11 },
+	{ "\xAC\x47\x00\x00\x00\xA7\x14\x00\x00\x00", 10 },
+	{ "\xAD\x46\x00\x00\x00\x9E\x32\x00\x28\x00\x27\x38\x9E\x35\x00\x32\x00\x9E\x2D\x00\x00\x00", 22 },
+	{ "\xB1\x83\x00\x00\x00\xAD\x84\x00\x00\x00\xAB\x85\x00\x00\x00\xB2\x86\x00\x00\x00\xB0\x87\x00\x00\x00\xAF\x88\x00\x00\x00\xAC\x89\x00\x00\x00\x9E\x8A\x00\x00\x00\x9D\x8B\x00\x00\x00\xAE\x8C\x00\x00\x00", 50 },
+	{ "\xAE\x6D\x00\x00\x00\x0B\x6D", 7 },
+	{ "\xB0\x54\x00\x00\x00", 5 },
+	{ "\xB1\x74\x00\x00\x00", 5 },
+	{ "\xAF\x73\x00\x00\x00\x9E\x51\x02\x00\x00", 10 },
+	{ "\xB1\x76\x00\x00\x00\xA9\x94\x02\xE9\x00\x2A\x45\x2F\xA9\x95\x02\x4C\x01\xA9\x2F\x01\x00\x00\xA7\x15\x00\x4C\x01\xA7\x54\x02\x00\x00", 33 },
+	{ "\x9E\x48\x00\x00\x00\x9D\x75\x00\x00\x00", 10 },
+	{ "\xAD\x45\x00\x00\x00\x0B\xAB\x8D\x02\x00\x00\x07", 12 },
+	{ "\xAD\x45\x00\x00\x00\xAB\x4A\x00\x00\x00", 10 },
+	{ "\xAB\x4A\x00\x00\x00\x0B\xAD\x8D\x02\x00\x00\x07", 12 },
+	{ "\xAF\x7B\x00\x00\x00\xA9\x94\x02\xE9\x00\x2A\x45\x31\xA9\x2F\x01\x00\x00\xA7\x54\x02\x00\x00\xCD\x7C\x00\x00\x00\x9C\x7E\x00\x00\x00\xA8\x81\x00\x00\x00", 38 },
+	{ "\xAC\x7A\x00\x00\x00\xAB\x7C\x00\x00\x00\x4D\x9C\x7E\x00\x00\x00\xA8\x81\x00\x00\x00", 21 },
+	{ "\xAC\x7B\x00\x00\x00\xAF\x7D\x00\x00\x00\x24\xB0\x80\x00\x00\x00\x25\x1E\x9C\x7E\x00\x00\x00\xA8\x81\x00\x00\x00", 28 },
+	{ "\xAE\x7C\x00\x00\x00\x4D\xAD\x7E\x00\x00\x00\x1C\xAB\x7F\x00\x00\x00\x11", 18 },
+	{ "\xAE\x7D\x00\x00\x00\x17\x0B\xCD\x7C\x00\x00\x00\x9E\x62\x02\x00\x00\x27", 18 },
+	{ "\xAC\x7D\x00\x00\x00\x0B\x11\xCD\x7C\x00\x00\x00\x9C\x7E\x00\x00\x00", 17 },
+	{ "\xAD\x7C\x00\x00\x00\x1D\x4D\xAE\x81\x00\x00\x00\x1E\x28\x9C\x7E\x00\x00\x00", 19 },
+	{ "\xAC\x80\x00\x00\x00\x1D\xCD\x7C\x00\x00\x00\xAB\x82\x00\x00\x00\x13\x28\x03\x9C\x7E\x00\x00\x00", 24 },
+	{ "\xAC\x81\x00\x00\x00\x0B\xCD\x7C\x00\x00\x00\x9C\x7E\x00\x00\x00", 16 },
+	{ "\xAC\x6B\x00\x00\x00\xB0\x84\x00\x00\x00\xB2\x85\x00\x00\x00\xB1\x86\x00\x00\x00\xAF\x87\x00\x00\x00\x9D\x88\x00\x00\x00\x9E\x89\x00\x00\x00\xAD\x8A\x00\x00\x00\xAE\x8B\x00\x00\x00\xAB\x70\x00\x00\x00", 50 },
+	{ "\xB2\x6B\x00\x00\x00\x9D\x83\x00\x00\x00\xAD\x85\x00\x00\x00\xAE\x86\x00\x00\x00\xAC\x87\x00\x00\x00\xB1\x88\x00\x00\x00\xAF\x89\x00\x00\x00\xAB\x8A\x00\x00\x00\x9E\x8B\x00\x00\x00\xB0\x70\x00\x00\x00", 50 },
+	{ "\x9D\x6B\x00\x00\x00\x9E\x83\x00\x00\x00\xAC\x84\x00\x00\x00\xAF\x86\x00\x00\x00\xB1\x87\x00\x00\x00\xAB\x88\x00\x00\x00\xAD\x89\x00\x00\x00\xB2\x8A\x00\x00\x00\xB0\x8B\x00\x00\x00\xAE\x70\x00\x00\x00", 50 },
+	{ "\xAF\x6B\x00\x00\x00\xAD\x83\x00\x00\x00\xB2\x84\x00\x00\x00\xB0\x85\x00\x00\x00\xAB\x87\x00\x00\x00\x9E\x88\x00\x00\x00\xAE\x89\x00\x00\x00\x9D\x8A\x00\x00\x00\xAC\x8B\x00\x00\x00\xB1\x70\x00\x00\x00", 50 },
+	{ "\xAD\x6B\x00\x00\x00\xB0\x83\x00\x00\x00\x9E\x84\x00\x00\x00\xAE\x85\x00\x00\x00\xAB\x86\x00\x00\x00\xAC\x88\x00\x00\x00\xB1\x89\x00\x00\x00\xAF\x8A\x00\x00\x00\xB2\x8B\x00\x00\x00\x9D\x70\x00\x00\x00", 50 },
+	{ "\xAB\x6B\x00\x00\x00\xAC\x83\x00\x00\x00\x9D\x84\x00\x00\x00\xB1\x85\x00\x00\x00\x9E\x86\x00\x00\x00\xAE\x87\x00\x00\x00\xB2\x89\x00\x00\x00\xB0\x8A\x00\x00\x00\xAF\x8B\x00\x00\x00\xAD\x70\x00\x00\x00", 50 },
+	{ "\xB0\x6B\x00\x00\x00\xAF\x83\x00\x00\x00\xAE\x84\x00\x00\x00\x9E\x85\x00\x00\x00\x9D\x86\x00\x00\x00\xB2\x87\x00\x00\x00\xAD\x88\x00\x00\x00\xB1\x8A\x00\x00\x00\xAB\x8B\x00\x00\x00\xAC\x70\x00\x00\x00", 50 },
+	{ "\x9E\x6B\x00\x00\x00\xAB\x83\x00\x00\x00\xAF\x84\x00\x00\x00\x9D\x85\x00\x00\x00\xAC\x86\x00\x00\x00\xAD\x87\x00\x00\x00\xAE\x88\x00\x00\x00\xB0\x89\x00\x00\x00\xB1\x8B\x00\x00\x00\xB2\x70\x00\x00\x00", 50 },
+	{ "\xB1\x6B\x00\x00\x00\xB2\x83\x00\x00\x00\xAB\x84\x00\x00\x00\xAC\x85\x00\x00\x00\xAD\x86\x00\x00\x00\x9E\x87\x00\x00\x00\xB0\x88\x00\x00\x00\x9D\x89\x00\x00\x00\xAE\x8A\x00\x00\x00\xAF\x70\x00\x00\x00", 50 },
+	{ "\xAD\x70\x00\x00\x00\x0B", 6 }
 };
 
 int hntmax = 9;
