@@ -458,7 +458,7 @@ void speak(struct text *msg)       /* read, decrypt, and print a message (not pt
 	memcpy(buffer, msg->seekadr, msg->txtlen + 1);
 	//__fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;
-	printf(buffer);
+	printf("%s", buffer);
 	printf("\n\r");
 }
 
@@ -482,7 +482,7 @@ void pspeak(int m,int skip) /* read, decrypt an print a ptext message           
 		}
 		for (; *p != '\n' && p != eod; p++);
 		*p = '\0';
-		printf(buffer);
+		printf("%s", buffer);
 		printf("\n\r");
 	} else {
 		// print the line that matches skip * 100 (observation / description)
@@ -503,7 +503,7 @@ void pspeak(int m,int skip) /* read, decrypt an print a ptext message           
 				}
 				for (; *p != '\n' && p != eod; p++);
 				*p = '\0';
-				printf(r);
+				printf("%s", r);
 				printf("\n\r");
 				return;
 			}

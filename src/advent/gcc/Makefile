@@ -12,7 +12,7 @@ $(BIN_DIR)/advent: $(OBJ) | $(BIN_DIR)
 	gcc $(OBJ) -o $(BIN_DIR)/advent 
 
 $(BUILD_DIR)/%.o: %.c %.h | $(BUILD_DIR)
-	gcc -Wno-format-security -c -o $@ $<
+	gcc -c -o $@ $<
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
