@@ -139,6 +139,7 @@ int vocab(char *word,int type)                  /* look up a word      */
 		hc += *p_ch;
 	}
 	hc &= HTSIZE - 1;
+	if (voc[hc].txtlen == 0) { return 0; }
 	memcpy(buffer, voc[hc].seekadr, voc[hc].txtlen + 1);
 	//__fread(VOC_BIN, buffer, (UINT16)voc[hc].seekadr, voc[hc].txtlen);
 	UINT8 *eod = buffer + voc[hc].txtlen;
