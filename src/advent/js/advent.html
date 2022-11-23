@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
+	</head>
+	<body>
+		<script>
+			var cmdQueue = [];
+			var i = 0;
+
+			// terminal
+
+			var term = $("body").terminal(function(command) {
+				if (command !== "") {
+					try {
+						cmdQueue.push(command);
+					} catch(e) {
+						this.error(new String(e));
+					}
+				} 
+			}, {
+				greetings: ""
+			});
+			
+			// emscripten conio
+
+			var print = function(what) {
+				term.echo(what, {newline: false});
+			};
+
+			var Module = {
+				cmdAvailable: function() {
+					return cmdQueue.length > 0;
+				},
+				preRun: function() {
+					function stdin() { 
+						if (cmdQueue.length > 0 && i < cmdQueue[0].length) {
+							return cmdQueue[0].charCodeAt(i++);
+						} else {
+							i = 0;
+							if (cmdQueue.length > 0) {
+								cmdQueue.shift();
+								return 10; // '\n'
+							} else {
+								return null;
+							}
+						}
+					}
+					function stdout(code) {
+						print(String.fromCharCode(code));
+					}
+					function stderr(code) {
+						print(String.fromCharCode(code));
+					}
+					FS.init(stdin, stdout, stderr);
+				}
+			};
+		</script>
+		<script src="advent.js"></script>
+	</body>
+</html>

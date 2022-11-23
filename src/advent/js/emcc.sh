@@ -1,2 +1,2 @@
-source "/opt/emscripten/emsdk/emsdk_env.sh"
-emcc ../gcc/*.c -o bin/advent.js
+#source "/opt/emscripten/emsdk/emsdk_env.sh"
+emcc ../gcc/*.c -funsigned-char -sASYNCIFY -o advent.js
