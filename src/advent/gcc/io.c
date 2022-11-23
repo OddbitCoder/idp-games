@@ -86,7 +86,7 @@ BOOL yes(int x,int y,int z)                              /* confirm with rspeak 
 	for (;;)
 	{       rspeak(x);                     /* tell him what we want*/
 		printf("? ");
-		fgets(buffer, BUFFER_SIZE, stdin);
+		__fgets(buffer, BUFFER_SIZE, stdin);
 		ch = buffer[0];
 		if (ch=='y' || ch=='Y') {
 			result=TRUE;

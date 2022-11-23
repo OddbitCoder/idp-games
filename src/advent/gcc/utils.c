@@ -7,10 +7,19 @@
  *
  */
 
-#include <stdio.h>
 #include <string.h>
 #include "vocab.h"
 #include "utils.h"
+
+#ifdef __EMSCRIPTEN__
+
+#include <emscripten.h>
+
+EM_JS(BOOL, check_stdin, (), {
+    return Module.cmdAvailable();
+});
+
+#endif
 
 void create_fn(char *name, char *fn) {
     UINT8 len = length(name) - 1;
@@ -27,6 +36,20 @@ void create_fn(char *name, char *fn) {
 /*BOOL __fwrite(char *path, UINT8 *buf, UINT16 len) {
     return FALSE;
 }*/
+
+char *__fgets(char *str, int n, FILE *stream) {
+#ifdef __EMSCRIPTEN__
+    while (TRUE) {
+        if (check_stdin()) {
+            break;
+        }
+        emscripten_sleep(100);
+    }
+#endif
+    fgets(str, n, stream);
+    for (char *p = str; *p != '\n' || (*p = '\0'); p++);
+    return str;
+}
 
 void to_lower(char *str) {
     for (; *str; str++) {
@@ -46,10 +69,7 @@ void to_upper(char *str) {
 
 void con_in(char *buffer) {
     printf("? ");
-    fgets(buffer, BUFFER_SIZE, stdin);
-    char *p = buffer;
-    for (; *p != '\n'; p++);
-    *p = '\0';
+    __fgets(buffer, BUFFER_SIZE, stdin);
 }
 
 void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {

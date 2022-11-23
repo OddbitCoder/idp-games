@@ -67,10 +67,14 @@
 #include "save.h"
 
 //main
-void main(int argc,char **argv)
+int main(int argc,char **argv)
 //int argc;
 //char **argv;
 {
+	//printf("char is %s.\n", ((char)-1 < 0) ? "signed" : "unsigned");
+	//printf("int is %ld bytes.\n", sizeof(int));
+	//printf("short is %ld bytes.\n", sizeof(short));
+
 	register int i;
 	int rval,ll;
 	struct text *kk;
@@ -594,4 +598,6 @@ void main(int argc,char **argv)
 		printf("I see no %s here\n",wd1);
 		goto l2012;
 	}
+
+	return 0;
 }

@@ -60,8 +60,8 @@
 
 #pragma disable_warning 196
 
-typedef unsigned int UINT16;
-typedef signed int INT16;
+typedef unsigned short UINT16;
+typedef signed short INT16;
 typedef unsigned char UINT8;
 typedef signed char INT8;
 typedef INT8 BOOL;

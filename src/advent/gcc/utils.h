@@ -9,9 +9,12 @@
 #ifndef __UTILS_H
 #define __UTILS_H
 
+#include <stdio.h>
 #include "hdr.h"
 
 void create_fn(char *name, char *fn);
+
+char *__fgets(char *str, int n, FILE *stream);
 
 //UINT8 *__fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len);
 //BOOL __fwrite(char *path, UINT8 *buf, UINT16 len);

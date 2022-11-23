@@ -12,7 +12,7 @@ $(BIN_DIR)/advent: $(OBJ) | $(BIN_DIR)
 	gcc $(OBJ) -o $(BIN_DIR)/advent 
 
 $(BUILD_DIR)/%.o: %.c %.h | $(BUILD_DIR)
-	gcc -c -o $@ $<
+	gcc -funsigned-char -c -o $@ $<
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
