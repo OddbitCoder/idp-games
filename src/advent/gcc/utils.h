@@ -25,4 +25,6 @@ void to_upper(char *str);
 void con_in(char *buffer);
 void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len);
 
+void stdout_flush();
+
 #endif

@@ -85,7 +85,10 @@ BOOL yes(int x,int y,int z)                              /* confirm with rspeak 
 	register char ch;
 	for (;;)
 	{       rspeak(x);                     /* tell him what we want*/
+#ifndef __EMSCRIPTEN__
 		printf("? ");
+		stdout_flush();
+#endif
 		__fgets(buffer, BUFFER_SIZE, stdin);
 		ch = buffer[0];
 		if (ch=='y' || ch=='Y') {
