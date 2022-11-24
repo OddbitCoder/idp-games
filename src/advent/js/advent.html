@@ -6,6 +6,13 @@
 	</head>
 	<body>
 		<script>
+			function rmvLeadingCr(text) {
+				while (text.length > 0 && text.charCodeAt(0) === 13) {
+					text = text.slice(1);
+				}
+				return text;
+			}
+
 			var cmdQueue = [];
 			var i = 0;
 
@@ -25,13 +32,17 @@
 			
 			// emscripten conio
 
-			var print = function(what) {
-				term.echo(what, {newline: false});
-			};
-
 			var Module = {
 				cmdAvailable: function() {
+					// This is called from C (waiting for input before fgets).
 					return cmdQueue.length > 0;
+				},
+				print: function(text) {
+					// This is called only on every '\n'. For 'advent', this is not a problem. '\n' is not included at the end of 'text', but 'echo' will add it.
+					term.echo(rmvLeadingCr(text));
+				},
+				printErr: function(text) {
+					term.error(rmvLeadingCr(text));
 				},
 				preRun: function() {
 					function stdin() { 
@@ -47,13 +58,7 @@
 							}
 						}
 					}
-					function stdout(code) {
-						print(String.fromCharCode(code));
-					}
-					function stderr(code) {
-						print(String.fromCharCode(code));
-					}
-					FS.init(stdin, stdout, stderr);
+					FS.init(stdin, /*stdout*/undefined, /*stderr*/undefined);
 				}
 			};
 		</script>
