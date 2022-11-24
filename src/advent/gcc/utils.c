@@ -19,10 +19,6 @@ EM_JS(BOOL, check_stdin, (), {
     return Module.cmdAvailable();
 });
 
-EM_JS(void, _fflush, (), {
-    Module._fflush();
-});
-
 #endif
 
 void create_fn(char *name, char *fn) {
@@ -55,14 +51,6 @@ char *__fgets(char *str, int n, FILE *stream) {
     return str;
 }
 
-void stdout_flush() {
-#ifdef __EMSCRIPTEN__
-    _fflush();
-#else
-    fflush(stdout);
-#endif
-}
-
 void to_lower(char *str) {
     for (; *str; str++) {
         if (*str >= 'A' && *str <= 'Z') {
@@ -82,7 +70,7 @@ void to_upper(char *str) {
 void con_in(char *buffer) {
 #ifndef __EMSCRIPTEN__
     printf("? ");
-    stdout_flush();
+    fflush(stdout);
 #endif
     __fgets(buffer, BUFFER_SIZE, stdin);
 }

@@ -87,7 +87,7 @@ BOOL yes(int x,int y,int z)                              /* confirm with rspeak 
 	{       rspeak(x);                     /* tell him what we want*/
 #ifndef __EMSCRIPTEN__
 		printf("? ");
-		stdout_flush();
+		fflush(stdout);
 #endif
 		__fgets(buffer, BUFFER_SIZE, stdin);
 		ch = buffer[0];
