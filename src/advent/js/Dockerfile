@@ -9,6 +9,7 @@ WORKDIR /home/static
 COPY advent.html .
 COPY advent.js .
 COPY advent.wasm .
+COPY httpd.conf /etc
 
 # Run BusyBox httpd
 CMD ["busybox", "httpd", "-f", "-v", "-p", "80"]
