@@ -115,7 +115,7 @@ void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_m
 
 void status_out(int input_type) {
     // this sends location and inventory info to stdout (as JSON; to be consumed in JS)
-    printf("{input:%d;loc:%d;inv:[", input_type, loc);
+    printf("{\"input\":%d,\"loc\":%d,\"inv\":[", input_type, loc);
     BOOL first = TRUE;
     for (int i = 1; i <= 100; i++) {
         if (toting(i)) { 
