@@ -15,6 +15,7 @@
 
 			var cmdQueue = [];
 			var i = 0;
+			var state;
 
 			// terminal
 
@@ -27,7 +28,9 @@
 					}
 				} 
 			}, {
-				greetings: ""
+				greetings: "",
+				completion: [],
+				caseSensitiveAutocomplete: false
 			});
 			
 			// emscripten conio
@@ -39,7 +42,15 @@
 				},
 				print: function(text) {
 					// This is called only on every '\n'. For 'advent', this is not a problem. '\n' is not included at the end of 'text', but 'echo' will add it.
-					term.echo(rmvLeadingCr(text));
+					text = rmvLeadingCr(text);
+					if (!text.startsWith("{")) {
+						term.echo(text);
+					} else {
+						state = JSON.parse(text);
+						term.settings().completion = state.input === 0 
+							? [ "yes", "no" ]
+							: [ "north", "east", "south", "west", "upward", "downward", "ne", "nw", "se", "sw", "help", "info", "score", "inventory" ];
+					}
 				},
 				printErr: function(text) {
 					term.error(rmvLeadingCr(text));
