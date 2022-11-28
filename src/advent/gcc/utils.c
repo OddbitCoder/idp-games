@@ -8,6 +8,7 @@
  */
 
 #include <string.h>
+#include "subr.h"
 #include "vocab.h"
 #include "utils.h"
 
@@ -71,6 +72,8 @@ void con_in(char *buffer) {
 #ifndef __EMSCRIPTEN__
     printf("? ");
     fflush(stdout);
+#else
+    status_out(1);
 #endif
     __fgets(buffer, BUFFER_SIZE, stdin);
 }
@@ -108,4 +111,16 @@ void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_m
             to_lower(w2_buf);
         }
     }
+}
+
+void status_out(int input_type) {
+    // this sends location and inventory info to stdout (as JSON; to be consumed in JS)
+    printf("{input:%d;loc:%d;inv:[", input_type, loc);
+    BOOL first = TRUE;
+    for (int i = 1; i <= 100; i++) {
+        if (toting(i)) { 
+            printf("%s%d", first && !(first = FALSE) ? "" : ",", i); 
+        }
+    }
+    printf("]}\n");
 }

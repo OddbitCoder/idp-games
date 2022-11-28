@@ -88,6 +88,8 @@ BOOL yes(int x,int y,int z)                              /* confirm with rspeak 
 #ifndef __EMSCRIPTEN__
 		printf("? ");
 		fflush(stdout);
+#else
+		status_out(0);
 #endif
 		__fgets(buffer, BUFFER_SIZE, stdin);
 		ch = buffer[0];

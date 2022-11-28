@@ -26,7 +26,7 @@ clean:
 
 $(BUILD_DIR)/wizard.o: hdr.h save.h utils.h
 $(BUILD_DIR)/vocab.o: hdr.h utils.h io.h
-$(BUILD_DIR)/utils.o: hdr.h vocab.h
+$(BUILD_DIR)/utils.o: hdr.h vocab.h subr.h
 $(BUILD_DIR)/trav.o: hdr.h utils.h io.h
 $(BUILD_DIR)/subr.o: hdr.h io.h wizard.h vocab.h trav.h utils.h
 $(BUILD_DIR)/save.o: hdr.h utils.h vocab.h trav.h
