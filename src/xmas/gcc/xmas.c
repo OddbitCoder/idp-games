@@ -1,2 +1,2 @@
-#define X(x,y)y>4&&x>y-5&&x<23-y||y<14&&x>13-y&&x<5+y
-x;main(){for(;x++<1440;)putchar(X(x%80,x/80)||X(x/80,x%80)?42:32);}
+#define X(x,y)x<5&x>y-5|y<5&y>x-5
+x;main(){for(;x++<1360;)putchar(X(abs(x%80-9),abs(x/80-8))?42:32);}
