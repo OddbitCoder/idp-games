@@ -22,6 +22,7 @@ __sfr __at 0xA2 CTC_SECONDS;
 
 fcb_t fcb;
 UINT8 dma[DMA_SIZE];
+UINT8 prev_area, area;
 
 int fparse(char *path, fcb_t *fcb, UINT8 *area);
 
@@ -39,6 +40,7 @@ char *strcpy(char *destination, const char *source)
 void exit(int status)
 {
     status;
+    fclose();
     // unfortunately, the status is lost in CP/M
     bdos(P_TERMCPM, 0);
 }
@@ -60,47 +62,36 @@ void create_fn(char *name, char *fn) {
     to_upper(fn);
 }
 
-UINT8 *fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len) {
-	UINT8 *ret_val = NULL;
-	// reset fcb
+void fopen(char *path) {
+    // reset fcb
     memset(&fcb, 0, sizeof(fcb_t));
     // parse filename 
-    UINT8 area;
-    if (fparse(path, &fcb, &area)) {
-        return ret_val;
-    }
+    fparse(path, &fcb, &area);
     // preserve user area, and change it
-    UINT8 prev_area = bdos(F_USERNUM, 0xff);
+    prev_area = bdos(F_USERNUM, 0xff);
     if (area != prev_area) { // only if different 
         bdos(F_USERNUM, area);
     } 
     // result of bdos operation 
     bdos_ret_t result;
-    BOOL file_open = FALSE;
-	// open file 
+    // open file 
     bdosret(F_OPEN, (UINT16)&fcb, &result);
-    if (result.reta == BDOS_FAILURE) { 
-    	goto fread_done;
-    }
-    file_open = TRUE; // file is open
-	// set DMA to our block
+    // set DMA to our block    
     bdos(F_DMAOFF, (UINT16)dma);
+}
+
+UINT8 *fread(UINT8 *buf, UINT16 pos, UINT16 len) {
+    bdos_ret_t result;
     // seek
     UINT16 rec = pos / DMA_SIZE;
     UINT16 dma_offs = pos % DMA_SIZE;
     fcb.rrec = rec;
     bdosret(F_READRAND, (UINT16)&fcb, &result);
-    if (result.reta == BDOS_FAILURE) {
-        goto fread_done;
-    }
     // read
     UINT16 r_len = 0;
     UINT8 *p_buf = buf;
     while (r_len < len) {
     	bdosret(F_READ, (UINT16)&fcb, &result);
-        if (result.reta != 0) {
-        	goto fread_done;
-        }
         UINT16 count = DMA_SIZE - dma_offs;
         if (r_len + count > len) {
             count = len - r_len;
@@ -110,15 +101,15 @@ UINT8 *fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len) {
         r_len += count;
 		dma_offs = 0;
     }
-    ret_val = buf;
-fread_done:
-    if (file_open) {
-        bdosret(F_CLOSE, (UINT16)&fcb, &result);
+	return buf;
+}
+
+void fclose() {
+    bdos_ret_t result;
+    bdosret(F_CLOSE, (UINT16)&fcb, &result);
+    if (area != prev_area) {
+        bdos(F_USERNUM, prev_area);
     }
-	if (area != prev_area) {
-		bdos(F_USERNUM, prev_area);
-	}
-	return ret_val;
 }
 
 BOOL fwrite(char *path, UINT8 *buf, UINT16 len) {
@@ -191,7 +182,7 @@ void to_upper(char *str) {
     }
 }
 
-void con_in() {
+void con_in(char *buffer) {
     printf("? ");
     char ch;
     UINT8 len = 0;
@@ -214,7 +205,7 @@ void con_in() {
     printf("\n\r");
 }
 
-void parse_in(char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {
+void parse_in(char *buffer, char *w1_buf, char *w2_buf, int w1_max_len, int w2_max_len) {
     // word 1
     char *p_buf = buffer, *w_start;
     for (; *p_buf == ' '; p_buf++);

@@ -191,6 +191,6 @@ char *decr(char a,char b,char c,char d,char e);
 #define BUFFER_SIZE 1600
 
 extern UINT8 buffer[BUFFER_SIZE];
-extern char fn[13];
+extern char strbuf1[MAXSTR + 1], strbuf2[MAXSTR + 1];
 
 #endif

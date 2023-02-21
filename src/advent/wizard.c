@@ -106,13 +106,13 @@ void ciao()
 //char *cmdfile;
 {
  	printf("What would you like to call the saved version?\n\r");
-    con_in();
-    parse_in(buffer, NULL, 8, 0); // WARNME: reads buffer, writes buffer (but it works)
-    create_fn(buffer, fn);
-    if (save(fn) != 0) return;           /* Save failed */
+    con_in(buffer);
+    parse_in(buffer, strbuf1, NULL, 8, 0);
+    create_fn(strbuf1, strbuf2);
+    if (save(strbuf2) != 0) return;           /* Save failed */
     // replace '.' with '\0'
-    for (char *p = fn; *p != '.' || (*p = '\0'); p++);
-    printf("To resume, say \"ADVENT %s\".\n\r", fn);
+    for (char *p = strbuf2; *p != '.' || (*p = '\0'); p++);
+    printf("To resume, say \"ADVENT %s\".\n\r", strbuf2);
  	printf("\"With these rooms I might now have been familiarly acquainted.\"\n\r");
 	exit(0);
 }

@@ -11,9 +11,9 @@
 
 #include "hdr.h"
 
-#define TEXT_BIN "TEXT.BIN"
-#define VOC_BIN "VOC.BIN"
-#define TRAV_BIN "TRAV.BIN"
+#define DATA_BIN "ADVENT.BIN"
+#define TRAV_OFS 43336
+#define VOC_OFS 46049
 
 void getin(char **wrd1,char **wrd2);
 BOOL yes(int x,int y,int z);

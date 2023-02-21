@@ -56,13 +56,11 @@
 //getin
 void getin(char **wrd1,char **wrd2)                        /* get command from user        */
 // char **wrd1,**wrd2;                     /* no prompt, usually           */
-{       
-	static char wd1buf[MAXSTR + 1],wd2buf[MAXSTR + 1];
-
-	*wrd1=wd1buf;                   /* return ptr to internal string*/
-	*wrd2=wd2buf;
- 	con_in();
-	parse_in(wd1buf, wd2buf, MAXSTR, MAXSTR);
+{
+	*wrd1=strbuf1;                   /* return ptr to internal string*/
+	*wrd2=strbuf2;
+ 	con_in(buffer);
+	parse_in(buffer, strbuf1, strbuf2, MAXSTR, MAXSTR);
 }
 
 
@@ -455,7 +453,7 @@ void mspeak(int msg)
 void speak(struct text *msg)       /* read, decrypt, and print a message (not ptext)      */
 //struct text *msg;/* msg is a pointer to seek address and length of mess */
 {
-	fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
+	fread(buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;
 	printf(buffer);
 	printf("\n\r");
@@ -469,7 +467,7 @@ void pspeak(int m,int skip) /* read, decrypt an print a ptext message           
 {
 	// if skip < 0, then print the first line, else print the line that matches skip * 100
 	struct text *msg = &ptext[m];
-	fread(TEXT_BIN, buffer, (UINT16)msg->seekadr, msg->txtlen);
+	fread(buffer, (UINT16)msg->seekadr, msg->txtlen);
 	buffer[msg->txtlen] = 0;
 	char *eod = buffer + msg->txtlen;
 	// do we print the first line? (inventory item)

@@ -153,7 +153,7 @@ int restore(char *infile)
 // char *infile;
 {
 	UINT8 *p_buf = buffer;
-	if (!fread(infile, buffer, 0, SIG_SIZE)) {
+	if (!fread(buffer, 0, SIG_SIZE)) {
 		goto restore_fail;
 	}
 	buffer[SIG_SIZE] = '\0';
@@ -165,7 +165,7 @@ int restore(char *infile)
 			return 2;
 		}
 	}
-	if (!fread(infile, buffer, 0, SAVE_GAME_SIZE)) {
+	if (!fread(buffer, 0, SAVE_GAME_SIZE)) {
 		goto restore_fail;
 	}
 	p_buf = buffer;

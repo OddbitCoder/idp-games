@@ -455,7 +455,7 @@ int trsay()                                         /* 9030                 */
 		obj=0;
 		return(2630);
 	}
-	printf("\nOkay, \"%s\".\n\r",wd2);
+	printf("\n\rOkay, \"%s\".\n\r",wd2);
 	return(2012);
 }
 
