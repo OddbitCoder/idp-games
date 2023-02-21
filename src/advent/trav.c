@@ -12,9 +12,8 @@
 #include "trav.h"
 
 struct trav_ptr *trav_start(struct trav_ptr *t_ptr, UINT8 idx) {
-	//fread(TRAV_BIN, t_ptr->buffer, (UINT16)travel[idx].seekadr, travel[idx].txtlen);
-	//t_ptr->ptr = t_ptr->buffer;
-	t_ptr->ptr = travel[idx].seekadr;
+	fread(t_ptr->buffer, (UINT16)travel[idx].seekadr + TRAV_OFS, travel[idx].txtlen);
+	t_ptr->ptr = t_ptr->buffer;
 	t_ptr->eod = t_ptr->ptr + travel[idx].txtlen;
 	t_ptr->tverb = *t_ptr->ptr & 127;
 	t_ptr->ptr++;

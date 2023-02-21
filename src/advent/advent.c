@@ -79,6 +79,8 @@ void main(int argc,char **argv)
 // 	if (setuid(getuid()) < 0)
 // 		perror("setuid");
 
+	printf("Scanning cave structure...\n\r");
+
 	fopen(DATA_BIN);
 
  	init();         /* Initialize everything */
@@ -255,7 +257,7 @@ void main(int argc,char **argv)
 		    case 3: goto l4000;
 		    case 4: goto l2010;
 		    default:
-			printf("Error 22\n");
+			printf("Error 22\n\r");
 			exit(0);
 		}
 
@@ -291,7 +293,7 @@ void main(int argc,char **argv)
 		    case 10: case 16: case 17:  /* calm,rub,toss        */
 		    case 19: case 21: case 28:  /* find,feed,break      */
 		    case 29:                    /* wake                 */
-		L(l8000)  printf("%s what?\n",wd1);
+		L(l8000)  printf("%s what?\n\r",wd1);
 			obj=0;
 			goto l2600;
 		    case 4: case 6:             /* 8040 open,lock       */
@@ -387,7 +389,7 @@ void main(int argc,char **argv)
 			continue;               /* Maybe not */
 		    case 31:                    /* hours=8310           */
 			printf("Colossal cave is closed 9am-5pm Mon ");
-			printf("through Fri except holidays.\n");
+			printf("through Fri except holidays.\n\r");
 			goto l2012;
 		    default: bug(23);
 		}
@@ -574,7 +576,7 @@ void main(int argc,char **argv)
 		if (fixed[k]!=loc && !here(k)) goto l5100;
 	L(l5010)  if (*wd2!=0) goto l2800;
 		if (verb!=0) goto l4090;
-		printf("What do you want to do with the %s?\n",wd1);
+		printf("What do you want to do with the %s?\n\r",wd1);
 		goto l2600;
 	L(l5100)  if (k!=grate) goto l5110;
 		if (loc==1||loc==4||loc==7) k=dprssn;
@@ -595,7 +597,7 @@ void main(int argc,char **argv)
 		obj=rod2;
 		goto l5010;
 	L(l5190)  if ((verb==find||verb==invent)&&*wd2==0) goto l5010;
-		printf("I see no %s here\n",wd1);
+		printf("I see no %s here\n\r",wd1);
 		goto l2012;
 	}
 }
