@@ -79,6 +79,8 @@ void main(int argc,char **argv)
 // 	if (setuid(getuid()) < 0)
 // 		perror("setuid");
 
+	fopen(DATA_BIN);
+
  	init();         /* Initialize everything */
 // 	signal(SIGINT,trapdel);
 
@@ -88,6 +90,7 @@ void main(int argc,char **argv)
 		fopen(strbuf1);
 		i = restore(strbuf1);       /* See what we've got */
 		fclose();
+		fopen(DATA_BIN);
 		switch(i)
 		{
 		    case 0:     /* The restore worked fine */
@@ -102,8 +105,6 @@ void main(int argc,char **argv)
 			exit(0);        /* File could be non-adventure */
 		}                       /* So don't unlink it. */
 	}
-
-	fopen(TEXT_BIN);
 
 	startup();              /* prepare for a user           */
 

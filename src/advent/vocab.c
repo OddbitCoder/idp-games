@@ -129,7 +129,6 @@ int vocab(char *word,int type)                  /* look up a word      */
 //char *word;
 //int type;       /* -1 for user word, >=0 for canned lookup*/
 {
-	//printf("%s. ", word);
 	UINT16 hc = 0;
 	// compute hash code
 	UINT8 i = 0;
@@ -139,12 +138,10 @@ int vocab(char *word,int type)                  /* look up a word      */
 	}
 	hc &= HTSIZE - 1;
 	if (voc[hc].txtlen == 0) { return 0; }
-	//fread(VOC_BIN, buffer, (UINT16)voc[hc].seekadr, voc[hc].txtlen);
-	//UINT8 *eod = buffer + voc[hc].txtlen;
-	UINT8 *p_data = voc[hc].seekadr;
-	UINT8 *eod = p_data + voc[hc].txtlen;
+	fread(buffer, (UINT16)voc[hc].seekadr + VOC_OFS, voc[hc].txtlen);
+	UINT8 *eod = buffer + voc[hc].txtlen;
 	// parse HT entry
-	for (UINT8 *ptr = p_data; ptr < eod; ptr++) {
+	for (UINT8 *ptr = buffer; ptr < eod; ptr++) {
 		UINT8 *w_start = ptr;
 		for (; *ptr != '\0'; ptr++);
 		//printf("%s* ", w_start);
