@@ -17,7 +17,10 @@ UINT16 atoi(char *str);
 
 void create_fn(char *name, char *fn);
 
-UINT8 *fread(char *path, UINT8 *buf, UINT16 pos, UINT16 len);
+void fopen(char *path);
+UINT8 *fread(UINT8 *buf, UINT16 pos, UINT16 len);
+void fclose();
+
 BOOL fwrite(char *path, UINT8 *buf, UINT16 len);
 
 void to_lower(char *str);

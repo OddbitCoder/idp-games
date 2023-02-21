@@ -138,10 +138,13 @@ int vocab(char *word,int type)                  /* look up a word      */
 		hc += *p_ch;
 	}
 	hc &= HTSIZE - 1;
-	fread(VOC_BIN, buffer, (UINT16)voc[hc].seekadr, voc[hc].txtlen);
-	UINT8 *eod = buffer + voc[hc].txtlen;
+	if (voc[hc].txtlen == 0) { return 0; }
+	//fread(VOC_BIN, buffer, (UINT16)voc[hc].seekadr, voc[hc].txtlen);
+	//UINT8 *eod = buffer + voc[hc].txtlen;
+	UINT8 *p_data = voc[hc].seekadr;
+	UINT8 *eod = p_data + voc[hc].txtlen;
 	// parse HT entry
-	for (UINT8 *ptr = buffer; ptr < eod; ptr++) {
+	for (UINT8 *ptr = p_data; ptr < eod; ptr++) {
 		UINT8 *w_start = ptr;
 		for (; *ptr != '\0'; ptr++);
 		//printf("%s* ", w_start);

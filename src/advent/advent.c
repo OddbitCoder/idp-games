@@ -85,7 +85,9 @@ void main(int argc,char **argv)
 	if (argc > 1)   /* Restore file specified */
 	{               /* Restart is label 8305 (Fortran) */
 		create_fn(argv[1], strbuf1);
+		fopen(strbuf1);
 		i = restore(strbuf1);       /* See what we've got */
+		fclose();
 		switch(i)
 		{
 		    case 0:     /* The restore worked fine */
@@ -100,6 +102,8 @@ void main(int argc,char **argv)
 			exit(0);        /* File could be non-adventure */
 		}                       /* So don't unlink it. */
 	}
+
+	fopen(TEXT_BIN);
 
 	startup();              /* prepare for a user           */
 
