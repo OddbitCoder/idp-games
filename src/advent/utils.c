@@ -40,6 +40,7 @@ char *strcpy(char *destination, const char *source)
 void exit(int status)
 {
     status;
+    fclose();
     // unfortunately, the status is lost in CP/M
     bdos(P_TERMCPM, 0);
 }
