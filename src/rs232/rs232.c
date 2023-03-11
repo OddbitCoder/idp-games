@@ -102,11 +102,13 @@ void int4() {
 // 	}
 // }
 
+__sfr __at 0xD9 SIO_PORT_CRT_C; // CRT control
+__sfr __at 0xD8 SIO_PORT_CRT_D; // CRT data
 __sfr __at 0xDB SIO_PORT_LPT_C; // LPT control
 __sfr __at 0xDA SIO_PORT_LPT_D; // LPT data
 
 const uint8_t sio_init_str[] = {
-	14,
+	10,
 	// TX & RX
 	0x30, // write into WR0: error reset, select WR0
 	0x18, // write into WR0: channel reset
@@ -116,13 +118,29 @@ const uint8_t sio_init_str[] = {
 	0xE8, // DTR active, TX 8bit, BREAK off, TX on, RTS inactive
 	0x01, // write into WR0: select WR1
 	0x04, // no interrupt in CH B, special RX condition affects vect
-	0x02, // write into WR0: select WR2
-	0x00, // write into WR2: cmd line int vect (see int vec table); bits D3,D2,D1 are changed according to RX condition
-	0x01, // write into WR0: select WR1
-	0x18, // interrupt on all RX characters, parity is not a spec RX condition; buffer overrun is a spec RX condition
-	// EI
+	//0x02, // write into WR0: select WR2
+	//0x00, // write into WR2: cmd line int vect (see int vec table); bits D3,D2,D1 are changed according to RX condition // THIS KILLS MY KEYBOARD!!!
+	//0x01, // write into WR0: select WR1
+	//0x18, // interrupt on all RX characters, parity is not a spec RX condition; buffer overrun is a spec RX condition // THIS KILLS MY KEYBOARD!!!!
+	// // RX ON
 	0x03, // write into WR0: select WR3
 	0xC1  // RX 8bit, auto enable off, RX on
+};
+
+const uint8_t sio_init_str_my[] = {
+	10,
+	// TX & RX
+	0x30, // write into WR0: error reset, select WR0
+	0x18, // write into WR0: channel reset
+	0x04, // write into WR0: select WR4
+	0x44, // 44h write into WR4: clkx16,1 stop bit, no parity
+	0x05, // write into WR0: select WR5
+	0xE8, // DTR active, TX 8bit, BREAK off, TX on, RTS inactive
+	0x01, // write into WR0: select WR1
+	0x00, // int OFF
+	// RX OFF
+	0x03, // write into WR0: select WR3
+	0x00  // RX OFF
 };
 
 const uint8_t sio_init_str_grmt[] = {
@@ -139,7 +157,7 @@ const uint8_t sio_init_str_grmt[] = {
 // *** OUT DB (SIO1 kanal LPT status) = 3
 // >>> EDC9	OTIR
 // *** OUT DB (SIO1 kanal LPT status) = C1
-	8, 0x18, 0x05, 0x68, 0x01, 0x01, 0x1C, 0x03, 0xC1
+	7, 0x18, 0x05, 0x68, 0x01, 0x1C, 0x03, 0xC1
 };
 
 void sio_lpt_init(uint8_t *init_str) {
