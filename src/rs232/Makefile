@@ -20,7 +20,7 @@ L2FIX = sed '/-b _DATA = 0x8000/d'
 TARGET = rs232
 
 SRC = $(wildcard *.c)
-BIN_SRC = $(wildcard *.bin)
+BIN_SRC = $(wildcard *.com)
 BIN_DST = $(addprefix $(BIN_DIR)/,$(BIN_SRC))
 OBJ = $(patsubst %.c,$(BUILD_DIR)/%.rel,$(SRC))
 HEX = $(BUILD_DIR)/$(TARGET).ihx
@@ -63,8 +63,10 @@ clean:
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
-# $(BIN_DST) ; Required for 'bin'/'com'
 $(BIN_DIR)/%.bin: %.bin | $(BIN_DIR)
+	cp $< $(BIN_DIR)
+
+$(BIN_DIR)/%.com: %.com | $(BIN_DIR)
 	cp $< $(BIN_DIR)
 
 $(BUILD_DIR):
