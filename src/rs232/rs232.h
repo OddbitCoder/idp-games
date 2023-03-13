@@ -43,27 +43,33 @@ typedef enum {
 	SIO_EXIT_CODE_BUFFER_OVERFLOW
 } sio_exit_code;
 
-const uint8_t SIO_PORT_CRT = 0xD9;
-const uint8_t SIO_PORT_LPT = 0xDB;
-const uint8_t SIO_PORT_VAX = 0xE1;
-const uint8_t SIO_PORT_MOD = 0xE3;
+typedef enum {
+	SIO_PORT_CRT = 0xD9,
+	SIO_PORT_LPT = 0xDB,
+	SIO_PORT_VAX = 0xE1,
+	SIO_PORT_MOD = 0xE3
+} sio_port;
 
-// initializer
-void sio_init(uint8_t port, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity);
+// initializers
+void sio_init(sio_port port, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity);
+void sio_init_ex(sio_port port, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+	uint16_t out_buffer_sz, uint16_t in_buffer_sz, uint16_t in_buffer_ext, uint16_t no_activity_thr);
 
-bool sio_out_buffer_put(uint8_t ch);
-bool sio_out_buffer_put_str(uint8_t *str);
-uint16_t sio_out_buffer_count();
+// receive buffer
+//...
+
+// send buffer
+//...
 
 // non-blocking send & receive
-sio_exit_code sio_poll(uint8_t port);
+sio_exit_code sio_poll(sio_port port);
 
 // blocking send
-void sio_send_ch(uint8_t port, uint8_t ch);
-void sio_send(uint8_t port, uint16_t len, uint8_t *buffer);
-void sio_send_str(uint8_t port, uint8_t *str);
+void sio_send_ch(sio_port port, uint8_t ch);
+void sio_send(sio_port port, uint16_t len, uint8_t *buffer);
+void sio_send_str(sio_port port, uint8_t *str);
 
 // finalizer
-void sio_done(uint8_t port);
+void sio_done();
 
 #endif
