@@ -1,23 +1,38 @@
 #include <stdio.h>
-#include <stdint.h>
+#include <rs232.h>
 
-const uint8_t SIO_PORT_CRT = 0xD9;
-const uint8_t SIO_PORT_LPT = 0xDB;
-const uint8_t SIO_PORT_VAX = 0xE1;
-const uint8_t SIO_PORT_MOD = 0xE3;
+#define SIO_OUT_SZ 1024
+#define SIO_IN_SZ 3
+#define SIO_IN_SZ_EXT (SIO_IN_SZ + 64)
 
-__sfr __at 0xD9 SIO_PORT_CRT_C; // CRT control
-__sfr __at 0xD8 SIO_PORT_CRT_D; // CRT data
-__sfr __at 0xDB SIO_PORT_LPT_C; // LPT control
-__sfr __at 0xDA SIO_PORT_LPT_D; // LPT data
-__sfr __at 0xE1 SIO_PORT_VAX_C; // VAX control
-__sfr __at 0xE0 SIO_PORT_VAX_D; // VAX data
-__sfr __at 0xE3 SIO_PORT_MOD_C; // MOD control
-__sfr __at 0xE2 SIO_PORT_MOD_D; // MOD data
+const uint16_t _sio_no_activity_thr = 100;
+
+uint8_t _sio_in[SIO_IN_SZ_EXT + 1]; // "+ 1" is useful if we simply want to put 0 at the end of the buffer for output to console
+uint16_t _sio_in_ptr = 0;
+
+uint8_t _sio_out[SIO_OUT_SZ];
+uint16_t _sio_out_put_ptr = 0;
+uint16_t _sio_out_get_ptr = 0;
+uint16_t _sio_out_count = 0;
 
 uint8_t _sio_wr5;
 
-void _out(uint8_t port, uint8_t val) __naked {
+const uint8_t _sio_init_str[] = {
+	10,   // init string size
+	0x30, // write into WR0: error reset, select WR0
+	0x18, // write into WR0: channel reset
+	0x04, // write into WR0: select WR4
+	0x44, // write into WR4: clk*16, 1 stop bit, no parity (x16 = 9600 bauds)
+	0x05, // write into WR0: select WR5
+	0xE8, // write into WR5: DTR active, TX 8 bit, BREAK off, TX on, RTS inactive // TODO: change DTR to inactive
+	0x01, // write into WR0: select WR1
+	0x04, // write into WR1: status affects vector, no interrupts 
+	0x03, // write into WR0: select WR3
+	0xC1  // write into WR3: RX 8 bit, auto enable off, RX on 
+	// NOTE: I think it's ok if auto enable if always off, even in the RTS/CTS mode (because we explicitly control RTS/CTS)
+};
+
+void _out(uint8_t port, uint8_t val) __naked { // TODO: move to utils
 __asm
 	pop de // de=return address
 	pop bc // c=port, b=val
@@ -29,7 +44,7 @@ __asm
 __endasm;
 }
 
-uint8_t _in(uint8_t port) __naked {
+uint8_t _in(uint8_t port) __naked { // TODO: move to utils
 __asm
 	pop de // de=return address
 	pop bc // c=port
@@ -41,31 +56,23 @@ __asm
 __endasm;
 }
 
-const uint8_t sio_init_str[] = {
-	10,   // init string size
-	0x30, // write into WR0: error reset, select WR0
-	0x18, // write into WR0: channel reset
-	0x04, // write into WR0: select WR4
-	0x44, // write into WR4: clk*16, 1 stop bit, no parity (9600 bauds)
-	0x05, // write into WR0: select WR5
-	0xE8, // write into WR5: DTR active, TX 8 bit, BREAK off, TX on, RTS inactive
-	0x01, // write into WR0: select WR1
-	//0x1C, // write into WR1: status affects vector, int on all RX chars (D2 needs to be 1)
-	0x04,
-	0x03, // write into WR0: select WR3
-	0xC1  // write into WR3: RX 8 bit, auto enable off, RX on
-};
-
-void sio_init(uint8_t port, uint8_t *init_str) {
-	__asm__ ("di");
-	for (uint8_t i = 1; i < init_str[0] + 1; i++) {
-		_out(port, init_str[i]);
+// TODO: bauds
+void sio_init(uint8_t port, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity) { 
+	for (uint8_t i = 1; i < _sio_init_str[0] + 1; i++) {
+		uint8_t val = _sio_init_str[i];
+		if (i == 4) { // WR4: clock, stop bits, parity
+			val = clock | stop_bits | parity;
+		} else if (i == 8) { // WR1: enable or disable interrupts
+			val = mode == SIO_MODE_POLLING ? 0x04 : 0x1C;
+		} else if (i == 10) { // WR3: data bits & RX enable
+			val = data_bits | 1;
+		}
+		_out(port, val);
 	}
-	_sio_wr5 = init_str[6];
-	__asm__ ("ei");
+	_sio_wr5 = _sio_init_str[6];
 }
 
-void sio_set_rts(uint8_t port, bool flag) {
+void _sio_set_rts(uint8_t port, bool flag) {
 	if (flag && (_sio_wr5 & 2) == 0) {
 		_out(port, 5);
 		_out(port, _sio_wr5 = (_sio_wr5 | 2));
@@ -75,82 +82,27 @@ void sio_set_rts(uint8_t port, bool flag) {
 	}
 }
 
-void sio_set_dtr(uint8_t port, bool flag) {
-	if (flag && (_sio_wr5 & 128) == 0) {
-		_out(port, 5);
-		_out(port, _sio_wr5 = (_sio_wr5 | 128));
-	} else if (!flag && (_sio_wr5 & 128) != 0) {
-		_out(port, 5);
-		_out(port, _sio_wr5 = (_sio_wr5 - 128));
-	}
-}
-
-bool sio_check_cts(uint8_t port) {
+bool _sio_check_cts(uint8_t port) {
 	return _in(port) & 64; // D6 of RR0
 }
 
-// WARNME: this actually checks DCD; DCD should be "shorted" to DSR for DSR/DTR handshaking to work
-bool sio_check_dsr(uint8_t port) {
-	return _in(port) & 8; // D3 of RR0
-}
-
-bool sio_check_all_sent(uint8_t port) {
+bool _sio_check_all_sent(uint8_t port) {
 	_out(port, 1);
 	return _in(port) & 1; // D0 of RR1
 }
 
-bool sio_check_ch_available(uint8_t port) {
+bool _sio_check_tx_buffer_empty(uint8_t port) {
+	return _in(port) & 4;
+}
+
+bool _sio_check_ch_available(uint8_t port) {
 	return _in(port) & 1; // D0 of RR0	
 }
 
-void sio_tx_byte_rtscts(uint8_t port, uint8_t byte) {
-	// request to send
-	sio_set_rts(port, true);
-	// wait for "clear to send"
-	while (!sio_check_cts(port));
-	// send byte
-	_out(port - 1, byte);
-	// wait for "all sent"
-	while (!sio_check_all_sent(port));
-	// clear RTS
-	sio_set_rts(port, false);
-}
-
-void sio_tx_str_rtscts(uint8_t port, uint8_t *str) {
-	// request to send
-	sio_set_rts(port, true);
-	for (uint8_t *p = str; *p != 0; p++) {
-		// wait for "clear to send"
-		while (!sio_check_cts(port));
-		// send byte (char)
-		_out(port - 1, *p);
-		// wait for "all sent"
-		while (!sio_check_all_sent(port));
-	}
-	// clear RTS
-	sio_set_rts(port, false);
-}
-
-#define SIO_OUT_SZ 1024
-#define SIO_IN_SZ 3
-#define SIO_IN_SZ_EXT (3 + 64)
-
-const uint16_t _no_activity_thr = 100;
-
-uint8_t _sio_out[SIO_OUT_SZ];
-uint8_t _sio_in[SIO_IN_SZ_EXT];
-uint8_t _sio_in_ptr = 0;
-
-typedef enum {
-	SIO_RCV_NO_ACTIVITY,
-	SIO_RCV_BUFFER_FULL,
-	SIO_RCV_BUFFER_OVERFLOW
-} sio_rcv_exit_code;
-
-sio_rcv_exit_code _sio_flush(uint8_t port) { 
+sio_exit_code _sio_flush(uint8_t port) { 
 	uint16_t loop_count = 0;
 	while (true) {
-		if (sio_check_ch_available(port)) {
+		if (_sio_check_ch_available(port)) {
 			loop_count = 0;
 			// read char
 			uint8_t ch = _in(port - 1);
@@ -158,85 +110,128 @@ sio_rcv_exit_code _sio_flush(uint8_t port) {
 			_sio_in[_sio_in_ptr++] = ch;
 			// check if buffer overflow
 			if (_sio_in_ptr >= SIO_IN_SZ_EXT) {
-				return SIO_RCV_BUFFER_OVERFLOW;
+				return SIO_EXIT_CODE_BUFFER_OVERFLOW;
 			}
 		} else {
-			if ((++loop_count) >= _no_activity_thr) {
-				return SIO_RCV_NO_ACTIVITY;
+			if (++loop_count >= _sio_no_activity_thr) {
+				return SIO_EXIT_CODE_NO_ACTIVITY;
 			}
 		}
 	}
 }
 
-sio_rcv_exit_code sio_rcv(uint8_t port) {
+bool sio_out_buffer_put(uint8_t ch) {
+	if (_sio_out_count == SIO_OUT_SZ) { 
+		return false; 
+	}
+	_sio_out[_sio_out_put_ptr++] = ch;
+	_sio_out_count++;
+	if (_sio_out_put_ptr == SIO_OUT_SZ) {
+		_sio_out_put_ptr = 0;
+	}
+	return true;
+}
+
+uint8_t _sio_out_buffer_get() {
+	if (_sio_out_count == 0) {
+		return 0;
+	}
+	uint8_t ch = _sio_out[_sio_out_get_ptr++];
+	_sio_out_count--;
+	if (_sio_out_get_ptr == SIO_OUT_SZ) {
+		_sio_out_get_ptr = 0;
+	}
+	return ch;
+}
+
+bool _sio_out_buffer_peek() {
+	return _sio_out_count > 0;
+}
+
+bool sio_out_buffer_put_str(uint8_t *str) {
+	for (uint8_t *ptr = str; *ptr != 0; ptr++) {
+		if (!sio_out_buffer_put(*ptr)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+uint16_t sio_out_buffer_count() {
+	return _sio_out_count;
+}
+
+sio_exit_code sio_poll(uint8_t port) {
+	if (_sio_in_ptr >= SIO_IN_SZ) {
+		return _sio_in_ptr >= SIO_IN_SZ_EXT
+			? SIO_EXIT_CODE_BUFFER_OVERFLOW
+			: SIO_EXIT_CODE_BUFFER_FULL;
+	}
+	uint8_t ch;
 	uint16_t loop_count = 0;
-	sio_set_rts(port, true);
-	//sio_set_dtr(port, true);
+	_sio_set_rts(port, true);
 	while (true) {
 		// try send char 
-		// TODO
+		if (_sio_check_cts(port) && _sio_out_buffer_peek()) {
+			loop_count = 0; // reset activity counter
+			if (/*_sio_check_all_sent(port)*/_sio_check_tx_buffer_empty(port)) {
+				_out(port - 1, _sio_out_buffer_get());
+			}
+		}
 		// check if ch available
-		if (sio_check_ch_available(port)) {
-			loop_count = 0;
+		if (_sio_check_ch_available(port)) {
+			loop_count = 0; // reset activity counter
 			// read char
-			uint8_t ch = _in(port - 1);
+			ch = _in(port - 1);
 			// put char into buffer
 			_sio_in[_sio_in_ptr++] = ch;
 			// check if buffer full
 			if (_sio_in_ptr >= SIO_IN_SZ) {
-				//printf("%d ", _sio_wr5);
-				sio_set_rts(port, false);
-				//printf("%d ", _sio_wr5);
-				//sio_set_dtr(port, false);
-				return _sio_flush(port) == SIO_RCV_BUFFER_OVERFLOW
-					? SIO_RCV_BUFFER_OVERFLOW
-					: SIO_RCV_BUFFER_FULL;
+				_sio_set_rts(port, false);
+				return _sio_flush(port) == SIO_EXIT_CODE_BUFFER_OVERFLOW
+					? SIO_EXIT_CODE_BUFFER_OVERFLOW
+					: SIO_EXIT_CODE_BUFFER_FULL;
 			}
 		} else {
-			if ((++loop_count) >= _no_activity_thr) {
-				return SIO_RCV_NO_ACTIVITY;
+			if (++loop_count >= _sio_no_activity_thr) {
+				return SIO_EXIT_CODE_NO_ACTIVITY;
 			}
 		}
 	}
 }
 
-void lptint() {
-	printf("1 ");
+void sio_send_ch(uint8_t port, uint8_t ch) { // WARNME: blocking
+	while (!_sio_check_cts(port) || !_sio_check_tx_buffer_empty(port));
+	_out(port - 1, ch);
 }
 
-void lpterr() {
-	printf("2 ");
+void sio_send(uint8_t port, uint16_t len, uint8_t *buffer) { // WARNME: blocking
+	for (uint8_t i = 0; i < len; i++) {
+		sio_send_ch(port, buffer[i]);
+	}
 }
 
-void sio_set_int() {
-	uint16_t *bios_addr_ptr = 1;
-	uint16_t bios_addr = *bios_addr_ptr - 3;
-	*(uint16_t *)(bios_addr + 0x94) = (uint16_t)&lptint;
-	*(uint16_t *)(bios_addr + 0x96) = (uint16_t)&lpterr;
+void sio_send_str(uint8_t port, uint8_t *str) { // WARNME: blocking
+	for (uint8_t *ptr = str; *ptr != 0; ptr++) {
+		sio_send_ch(port, *ptr);
+	}
+}
+
+void sio_done(uint8_t port) {
+	// nothing to do here for now
 }
 
 int main(int argc, char **argv) {
 	// init LPT
-	sio_init(SIO_PORT_LPT, sio_init_str);
-	//sio_tx_byte_rtscts(SIO_PORT_LPT, 'A');
-	//sio_tx_str_rtscts(SIO_PORT_LPT, "HELLO FROM THE OTHER SIDE");
-	sio_set_rts(SIO_PORT_LPT, false);
-	//sio_set_int();
-	// while (true) {
-	// 	sio_rcv_exit_code exit_code = sio_rcv(SIO_PORT_LPT);
-	// 	_sio_in[_sio_in_ptr] = 0;
-	// 	if (_sio_in_ptr > 0) { 
-	// 		printf("(%u)%s\n\r", exit_code, _sio_in); 
-	// 	}
-	// 	_sio_in_ptr = 0;
-	// }
-	bool flag = true;
-	while(true) {
-		for (int i = 0; i < 300; i++) {
-			printf("DELAY\n\r");
+	sio_init(SIO_PORT_LPT, SIO_MODE_POLLING, SIO_CLOCK_X16, SIO_DATA_BITS_8, SIO_STOP_BITS_1, SIO_PARITY_NONE);
+	sio_send_str(SIO_PORT_LPT, "This is a test ");
+	sio_out_buffer_put_str("HELLO DARKNESS MY OLD FRIEND");
+	while (true) {
+		sio_exit_code exit_code = sio_poll(SIO_PORT_LPT);
+		_sio_in[_sio_in_ptr] = 0;
+		if (_sio_in_ptr > 0) { 
+			printf("(%u)%s\n\r", exit_code, _sio_in); 
 		}
-		sio_set_dtr(SIO_PORT_LPT, flag);
-		flag = !flag;
+		_sio_in_ptr = 0;
 	}
-	return 0;
 }
