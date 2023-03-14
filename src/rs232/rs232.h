@@ -3,16 +3,18 @@
 
 #include <stdint.h>
 
-typedef enum { 
-	SIO_CLOCK_X1  = 0,
-	SIO_CLOCK_X16 = 64,
-	SIO_CLOCK_X32 = 128,
-	SIO_CLOCK_X64 = 128 | 64
-} sio_clock_mode;
+typedef enum {
+	SIO_FLOW_CONTROL_RTSCTS,  // hardware flow control
+	SIO_FLOW_CONTROL_XONXOFF, // software flow control
+	SIO_FLOW_CONTROL_NONE
+} sio_flow_control;
 
-typedef enum { // TODO
-	SIO_BAUDS_9600 = 64
-} sio_bauds;
+typedef enum { 
+	SIO_BPS_153600 = 0, // not tested
+	SIO_BPS_9600   = 64,
+	SIO_BPS_4800   = 128,
+	SIO_BPS_2400   = 128 | 64
+} sio_bps;
 
 typedef enum {
 	SIO_STOP_BITS_1 = 4,
@@ -34,7 +36,7 @@ typedef enum {
 
 typedef enum {
 	SIO_MODE_POLLING,
-	//SIO_MODE_INTERRUPTS
+	//SIO_MODE_INTERRUPTS // not implemented
 } sio_mode;
 
 typedef enum {
@@ -51,7 +53,7 @@ typedef enum {
 } sio_port_addr;
 
 typedef struct {
-	uint8_t *vals;
+	uint8_t *values;
 	uint16_t put_ptr;
 	uint16_t get_ptr;
 	uint16_t count;
@@ -65,26 +67,36 @@ typedef struct {
 	uint16_t in_buffer_ext;
 	uint8_t wr5;
 	sio_port_addr addr;
+	sio_flow_control flow_control;
+	bool xon_send; // their XON state
+	bool xon_rcv;  // my XON state
 } sio_port;
 
-// initializers
-sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity);
-sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
-	uint16_t out_buffer_sz, uint16_t in_buffer_sz, uint16_t in_buffer_ext, uint16_t no_activity_thr);
+// initializer
+sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+	sio_flow_control flow_control);
+sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+	sio_flow_control flow_control, uint16_t out_buffer_sz, uint16_t in_buffer_sz, uint16_t in_buffer_ext, uint16_t no_activity_thr);
 
-// receive buffer
-//...
+// buffer
+bool sio_buffer_put(sio_buffer *buffer, uint16_t len, uint8_t *values);
+bool sio_buffer_put_ch(sio_buffer *buffer, uint8_t ch);
+bool sio_buffer_put_str(sio_buffer *buffer, uint8_t *str);
+bool sio_buffer_peek(sio_buffer *buffer);
+uint8_t sio_buffer_get_ch(sio_buffer *buffer);
+uint16_t sio_buffer_get(sio_buffer *buffer, uint8_t *dest);
 
-// send buffer
-//...
-
-// non-blocking send & receive
+// send & receive (non-blocking)
 sio_exit_code sio_poll(sio_port *port);
 
-// blocking send
+// send (blocking)
+void sio_send(sio_port *port, uint16_t len, uint8_t *values);
 void sio_send_ch(sio_port *port, uint8_t ch);
-void sio_send(sio_port *port, uint16_t len, uint8_t *buffer);
 void sio_send_str(sio_port *port, uint8_t *str);
+
+// control signals
+void sio_set_rts(sio_port *port, bool state);
+bool sio_check_cts(sio_port *port);
 
 // finalizer
 void sio_done(sio_port *port);
