@@ -48,11 +48,28 @@ typedef enum {
 	SIO_PORT_LPT = 0xDB,
 	SIO_PORT_VAX = 0xE1,
 	SIO_PORT_MOD = 0xE3
+} sio_port_addr;
+
+typedef struct {
+	uint8_t *vals;
+	uint16_t put_ptr;
+	uint16_t get_ptr;
+	uint16_t count;
+	uint16_t size;
+} sio_buffer;
+
+typedef struct {
+	sio_buffer buffer_in;
+	sio_buffer buffer_out;
+	uint16_t no_activity_thr;
+	uint16_t in_buffer_ext;
+	uint8_t wr5;
+	sio_port_addr addr;
 } sio_port;
 
 // initializers
-void sio_init(sio_port port, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity);
-void sio_init_ex(sio_port port, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity);
+sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_clock_mode clock, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
 	uint16_t out_buffer_sz, uint16_t in_buffer_sz, uint16_t in_buffer_ext, uint16_t no_activity_thr);
 
 // receive buffer
@@ -62,14 +79,14 @@ void sio_init_ex(sio_port port, sio_mode mode, sio_clock_mode clock, sio_data_bi
 //...
 
 // non-blocking send & receive
-sio_exit_code sio_poll(sio_port port);
+sio_exit_code sio_poll(sio_port *port);
 
 // blocking send
-void sio_send_ch(sio_port port, uint8_t ch);
-void sio_send(sio_port port, uint16_t len, uint8_t *buffer);
-void sio_send_str(sio_port port, uint8_t *str);
+void sio_send_ch(sio_port *port, uint8_t ch);
+void sio_send(sio_port *port, uint16_t len, uint8_t *buffer);
+void sio_send_str(sio_port *port, uint8_t *str);
 
 // finalizer
-void sio_done();
+void sio_done(sio_port *port);
 
 #endif
