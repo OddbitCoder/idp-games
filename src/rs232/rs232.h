@@ -2,6 +2,7 @@
 #define __RS232_H__
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef enum {
 	SIO_FLOW_CONTROL_RTSCTS,  // hardware flow control

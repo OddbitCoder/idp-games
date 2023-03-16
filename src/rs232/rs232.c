@@ -1,16 +1,15 @@
-#include <stdio.h>
+#include "rs232.h"
 #include <stdlib.h>
-#include <rs232.h>
 
 #define SIO_CHAR_XON  17
 #define SIO_CHAR_XOFF 19
 
-const uint8_t _sio_sio_init_str[] = {
+const uint8_t _sio_init_str[] = {
 	10,   // init string size
 	0x30, // write into WR0: error reset, select WR0
 	0x18, // write into WR0: channel reset
 	0x04, // write into WR0: select WR4
-	0x44, // write into WR4: clk*16, 1 stop bit, no parity (x16 = 9600 bauds)
+	0x44, // write into WR4: clk x16, 1 stop bit, no parity (x16 = 9600 bps)
 	0x05, // write into WR0: select WR5
 	0x68, // write into WR5: DTR inactive, TX 8 bit, BREAK off, TX on, RTS inactive
 	0x01, // write into WR0: select WR1
@@ -104,10 +103,10 @@ __asm
 __endasm;
 }
 
-sio_port *sio_sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
 	sio_flow_control flow_control, uint16_t out_buffer_sz, uint16_t in_buffer_sz, uint16_t in_buffer_ext, uint16_t no_activity_thr) { 
-	for (uint8_t i = 1; i < _sio_sio_init_str[0] + 1; i++) {
-		uint8_t val = _sio_sio_init_str[i];
+	for (uint8_t i = 1; i < _sio_init_str[0] + 1; i++) {
+		uint8_t val = _sio_init_str[i];
 		if (i == 4) { // WR4: clock, stop bits, parity
 			val = bps | stop_bits | parity;
 		} else if (i == 8) { // WR1: enable or disable interrupts
@@ -124,20 +123,37 @@ sio_port *sio_sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bps bps, s
 	port->in_buffer_ext = in_buffer_ext;
 	port->no_activity_thr = no_activity_thr;
 	port->addr = port_addr;
-	port->wr5 = _sio_sio_init_str[6];
+	port->wr5 = _sio_init_str[6];
 	port->flow_control = flow_control;
 	port->xon_send = true; // WARNME: not sure what the default is here (I assume it's "on")
 	port->xon_rcv = true;  // WARNME: same as above
 	return port;
 }
 
-sio_port *sio_sio_init(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
 	sio_flow_control flow_control) { 
-	return sio_sio_init_ex(port_addr, mode, bps, data_bits, stop_bits, parity, flow_control, 
+	return sio_init_ex(port_addr, mode, bps, data_bits, stop_bits, parity, flow_control, 
 		/*out_buffer_sz*/1024, // 512
 		/*in_buffer_sz*/3,     // 128
 		/*in_buffer_ext*/64,
 		/*no_activity_thr*/100);
+}
+
+bool sio_check_cts(sio_port *port) {
+	return _in(port->addr) & 64; // D6 of RR0
+}
+
+bool _sio_check_tx_buffer_empty(sio_port *port) {
+	return _in(port->addr) & 4; // D2 of RR0
+}
+
+bool _sio_check_ch_available(sio_port *port) {
+	return _in(port->addr) & 1; // D0 of RR0	
+}
+
+void _sio_send_ch_force(sio_port *port, uint8_t ch) { 
+	while (!_sio_check_tx_buffer_empty(port));
+	_out(port->addr - 1, ch);
 }
 
 void _sio_set_able_to_rcv(sio_port *port, bool state) {
@@ -145,11 +161,11 @@ void _sio_set_able_to_rcv(sio_port *port, bool state) {
 		sio_set_rts(port, state);		
 	} else if (port->flow_control == SIO_FLOW_CONTROL_XONXOFF) {
 		// send XON or XOFF
-		if (state /*&& !port->xon_rcv*/) {
-			sio_send_ch(port, SIO_CHAR_XON);
+		if (state && !port->xon_rcv) {
+			_sio_send_ch_force(port, SIO_CHAR_XON);
 			port->xon_rcv = true;
-		} else if (!state /*&& port->xon_rcv*/) {
-			sio_send_ch(port, SIO_CHAR_XOFF);
+		} else if (!state && port->xon_rcv) {
+			_sio_send_ch_force(port, SIO_CHAR_XOFF);
 			port->xon_rcv = false;
 		}
 	}
@@ -173,18 +189,6 @@ bool _sio_check_able_to_send(sio_port *port) {
 		return port->xon_send;
 	} 
 	return true; // no flow control
-}
-
-bool sio_check_cts(sio_port *port) {
-	return _in(port->addr) & 64; // D6 of RR0
-}
-
-bool _sio_check_tx_buffer_empty(sio_port *port) {
-	return _in(port->addr) & 4;
-}
-
-bool _sio_check_ch_available(sio_port *port) {
-	return _in(port->addr) & 1; // D0 of RR0	
 }
 
 sio_exit_code _sio_flush(sio_port *port) { 
@@ -276,23 +280,4 @@ void sio_done(sio_port *port) {
 	free(port->buffer_in.values);
 	free(port->buffer_out.values);
 	free(port);
-}
-
-// ------------- test -------------------
-
-uint8_t tmp[1024];
-
-int main(int argc, char **argv) {
-	// init LPT
-	sio_port *port = sio_sio_init(SIO_PORT_LPT, SIO_MODE_POLLING, SIO_BPS_9600, SIO_DATA_BITS_8, SIO_STOP_BITS_1, SIO_PARITY_NONE, SIO_FLOW_CONTROL_RTSCTS);
-	sio_send_str(port, "This is a test ");
-	sio_buffer_put_str(&port->buffer_out, "HELLO DARKNESS MY OLD FRIEND");
-	while (true) {
-		sio_exit_code exit_code = sio_poll(port);
-		uint16_t count = sio_buffer_get(&port->buffer_in, tmp);
-		if (count > 0) { 
-			tmp[count] = 0;
-			printf("(%u)%s\n\r", exit_code, tmp); 
-		}
-	}
 }

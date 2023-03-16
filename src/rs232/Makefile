@@ -17,7 +17,7 @@ L2 = sdldz80
 L2FLAGS = -nf
 L2FIX = sed '/-b _DATA = 0x8000/d'
 
-TARGET = rs232
+TARGET = term
 
 SRC = $(wildcard *.c)
 BIN_SRC = $(wildcard *.com)
