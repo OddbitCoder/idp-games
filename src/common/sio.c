@@ -1,4 +1,4 @@
-#include "rs232.h"
+#include "sio.h"
 #include <stdlib.h>
 
 #define SIO_CHAR_XON  17
@@ -9,7 +9,7 @@ const uint8_t _sio_init_str[] = {
 	0x30, // write into WR0: error reset, select WR0
 	0x18, // write into WR0: channel reset
 	0x04, // write into WR0: select WR4
-	0x44, // write into WR4: clk x16, 1 stop bit, no parity (x16 = 9600 bps)
+	0x44, // write into WR4: clk x16, 1 stop bit, no parity (x16 = 9600 bauds)
 	0x05, // write into WR0: select WR5
 	0x68, // write into WR5: DTR inactive, TX 8 bit, BREAK off, TX on, RTS inactive
 	0x01, // write into WR0: select WR1
@@ -103,12 +103,12 @@ __asm
 __endasm;
 }
 
-sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bauds bauds, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
 	sio_flow_control flow_control, uint16_t out_buffer_sz, uint16_t in_buffer_sz, uint16_t in_buffer_ext, uint16_t no_activity_thr) { 
 	for (uint8_t i = 1; i < _sio_init_str[0] + 1; i++) {
 		uint8_t val = _sio_init_str[i];
 		if (i == 4) { // WR4: clock, stop bits, parity
-			val = bps | stop_bits | parity;
+			val = bauds | stop_bits | parity;
 		} else if (i == 8) { // WR1: enable or disable interrupts
 			val = mode == SIO_MODE_POLLING ? 0x04 : 0x1C;
 		} else if (i == 10) { // WR3: data bits & RX enable
@@ -130,11 +130,11 @@ sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_d
 	return port;
 }
 
-sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_bauds bauds, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
 	sio_flow_control flow_control) { 
-	return sio_init_ex(port_addr, mode, bps, data_bits, stop_bits, parity, flow_control, 
-		/*out_buffer_sz*/1024, // 512
-		/*in_buffer_sz*/3,     // 128
+	return sio_init_ex(port_addr, mode, bauds, data_bits, stop_bits, parity, flow_control, 
+		/*out_buffer_sz*/512,
+		/*in_buffer_sz*/128,
 		/*in_buffer_ext*/64,
 		/*no_activity_thr*/100);
 }

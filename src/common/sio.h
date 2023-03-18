@@ -11,11 +11,11 @@ typedef enum {
 } sio_flow_control;
 
 typedef enum { 
-	SIO_BPS_153600 = 0, // not tested
-	SIO_BPS_9600   = 64,
-	SIO_BPS_4800   = 128,
-	SIO_BPS_2400   = 128 | 64
-} sio_bps;
+	SIO_BAUDS_153600 = 0, // not tested (not working?)
+	SIO_BAUDS_9600   = 64,
+	SIO_BAUDS_4800   = 128,
+	SIO_BAUDS_2400   = 128 | 64
+} sio_bauds;
 
 typedef enum {
 	SIO_STOP_BITS_1 = 4,
@@ -74,9 +74,9 @@ typedef struct {
 } sio_port;
 
 // initializer
-sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+sio_port *sio_init(sio_port_addr port_addr, sio_mode mode, sio_bauds bauds, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
 	sio_flow_control flow_control);
-sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bps bps, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
+sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bauds bauds, sio_data_bits data_bits, sio_stop_bits stop_bits, sio_parity parity,
 	sio_flow_control flow_control, uint16_t out_buffer_sz, uint16_t in_buffer_sz, uint16_t in_buffer_ext, uint16_t no_activity_thr);
 
 // buffer

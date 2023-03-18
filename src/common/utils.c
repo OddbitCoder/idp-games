@@ -6,6 +6,10 @@
 int16_t timer_start;
 int16_t timer_offset;
 
+uint8_t _bcd2bin(uint8_t val) {
+	return ((val & 0xF0) >> 4) * 10 + (val & 0x0F);
+}
+
 uint16_t timer_ms() {
 	uint8_t s = CTC_SECONDS;
 	uint8_t s100 = CTC_HUNDREDS;
@@ -14,14 +18,14 @@ uint16_t timer_ms() {
 	uint8_t s_check = CTC_SECONDS;
 	uint16_t ms;
 	if (s100 == s100_check) {
-		ms = bcd2bin(s100) * 10 + bcd2bin(cs10 >> 4);
+		ms = _bcd2bin(s100) * 10 + _bcd2bin(cs10 >> 4);
 	} else {
-		ms = bcd2bin(s100_check) * 10;
+		ms = _bcd2bin(s100_check) * 10;
 	}
 	if (s == s_check) {
-		return bcd2bin(s) * 1000 + ms;
+		return _bcd2bin(s) * 1000 + ms;
 	} else {
-		return bcd2bin(s_check) * 1000;
+		return _bcd2bin(s_check) * 1000;
 	}
 }
 
@@ -30,9 +34,9 @@ int16_t timer() {
 	uint8_t hundreds = CTC_HUNDREDS;
 	uint8_t seconds_check = CTC_SECONDS;
 	if (seconds == seconds_check) {
-		return bcd2bin(seconds) * 100 + bcd2bin(hundreds);
+		return _bcd2bin(seconds) * 100 + _bcd2bin(hundreds);
 	} else {
-		return bcd2bin(seconds_check) * 100;
+		return _bcd2bin(seconds_check) * 100;
 	}
 }
 

@@ -4,6 +4,7 @@ INC_DIR = $(IDP_DEV_ROOT)/include
 UNC_DIR_CPM = $(IDP_DEV_ROOT)/src/ulibc
 BUILD_DIR = $(ROOT)/build
 BIN_DIR = $(ROOT)/bin
+BUILD_DIR_COMMON = $(realpath ..)/common/build
 BUILD_DIR_SDK = $(IDP_DEV_ROOT)/build
 AUX_DIR = $(realpath ../..)/make-aux
 
@@ -17,12 +18,13 @@ L2 = sdldz80
 L2FLAGS = -nf
 L2FIX = sed '/-b _DATA = 0x8000/d'
 
-TARGET = term
+TARGET = siogpt
 
 SRC = $(wildcard *.c)
 BIN_SRC = $(wildcard *.com)
 BIN_DST = $(addprefix $(BIN_DIR)/,$(BIN_SRC))
 OBJ = $(patsubst %.c,$(BUILD_DIR)/%.rel,$(SRC))
+OBJ_COMMON = $(wildcard $(BUILD_DIR_COMMON)/*.rel)
 HEX = $(BUILD_DIR)/$(TARGET).ihx
 COM = $(BIN_DIR)/$(TARGET).com
 IMG = $(BIN_DIR)/$(TARGET).img
@@ -76,8 +78,8 @@ $(BUILD_DIR):
 $(BUILD_DIR)/%.rel: %.c %.h | $(BUILD_DIR)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(HEX): $(OBJ)
-	$(LD) $(LDFLAGS) -o $(HEX) $(BUILD_DIR_SDK)/$(CRT0).rel $(OBJ)
+$(HEX): $(OBJ) $(OBJ_COMMON)
+	$(LD) $(LDFLAGS) -o $(HEX) $(BUILD_DIR_SDK)/$(CRT0).rel $(OBJ) $(OBJ_COMMON)
 	$(L2FIX) $(BUILD_DIR)/$(TARGET).lk > $(BUILD_DIR)/$(TARGET).link
 	$(L2) $(L2FLAGS) $(BUILD_DIR)/$(TARGET).link
 
@@ -95,3 +97,7 @@ $(IMG): $(COM) $(BIN_SRC)
 
 $(HFE): $(IMG)
 	-hxcfe -uselayout:IDP -conv:HXC_HFE -finput:$(IMG) -foutput:$(HFE)
+
+# Additional header dependencies
+
+$(BUILD_DIR)/$(TARGET).rel: ../common/sio.h
