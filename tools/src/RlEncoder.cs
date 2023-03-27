@@ -94,7 +94,7 @@ StringBuilder Rle2Code(byte[] rle)
     while (i < rle.Length)
     {
         int len = rle[i];
-        code.Append("\"");
+        code.Append($"\"\\x{rle[i]:X2}");
         for (int j = i + 1; j < i + 1 + len; j++)
         {
             code.Append($"\\x{rle[j]:X2}");
@@ -148,6 +148,10 @@ byte[] Bmp2Rle(Bitmap bmp, bool fullLines = true)
         if (rl > 0 && (fullLines || _px.SameAs(Color.White))) 
         { 
             rowRl.Add((_px, rl)); 
+        }
+        if (rowRl.Count == 1 && rowRl[0].len == 0) // optimize empty rows
+        {
+            rowRl.Clear();
         }
         // pass 2 (dotted runs)
         var rowRlExt = new List<(Color color, bool dotted, int len)>();
