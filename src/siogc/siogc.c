@@ -96,25 +96,21 @@ uint8_t *gfx_btn_round_down[] = {
 };
 
 uint8_t *gfx_btn_oval_up[] = {
-	"\x02\x08\xC3",
-	"\x04\x06\xC2\x83\xC1",
-	"\x04\x04\xC2\x85\xC1",
-	"\x04\x02\xC2\x86\xC1",
-	"\x04\x01\xC1\x86\xC2",
-	"\x03\xC1\x85\xC2",
-	"\x03\xC1\x83\xC2",
-	"\x02\x01\xC3"
+	"\x03\x05\x02\x83",
+	"\x03\x03\x02\x85",
+	"\x03\x01\x02\x86",
+	"\x03\x01\x86\x02",
+	"\x02\x85\x02",
+	"\x02\x83\x02"
 };
 
 uint8_t *gfx_btn_oval_down[] = {
-	"\x02\x08\xC3",
-	"\x03\x01\x05\xC6",
-	"\x03\x01\x03\xC8",
-	"\x03\x01\x01\xC9",
-	"\x03\x01\xC9\x01",
-	"\x02\xC8\x03",
-	"\x02\xC6\x05",
-	"\x02\x01\xC3"
+	"\x02\x07\xC3",
+	"\x02\x05\xC5",
+	"\x02\x03\xC6",
+	"\x02\x01\xC6",
+	"\x01\xC5",
+	"\x01\xC3"
 };
 
 uint8_t *gfx_btn_lr_down[] = {
@@ -143,7 +139,6 @@ uint8_t *gfx_btn_right_up[] = {
 	"\x02\xC5\x81",
 	"\x03\xC4\x81\xC1"
 };
-
 
 uint8_t *gfx_btn_up_up[] = {
 	"\x03\xC1\x81\xC1",
@@ -232,17 +227,17 @@ gc_button gc_btn_b = {
 };
 
 gc_button gc_btn_start = {
-	338 << 1, 
-	130, 
-	8,
+	339 << 1, 
+	131, 
+	6,
 	gfx_btn_oval_down,
 	gfx_btn_oval_up
 };
 
 gc_button gc_btn_back = {
-	323 << 1, 
-	130, 
-	8,
+	324 << 1, 
+	131, 
+	6,
 	gfx_btn_oval_down,
 	gfx_btn_oval_up
 };
@@ -315,7 +310,7 @@ void main() {
 	gc_btn_draw(&gc_btn_start, /*state*/true);
 	gc_btn_draw(&gc_btn_left, /*state*/true);
 	gc_btn_draw(&gc_btn_lt, /*state*/true);
-	gc_btn_draw(&gc_btn_rt, /*state*/true);
+	//gc_btn_draw(&gc_btn_rt, /*state*/true);
 	gdp_set_display_page(1);
 
 	while (!kbhit());
