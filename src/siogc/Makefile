@@ -97,4 +97,4 @@ $(HFE): $(IMG)
 
 # Additional header dependencies
 
-$(BUILD_DIR)/$(TARGET).rel: ../common/sio.h
+$(BUILD_DIR)/$(TARGET).rel: ../common/sio.h ../common/gdp.h ../common/avdc.h
