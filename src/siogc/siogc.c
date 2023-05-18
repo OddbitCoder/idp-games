@@ -78,29 +78,21 @@ uint8_t *gfx_controller[] = {
 };
 
 uint8_t *gfx_btn_round_up[] = {
-	"\x02\x03\xC4",
-	"\x04\x01\xC2\x84\xC2",
-	"\x04\x01\xC1\x86\xC1",
-	"\x03\xC1\x88\xC1",
-	"\x05\xC1\x86\xC1\x81\xC1",
-	"\x05\xC1\x86\xC1\x81\xC1",
-	"\x05\xC1\x85\xC2\x81\xC1",
-	"\x06\x01\xC1\x82\xC3\x81\xC1",
-	"\x04\x01\xC2\x84\xC2",
-	"\x02\x03\xC4"
+	"\x02\x01\x84",
+	"\x01\x86",
+	"\x02\x85\xC1",
+	"\x02\x85\xC1",
+	"\x02\x84\xC2",
+	"\x03\x01\x81\xC3"
 };
 
 uint8_t *gfx_btn_round_down[] = {
-	"\x02\x03\xC4",
-	"\x04\x01\xC2\x84\xC2",
-	"\x06\x01\xC1\x81\xC4\x81\xC1",
-	"\x05\xC1\x81\xC6\x81\xC1",
-	"\x05\xC1\x81\xC6\x81\xC1",
-	"\x05\xC1\x81\xC6\x81\xC1",
-	"\x05\xC1\x81\xC6\x81\xC1",
-	"\x06\x01\xC1\x81\xC4\x81\xC1",
-	"\x04\x01\xC2\x84\xC2",
-	"\x02\x03\xC4"
+	"\x02\x01\xC4",
+	"\x01\xC6",
+	"\x01\xC6",
+	"\x01\xC6",
+	"\x01\xC6",
+	"\x02\x01\xC4"
 };
 
 uint8_t *gfx_btn_oval_up[] = {
@@ -208,33 +200,33 @@ uint8_t *gfx_btn_rt_down[] = {
 };
 
 gc_button gc_btn_y = {
-	379 << 1, 
-	115,
-	10,
+	381 << 1, 
+	117,
+	6,
 	gfx_btn_round_down,
 	gfx_btn_round_up
 };
 
 gc_button gc_btn_x = {
-	364 << 1, 
-	125, 
-	10,
+	366 << 1, 
+	127, 
+	6,
 	gfx_btn_round_down,
 	gfx_btn_round_up
 };
 
 gc_button gc_btn_a = {
-	378 << 1, 
-	135, 
-	10,
+	380 << 1, 
+	137, 
+	6,
 	gfx_btn_round_down,
 	gfx_btn_round_up
 };
 
 gc_button gc_btn_b = {
-	393 << 1, 
-	125, 
-	10,
+	395 << 1, 
+	127, 
+	6,
 	gfx_btn_round_down,
 	gfx_btn_round_up
 };
