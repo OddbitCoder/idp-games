@@ -4,7 +4,7 @@
 #include "../common/gdp.h"
 #include "../common/avdc.h"
 
-#define RENDER_BUTTON(x) if (gc1.x.state != gc1_new.x.state) { draw_button(&gc_btn_##x, gc1_new.x.state); }
+#define RENDER_BUTTON(x, id) if (gc##id.x.state != gc##id##_new.x.state) { draw_button(&gc_btn_##x, gc##id##_new.x.state, id); }
 
 typedef uint8_t bool8_t;
 
@@ -327,8 +327,8 @@ gc_button gc_btn_r_trigger = {
 	gfx_btn_rt_up
 };
 
-void draw_button(gc_button *btn, bool8_t state) {
-	gdp_draw_sprite(state ? btn->gfx_down : btn->gfx_up, btn->h - 1, btn->x, btn->y);
+void draw_button(gc_button *btn, bool8_t state, uint8_t gc_id) {
+	gdp_draw_sprite(state ? btn->gfx_down : btn->gfx_up, btn->h - 1, btn->x - (gc_id == 0 ? 171 << 1 : 0), btn->y);
 }
 
 void put_pp_cmd_gc_state(sio_port *port, uint8_t id) {
@@ -358,7 +358,7 @@ void put_fake_pp_response_gc_state(sio_port *port) {
 	// data
 	sio_buffer_put_ch(&port->buffer_in, resp_id); // response id
 	sio_buffer_put_ch(&port->buffer_in, last_id); // delta id
-	sio_buffer_put_ch(&port->buffer_in, 1); // number of controllers
+	sio_buffer_put_ch(&port->buffer_in, 2); // number of controllers
 	// gc 1
 	sio_buffer_put_ch(&port->buffer_in, 0); // GC id
 	if (fake_data_id == 0) {
@@ -371,10 +371,24 @@ void put_fake_pp_response_gc_state(sio_port *port) {
 		sio_buffer_put_ch(&port->buffer_in, 255);
 		sio_buffer_put_ch(&port->buffer_in, 255);
 		sio_buffer_put_ch(&port->buffer_in, 255);
-		checksum = 255+255+255+255;
+		checksum += 255+255+255+255;
+	}
+	// gc 2
+	sio_buffer_put_ch(&port->buffer_in, 1); // GC id
+	if (fake_data_id == 0) {
+		sio_buffer_put_ch(&port->buffer_in, 0);
+		sio_buffer_put_ch(&port->buffer_in, 0);
+		sio_buffer_put_ch(&port->buffer_in, 0);
+		sio_buffer_put_ch(&port->buffer_in, 0);
+	} else {
+		sio_buffer_put_ch(&port->buffer_in, 255); 
+		sio_buffer_put_ch(&port->buffer_in, 255);
+		sio_buffer_put_ch(&port->buffer_in, 255);
+		sio_buffer_put_ch(&port->buffer_in, 255);
+		checksum += 255+255+255+255;
 	}
 	// checksum
-	sio_buffer_put_ch(&port->buffer_in, checksum + resp_id + last_id + 1);
+	sio_buffer_put_ch(&port->buffer_in, checksum + resp_id + last_id + 2 + 1);
 	resp_id++;
 	fake_data_id = (fake_data_id + 1) & 1;
 }
@@ -425,15 +439,15 @@ void sio_read_gc_state(sio_port *port, gc_state *state, uint8_t *checksum) {
 
 // NOTE: global vars are initialized to 0
 // current GC state
+gc_state gc0;
 gc_state gc1;
-gc_state gc2;
 // updated GC state
+gc_state gc0_new;
 gc_state gc1_new;
-gc_state gc2_new;
 
 gc_state *gc_new[] = {
-	&gc1_new,
-	&gc2_new
+	&gc0_new,
+	&gc1_new
 };
 
 bool8_t gc_updated[] = {
@@ -468,29 +482,42 @@ void main() {
 			//printf("valid ");
 			// update GC 1
 			if (!gc_updated[0]) {
-				memset(&gc1_new, 0, sizeof(gc_state));
+				memset(&gc0_new, 0, sizeof(gc_state));
 			}
-			RENDER_BUTTON(up);
-			RENDER_BUTTON(down);
-			RENDER_BUTTON(left);
-			RENDER_BUTTON(right);
-			RENDER_BUTTON(l_trigger);
-			RENDER_BUTTON(r_trigger);
+			RENDER_BUTTON(up, 0);
+			RENDER_BUTTON(down, 0);
+			RENDER_BUTTON(left, 0);
+			RENDER_BUTTON(right, 0);
+			RENDER_BUTTON(l_trigger, 0);
+			RENDER_BUTTON(r_trigger, 0);
 			// WARNME: l_shoulder, r_shoulder ignored
-			RENDER_BUTTON(x);
-			RENDER_BUTTON(y);
-			RENDER_BUTTON(a);
-			RENDER_BUTTON(b);
-			RENDER_BUTTON(start);
-			RENDER_BUTTON(back);
+			RENDER_BUTTON(x, 0);
+			RENDER_BUTTON(y, 0);
+			RENDER_BUTTON(a, 0);
+			RENDER_BUTTON(b, 0);
+			RENDER_BUTTON(start, 0);
+			RENDER_BUTTON(back, 0);
 			// WARNME: l_stick, r_stick ignored
-			memcpy(&gc1, &gc1_new, sizeof(gc_state));
+			memcpy(&gc0, &gc0_new, sizeof(gc_state));
 			// update GC 2
 			if (!gc_updated[1]) {
-				memset(&gc2_new, 0, sizeof(gc_state));
+				memset(&gc1_new, 0, sizeof(gc_state));
 			}
-			// ...
-			memcpy(&gc2, &gc2_new, sizeof(gc_state));
+			RENDER_BUTTON(up, 1);
+			RENDER_BUTTON(down, 1);
+			RENDER_BUTTON(left, 1);
+			RENDER_BUTTON(right, 1);
+			RENDER_BUTTON(l_trigger, 1);
+			RENDER_BUTTON(r_trigger, 1);
+			// WARNME: l_shoulder, r_shoulder ignored
+			RENDER_BUTTON(x, 1);
+			RENDER_BUTTON(y, 1);
+			RENDER_BUTTON(a, 1);
+			RENDER_BUTTON(b, 1);
+			RENDER_BUTTON(start, 1);
+			RENDER_BUTTON(back, 1);
+			// WARNME: l_stick, r_stick ignored
+			memcpy(&gc1, &gc1_new, sizeof(gc_state));
 		}
 
 		gc_data_valid = false;
@@ -533,13 +560,14 @@ void main() {
 							}
 						}
 					}
-					if (sio_buffer_get_ch(&port->buffer_in) == checksum && delta_id != last_delta_id) {
+					uint8_t cs = sio_buffer_get_ch(&port->buffer_in);
+					if (cs == checksum && delta_id != last_delta_id) {
 						//printf("ok. ");
 						last_id = id;
 						last_delta_id = delta_id;
 						gc_data_valid = true;
 					} else {
-						//printf("err. ");
+						//printf("%u %u. ", checksum, cs);
 					}
 				} // else we wait for more data
 			} else {
