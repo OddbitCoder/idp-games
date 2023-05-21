@@ -4,6 +4,8 @@
 #include "../common/gdp.h"
 #include "../common/avdc.h"
 
+#define RENDER_BUTTON(x) if (gc1.x.state != gc1_new.x.state) { draw_button(&gc_btn_##x, gc1_new.x.state); }
+
 typedef uint8_t bool8_t;
 
 typedef struct {
@@ -164,33 +166,33 @@ uint8_t *gfx_btn_ud_down[] = {
 };
 
 uint8_t *gfx_btn_left_up[] = {
-	"\x03\xC1\x81\xC4",
-	"\x02\x81\xC5",
-	"\x03\xC1\x81\xC4"
+	"\x03\x81\xC1\x84",
+	"\x02\xC1\x85",
+	"\x03\x81\xC1\x84"
 };
 
 uint8_t *gfx_btn_right_up[] = {
-	"\x03\xC4\x81\xC1",
-	"\x02\xC5\x81",
-	"\x03\xC4\x81\xC1"
+	"\x03\x84\xC1\x81",
+	"\x02\x85\xC1",
+	"\x03\x84\xC1\x81"
 };
 
 uint8_t *gfx_btn_up_up[] = {
-	"\x03\xC1\x81\xC1",
 	"\x03\x81\xC1\x81",
-	"\x01\xC3",
-	"\x01\xC3",
-	"\x01\xC3",
-	"\x01\xC3"
+	"\x03\xC1\x81\xC1",
+	"\x01\x83",
+	"\x01\x83",
+	"\x01\x83",
+	"\x01\x83"
 };
 
 uint8_t *gfx_btn_down_up[] = {
-	"\x01\xC3",
-	"\x01\xC3",
-	"\x01\xC3",
-	"\x01\xC3",
-	"\x03\x81\xC1\x81",
-	"\x03\xC1\x81\xC1"
+	"\x01\x83",
+	"\x01\x83",
+	"\x01\x83",
+	"\x01\x83",
+	"\x03\xC1\x81\xC1",
+	"\x03\x81\xC1\x81"
 };
 
 uint8_t *gfx_btn_lt_up[] = {
@@ -309,7 +311,7 @@ gc_button gc_btn_left = {
 	gfx_btn_left_up
 };
 
-gc_button gc_btn_lt = { // left trigger
+gc_button gc_btn_l_trigger = { 
 	283 << 1, 
 	97, 
 	6,
@@ -317,7 +319,7 @@ gc_button gc_btn_lt = { // left trigger
 	gfx_btn_lt_up
 };
 
-gc_button gc_btn_rt = { // right trigger
+gc_button gc_btn_r_trigger = { 
 	367 << 1, 
 	97, 
 	6,
@@ -468,28 +470,20 @@ void main() {
 			if (!gc_updated[0]) {
 				memset(&gc1_new, 0, sizeof(gc_state));
 			}
-			if (gc1.up.state != gc1_new.up.state) {
-				draw_button(&gc_btn_up, gc1_new.up.state);
-			}
-			if (gc1.down.state != gc1_new.down.state) {
-				draw_button(&gc_btn_down, gc1_new.down.state);
-			}
-			if (gc1.left.state != gc1_new.left.state) {
-				draw_button(&gc_btn_left, gc1_new.left.state);
-			}
-			if (gc1.right.state != gc1_new.right.state) {
-				draw_button(&gc_btn_right, gc1_new.right.state);
-			}
-			if (gc1.start.state != gc1_new.start.state) {
-				draw_button(&gc_btn_start, gc1_new.up.state);
-			}
-			if (gc1.a.state != gc1_new.a.state) {
-				draw_button(&gc_btn_a, gc1_new.up.state);
-			}
-			if (gc1.l_trigger.state != gc1_new.l_trigger.state) {
-				draw_button(&gc_btn_lt, gc1_new.up.state);
-			}
-			// ...
+			RENDER_BUTTON(up);
+			RENDER_BUTTON(down);
+			RENDER_BUTTON(left);
+			RENDER_BUTTON(right);
+			RENDER_BUTTON(l_trigger);
+			RENDER_BUTTON(r_trigger);
+			// WARNME: l_shoulder, r_shoulder ignored
+			RENDER_BUTTON(x);
+			RENDER_BUTTON(y);
+			RENDER_BUTTON(a);
+			RENDER_BUTTON(b);
+			RENDER_BUTTON(start);
+			RENDER_BUTTON(back);
+			// WARNME: l_stick, r_stick ignored
 			memcpy(&gc1, &gc1_new, sizeof(gc_state));
 			// update GC 2
 			if (!gc_updated[1]) {
