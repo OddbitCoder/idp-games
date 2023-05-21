@@ -45,7 +45,7 @@ void main() {
 		uint16_t len;
 		bool done = false;
 		do {
-			sio_poll(port);
+			sio_exchange(port);
 			len = sio_buffer_get(&port->buffer_in, io_buffer);
 			if (len > 0) {
 				done = io_buffer[len - 1] == '\0';

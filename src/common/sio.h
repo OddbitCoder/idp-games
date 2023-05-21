@@ -83,17 +83,16 @@ sio_port *sio_init_ex(sio_port_addr port_addr, sio_mode mode, sio_bauds bauds, s
 bool sio_buffer_put(sio_buffer *buffer, uint16_t len, uint8_t *values);
 bool sio_buffer_put_ch(sio_buffer *buffer, uint8_t ch);
 bool sio_buffer_put_str(sio_buffer *buffer, uint8_t *str);
-bool sio_buffer_peek(sio_buffer *buffer);
+bool sio_buffer_empty(sio_buffer *buffer);
 uint8_t sio_buffer_get_ch(sio_buffer *buffer);
+uint8_t sio_buffer_peek(sio_buffer *buffer, uint16_t idx);
 uint16_t sio_buffer_get(sio_buffer *buffer, uint8_t *dest);
 
 // send & receive (non-blocking)
-sio_exit_code sio_poll(sio_port *port);
+sio_exit_code sio_exchange(sio_port *port);
 
-// send (blocking)
-void sio_send(sio_port *port, uint16_t len, uint8_t *values);
-void sio_send_ch(sio_port *port, uint8_t ch);
-void sio_send_str(sio_port *port, uint8_t *str);
+// send only (non-blocking)
+bool sio_send(sio_port *port);
 
 // control signals
 void sio_set_rts(sio_port *port, bool state);

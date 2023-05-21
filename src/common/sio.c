@@ -66,14 +66,23 @@ uint8_t sio_buffer_get_ch(sio_buffer *buffer) {
 	return ch;
 }
 
-bool sio_buffer_peek(sio_buffer *buffer) {
-	return buffer->count > 0;
+uint8_t sio_buffer_peek(sio_buffer *buffer, uint16_t idx) {
+	if (buffer->count <= idx) {
+		return 0;
+	}
+	idx += buffer->get_ptr;
+	idx %= buffer->size; // TODO: check asm 
+	return buffer->values[idx]; 
+}
+
+bool sio_buffer_empty(sio_buffer *buffer) {
+	return buffer->count == 0;
 }
 
 uint16_t sio_buffer_get(sio_buffer *buffer, uint8_t *dest) {
 	uint8_t *p = dest;
 	uint16_t count = buffer->count;
-	while (sio_buffer_peek(buffer)) {
+	while (!sio_buffer_empty(buffer)) {
 		*(p++) = sio_buffer_get_ch(buffer);
 	}
 	return count;
@@ -210,13 +219,23 @@ sio_exit_code _sio_flush(sio_port *port) {
 			}
 		} else {
 			if (++loop_count >= port->no_activity_thr) {
-				return SIO_EXIT_CODE_NO_ACTIVITY;
+				return port->buffer_in.count >= port->buffer_in.size - port->in_buffer_ext
+					? SIO_EXIT_CODE_BUFFER_FULL
+					: SIO_EXIT_CODE_NO_ACTIVITY;
 			}
 		}
 	}
 }
 
-sio_exit_code sio_poll(sio_port *port) {
+bool sio_send(sio_port *port) {
+	while (_sio_check_able_to_send(port) && !sio_buffer_empty(&port->buffer_out)) {
+		while (!_sio_check_tx_buffer_empty(port)); // WARNME: can this block forever?
+		_out(port->addr - 1, sio_buffer_get_ch(&port->buffer_out));
+	} 
+	return sio_buffer_empty(&port->buffer_out);
+}
+
+sio_exit_code sio_exchange(sio_port *port) {
 	if (port->buffer_in.count >= port->buffer_in.size - port->in_buffer_ext) { 
 		return port->buffer_in.count >= port->buffer_in.size
 			? SIO_EXIT_CODE_BUFFER_OVERFLOW
@@ -227,7 +246,7 @@ sio_exit_code sio_poll(sio_port *port) {
 	_sio_set_able_to_rcv(port, true);
 	while (true) {
 		// try send char 
-		if (_sio_check_able_to_send(port) && sio_buffer_peek(&port->buffer_out)) {
+		if (_sio_check_able_to_send(port) && !sio_buffer_empty(&port->buffer_out)) {
 			loop_count = 0; // reset activity counter
 			if (_sio_check_tx_buffer_empty(port)) {
 				_out(port->addr - 1, sio_buffer_get_ch(&port->buffer_out));
@@ -246,33 +265,15 @@ sio_exit_code sio_poll(sio_port *port) {
 				// check if buffer full
 				if (port->buffer_in.count >= port->buffer_in.size - port->in_buffer_ext) {
 					_sio_set_able_to_rcv(port, false);
-					return _sio_flush(port) == SIO_EXIT_CODE_BUFFER_OVERFLOW
-						? SIO_EXIT_CODE_BUFFER_OVERFLOW
-						: SIO_EXIT_CODE_BUFFER_FULL;
+					return _sio_flush(port);
 				}
 			}
 		} else {
 			if (++loop_count >= port->no_activity_thr) {
-				return SIO_EXIT_CODE_NO_ACTIVITY;
+				_sio_set_able_to_rcv(port, false);
+				return _sio_flush(port);
 			}
 		}
-	}
-}
-
-void sio_send_ch(sio_port *port, uint8_t ch) { 
-	while (!_sio_check_able_to_send(port) || !_sio_check_tx_buffer_empty(port));
-	_out(port->addr - 1, ch);
-}
-
-void sio_send(sio_port *port, uint16_t len, uint8_t *values) {
-	for (uint8_t i = 0; i < len; i++) {
-		sio_send_ch(port, values[i]);
-	}
-}
-
-void sio_send_str(sio_port *port, uint8_t *str) { 
-	for (uint8_t *ptr = str; *ptr != 0; ptr++) {
-		sio_send_ch(port, *ptr);
 	}
 }
 

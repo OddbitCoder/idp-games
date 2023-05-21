@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 #include "../common/sio.h"
 #include "../common/gdp.h"
 #include "../common/avdc.h"
+
+typedef uint8_t bool8_t;
 
 typedef struct {
 	uint16_t x;
@@ -11,7 +14,39 @@ typedef struct {
 	uint8_t **gfx_up;
 } gc_button;
 
-uint8_t *gfx_controller[] = {
+typedef struct {
+	bool8_t count; 
+	bool8_t state; 
+} gc_btn_state;
+
+typedef struct {
+	gc_btn_state up;
+	gc_btn_state down;
+	gc_btn_state left;
+	gc_btn_state right;
+	gc_btn_state l_trigger;
+	gc_btn_state r_trigger;
+	gc_btn_state l_shoulder;
+	gc_btn_state r_shoulder;
+	gc_btn_state x;
+	gc_btn_state y;
+	gc_btn_state a;
+	gc_btn_state b;
+	gc_btn_state start;
+	gc_btn_state back;
+	gc_btn_state l_stick;
+	gc_btn_state r_stick;
+} gc_state;
+
+typedef enum {
+	PP_CMD_GC_STATE = 1
+} pp_cmd; // PlayPal command
+
+typedef enum {
+	PP_RESP_GC_STATE = 1
+} pp_response;
+
+uint8_t *gfx_gc[] = {
 	"\x06\x00\x18\x17\x33\x17\x18",
 	"\x0A\x00\x15\x03\x16\x01\x33\x01\x16\x03\x15",
 	"\x08\x00\x12\x9C\x3F\x00\x20\xA3\x12",
@@ -290,32 +325,237 @@ gc_button gc_btn_rt = { // right trigger
 	gfx_btn_rt_up
 };
 
-void gc_btn_draw(gc_button *button, bool state) {
-	gdp_draw_sprite(state ? button->gfx_down : button->gfx_up, button->h - 1, button->x, button->y);
+void draw_button(gc_button *btn, bool8_t state) {
+	gdp_draw_sprite(state ? btn->gfx_down : btn->gfx_up, btn->h - 1, btn->x, btn->y);
 }
 
+void put_pp_cmd_gc_state(sio_port *port, uint8_t id) {
+	if (port->buffer_out.size - port->buffer_out.count >= 4) {
+		// command code
+		sio_buffer_put_ch(&port->buffer_out, PP_CMD_GC_STATE);
+		sio_buffer_put_ch(&port->buffer_out, (uint8_t)~PP_CMD_GC_STATE);
+		// data
+		sio_buffer_put_ch(&port->buffer_out, id);
+		// checksum
+		sio_buffer_put_ch(&port->buffer_out, id);
+	}
+}
+
+uint8_t resp_id = 1;
+
+uint8_t last_id = 0;
+uint8_t last_delta_id = 255;
+
+uint8_t fake_data_id = 0;
+
+void put_fake_pp_response_gc_state(sio_port *port) {
+	uint8_t checksum = 0;
+	// response code
+	sio_buffer_put_ch(&port->buffer_in, PP_RESP_GC_STATE);
+	sio_buffer_put_ch(&port->buffer_in, (uint8_t)~PP_RESP_GC_STATE);
+	// data
+	sio_buffer_put_ch(&port->buffer_in, resp_id); // response id
+	sio_buffer_put_ch(&port->buffer_in, last_id); // delta id
+	sio_buffer_put_ch(&port->buffer_in, 1); // number of controllers
+	// gc 1
+	sio_buffer_put_ch(&port->buffer_in, 0); // GC id
+	if (fake_data_id == 0) {
+		sio_buffer_put_ch(&port->buffer_in, 0);
+		sio_buffer_put_ch(&port->buffer_in, 0);
+		sio_buffer_put_ch(&port->buffer_in, 0);
+		sio_buffer_put_ch(&port->buffer_in, 0);
+	} else {
+		sio_buffer_put_ch(&port->buffer_in, 255); 
+		sio_buffer_put_ch(&port->buffer_in, 255);
+		sio_buffer_put_ch(&port->buffer_in, 255);
+		sio_buffer_put_ch(&port->buffer_in, 255);
+		checksum = 255+255+255+255;
+	}
+	// checksum
+	sio_buffer_put_ch(&port->buffer_in, checksum + resp_id + last_id + 1);
+	resp_id++;
+	fake_data_id = (fake_data_id + 1) & 1;
+}
+
+void sio_read_gc_state(sio_port *port, gc_state *state, uint8_t *checksum) {
+	uint8_t b;
+	// up, down, left, right
+	*checksum += (b = sio_buffer_get_ch(&port->buffer_in));
+	state->right.state = b & 1;
+	state->right.count = (b >>= 1) & 1;
+	state->left.state = (b >>= 1) & 1;
+	state->left.count = (b >>= 1) & 1;
+	state->down.state = (b >>= 1) & 1;
+	state->down.count = (b >>= 1) & 1;
+	state->up.state = (b >>= 1) & 1;
+	state->up.count = (b >>= 1) & 1;
+	// l_trigger, r_trigger, l_shoulder, r_shoulder
+	*checksum += (b = sio_buffer_get_ch(&port->buffer_in));
+	state->r_shoulder.state = b & 1;
+	state->r_shoulder.count = (b >>= 1) & 1;
+	state->l_shoulder.state = (b >>= 1) & 1;
+	state->l_shoulder.count = (b >>= 1) & 1;
+	state->r_trigger.state = (b >>= 1) & 1;
+	state->r_trigger.count = (b >>= 1) & 1;
+	state->l_trigger.state = (b >>= 1) & 1;
+	state->l_trigger.count = (b >>= 1) & 1;
+	// x, y, a, b
+	*checksum += (b = sio_buffer_get_ch(&port->buffer_in));
+	state->b.state = b & 1;
+	state->b.count = (b >>= 1) & 1;
+	state->a.state = (b >>= 1) & 1;
+	state->a.count = (b >>= 1) & 1;
+	state->y.state = (b >>= 1) & 1;
+	state->y.count = (b >>= 1) & 1;
+	state->x.state = (b >>= 1) & 1;
+	state->x.count = (b >>= 1) & 1;
+	// start, back, l_stick, r_stick
+	*checksum += (b = sio_buffer_get_ch(&port->buffer_in));
+	state->r_stick.state = b & 1;
+	state->r_stick.count = (b >>= 1) & 1;
+	state->l_stick.state = (b >>= 1) & 1;
+	state->l_stick.count = (b >>= 1) & 1;
+	state->back.state = (b >>= 1) & 1;
+	state->back.count = (b >>= 1) & 1;
+	state->start.state = (b >>= 1) & 1;
+	state->start.count = (b >>= 1) & 1;	
+}
+
+// NOTE: global vars are initialized to 0
+// current GC state
+gc_state gc1;
+gc_state gc2;
+// updated GC state
+gc_state gc1_new;
+gc_state gc2_new;
+
+gc_state *gc_new[] = {
+	&gc1_new,
+	&gc2_new
+};
+
+bool8_t gc_updated[] = {
+	false,
+	false
+};
+
+bool8_t gc_data_valid = false;
+
 void main() {
-	avdc_init();
+	//avdc_init();
 	gdp_init();
 	sio_port *port = sio_init_ex(SIO_PORT_LPT, SIO_MODE_POLLING, SIO_BAUDS_9600, SIO_DATA_BITS_8, SIO_STOP_BITS_1, SIO_PARITY_NONE, SIO_FLOW_CONTROL_RTSCTS,
-		/*out_buffer_sz*/16, 
-		/*in_buffer_sz*/16,
-		/*in_buffer_ext*/16,
+		/*out_buffer_sz*/128, 
+		/*in_buffer_sz*/128,
+		/*in_buffer_ext*/64,
 		/*no_activity_thr*/100);
 
 	gdp_set_write_page(1);
-	gdp_draw(gfx_controller, 62, 98 << 1, 97);
-	gdp_draw(gfx_controller, 62, 269 << 1, 97);
-	gc_btn_draw(&gc_btn_y, /*state*/true);
-	gc_btn_draw(&gc_btn_start, /*state*/true);
-	gc_btn_draw(&gc_btn_left, /*state*/true);
-	gc_btn_draw(&gc_btn_lt, /*state*/true);
-	//gc_btn_draw(&gc_btn_rt, /*state*/true);
+	gdp_draw(gfx_gc, 62, 98 << 1, 97);
+	gdp_draw(gfx_gc, 62, 269 << 1, 97);
 	gdp_set_display_page(1);
 
-	while (!kbhit());
+	while (!kbhit()) { // main "game" loop
+
+		put_pp_cmd_gc_state(port, last_id);
+		sio_send(port);	
+		
+		// < GAME LOGIC AND RENDERING GOES HERE >
+
+		if (gc_data_valid) {
+			//printf("valid ");
+			// update GC 1
+			if (!gc_updated[0]) {
+				memset(&gc1_new, 0, sizeof(gc_state));
+			}
+			if (gc1.up.state != gc1_new.up.state) {
+				draw_button(&gc_btn_up, gc1_new.up.state);
+			}
+			if (gc1.down.state != gc1_new.down.state) {
+				draw_button(&gc_btn_down, gc1_new.down.state);
+			}
+			if (gc1.left.state != gc1_new.left.state) {
+				draw_button(&gc_btn_left, gc1_new.left.state);
+			}
+			if (gc1.right.state != gc1_new.right.state) {
+				draw_button(&gc_btn_right, gc1_new.right.state);
+			}
+			if (gc1.start.state != gc1_new.start.state) {
+				draw_button(&gc_btn_start, gc1_new.up.state);
+			}
+			if (gc1.a.state != gc1_new.a.state) {
+				draw_button(&gc_btn_a, gc1_new.up.state);
+			}
+			if (gc1.l_trigger.state != gc1_new.l_trigger.state) {
+				draw_button(&gc_btn_lt, gc1_new.up.state);
+			}
+			// ...
+			memcpy(&gc1, &gc1_new, sizeof(gc_state));
+			// update GC 2
+			if (!gc_updated[1]) {
+				memset(&gc2_new, 0, sizeof(gc_state));
+			}
+			// ...
+			memcpy(&gc2, &gc2_new, sizeof(gc_state));
+		}
+
+		gc_data_valid = false;
+		gc_updated[0] = false;
+		gc_updated[1] = false;
+
+		// < ANY SYNC DELAY GOES HERE >
+		
+		sio_exchange(port); // receive controller state
+		put_fake_pp_response_gc_state(port); // WARNME
+
+		while (port->buffer_in.count >= 6) { // state is at least 6 bytes
+			uint8_t cmd = sio_buffer_peek(&port->buffer_in, 0);
+			uint8_t chck = sio_buffer_peek(&port->buffer_in, 1);
+			if (chck == (uint8_t)~cmd && cmd == PP_RESP_GC_STATE) { 
+				// |code|~code|id|delta id|n|gc id|gc 1 (4 bytes)|gc id|gc 2 (4 bytes)|...|checksum|
+				uint8_t n = sio_buffer_peek(&port->buffer_in, 4);
+				if (port->buffer_in.count >= 6 + n * 5) {
+					// parse controller state 
+					//printf("gc_state ");
+					sio_buffer_get_ch(&port->buffer_in); // PP_RESP_GC_STATE
+					sio_buffer_get_ch(&port->buffer_in); // ~PP_RESP_GC_STATE
+					uint8_t id = sio_buffer_get_ch(&port->buffer_in);
+					uint8_t checksum = id;
+					uint8_t delta_id = sio_buffer_get_ch(&port->buffer_in);
+					checksum += delta_id;
+					sio_buffer_get_ch(&port->buffer_in); // n
+					checksum += n;
+					for (uint8_t i = 0; i < n; i++) {
+						uint8_t gc_id = sio_buffer_get_ch(&port->buffer_in);
+						//printf("c %u ", gc_id);
+						checksum += gc_id;
+						if (gc_id <= 1) {
+							gc_updated[gc_id] = true;
+							sio_read_gc_state(port, gc_new[gc_id], &checksum);
+						} else { 
+							// "drop" 4 bytes
+							for (uint8_t k = 0; k < 4; k++) {
+								checksum += sio_buffer_get_ch(&port->buffer_in);
+							}
+						}
+					}
+					if (sio_buffer_get_ch(&port->buffer_in) == checksum && delta_id != last_delta_id) {
+						//printf("ok. ");
+						last_id = id;
+						last_delta_id = delta_id;
+						gc_data_valid = true;
+					} else {
+						//printf("err. ");
+					}
+				} // else we wait for more data
+			} else {
+				// drop 1 byte
+				sio_buffer_get_ch(&port->buffer_in);
+			}
+		}
+	}
 
 	sio_done(port);
 	gdp_done();
-	avdc_done();
+	//avdc_done();
 }
