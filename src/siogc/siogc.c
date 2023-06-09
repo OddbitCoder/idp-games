@@ -4,7 +4,9 @@
 #include "../common/gdp.h"
 #include "../common/avdc.h"
 
-#define RENDER_BUTTON(x, id) if (gc##id.x.state != gc##id##_new.x.state) { draw_button(&gc_btn_##x, gc##id##_new.x.state, id); }
+#define RENDER_BUTTON(x, id) if (gc##id.x.state != gc##id##_new.x.state) { \
+	draw_button(&gc_btn_##x, gc##id##_new.x.state, id); \
+}
 
 typedef uint8_t bool8_t;
 
@@ -479,7 +481,6 @@ void main() {
 		// < GAME LOGIC AND RENDERING GOES HERE >
 
 		if (gc_data_valid) {
-			//printf("valid ");
 			// update GC 1
 			if (!gc_updated[0]) {
 				memset(&gc0_new, 0, sizeof(gc_state));
@@ -533,7 +534,7 @@ void main() {
 			uint8_t cmd = sio_buffer_peek(&port->buffer_in, 0);
 			uint8_t chck = sio_buffer_peek(&port->buffer_in, 1);
 			if (chck == (uint8_t)~cmd && cmd == PP_RESP_GC_STATE) { 
-				// |code|~code|id|delta id|n|gc id|gc 1 (4 bytes)|gc id|gc 2 (4 bytes)|...|checksum|
+				// |code|~code|id|delta id|n|gc id|gc state (4 bytes)|gc id|gc state (4 bytes)|...|checksum|
 				uint8_t n = sio_buffer_peek(&port->buffer_in, 4);
 				if (port->buffer_in.count >= 6 + n * 5) {
 					// parse controller state 
