@@ -128,6 +128,45 @@ Bitmap Rle2Bmp(int width, int height, byte[] rle)
     return bitmap;
 }
 
+byte[] Bmp2Rle_Sprite(Bitmap bmp)
+{
+    var rle = new List<byte>();
+    for (int y = 0; y < bmp.Height; y++)
+    {
+        var _px = bmp.GetPixel(0, y);
+        int rl = 0;
+        var rowRl = new List<(Color color, int len)>();
+        // pass 1 (run lengths)
+        for (int x = 0; x < bmp.Width; x++)
+        {
+            var px = bmp.GetPixel(x, y);
+            if (px.SameAs(_px)) { rl++; }
+            else { rowRl.Add((_px, rl)); rl = 1; }
+            _px = px;
+        }
+        if (rl > 0 && !_px.Transparent())
+        {
+            rowRl.Add((_px, rl));
+        }
+        // pass 2 (encoding)
+        var rowRle = new List<byte>();
+        for (int i = 0; i < rowRl.Count; i++)
+        {
+            byte b = (byte)((rowRl[i].color.Transparent() ? 0 : 128) + (rowRl[i].color.SameAs(Color.White) ? 64 : 0));
+            int len = rowRl[i].len;
+            while (len > 0)
+            {
+                rowRle.Add((byte)(b | Math.Min(63, len)));
+                len -= 63;
+            }
+        }
+        if (rowRle.Count > 255) { Console.WriteLine("!!! UNABLE TO ENCODE !!! ROW LENGTH OVER 255 !!!"); }
+        rle.Add((byte)rowRle.Count);
+        rle.AddRange(rowRle);
+    }
+    return rle.ToArray();
+}
+
 byte[] Bmp2Rle(Bitmap bmp, bool fullLines = true)
 {
     var imgRle = new List<byte>();
@@ -176,8 +215,7 @@ byte[] Bmp2Rle(Bitmap bmp, bool fullLines = true)
         // pass 3 (Partner encoding)
         var rowRle = new List<byte>();
         for (int i = 0; i < rowRlExt.Count; i++)
-        {
-            
+        {   
             if (i < rowRlExt.Count - 1 && rowRlExt[i].len <= 7 && rowRlExt[i + 1].len <= 7)
             {
                 // encode 2 items into 1 byte
@@ -248,7 +286,9 @@ parser.ParseArguments<CliOptions>(args)
         if (imgFl || o.Mode == ConversionMode.Bmp2Rle)
         {
             var img = Image.FromFile(o.InputFile);
-            var rle = Bmp2Rle((Bitmap)img, !o.CutRows);
+            var rle = o.Encoding == RleEncoding.Background
+                ? Bmp2Rle((Bitmap)img, !o.CutRows)
+                : Bmp2Rle_Sprite((Bitmap)img);
             File.WriteAllBytes(o.OutputFile, rle);
             if (!o.NoCode) // output code
             {
@@ -285,11 +325,20 @@ enum ConversionMode
     Rle2Bmp
 }
 
+enum RleEncoding
+{
+    Background,
+    Sprite
+}
+
 class CliOptions
 {
     [Option('m', "mode", Required = false, HelpText = "Conversion mode (Auto [default], Bmp2Rle, Rle2Bmp).")]
     public ConversionMode Mode { get; set; }
         = ConversionMode.Auto;
+    [Option('e', "encoding", Required = false, HelpText = "RLE encoding (Background [default], Sprite).")]
+    public RleEncoding Encoding { get; set; }
+        = RleEncoding.Background;
     [Option('i', "input", Required = true, HelpText = "Input file name.")]
     public string InputFile { get; set; }
     [Option('o', "output", Required = true, HelpText = "Output file name.")]
@@ -304,6 +353,17 @@ static class Extensions
 {
     public static bool SameAs(this Color c1, Color c2)
     {
-        return c1.ToArgb() == c2.ToArgb();
+        //return c1.ToArgb() == c2.ToArgb();
+        // compare with some tolerance
+        return Math.Abs(c1.R - c2.R) <= 30 &&
+            Math.Abs(c1.G - c2.G) <= 30 &&
+            Math.Abs(c1.B - c2.B) <= 30 &&
+            Math.Abs(c1.A - c2.A) <= 30;
+    }
+
+    public static bool Transparent(this Color c)
+    {
+        // compare with some tolerance
+        return c.A <= 30;
     }
 }
