@@ -304,6 +304,11 @@ static class Extensions
 {
     public static bool SameAs(this Color c1, Color c2)
     {
-        return c1.ToArgb() == c2.ToArgb();
+        //return c1.ToArgb() == c2.ToArgb();
+        // compare with some tolerance
+        return Math.Abs(c1.R - c2.R) <= 30 &&
+            Math.Abs(c1.G - c2.G) <= 30 &&
+            Math.Abs(c1.B - c2.B) <= 30 &&
+            Math.Abs(c1.A - c2.A) <= 30;
     }
 }
