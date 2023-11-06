@@ -9,7 +9,7 @@
 1. Install SDCC 4.1.0:
     ```
     wget -O /tmp/sdcc-src-4.1.0.tar.bz2 https://sourceforge.net/projects/sdcc/files/sdcc/4.1.0/sdcc-src-4.1.0.tar.bz2
-    # alternatively, wget -O /tmp/sdcc-src-4.1.0.tar.bz2 https://part-time-nerds.org/files/IskraDeltaPartner/Tools/sdcc/sdcc-src-4.1.0.tar.bz2
+    # alternatively, wget -O /tmp/sdcc-src-4.1.0.tar.bz2 https://files.oddbit-retro.org/pub/Partner/Tools/sdcc/sdcc-src-4.1.0.tar.bz2
     
     cd /tmp
 
@@ -31,7 +31,7 @@
     ```
 1. Install HXCFE:
     ```
-    sudo git clone https://github.com/mgrcar/HxCFloppyEmulator.git /opt/HxCFloppyEmulator
+    sudo git clone https://github.com/OddbitCoder/HxCFloppyEmulator.git /opt/HxCFloppyEmulator
 
     cd /opt/HxCFloppyEmulator/build; sudo make HxCFloppyEmulator_cmdline
     ```
