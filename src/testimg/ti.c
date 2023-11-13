@@ -264,13 +264,16 @@ uint8_t *gfx_ti[] = {
 void main() {
 	avdc_init();
 	gdp_init();
-	// fill GDP screen
+	
+	// draw GDP test image
 	gdp_draw(gfx_ti, 255, 0, 0);
-	// fill AVDC screen
-	for (int row = 0; row < 26; row++) {
-        uint16_t row_attr = avdc_get_pointer(row, 0);
-        
-    }
+	// display AVDC test pattern
+	avdc_write_str_at_pointer_pos(0, 0, "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", 0);
+	avdc_write_str_at_pointer_pos(25, 0, "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", 0);
+	for (int row = 1; row < 25; row++) {
+		avdc_write_str_at_pointer_pos(row, 0, "EE", 0);
+		avdc_write_str_at_pointer_pos(row, 80 - 2, "EE", 0);
+	}
 	while (!kbhit());
 	gdp_done();
 	avdc_done();
