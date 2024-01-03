@@ -163,6 +163,11 @@ sprite sprite_dummy = {
 	/*len*/ 0
 };
 
+sprite sprite_numbers = {
+	"1234567890",
+	/*len*/ 10
+};
+
 sprite *sprite_list[] = {
 	&sprite_log_18,
 	&sprite_log_27,
@@ -178,7 +183,8 @@ sprite *sprite_list[] = {
 	&sprite_car,
 	&sprite_dozer,
 	&sprite_home,
-	&sprite_dummy
+	&sprite_dummy,
+	&sprite_numbers
 };
 
 #define SPRITE_LOG_18 "\x00"
@@ -196,6 +202,7 @@ sprite *sprite_list[] = {
 #define SPRITE_DOZER "\x0C"
 #define SPRITE_HOME "\x0D"
 #define SPRITE_DUMMY "\x0E"
+#define SPRITE_NUMBERS "\x0F"
 
 // *** frame_<level>_<lane>_<row>_<frame>
 
@@ -357,13 +364,18 @@ row row_0_9_0 = {
 	/*row_def_len*/ 3 * 2
 };
 
+row row_numbers = {
+	"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS"\x00"SPRITE_NUMBERS, 
+	/*row_def_len*/ 13 * 2	
+};
+
 row row_grass = {
 	"\x84"SPRITE_DUMMY, // WARNME: needs to be adjusted wrt VISIBLE_ROW_LEN
 	/*row_def_len*/ 1 * 2	
 };
 
 row row_home = {
-	"\x25"SPRITE_HOME"\x08"SPRITE_HOME"\x08"SPRITE_HOME"\x08"SPRITE_HOME"\x08"SPRITE_HOME, // WARNME: needs to be adjusted wrt VISIBLE_ROW_LEN
+	"\x1E"SPRITE_HOME"\x0C"SPRITE_HOME"\x0C"SPRITE_HOME"\x0C"SPRITE_HOME"\x0C"SPRITE_HOME, // WARNME: needs to be adjusted wrt VISIBLE_ROW_LEN
 	/*row_def_len*/ 5 * 2	
 };
 
@@ -409,6 +421,10 @@ row *aux_lane_0_8_rows[] = {
 
 row *aux_lane_0_9_rows[] = {
 	&row_0_9_0
+};
+
+row *aux_lane_numbers_rows[] = {
+	&row_numbers
 };
 
 row *aux_lane_grass_rows[] = {
@@ -536,6 +552,14 @@ lane lane_0_9 = {
 	/*shift_row_delay*/ 1
 };
 
+lane lane_numbers = {
+	aux_lane_numbers_rows,
+	/*row_count*/ 1,
+	/*frame_count*/ 0,
+	/*update_config*/ LANE_UPDATE_STATIC,
+	/*bkgr_char*/ '.'
+};
+
 lane lane_grass = {
 	aux_lane_grass_rows,
 	/*row_count*/ 1,
@@ -549,13 +573,13 @@ lane lane_home = {
 	/*row_count*/ 1,
 	/*frame_count*/ 0,
 	/*update_config*/ LANE_UPDATE_STATIC,
-	/*bkgr_char*/ '.'
+	/*bkgr_char*/ 'E'
 };
 
 // *** level_<level>
 
 lane *aux_level_0_lanes[] = {
-	&lane_grass,
+	&lane_numbers,
 	&lane_home,
 	&lane_0_0,
 	&lane_0_1,
@@ -697,7 +721,6 @@ void row_fill(row *row, uint8_t ch, uint8_t row_len) {
 	avdc_set_cursor_addr(row->addr);
 	for (uint8_t i = 0; i < row_len; i++) {
 		avdc_write_at_cursor(ch, /*attr*/0);
-		sim_delay(1);
 	}
 }
 
@@ -791,7 +814,6 @@ void row_table_update(level *level) {
 	for (uint8_t i = 0; i < level->lane_count; i++) {
 		lane *lane = level->lanes[i];
 		avdc_write_addr_at_cursor(lane->rows[lane->row_idx]->addr + lane->row_offset);
-		sim_delay(2);
 	}
 }
 
@@ -903,8 +925,31 @@ void level_update(level *level, uint8_t delay_base) {
 	}
 }
 
+void draw_rect(gdp_tool tool, uint16_t x, uint8_t y, uint16_t w, uint16_t h) { 
+	x <<= 1;
+	w <<= 1;
+    gdp_set_xy(x, y + h - 1);
+    gdp_line_delta(tool, GDP_STYLE_NORMAL, 0, h - 1, GDP_DELTA_SIGN_DY_NEG);
+    uint8_t div = w >> 8;
+    uint8_t rem = w & 0xFF;
+    for (uint8_t i = 0; i < div; i++) {
+    	gdp_line_dx_pos(tool, GDP_STYLE_NORMAL, 255);	
+    }
+  	gdp_line_dx_pos(tool, GDP_STYLE_NORMAL, rem + div - 1);		
+    gdp_line_delta(tool, GDP_STYLE_NORMAL, 0, h - 1, GDP_DELTA_SIGN_DY_POS);
+    for (uint8_t i = 0; i < div; i++) {
+    	gdp_line_delta(tool, GDP_STYLE_NORMAL, 255, 0, GDP_DELTA_SIGN_DX_NEG);	
+    }    
+    if (rem + div > 1) {
+    	gdp_line_delta(tool, GDP_STYLE_NORMAL, rem + div - 2, 0, GDP_DELTA_SIGN_DX_NEG);	
+    }
+    gdp_line_delta(tool, GDP_STYLE_NORMAL, 0, h - 1, GDP_DELTA_SIGN_DY_NEG);
+    gdp_set_xy(x + w - 2, y);
+    gdp_line_delta(tool, GDP_STYLE_NORMAL, 0, h - 1, GDP_DELTA_SIGN_DY_POS);
+}
+
 int main() {
-	gdp_cls();
+	gdp_init();
 	//avdc_init();
 	//avdc_init_ex(AVDC_MODE_CUSTOM, 0xC4, avdc_init_str);
 	avdc_init_ex(AVDC_MODE_132, 0, NULL);
@@ -915,9 +960,15 @@ int main() {
 	row_table_update(&level_0);
 	level_render(&level_0);
 
+	uint8_t offset = 80;
+	draw_rect(GDP_TOOL_PEN, offset, 0, 512 - offset * 2, 256);
+
 	//debug_print_u16(20, level_get_byte_count(&level_0));
 
 	lane_init_timer(&level_0);
+
+	// avdc_write_str_at_pointer_pos(uint8_t row, uint8_t col, uint8_t *str, uint8_t *attr);
+	avdc_write_str_at_pointer_pos(0, 0, "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890AB", NULL);
 
 	do {
 		level_update(&level_0, 100);
@@ -925,5 +976,6 @@ int main() {
 	} while (!kbhit());
 
 	avdc_done();
+	gdp_done();
 	return 0;
 }
