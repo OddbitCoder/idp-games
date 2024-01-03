@@ -295,7 +295,8 @@ void bios_init() {
 	BIOS_AD = 0x07;
 	BIOS_AE = 0x02;
 	BIOS_AF = 0x57;
-	avdc_write_str_at_pointer_pos(1, 0, "Inicializacija koncana. Pritisni neko tipko za nadaljevanje.", 0);
+	avdc_write_str_at_pointer_pos(1, 0, "Inicializacija koncana. Racunalnik je potrebno ponovno zagnati.", 0);
+	avdc_write_str_at_pointer_pos(2, 0, "Pritisni neko tipko za nadaljevanje.", 0);
 	while (!kbhit());
 	avdc_clear_screen();
 }
