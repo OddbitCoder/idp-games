@@ -61,6 +61,7 @@ typedef struct {
 	lane_update_config update_config;
 	uint8_t bkgr_char;
 	dir dir;
+	uint8_t shift_row_step;
 	uint8_t shift_row_delay;
 	uint8_t switch_row_delay;
 	uint8_t first_frame_delay;
@@ -425,6 +426,7 @@ lane lane_0_0 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1
 };
 
@@ -435,6 +437,7 @@ lane lane_0_1 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1,
 	/*switch_row_delay*/ 5,
 	/*first_frame_delay*/ 30,
@@ -448,6 +451,7 @@ lane lane_0_2 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
+	/*shift_row_step*/ 2,
 	/*shift_row_delay*/ 1
 	
 };
@@ -459,6 +463,7 @@ lane lane_0_3 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1
 };
 
@@ -469,6 +474,7 @@ lane lane_0_4 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1,
 	/*switch_row_delay*/ 5,
 	/*first_frame_delay*/ 30,
@@ -482,6 +488,7 @@ lane lane_0_5 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1
 };
 
@@ -492,6 +499,7 @@ lane lane_0_6 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1
 };
 
@@ -502,6 +510,7 @@ lane lane_0_7 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1
 };
 
@@ -512,6 +521,7 @@ lane lane_0_8 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1
 };
 
@@ -522,6 +532,7 @@ lane lane_0_9 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
+	/*shift_row_step*/ 1,
 	/*shift_row_delay*/ 1
 };
 
@@ -833,9 +844,9 @@ void lane_update(lane *lane, uint8_t delay_base) {
 		if ((lane->update_config & LANE_UPDATE_SCROLL) != 0 && time_diff(time_now, lane->shift_row_ts) >= delay_base * lane->shift_row_delay) {
 			lane->shift_row_ts = time_now;
 			if (lane->dir == DIR_LEFT) {
-				lane_shift_left(lane, 1);
+				lane_shift_left(lane, lane->shift_row_step);
 			} else {
-				lane_shift_right(lane, 1);
+				lane_shift_right(lane, lane->shift_row_step);
 			}
 		}
 		// SWITCH ROWS
