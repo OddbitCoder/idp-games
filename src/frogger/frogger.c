@@ -52,6 +52,7 @@ typedef struct {
 	frame **frames;
 	// set by the engine
 	uint16_t addr; 
+	uint8_t *render_buffer;
 } row;
 
 typedef struct {
@@ -627,29 +628,32 @@ void sim_delay(uint16_t len) {
 	msleep(len + 1);
 }
 
-void sprite_render(sprite *sprite, uint16_t addr) {
-	avdc_set_cursor_addr(addr);
+void sprite_render(sprite *sprite, uint8_t *buffer, uint16_t addr, uint16_t offset) {
+	avdc_set_cursor_addr(addr + offset);
 	avdc_write_str_at_cursor(sprite->chars, NULL);
+	memcpy(buffer + offset, sprite->chars, sprite->len);
 	sim_delay(sprite->len);
 }
 
-void sprite_render_chars(sprite *sprite, uint16_t addr, uint8_t char_count) {
-	avdc_set_cursor_addr(addr);
+void sprite_render_chars(sprite *sprite, uint8_t *buffer, uint16_t addr, uint16_t offset, uint8_t char_count) {
+	avdc_set_cursor_addr(addr + offset);
 	// TODO: speed this up (customize avdc_write_str_at_cursor)
 	memcpy(buffer, sprite->chars, char_count);
 	buffer[char_count] = 0;
 	avdc_write_str_at_cursor(buffer, NULL);
+	memcpy(buffer + offset, sprite->chars, char_count);
 	sim_delay(char_count);
 }
 
-void _row_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scrollable) {
+void _row_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, uint8_t *buffer, bool scrollable) {
 	sprite *sprite;
 	uint8_t i;	
+	uint16_t offset = 0;
 	for (i = 0; i < row_def_len; i += 2) {
 		sprite = sprite_list[row_def[i + 1]];
-		addr += row_def[i];
-		sprite_render(sprite, addr);
-		addr += sprite->len;
+		offset += row_def[i];
+		sprite_render(sprite, buffer, addr, offset);
+		offset += sprite->len;
 	}
 	if (scrollable) {
 		// repeat the first VISIBLE_ROW_LEN chars
@@ -657,34 +661,35 @@ void _row_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scro
 		while (true) {
 			for (i = 0; i < row_def_len; i += 2) {
 				sprite = sprite_list[row_def[i + 1]];
-				addr += row_def[i];
+				offset += row_def[i];
 				len += row_def[i];
 				if (len >= VISIBLE_ROW_LEN) {
 					return;
 				}
 				len += sprite->len;
 				if (len >= VISIBLE_ROW_LEN) {
-					sprite_render_chars(sprite, addr, sprite->len - (len - VISIBLE_ROW_LEN));
+					sprite_render_chars(sprite, buffer, addr, offset, sprite->len - (len - VISIBLE_ROW_LEN));
 					return;
 				}
-				sprite_render(sprite, addr);
-				addr += sprite->len;
+				sprite_render(sprite, buffer, addr, offset);
+				offset += sprite->len;
 			}
 		}
 	}
 }
 
-void _sprite_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scrollable, uint8_t sprite_idx) {
+void _sprite_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, uint8_t *buffer, bool scrollable, uint8_t sprite_idx) {
 	sprite_idx <<= 1;
 	sprite *sprite;
 	uint8_t i;	
+	uint16_t offset = 0;
 	for (i = 0; i < row_def_len; i += 2) {
 		sprite = sprite_list[row_def[i + 1]];
-		addr += row_def[i];
+		offset += row_def[i];
 		if (i == sprite_idx) {
-			sprite_render(sprite, addr);
+			sprite_render(sprite, buffer, addr, offset);
 		}
-		addr += sprite->len;
+		offset += sprite->len;
 	}
 	if (scrollable) {
 		// repeat the first VISIBLE_ROW_LEN chars
@@ -692,7 +697,7 @@ void _sprite_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool s
 		while (true) {
 			for (i = 0; i < row_def_len; i += 2) {
 				sprite = sprite_list[row_def[i + 1]];
-				addr += row_def[i];
+				offset += row_def[i];
 				len += row_def[i];
 				if (len >= VISIBLE_ROW_LEN) {
 					return;
@@ -700,21 +705,21 @@ void _sprite_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool s
 				len += sprite->len;
 				if (len >= VISIBLE_ROW_LEN) {
 					if (i == sprite_idx) {
-						sprite_render_chars(sprite, addr, sprite->len - (len - VISIBLE_ROW_LEN));
+						sprite_render_chars(sprite, buffer, addr, offset, sprite->len - (len - VISIBLE_ROW_LEN));
 					}
 					return;
 				}
 				if (i == sprite_idx) {
-					sprite_render(sprite, addr);
+					sprite_render(sprite, buffer, addr, offset);
 				}
-				addr += sprite->len;
+				offset += sprite->len;
 			}
 		}
 	}
 }
 
 void row_render(row *row, bool scrollable) {
-	_row_render(row->row_def, row->row_def_len, row->addr, scrollable);
+	_row_render(row->row_def, row->row_def_len, row->addr, row->render_buffer, scrollable);
 }
 
 void row_fill(row *row, uint8_t ch, uint8_t row_len) {
@@ -722,21 +727,12 @@ void row_fill(row *row, uint8_t ch, uint8_t row_len) {
 	for (uint8_t i = 0; i < row_len; i++) {
 		avdc_write_at_cursor(ch, /*attr*/0);
 	}
+	memset(row->render_buffer, row_len, ch);
 }
-
-// void row_render_frame(row *row, uint8_t frame_idx, bool scrollable) {
-// 	_row_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, scrollable);
-// }
 
 void row_render_sprite(row *row, uint8_t frame_idx, bool scrollable, uint8_t sprite_idx) {
-	_sprite_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, scrollable, sprite_idx);
+	_sprite_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, row->render_buffer, scrollable, sprite_idx);
 }
-
-// void lane_render_frame(lane *lane) {
-// 	for (uint8_t i = 0; i < lane->row_count; i++) {
-// 		row_render_frame(lane->rows[i], lane->frame_idx, /*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0);
-// 	}
-// }
 
 void lane_init(lane *lane) {
 	lane->row_idx = 0;
@@ -774,15 +770,14 @@ void level_init(level *level) {
 void lane_render(lane *lane) {
 	bool scrollable = (lane->update_config & LANE_UPDATE_SCROLL) != 0;
 	row *row;
-	if (lane->bkgr_char != ' ') {
-		for (uint8_t j = 0; j < lane->row_count; j++) {
-			row = lane->rows[j];
-			uint8_t row_len = lane->row_len + (scrollable ? VISIBLE_ROW_LEN : 0);
-			if (row_len < VISIBLE_ROW_LEN) {
-				row_len = VISIBLE_ROW_LEN;
-			}
-			row_fill(row, lane->bkgr_char, row_len);
+	for (uint8_t j = 0; j < lane->row_count; j++) {
+		row = lane->rows[j];
+		uint8_t row_len = lane->row_len + (scrollable ? VISIBLE_ROW_LEN : 0);
+		if (row_len < VISIBLE_ROW_LEN) {
+			row_len = VISIBLE_ROW_LEN;
 		}
+		row->render_buffer = malloc(row_len);
+		row_fill(row, lane->bkgr_char, row_len);
 	}
 	for (uint8_t j = 0; j < lane->row_count; j++) {
 		row = lane->rows[j];
