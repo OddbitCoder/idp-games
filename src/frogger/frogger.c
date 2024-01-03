@@ -72,6 +72,10 @@ typedef struct {
 	uint8_t frame_idx;
 	uint8_t row_offset;
 	uint8_t row_len;
+	// frame sprite rendering 
+	bool rendering;
+	uint8_t sprite_idx;
+	uint8_t sprite_count;
 } lane;
 
 typedef struct {
@@ -580,9 +584,14 @@ uint8_t row_get_len(row *row) {
 	return sz;
 }
 
+void sim_delay(uint16_t len) {
+	msleep(len + 1);
+}
+
 void sprite_render(sprite *sprite, uint16_t addr) {
 	avdc_set_cursor_addr(addr);
 	avdc_write_str_at_cursor(sprite->chars, NULL);
+	sim_delay(sprite->len);
 }
 
 void sprite_render_chars(sprite *sprite, uint16_t addr, uint8_t char_count) {
@@ -591,6 +600,7 @@ void sprite_render_chars(sprite *sprite, uint16_t addr, uint8_t char_count) {
 	memcpy(buffer, sprite->chars, char_count);
 	buffer[char_count] = 0;
 	avdc_write_str_at_cursor(buffer, NULL);
+	sim_delay(char_count);
 }
 
 void _row_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scrollable) {
@@ -625,6 +635,44 @@ void _row_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scro
 	}
 }
 
+void _sprite_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scrollable, uint8_t sprite_idx) {
+	sprite *sprite;
+	uint8_t i;	
+	for (i = 0; i < row_def_len; i += 2) {
+		sprite = sprite_list[row_def[i + 1]];
+		addr += row_def[i];
+		if ((i >> 1) == sprite_idx) {
+			sprite_render(sprite, addr);
+		}
+		addr += sprite->len;
+	}
+	if (scrollable) {
+		// repeat the first VISIBLE_ROW_LEN chars
+		uint8_t len = 0;
+		while (true) {
+			for (i = 0; i < row_def_len; i += 2) {
+				sprite = sprite_list[row_def[i + 1]];
+				addr += row_def[i];
+				len += row_def[i];
+				if (len >= VISIBLE_ROW_LEN) {
+					return;
+				}
+				len += sprite->len;
+				if (len >= VISIBLE_ROW_LEN) {
+					if ((i >> 1) == sprite_idx) {
+						sprite_render_chars(sprite, addr, sprite->len - (len - VISIBLE_ROW_LEN));
+					}
+					return;
+				}
+				if ((i >> 1) == sprite_idx) {
+					sprite_render(sprite, addr);
+				}
+				addr += sprite->len;
+			}
+		}
+	}
+}
+
 void row_render(row *row, bool scrollable) {
 	_row_render(row->row_def, row->row_def_len, row->addr, scrollable);
 }
@@ -633,11 +681,16 @@ void row_fill(row *row, uint8_t ch, uint8_t row_len) {
 	avdc_set_cursor_addr(row->addr);
 	for (uint8_t i = 0; i < row_len; i++) {
 		avdc_write_at_cursor(ch, /*attr*/0);
+		sim_delay(1);
 	}
 }
 
 void row_render_frame(row *row, uint8_t frame_idx, bool scrollable) {
 	_row_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, scrollable);
+}
+
+void row_render_sprite(row *row, uint8_t frame_idx, bool scrollable, uint8_t sprite_idx) {
+	_sprite_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, scrollable, sprite_idx);
 }
 
 void lane_render_frame(lane *lane) {
@@ -654,6 +707,7 @@ void lane_init(lane *lane) {
 	lane->frame_idx = 0;
 	lane->row_offset = 0;
 	lane->row_len = row_get_len(lane->rows[0]);
+	lane->rendering = false;
 }
 
 void level_init(level *level) {
@@ -713,6 +767,7 @@ void row_table_init(level *level) {
 	for (uint8_t i = 0; i < level->lane_count; i++) {
 		lane *lane = level->lanes[i];
 		avdc_write_addr_at_cursor(lane->rows[lane->row_idx]->addr + lane->row_offset);
+		sim_delay(2);
 	}
 }
 
@@ -732,37 +787,90 @@ void lane_shift_right(lane *lane, uint8_t step) {
 	}
 }
 
+// NOTE: Compute_sprite_count is a slower but a more "correct" procedure.
+// It is probably fine to use the fast version.
+uint8_t compute_sprite_count(lane *lane) {
+	uint8_t max_sprite_count = 0;
+	for (uint8_t i = 0; i < lane->row_count; i++) {
+		uint8_t sprite_count = lane->rows[i]->frames[lane->frame_idx]->frame_def_len >> 1;
+		if (sprite_count > max_sprite_count) { max_sprite_count = sprite_count; }
+	}
+	return max_sprite_count;
+}
+
+uint8_t compute_sprite_count_fast(lane *lane) {
+	if (lane->row_count == 0) { return 0; }
+	return lane->rows[0]->frames[lane->frame_idx]->frame_def_len >> 1;
+}
+
 void lane_update(lane *lane, uint8_t delay_base) {
 	// this does the following:
 	// - shifts rows - if lane_update is called delay_base * shift_row_delay_multiplier times
 	// - switches rows - if lane_update is called delay_base * switch_row_delay_multiplier times
-	// - switches frames (for each row in the lane) - if lane_update is called delay_base * render_frame_delay_multiplier times
+	// - renders frames (for each row in the lane) - if lane_update is called delay_base * render_frame_delay_multiplier times
 	if ((lane->update_config & LANE_UPDATE_AUTO) != 0) { 
+		// SHIFT ROWS
 		if ((lane->update_config & LANE_UPDATE_SCROLL) != 0 && ++lane->shift_row_counter >= delay_base * lane->shift_row_delay_multiplier) {
 			lane->shift_row_counter = 0;
-			// shift rows
 			if (lane->dir == DIR_LEFT) {
 				lane_shift_left(lane, 1);
 			} else {
 				lane_shift_right(lane, 1);
 			}
-			// TODO: adjustable step?
 		}
+		// SWITCH ROWS
 		if (lane->row_count > 1 && ++lane->switch_row_counter >= delay_base * lane->switch_row_delay_multiplier) {
 			lane->switch_row_counter = 0;
-			// switch rows
 			if (++lane->row_idx == lane->row_count) {
 				lane->row_idx = 0;
 			}
 		}
-		if (lane->frame_count > 0 && ++lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
-			lane->render_frame_counter = 0;
-			if (++lane->frame_idx == lane->frame_count) {
-				lane->frame_idx = 0;
+		// RENDER FRAME
+		// if (lane->frame_count > 0 && ++lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
+		// 	lane->render_frame_counter = 0;
+		// 	if (++lane->frame_idx == lane->frame_count) {
+		// 		lane->frame_idx = 0;
+		// 	}
+		// 	for (uint8_t i = 0; i < lane->row_count; i++) {
+		// 		row_render_frame(lane->rows[i], lane->frame_idx, /*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0);
+		// 	}
+		// }
+		if (lane->frame_count > 0) {
+			lane->render_frame_counter++;
+			// IF RENDERING...
+			if (lane->rendering) {
+				for (uint8_t i = 0; i < lane->row_count; i++) {
+					row_render_sprite(
+						lane->rows[i], 
+						lane->frame_idx, 
+						/*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0,
+						lane->sprite_idx
+					);
+				}
+				lane->rendering = lane->sprite_count > (lane->sprite_idx + 1);
+				lane->sprite_idx++;
 			}
-			// render frame
-			for (uint8_t i = 0; i < lane->row_count; i++) {
-				row_render_frame(lane->rows[i], lane->frame_idx, /*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0);
+			// IF NOT RENDERING, WE CAN START RENDERING NEXT FRAME...
+			else if (lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
+				lane->render_frame_counter = 0;
+				if (++lane->frame_idx == lane->frame_count) {
+					lane->frame_idx = 0;
+				}
+				// start rendering frame sprites
+				lane->sprite_count = compute_sprite_count_fast(lane);
+				if (lane->sprite_count > 0) {
+					for (uint8_t i = 0; i < lane->row_count; i++) {
+						// render sprite 0
+						row_render_sprite(
+							lane->rows[i], 
+							lane->frame_idx, 
+							/*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0,
+							/*sprite_idx*/0
+						);
+					}
+					lane->rendering = lane->sprite_count > 1;
+					lane->sprite_idx = 1;
+				}
 			}
 		}
 	}
