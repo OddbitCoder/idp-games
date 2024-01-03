@@ -61,13 +61,11 @@ typedef struct {
 	lane_update_config update_config;
 	uint8_t bkgr_char;
 	dir dir;
-	uint8_t shift_row_delay_multiplier;
-	uint8_t switch_row_delay_multiplier;
-	uint8_t render_frame_delay_multiplier;
+	uint8_t shift_row_delay;
+	uint8_t switch_row_delay;
+	uint8_t first_frame_delay;
+	uint8_t render_frame_delay;
 	// set by the engine
-	uint16_t shift_row_counter;
-	uint16_t switch_row_counter;
-	uint16_t render_frame_counter;
 	uint8_t row_idx;
 	uint8_t frame_idx;
 	uint8_t row_offset;
@@ -76,6 +74,10 @@ typedef struct {
 	bool rendering;
 	uint8_t sprite_idx;
 	uint8_t sprite_count;
+	// timing
+	uint16_t shift_row_ts;
+	uint16_t switch_row_ts;
+	uint16_t render_frame_ts;
 } lane;
 
 typedef struct {
@@ -423,7 +425,7 @@ lane lane_0_0 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 };
 
 lane lane_0_1 = {
@@ -433,9 +435,10 @@ lane lane_0_1 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
-	/*shift_row_delay_multiplier*/ 1,
-	/*switch_row_delay_multiplier*/ 5,
-	/*render_frame_delay_multiplier*/ 10
+	/*shift_row_delay*/ 1,
+	/*switch_row_delay*/ 5,
+	/*first_frame_delay*/ 30,
+	/*render_frame_delay*/ 10
 };
 
 lane lane_0_2 = {
@@ -445,7 +448,7 @@ lane lane_0_2 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 	
 };
 
@@ -456,7 +459,7 @@ lane lane_0_3 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 };
 
 lane lane_0_4 = {
@@ -466,9 +469,10 @@ lane lane_0_4 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
-	/*shift_row_delay_multiplier*/ 1,
-	/*switch_row_delay_multiplier*/ 5,
-	/*render_frame_delay_multiplier*/ 10
+	/*shift_row_delay*/ 1,
+	/*switch_row_delay*/ 5,
+	/*first_frame_delay*/ 30,
+	/*render_frame_delay*/ 10
 };
 
 lane lane_0_5 = {
@@ -478,7 +482,7 @@ lane lane_0_5 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 };
 
 lane lane_0_6 = {
@@ -488,7 +492,7 @@ lane lane_0_6 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 };
 
 lane lane_0_7 = {
@@ -498,7 +502,7 @@ lane lane_0_7 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 };
 
 lane lane_0_8 = {
@@ -508,7 +512,7 @@ lane lane_0_8 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_RIGHT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 };
 
 lane lane_0_9 = {
@@ -518,7 +522,7 @@ lane lane_0_9 = {
 	/*update_config*/ LANE_UPDATE_DEFAULT,
 	/*bkgr_char*/ ' ',
 	/*dir*/ DIR_LEFT,
-	/*shift_row_delay_multiplier*/ 1
+	/*shift_row_delay*/ 1
 };
 
 lane lane_grass = {
@@ -564,15 +568,15 @@ level level_0 = {
 
 uint8_t buffer[256];
 
-void debug_print_u8(uint8_t y, uint8_t val) {
-	itoa(val, buffer, 10);
-	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
-}
+// void debug_print_u8(uint8_t y, uint8_t val) {
+// 	itoa(val, buffer, 10);
+// 	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
+// }
 
-void debug_print_u16(uint8_t y, uint16_t val) {
-	itoa(val, buffer, 10);
-	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
-}
+// void debug_print_u16(uint8_t y, uint16_t val) {
+// 	itoa(val, buffer, 10);
+// 	avdc_write_str_at_cursor_pos(y, 0, buffer, NULL);
+// }
 
 uint8_t row_get_len(row *row) {
 	uint8_t sz = 0;
@@ -636,12 +640,13 @@ void _row_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scro
 }
 
 void _sprite_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool scrollable, uint8_t sprite_idx) {
+	sprite_idx <<= 1;
 	sprite *sprite;
 	uint8_t i;	
 	for (i = 0; i < row_def_len; i += 2) {
 		sprite = sprite_list[row_def[i + 1]];
 		addr += row_def[i];
-		if ((i >> 1) == sprite_idx) {
+		if (i == sprite_idx) {
 			sprite_render(sprite, addr);
 		}
 		addr += sprite->len;
@@ -659,12 +664,12 @@ void _sprite_render(uint8_t *row_def, uint8_t row_def_len, uint16_t addr, bool s
 				}
 				len += sprite->len;
 				if (len >= VISIBLE_ROW_LEN) {
-					if ((i >> 1) == sprite_idx) {
+					if (i == sprite_idx) {
 						sprite_render_chars(sprite, addr, sprite->len - (len - VISIBLE_ROW_LEN));
 					}
 					return;
 				}
-				if ((i >> 1) == sprite_idx) {
+				if (i == sprite_idx) {
 					sprite_render(sprite, addr);
 				}
 				addr += sprite->len;
@@ -685,29 +690,37 @@ void row_fill(row *row, uint8_t ch, uint8_t row_len) {
 	}
 }
 
-void row_render_frame(row *row, uint8_t frame_idx, bool scrollable) {
-	_row_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, scrollable);
-}
+// void row_render_frame(row *row, uint8_t frame_idx, bool scrollable) {
+// 	_row_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, scrollable);
+// }
 
 void row_render_sprite(row *row, uint8_t frame_idx, bool scrollable, uint8_t sprite_idx) {
 	_sprite_render(row->frames[frame_idx]->frame_def, row->frames[frame_idx]->frame_def_len, row->addr, scrollable, sprite_idx);
 }
 
-void lane_render_frame(lane *lane) {
-	for (uint8_t i = 0; i < lane->row_count; i++) {
-		row_render_frame(lane->rows[i], lane->frame_idx, /*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0);
-	}
-}
+// void lane_render_frame(lane *lane) {
+// 	for (uint8_t i = 0; i < lane->row_count; i++) {
+// 		row_render_frame(lane->rows[i], lane->frame_idx, /*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0);
+// 	}
+// }
 
 void lane_init(lane *lane) {
-	lane->shift_row_counter = 0;
-	lane->switch_row_counter = 0;
-	lane->render_frame_counter = 0;
 	lane->row_idx = 0;
 	lane->frame_idx = 0;
 	lane->row_offset = 0;
 	lane->row_len = row_get_len(lane->rows[0]);
+	// frame rendering
 	lane->rendering = false;
+}
+
+void lane_init_timer(level *level) {
+	uint16_t time_now = timer_ms();
+	for (uint8_t i = 0; i < level->lane_count; i++) {
+		lane *lane = level->lanes[i];
+		lane->shift_row_ts = time_now;
+		lane->switch_row_ts = time_now;
+		lane->render_frame_ts = time_now;
+	}
 }
 
 void level_init(level *level) {
@@ -762,7 +775,7 @@ uint16_t level_get_byte_count(level *level) {
 	return sz;
 }
 
-void row_table_init(level *level) {
+void row_table_update(level *level) {
 	avdc_set_cursor_addr(0);
 	for (uint8_t i = 0; i < level->lane_count; i++) {
 		lane *lane = level->lanes[i];
@@ -789,29 +802,36 @@ void lane_shift_right(lane *lane, uint8_t step) {
 
 // NOTE: Compute_sprite_count is a slower but a more "correct" procedure.
 // It is probably fine to use the fast version.
-uint8_t compute_sprite_count(lane *lane) {
-	uint8_t max_sprite_count = 0;
-	for (uint8_t i = 0; i < lane->row_count; i++) {
-		uint8_t sprite_count = lane->rows[i]->frames[lane->frame_idx]->frame_def_len >> 1;
-		if (sprite_count > max_sprite_count) { max_sprite_count = sprite_count; }
-	}
-	return max_sprite_count;
-}
+// uint8_t compute_sprite_count(lane *lane) {
+// 	uint8_t max_sprite_count = 0;
+// 	for (uint8_t i = 0; i < lane->row_count; i++) {
+// 		uint8_t sprite_count = lane->rows[i]->frames[lane->frame_idx]->frame_def_len >> 1;
+// 		if (sprite_count > max_sprite_count) { max_sprite_count = sprite_count; }
+// 	}
+// 	return max_sprite_count;
+// }
 
 uint8_t compute_sprite_count_fast(lane *lane) {
 	if (lane->row_count == 0) { return 0; }
 	return lane->rows[0]->frames[lane->frame_idx]->frame_def_len >> 1;
 }
 
+uint16_t time_diff(uint16_t time_now, uint16_t ts) {
+	return time_now >= ts 
+		? time_now - ts
+		: (uint32_t)time_now + 60000UL - (uint32_t)ts;
+}
+
 void lane_update(lane *lane, uint8_t delay_base) {
-	// this does the following:
-	// - shifts rows - if lane_update is called delay_base * shift_row_delay_multiplier times
-	// - switches rows - if lane_update is called delay_base * switch_row_delay_multiplier times
-	// - renders frames (for each row in the lane) - if lane_update is called delay_base * render_frame_delay_multiplier times
+	// this procedure does the following:
+	// - shifts rows - if delay_base * shift_row_delay ms has passed
+	// - switches rows - if delay_base * switch_row_delay ms has passed
+	// - starts frame rendering and renders frame sprites - if delay_base * render_frame_delay ms has passed
+	uint16_t time_now = timer_ms();
 	if ((lane->update_config & LANE_UPDATE_AUTO) != 0) { 
 		// SHIFT ROWS
-		if ((lane->update_config & LANE_UPDATE_SCROLL) != 0 && ++lane->shift_row_counter >= delay_base * lane->shift_row_delay_multiplier) {
-			lane->shift_row_counter = 0;
+		if ((lane->update_config & LANE_UPDATE_SCROLL) != 0 && time_diff(time_now, lane->shift_row_ts) >= delay_base * lane->shift_row_delay) {
+			lane->shift_row_ts = time_now;
 			if (lane->dir == DIR_LEFT) {
 				lane_shift_left(lane, 1);
 			} else {
@@ -819,24 +839,14 @@ void lane_update(lane *lane, uint8_t delay_base) {
 			}
 		}
 		// SWITCH ROWS
-		if (lane->row_count > 1 && ++lane->switch_row_counter >= delay_base * lane->switch_row_delay_multiplier) {
-			lane->switch_row_counter = 0;
+		if (lane->row_count > 1 && time_diff(time_now, lane->switch_row_ts) >= delay_base * lane->switch_row_delay) {
+			lane->switch_row_ts = time_now;
 			if (++lane->row_idx == lane->row_count) {
 				lane->row_idx = 0;
 			}
 		}
 		// RENDER FRAME
-		// if (lane->frame_count > 0 && ++lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
-		// 	lane->render_frame_counter = 0;
-		// 	if (++lane->frame_idx == lane->frame_count) {
-		// 		lane->frame_idx = 0;
-		// 	}
-		// 	for (uint8_t i = 0; i < lane->row_count; i++) {
-		// 		row_render_frame(lane->rows[i], lane->frame_idx, /*scrollable*/(lane->update_config & LANE_UPDATE_SCROLL) != 0);
-		// 	}
-		// }
 		if (lane->frame_count > 0) {
-			lane->render_frame_counter++;
 			// IF RENDERING...
 			if (lane->rendering) {
 				for (uint8_t i = 0; i < lane->row_count; i++) {
@@ -851,8 +861,8 @@ void lane_update(lane *lane, uint8_t delay_base) {
 				lane->sprite_idx++;
 			}
 			// IF NOT RENDERING, WE CAN START RENDERING NEXT FRAME...
-			else if (lane->render_frame_counter >= delay_base * lane->render_frame_delay_multiplier) {
-				lane->render_frame_counter = 0;
+			else if (time_diff(time_now, lane->render_frame_ts) >= delay_base * (lane->frame_idx == 0 ? lane->first_frame_delay : lane->render_frame_delay)) {
+				lane->render_frame_ts = time_now;
 				if (++lane->frame_idx == lane->frame_count) {
 					lane->frame_idx = 0;
 				}
@@ -860,7 +870,7 @@ void lane_update(lane *lane, uint8_t delay_base) {
 				lane->sprite_count = compute_sprite_count_fast(lane);
 				if (lane->sprite_count > 0) {
 					for (uint8_t i = 0; i < lane->row_count; i++) {
-						// render sprite 0
+						// render first sprite
 						row_render_sprite(
 							lane->rows[i], 
 							lane->frame_idx, 
@@ -883,6 +893,7 @@ void level_update(level *level, uint8_t delay_base) {
 }
 
 int main() {
+	gdp_cls();
 	//avdc_init();
 	//avdc_init_ex(AVDC_MODE_CUSTOM, 0xC4, avdc_init_str);
 	avdc_init_ex(AVDC_MODE_132, 0, NULL);
@@ -890,15 +901,16 @@ int main() {
 	srand(timer());
 
 	level_init(&level_0);
-	row_table_init(&level_0);
+	row_table_update(&level_0);
 	level_render(&level_0);
 
-	debug_print_u16(20, level_get_byte_count(&level_0));
+	//debug_print_u16(20, level_get_byte_count(&level_0));
+
+	lane_init_timer(&level_0);
 
 	do {
-		level_update(&level_0, 1);
-		row_table_init(&level_0);
-		msleep(50);
+		level_update(&level_0, 100);
+		row_table_update(&level_0);
 	} while (!kbhit());
 
 	avdc_done();
