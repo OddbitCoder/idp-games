@@ -2,6 +2,15 @@
 #include "../common/gdp.h"
 #include "../common/avdc.h"
 
+__sfr __at 0xA8 BIOS_A8; 
+__sfr __at 0xA9 BIOS_A9;
+__sfr __at 0xAA BIOS_AA;
+__sfr __at 0xAB BIOS_AB;
+__sfr __at 0xAC BIOS_AC;
+__sfr __at 0xAD BIOS_AD;
+__sfr __at 0xAE BIOS_AE;
+__sfr __at 0xAF BIOS_AF; 
+
 uint8_t *gfx_ti[] = {
 	"\x11\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x08",
 	"\x21\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10\x0F\x10",
@@ -261,10 +270,7 @@ uint8_t *gfx_ti[] = {
 	"\x11\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x08"
 };
 
-void main() {
-	avdc_init();
-	gdp_init();
-	
+void test_image() {
 	// draw GDP test image
 	gdp_draw(gfx_ti, 255, 0, 0);
 	// display AVDC test pattern
@@ -275,6 +281,56 @@ void main() {
 		avdc_write_str_at_pointer_pos(row, 80 - 2, "EE", 0);
 	}
 	while (!kbhit());
+	avdc_clear_screen();
+	gdp_cls();	
+}
+
+void bios_init() {
+	avdc_write_str_at_pointer_pos(0, 0, "Inicializiram BIOS...", 0);
+	BIOS_A8 = 0xf0;
+	BIOS_A9 = 0x95;
+	BIOS_AA = 0xff;
+	BIOS_AB = 0x01;
+	BIOS_AC = 0x51;
+	BIOS_AD = 0x07;
+	BIOS_AE = 0x02;
+	BIOS_AF = 0x57;
+	avdc_write_str_at_pointer_pos(1, 0, "Inicializacija koncana. Pritisni neko tipko za nadaljevanje.", 0);
+	while (!kbhit());
+	avdc_clear_screen();
+}
+
+void main() {
+	avdc_init();
+	gdp_init();
+
+	bool end_program = FALSE;
+
+	while (true) {
+		avdc_write_str_at_pointer_pos(0, 0, "1 - Testna slika", 0);
+		avdc_write_str_at_pointer_pos(1, 0, "2 - Inicializacija BIOSA", 0);
+		avdc_write_str_at_pointer_pos(2, 0, "X - Izhod iz programa", 0);
+
+		char key;
+		while (!(key = kbhit()));
+		switch (key) {
+			case '1':
+				avdc_clear_screen();
+				test_image();
+				break;
+			case '2':
+				avdc_clear_screen();
+				bios_init();
+				break;
+			case 'X':
+			case 'x':
+				end_program = TRUE;
+				break;
+		}
+
+		if (end_program) { break; }
+	}
+
 	gdp_done();
 	avdc_done();
 }
