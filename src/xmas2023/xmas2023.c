@@ -1,0 +1,1 @@
+int putchar(int),i,x,y;main(){for(;i++<1520;x=i%80,y=i/80)putchar(!((x+3+y)%6&&(x+3-y)%6)&&x<19?42:32);}

@@ -17,7 +17,7 @@ L2 = sdldz80
 L2FLAGS = -nf
 L2FIX = sed '/-b _DATA = 0x8000/d'
 
-TARGET = xmas
+TARGET = xmas2022
 
 SRC = $(wildcard *.c)
 BIN_SRC = $(wildcard *.bin)

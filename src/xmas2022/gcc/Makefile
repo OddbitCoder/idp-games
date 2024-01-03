@@ -9,7 +9,7 @@ OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
 all: $(BIN_DIR)/xmas
 
 $(BIN_DIR)/xmas: $(OBJ) | $(BIN_DIR)
-	gcc $(OBJ) -o $(BIN_DIR)/xmas
+	gcc $(OBJ) -o $(BIN_DIR)/xmas2022
 
 $(BUILD_DIR)/%.o: %.c %.h | $(BUILD_DIR)
 	gcc -c -o $@ $<
