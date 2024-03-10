@@ -24,6 +24,51 @@ uint8_t avdc_init_str[] = {
 	0x30 
 };
 
+uint8_t *gfx_player_up[] = {
+	"\x01\x8D",
+	"\x03\x85\xC3\x85",
+	"\x0B\x81\xC2\x81\xC1\x81\xC1\x81\xC1\x81\xC2\x81",
+	"\x07\x81\xC2\x81\xC5\x81\xC2\x81",
+	"\x03\x82\xC9\x82",
+	"\x05\xC2\x81\xC7\x81\xC2",
+	"\x05\xC3\x81\xC5\x81\xC3",
+	"\x01\xCD",
+	"\x03\x81\xCB\x81",
+	"\x03\x81\xCB\x81",
+	"\x03\x82\xC9\x82",
+	"\x07\x83\xC2\x81\xC1\x81\xC2\x83",
+	"\x01\x8D"
+};
+
+uint8_t *gfx_player_jump_up[] = {
+	"\x01\x8D",
+	"\x05\x82\xC2\x85\xC2\x82",
+	"\x05\x82\xC2\x85\xC2\x82",
+	"\x07\x81\xC2\x82\xC3\x82\xC2\x81",
+	"\x0B\x81\xC2\x81\xC1\x81\xC1\x81\xC1\x81\xC2\x81",
+	"\x07\x81\xC2\x81\xC5\x81\xC2\x81",
+	"\x03\x82\xC9\x82",
+	"\x03\x83\xC7\x83",
+	"\x03\x83\xC7\x83",
+	"\x03\x83\xC7\x83",
+	"\x03\x83\xC7\x83",
+	"\x03\x82\xC9\x82",
+	"\x03\x82\xC9\x82",
+	"\x05\x81\xC5\x81\xC5\x81",
+	"\x05\x81\xC4\x83\xC4\x81",
+	"\x05\x81\xC4\x83\xC4\x81",
+	"\x05\x81\xC3\x85\xC3\x81",
+	"\x05\x82\xC2\x85\xC2\x82",
+	"\x05\x82\xC2\x85\xC2\x82",
+	"\x05\x83\xC2\x83\xC2\x83",
+	"\x05\x83\xC2\x83\xC2\x83",
+	"\x05\x83\xC2\x83\xC2\x83",
+	"\x05\x82\xC2\x85\xC2\x82",
+	"\x05\x81\xC3\x85\xC3\x81",
+	"\x05\x81\xC2\x87\xC2\x81",
+	"\x01\x8D"
+};
+
 typedef enum {
 	LANE_UPDATE_STATIC = 0,
 	LANE_UPDATE_SCROLL = 1,
@@ -33,7 +78,9 @@ typedef enum {
 
 typedef enum {
 	DIR_LEFT,
-	DIR_RIGHT
+	DIR_RIGHT,
+	DIR_UP,
+	DIR_DOWN
 } dir;
 
 typedef struct {
@@ -86,6 +133,78 @@ typedef struct {
 	lane **lanes;
 	uint8_t lane_count;
 } level;
+
+uint8_t lane_center[] = { // vertical offset, 13 items (1 + 5 + 1 + 5 + 1)
+	122 + 0 * 11, // bottom grass 
+	122 + 1 * 11, 
+	122 + 2 * 11,
+	122 + 3 * 11,
+	122 + 4 * 11,
+	122 + 5 * 11,
+	122 + 6 * 11, // middle grass
+	122 + 7 * 11,
+	122 + 8 * 11,
+	122 + 9 * 11,
+	122 + 10 * 11,
+	122 + 11 * 11,
+	122 + 12 * 11 // "home"
+};
+
+typedef enum {
+	SITTING,
+	JUMPING_UP,
+	JUMPING_DOWN,
+	JUMPING_LEFT,
+	JUMPING_RIGHT
+} player_state;
+
+typedef struct {
+	player_state state;	
+	uint8_t lane;
+	uint8_t y;
+	uint16_t x;
+	uint16_t jump_ts;
+} player;
+
+uint8_t player_y(uint8_t lane) {
+	return 255 - lane_center[lane] - 6;
+}
+
+// NOTE: frog sprite sizes are 13x13 (sitting) and 13x26 (jumping)
+void player_init(player *player) {
+	player->state = SITTING;
+	player->lane = 0;
+	player->x = 512 - (6 << 1); 
+	player->y = player_y(0);
+	gdp_draw_sprite(gfx_player_up, 12, player->x, player->y);
+}
+
+void player_jump(player *player, dir dir) {
+	switch (dir) {
+		case DIR_UP: 
+			if (player->lane == 12) { return; }
+			player->state = JUMPING_UP;
+			// TODO: trim "tail" if needed
+			// TODO: render jumping sprite
+			player->lane++;
+			break;
+		case DIR_DOWN:
+			if (player->lane == 0) { return; }
+			player->state = JUMPING_DOWN;
+			// TODO: trim "tail" if needed
+			// TODO: render jumping sprite
+			player->lane--;
+			break;
+		case DIR_LEFT:
+			// TODO: implement
+			break;
+		case DIR_RIGHT:
+			// TODO: implement
+			break;
+	}
+	player->y = player_y(player->lane);
+	player->jump_ts = timer_ms();
+}
 
 // *** sprite
 
@@ -955,20 +1074,44 @@ int main() {
 	row_table_update(&level_0);
 	level_render(&level_0);
 
+	player player;
+	player_init(&player);
+
 	uint8_t offset = 80;
 	draw_rect(GDP_TOOL_PEN, offset, 0, 512 - offset * 2, 256);
+
+	for (uint8_t i = 0; i < 13; i++) {
+		draw_rect(GDP_TOOL_PEN, 0, 255 - lane_center[i], 512, 1);
+	}
+
+	//gdp_draw_sprite(gfx_frog, 10, 512 - (7 << 1), 255 - lane_center[0] - 5);
 
 	//debug_print_u16(20, level_get_byte_count(&level_0));
 
 	lane_init_timer(&level_0);
 
 	// avdc_write_str_at_pointer_pos(uint8_t row, uint8_t col, uint8_t *str, uint8_t *attr);
-	avdc_write_str_at_pointer_pos(0, 0, "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890AB", NULL);
+	//avdc_write_str_at_pointer_pos(0, 0, "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890AB", NULL);
+
+	bool exit = false;
 
 	do {
 		level_update(&level_0, 100);
 		row_table_update(&level_0);
-	} while (!kbhit());
+		char key;
+		if (key = kbhit()) { 
+			switch (key) {
+				case 'x':
+				case 'X':
+					exit = true;
+					break;
+				case 'w':
+				case 'W':
+
+					break;
+			}
+		}
+	} while (!exit);
 
 	avdc_done();
 	gdp_done();
