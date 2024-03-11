@@ -1,7 +1,20 @@
-#include <stdlib.h>
+//#include <stdlib.h>
+//#include <stdio.h>
 #include "../common/gdp.h"
 
-uint8_t *gfx_dial[] = {
+typedef struct {
+    uint16_t x;
+    uint8_t y;
+} pt;
+
+typedef struct {
+    pt pt1;
+    pt pt2;
+} line;
+
+#include "hands.h"
+
+const uint8_t *gfx_dial[] = {
 	"\x11\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x08",
 	"\x11\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x08",
 	"\x11\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x08",
@@ -260,10 +273,40 @@ uint8_t *gfx_dial[] = {
 	"\x11\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x3F\x00\x08"
 };
 
+void draw_hand(uint8_t n, line *lines) {
+	for (uint8_t i = 0; i < n; i++) {
+		gdp_delta_sign sign = 0;
+		uint8_t dx = 0;
+		uint8_t dy = 0;
+		if (lines[i].pt1.x > lines[i].pt2.x) {
+			sign |= GDP_DELTA_SIGN_DX_NEG;
+			dx = lines[i].pt1.x - lines[i].pt2.x;
+		} else {
+			sign |= GDP_DELTA_SIGN_DX_POS;
+			dx = lines[i].pt2.x - lines[i].pt1.x;
+		}
+		if (lines[i].pt1.y > lines[i].pt2.y) {
+			sign |= GDP_DELTA_SIGN_DY_NEG;
+			dy = lines[i].pt1.y - lines[i].pt2.y;
+		} else {
+			sign |= GDP_DELTA_SIGN_DY_POS;
+			dy = lines[i].pt2.y - lines[i].pt1.y;
+		}
+		gdp_set_xy(lines[i].pt1.x, lines[i].pt1.y);
+		gdp_line_delta(GDP_TOOL_ERASER, GDP_STYLE_NORMAL, dx, dy, sign);
+	}
+}
+
 int main() {
 	gdp_init();
+	
 	gdp_draw(gfx_dial, 255, 0, 0);
+	
+	draw_hand(28, hands[15]);
+	
 	while (!kbhit());
+	
 	gdp_done();
+
 	return 0;
 }
