@@ -207,55 +207,57 @@ void gdp_erase_row_sprite(uint8_t *sprite_row) { // TODO: asm implementation?
 
 void gdp_draw_row(uint8_t *image_row) {
     uint8_t len = image_row[0];
-    gdp_tool tool = GDP_TOOL_PEN; // tool can be GDP_TOOL_ERASER (0) or GDP_TOOL_PEN (2)
-    for (uint8_t i = 1; i < len; i++) {
-        uint8_t b = image_row[i];
-        gdp_style style = (b & 64) >> 6; // resolves to GDP_STYLE_NORMAL (0) or GDP_STYLE_DOTTED (1)
+    if (len > 0) {
+        gdp_tool tool = GDP_TOOL_PEN; // tool can be GDP_TOOL_ERASER (0) or GDP_TOOL_PEN (2)
+        for (uint8_t i = 1; i < len; i++) {
+            uint8_t b = image_row[i];
+            gdp_style style = (b & 64) >> 6; // resolves to GDP_STYLE_NORMAL (0) or GDP_STYLE_DOTTED (1)
+            if ((b & 128) == 0) {
+                if (style == GDP_STYLE_DOTTED) {
+                    gdp_line_dx_pos_dotted_proxy((b & 63) << 1);
+                } else {
+                    gdp_line_dx_pos(tool, style, (b & 63) << 1);
+                }
+            } else {
+                gdp_style _style = (tool >> 1) & style; // NOTE: style can be dotted only when pen is selected
+                if (_style == GDP_STYLE_DOTTED) {
+                    gdp_line_dx_pos_dotted_proxy(((b >> 3) & 7) << 1); 
+                } else {
+                    gdp_line_dx_pos(tool, _style, ((b >> 3) & 7) << 1); 
+                }
+                tool = ~tool & 2; // equivalent to tool = (tool == GDP_TOOL_PEN) ? GDP_TOOL_ERASER : GDP_TOOL_PEN
+                _style = (tool >> 1) & style;
+                if (_style == GDP_STYLE_DOTTED) {
+                    gdp_line_dx_pos_dotted_proxy((b & 7) << 1); 
+                } else {
+                    gdp_line_dx_pos(tool, _style, (b & 7) << 1); 
+                }
+            }
+            tool = ~tool & 2;  
+        }
+        // the last RL is decreased by 1
+        uint8_t b = image_row[len];
+        gdp_style style = (b & 64) >> 6; 
         if ((b & 128) == 0) {
             if (style == GDP_STYLE_DOTTED) {
-                gdp_line_dx_pos_dotted_proxy((b & 63) << 1);
+                gdp_line_dx_pos_dotted_proxy(((b & 63) << 1) - 1);
             } else {
-                gdp_line_dx_pos(tool, style, (b & 63) << 1);
+                gdp_line_dx_pos(tool, style, ((b & 63) << 1) - 1);
             }
         } else {
-            gdp_style _style = (tool >> 1) & style; // NOTE: style can be dotted only when pen is selected
+            gdp_style _style = (tool >> 1) & style; 
             if (_style == GDP_STYLE_DOTTED) {
                 gdp_line_dx_pos_dotted_proxy(((b >> 3) & 7) << 1); 
             } else {
                 gdp_line_dx_pos(tool, _style, ((b >> 3) & 7) << 1); 
             }
-            tool = ~tool & 2; // equivalent to tool = (tool == GDP_TOOL_PEN) ? GDP_TOOL_ERASER : GDP_TOOL_PEN
+            tool = ~tool & 2; 
             _style = (tool >> 1) & style;
             if (_style == GDP_STYLE_DOTTED) {
-                gdp_line_dx_pos_dotted_proxy((b & 7) << 1); 
+                gdp_line_dx_pos_dotted_proxy(((b & 7) << 1) - 1); 
             } else {
-                gdp_line_dx_pos(tool, _style, (b & 7) << 1); 
+                gdp_line_dx_pos(tool, _style, ((b & 7) << 1) - 1); 
             }
-        }
-        tool = ~tool & 2;  
-    }
-    // the last RL is decreased by 1
-    uint8_t b = image_row[len];
-    gdp_style style = (b & 64) >> 6; 
-    if ((b & 128) == 0) {
-        if (style == GDP_STYLE_DOTTED) {
-            gdp_line_dx_pos_dotted_proxy(((b & 63) << 1) - 1);
-        } else {
-            gdp_line_dx_pos(tool, style, ((b & 63) << 1) - 1);
-        }
-    } else {
-        gdp_style _style = (tool >> 1) & style; 
-        if (_style == GDP_STYLE_DOTTED) {
-            gdp_line_dx_pos_dotted_proxy(((b >> 3) & 7) << 1); 
-        } else {
-            gdp_line_dx_pos(tool, _style, ((b >> 3) & 7) << 1); 
-        }
-        tool = ~tool & 2; 
-        _style = (tool >> 1) & style;
-        if (_style == GDP_STYLE_DOTTED) {
-            gdp_line_dx_pos_dotted_proxy(((b & 7) << 1) - 1); 
-        } else {
-            gdp_line_dx_pos(tool, _style, ((b & 7) << 1) - 1); 
         }
     }
 }
