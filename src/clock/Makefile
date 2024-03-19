@@ -98,4 +98,4 @@ $(HFE): $(IMG)
 
 # Additional header dependencies
 
-$(BUILD_DIR)/$(TARGET).rel: ../common/avdc.h ../common/utils.h ../common/gdp.h hands.h
+$(BUILD_DIR)/$(TARGET).rel: ../common/avdc.h ../common/utils.h ../common/gdp.h hands.h hands_bkg.h
