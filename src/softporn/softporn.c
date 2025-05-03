@@ -1,22 +1,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <time.h>
 #include <ctype.h>
 
 #include "metrics.h"
 
-extern void setWindowSize();
-extern void clearScreen();
-extern void setPos(int x, int y);
-extern void getPos(int *x, int *y);
-extern void setColor(int color);
-extern void writeHeader(int line, const char* leftText, const char* rightText);
-extern void delay(int ms);
-extern char getKey();
-extern char getKeySilent();
-extern char getOneOf(char key1, char key2, char key3);
-extern char* getString(char* buffer, int max);
+#include "utils.h"
 
 #include "messages.h"
 #include "part1.h"
@@ -26,27 +15,25 @@ int getRandom(int max)
 	static bool initialized = false;
 	if (!initialized)
 	{
-		srand((unsigned int)time(NULL));
+		srand(timer());
 		initialized = true;
 	}
 	return rand() / ((RAND_MAX + 1u) / max);
 }
 
 void putw(const char*);
-void writeLongMessage(int msg, bool wrap = true)
+void writeLongMessage(int msg)
 {
-	if (wrap)
-		putw(messages[msg]);
-	else
-		puts(messages[msg]);
+	putw(messages[msg]);
+}
+void writeLongMessageNoWrap(int msg)
+{
+	puts(messages[msg]);
 }
 
 #include "part2.h"
 #include "part3.h"
 #include "parts456.h"
-
-extern void loadDict();
-extern char *dict;
 
 int main()
 {

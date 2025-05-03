@@ -93,3 +93,6 @@ $(IMG): $(COM) $(BIN_SRC)
 
 $(HFE): $(IMG)
 	-hxcfe -uselayout:IDP -conv:HXC_HFE -finput:$(IMG) -foutput:$(HFE)
+
+$(BUILD_DIR)/softporn.rel: metrics.h utils.h messages.h part1.h part2.h part3.h parts456.h mytypes.h
+$(BUILD_DIR)/utils.rel: mytypes.h

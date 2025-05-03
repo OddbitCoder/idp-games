@@ -1,11 +1,11 @@
 #pragma once
 
-enum directions
+typedef enum 
 {
 	north, south, east, west, up, down, noDirection
-};
+} directions;
 
-enum objects
+typedef enum 
 {
 	desk, washBasin, graffiti, mirror, toilet,
 	businessMan, button, bartender, pimp, hooker,
@@ -22,9 +22,9 @@ enum objects
 	controlUnit, curtain, water,
 	taxi, inventory, all, on, off,
 	you, noObject
-};
+} objects;
 
-enum places
+typedef enum 
 {
 	//Bar
 	bHallway, bBathroom, bBar, bStreet, bBackRoom,
@@ -39,9 +39,9 @@ enum places
 	pPntPch,
 	//Elsewhere
 	youHaveIt, nowhere
-};
+} places;
 
-enum verbs
+typedef enum 
 {
 	go, hail, take, drop, look, flush, open, inflate, play,
 	press, enter, eat, drink, buy, climb, _water, fill, pour,
@@ -49,7 +49,7 @@ enum verbs
 	marry, fuck, wear, answer, call, _break, cut, dance,
 	kill, pay, smoke, show, smell, help, kiss, stab, say, quit,
 	showScore, save, restore, noVerb
-};
+} verbs;
 
 const int maxCarried = 7;
 const directions firstDirection = north;

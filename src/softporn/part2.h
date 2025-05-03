@@ -64,7 +64,7 @@ void lookAtGraffiti()
 		return;
 	}
 	clearScreen();
-	writeLongMessage(59, false);
+	writeLongMessageNoWrap(59);
 	////writeLongMessage(60);
 	////writeLongMessage(61);
 	////writeLongMessage(62);

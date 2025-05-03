@@ -347,7 +347,7 @@ void PartsFourToSix()
 			}
 			case billboard:
 			{
-				writeLongMessage(63, false);
+				writeLongMessageNoWrap(63);
 				break;
 			}
 			case TV:
@@ -1632,19 +1632,20 @@ void PartsFourToSix()
 		}
 		char fileName[24] = "SOFTP-#.SAV";
 		fileName[6] = '0' + slot;
-#ifdef HAVESAFE
-		FILE *f = NULL;
-		if (fopen_s(&f, fileName, "wb+"))
-#else
-		FILE *f = fopen(fileName, "wb+");
-		if (f != 0)
-#endif
-		{
-			printf("Couldn't open %s.\n", fileName);
-			break;
-		}
-		fwrite(&state, sizeof(gameState), 1, f);
-		fclose(f);
+// WARNME
+// #ifdef HAVESAFE
+// 		FILE *f = NULL;
+// 		if (fopen_s(&f, fileName, "wb+"))
+// #else
+// 		FILE *f = fopen(fileName, "wb+");
+// 		if (f != 0)
+// #endif
+// 		{
+// 			printf("Couldn't open %s.\n", fileName);
+// 			break;
+// 		}
+// 		fwrite(&state, sizeof(gameState), 1, f);
+// 		fclose(f);
 		printf("Saved game to %s.\n", fileName);
 		break;
 	}
@@ -1663,19 +1664,20 @@ void PartsFourToSix()
 		}
 		char fileName[24] = "SOFTP-#.SAV";
 		fileName[6] = '0' + slot;
-#ifdef HAVESAFE
-		FILE *f = NULL;
-		if (fopen_s(&f, fileName, "rb+"))
-#else
-		FILE *f = fopen(fileName, "rb+");
-		if (f != 0)
-#endif
-		{
-			printf("Couldn't open %s.\n", fileName);
-			break;
-		}
-		fread(&state, sizeof(gameState), 1, f);
-		fclose(f);
+// WARNME
+// #ifdef HAVESAFE
+// 		FILE *f = NULL;
+// 		if (fopen_s(&f, fileName, "rb+"))
+// #else
+// 		FILE *f = fopen(fileName, "rb+");
+// 		if (f != 0)
+// #endif
+// 		{
+// 			printf("Couldn't open %s.\n", fileName);
+// 			break;
+// 		}
+// 		fread(&state, sizeof(gameState), 1, f);
+// 		fclose(f);
 		printf("Loaded game from %s.\n", fileName);
 
 		//force full description
