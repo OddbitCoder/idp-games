@@ -1,50 +1,5 @@
 #pragma once
 
-void putw(const char* str)
-{
-	int l = (int)strlen(str);
-	if (l < COLS)
-	{
-		puts(str);
-		return;
-	}
-	char *s = (char*)str;
-	char *space = strchr(s, ' ');
-	int taken = 0;
-	int newWidth = 0;
-	while (l > 0)
-	{
-		char *s2 = s;
-		newWidth = 0;
-		while (s2 < space)
-		{
-			s2++;
-			newWidth++;
-		}
-		if (taken + newWidth >= COLS - 1)
-		{
-			putchar('\n');
-			taken = 0;
-		}
-		while (s <= space)
-		{
-			if (*s == '\n')
-			{
-				if (taken < COLS)
-					putchar(' ');
-			}
-			else
-				putchar(*s);
-			s++;
-			taken++;
-			l--;
-		}
-		space = strchr(s, ' ');
-		if (space == NULL)
-			space = s + l;
-	}
-}
-
 void giveHelp()
 {
 	clearScreen();
@@ -58,13 +13,8 @@ void giveHelp()
 
 void lookAtGraffiti()
 {
-	if (COLS < 70)
-	{
-		putw("(You need at least 80 columns to display the graffiti. The password is \"bellybutton\". -- Kawa)");
-		return;
-	}
 	clearScreen();
-	writeLongMessageNoWrap(59);
+	writeLongMessage(59);
 	////writeLongMessage(60);
 	////writeLongMessage(61);
 	////writeLongMessage(62);
@@ -189,7 +139,7 @@ void playSlots(int* money)
 {
 	const char slot[5] = { '!', '#', '*', '$', '^' };
 	const int slotFigs = 5;
-	int x1, x2, x3;
+	int x1 = 0, x2 = 0, x3 = 0;
 	bool cheat = false;
 	char answer = 'Y';
 	puts("This will cost $100 each time.");
@@ -204,8 +154,7 @@ void playSlots(int* money)
 		}
 		if (answer == 'Y')
 		{
-			int cx, cy;
-			getPos(&cx, &cy);
+			savePos();
 			for (int i = 0; i < 30; i++)
 			{
 				x1 = getRandom(slotFigs);
@@ -213,7 +162,7 @@ void playSlots(int* money)
 				x3 = getRandom(slotFigs);
 				if (cheat) x3 = x2 = x1;
 				delay(100);
-				setPos(cx, cy);
+				restorePos();
 				printf("%c %c %c", slot[x1], slot[x2], slot[x3]);
 			}
 			puts("");

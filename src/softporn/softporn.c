@@ -21,14 +21,9 @@ int getRandom(int max)
 	return rand() / ((RAND_MAX + 1u) / max);
 }
 
-void putw(const char*);
 void writeLongMessage(int msg)
 {
-	putw(messages[msg]);
-}
-void writeLongMessageNoWrap(int msg)
-{
-	puts(messages[msg]);
+	puts(loadMessage(msg));
 }
 
 #include "part2.h"
@@ -37,10 +32,12 @@ void writeLongMessageNoWrap(int msg)
 
 int main()
 {
+	//run_tests();
+
 	loadDict();
 	if (dict == NULL)
 	{
-		puts("Is \"words.tok\" there?");
+		puts("Is \"words.bin\" there?");
 		getKey();
 		return -1;
 	}
@@ -51,7 +48,7 @@ int main()
 	state.gameEnded = false;
 	while (!state.gameEnded)
 	{
-		if (state.yourPlace >= bHallway && state.yourPlace <= bBalcony)
+		if (/*state.yourPlace >= bHallway &&*/ state.yourPlace <= bBalcony)
 		{
 			state.objectPlace[sign] = bStreet;
 			state.objectPlace[button] = bBar;
@@ -89,7 +86,7 @@ int main()
 		{
 			if (getRandom(8) == 5)
 			{
-				putw("A passerby kills me for wearing my kinky rubber in public.");
+				puts("A passerby kills me for wearing my kinky rubber in public.");
 				purgatory();
 				if (state.gameEnded)
 					goto quitGame;
@@ -124,5 +121,6 @@ int main()
 quitGame:
 
 	puts("\n\n\nThank you for playing, and good bye!\n");
+	doneWithFiles();
 	return 0;
 }

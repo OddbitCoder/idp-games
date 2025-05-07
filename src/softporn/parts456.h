@@ -7,24 +7,24 @@ void PartsFourToSix()
 	case go:
 	{
 		if (state.tiedToBed)
-			puts("But I'm tied to the bed!?");
+			printText(0);
 		else if (!haveNoDirection)
 		{
 			if (youAreIn(bBedRoom) && state.direction == north && !state.hookerFucked)
-				puts("\"Don't go there; do me first!\"");
+				printText(1);
 			else if (youAreIn(cHallway) && state.direction == north && !state.marriedToGirl)
-				puts("The door is locked shut.");
+				printText(2);
 			else if (youAreIn(bBackRoom) && state.direction == up && state.TVChannel != 6)
 			{
 				if (state.TVChannel != 5)
 				{
 					if (state.money < 20 || !objectIsCarried(wallet))
-						puts("The pimp says I can't go until I get $2000.");
+						printText(3);
 					else if (state.hookerFucked)
-						puts("\"Bruh, ain'tcha had enough for one night?\" the pimp asks.");
+						printText(4);
 					else
 					{
-						puts("The pimp takes $2000 and gives me the okay.");
+						printText(5);
 						state.paidPimp = true;
 						state.money -= 20;
 						state.yourPlace = bBedRoom;
@@ -53,9 +53,9 @@ void PartsFourToSix()
 	case hail:
 	{
 		if (state.noun != taxi)
-			puts("Who are you kidding?");
+			printText(6);
 		else if (!(youAreIn(bStreet) || youAreIn(cStreet) || youAreIn(dStreet)))
-			puts("I'm not in the street.");
+			printText(7);
 		else
 		{
 			writeLongMessage(36);
@@ -71,7 +71,7 @@ void PartsFourToSix()
 			else if (!strcmp(dest, "CASI")) newPlace = cStreet;
 			else if (!strcmp(dest, "BAR" )) newPlace = bStreet;
 			if (newPlace == nowhere || newPlace == state.yourPlace)
-				puts("Huh? Hail another!");
+				printText(8);
 			else if (objectIsCarried(wine))
 			{
 				wineInTaxi();
@@ -80,7 +80,7 @@ void PartsFourToSix()
 			}
 			else
 			{
-				puts("We arrive and I get out.");
+				printText(9);
 				state.yourPlace = newPlace;
 			}
 		}
@@ -96,23 +96,23 @@ void PartsFourToSix()
 				if (objectIsCarried((objects)o))
 				{
 					if (!anythingCarried)
-						printf("I'm carrying the following:");
+						printf(loadText(10));
 					anythingCarried = true;
-					printf("\n > %s", objectNames[o]);
+					printf(loadText(11), objectNames[o]);
 					if (o == wallet && state.money > 0)
-						printf(" with $%d00", state.money);
+						printf(loadText(12), state.money);
 				}
 			}
 			if (anythingCarried)
 				puts("");
 			else
-				puts("I'm not carrying anything!");
+				printText(13);
 		}
 		else if (state.noun == off)
-			puts("You're not a bird, silly.");
+			printText(14);
 		else if (state.noun == all)
 		{
-			puts("You hog.");
+			printText(15);
 			delay(300);
 			for (int o = firstObject; o < lastObject; o++)
 			{
@@ -120,12 +120,12 @@ void PartsFourToSix()
 				{
 					printf("%s: ", objectNames[o]);
 					if (state.objectsCarried >= maxCarried)
-						puts("I'm carrying too much!");
+						printText(16);
 					else if (objectCanBeTaken((objects)o))
 					{
 						if (youAreIn(dPharmacy) && (o == magazine || o == rubber))
 						{
-							puts("The clerk shouts \"Shoplifter!\" and guns me down.");
+							printText(17);
 							purgatory();
 						}
 						else
@@ -136,7 +136,7 @@ void PartsFourToSix()
 								state.pitcherFull = true;
 							else if (o == pitcher && state.pitcherFull)
 								state.objectPlace[water] = youHaveIt;
-							puts("Taken.");
+							printText(18);
 						}
 					}
 					else
@@ -149,20 +149,20 @@ void PartsFourToSix()
 		else if (!objectIsHere(state.noun))
 			findMeOne();
 		else if (state.objectsCarried >= maxCarried)
-			puts("I'm carrying too much!");
+			printText(19);
 		else if (!objectCanBeTaken(state.noun))
 			cantDoThat();
 		else if (youAreIn(dPharmacy) && (state.noun == magazine || state.noun == rubber))
 		{
-			puts("The clerk shouts \"Shoplifter!\" and guns me down.");
+			printText(20);
 			purgatory();
 		}
 		else if (state.noun == water && !objectIsCarried(pitcher))
-			puts("Get me a pitcher so I don't spill it.");
+			printText(21);
 		else if (state.noun == candy && youAreIn(bBedRoom) && !state.hookerFucked)
-			puts("The hooker calls out to you, \"Don't take it, do me first!\"");
+			printText(22);
 		else if (state.noun == rope && state.ropeInUse)
-			puts("It's tied to the balcony.");
+			printText(23);
 		else
 		{
 			okay();
@@ -187,7 +187,7 @@ void PartsFourToSix()
 				if (objectIsCarried((objects)o))
 				{
 					anythingCarried = true;
-					printf("%s: Dropped.\n", objectNames[o]);
+					printf(loadText(24), objectNames[o]);
 					state.objectPlace[o] = state.yourPlace;
 					state.objectsCarried--;
 					//Bug in original: DROP ALL won't synchronize things like rubberWorn.
@@ -199,7 +199,7 @@ void PartsFourToSix()
 				}
 			}
 			if (!anythingCarried)
-				puts("I'm not carrying anything!");
+				printText(25);
 		}
 		else if (!objectIsCarried(state.noun))
 			dontHaveIt();
@@ -217,7 +217,7 @@ void PartsFourToSix()
 				{
 				case candy:
 				{
-					puts("She smiles and eats a couple.");
+					printText(26);
 					state.candyGiven = true;
 					//Bug in original: should remove candy from play, just like candy and ring?
 					state.objectPlace[candy] = nowhere;
@@ -225,14 +225,14 @@ void PartsFourToSix()
 				}
 				case flowers:
 				{
-					puts("She blushes profusely and puts them in her hair.");
+					printText(27);
 					state.flowersGiven = true;
 					state.objectPlace[flowers] = nowhere;
 					break;
 				}
 				case ring:
 				{
-					puts("She blushes and puts it safely in her purse.");
+					printText(28);
 					state.ringGiven = true;
 					state.objectPlace[ring] = nowhere;
 					break;
@@ -240,7 +240,7 @@ void PartsFourToSix()
 				}
 				if (state.candyGiven && state.flowersGiven && state.ringGiven)
 				{
-					puts("She says, \"Meet me at the marriage center!\"");
+					printText(29);
 					state.objectPlace[girl] = cChapel;
 				}
 			}
@@ -252,11 +252,11 @@ void PartsFourToSix()
 					state.objectPlace[knife] = state.yourPlace;
 				}
 				else
-					puts("\"That stuff made me puke,\" the bum mutters. \"Git outta here.\"");
+					printText(30);
 			}
 			else if (objectIsHere(businessMan) && state.noun == whiskey && state.objectPlace[controlUnit] == nowhere)
 			{
-				puts("The guy gives me a TV remote control.");
+				printText(31);
 				state.objectPlace[controlUnit] = state.yourPlace;
 			}
 			else if (objectIsHere(blonde) && state.noun == pills)
@@ -279,11 +279,11 @@ void PartsFourToSix()
 	{
 		if (haveNoObject)
 		{
-			writeLongMessage(state.yourPlace);
+			writeLongMessage(state.yourPlace + 1); // WARNME: bug?
 			noImAt = true;
 		}
 		else if (state.noun == all)
-			puts("That's too much! One item at a time, please.");
+			printText(32);
 		else if (state.noun == inventory || state.noun == on || state.noun == off)
 			huh();
 		else if (!objectIsHere(state.noun) && !objectIsCarried(state.noun))
@@ -297,12 +297,12 @@ void PartsFourToSix()
 				if (state.drawerOpen)
 					seeSomething(newspaper, NULL);
 				else
-					puts("Its drawer is shut.");
+					printText(33);
 				break;
 			}
 			case washBasin:
 			{
-				seeSomething(ring, "Dead roaches...");
+				seeSomething(ring, loadText(34));
 				break;
 			}
 			case graffiti:
@@ -312,32 +312,32 @@ void PartsFourToSix()
 			}
 			case mirror:
 			{
-				puts("There's some pervert staring back at me.");
+				printText(35);
 				break;
 			}
 			case toilet:
 			{
-				puts("Doesn't seem to be cleaned in ages. It stinks!");
+				printText(36);
 				break;
 			}
 			case businessMan:
 			{
-				puts("Looks like a whiskey-drinking kinda guy to me.");
+				printText(37);
 				break;
 			}
 			case button:
 			{
-				puts("It says 'push'.");
+				printText(38);
 				break;
 			}
 			case bartender:
 			{
-				puts("He's waiting for me to buy something.");
+				printText(39);
 				break;
 			}
 			case pimp:
 			{
-				puts("He has a pin on his coat. \"Support your local pimp -- gimme $2000\".");
+				printText(40);
 				break;
 			}
 			case hooker:
@@ -347,22 +347,22 @@ void PartsFourToSix()
 			}
 			case billboard:
 			{
-				writeLongMessageNoWrap(63);
+				writeLongMessage(63);
 				break;
 			}
 			case TV:
 			{
 				//if (!objectIsCarried(controlUnit))
-				//	puts("I'd need the remote control for that.");
+				//	printText(41);
 				//else if (!state.hookerFucked)
-				//	puts("The pimp says I can't watch TV.");
+				//	printText(42);
 				//else
 					watchTV();
 				break;
 			}
 			case slotMachines:
 			{
-				puts("Playing these might be more fun...");
+				printText(43);
 				break;
 			}
 			case ashtray:
@@ -377,13 +377,13 @@ void PartsFourToSix()
 			}
 			case bum:
 			{
-				puts("\"Tell ya my story for a bottle o' wine,\" he grumbles.");
+				printText(44);
 				break;
 			}
 			case peephole:
 			{
 				if (state.holePeeped)
-					puts("All windows at the hotel across the road have their curtains shut.");
+					printText(45);
 				else
 				{
 					writeLongMessage(55);
@@ -394,23 +394,23 @@ void PartsFourToSix()
 			case doorWest:
 			{
 				if (state.doorWestOpen)
-					puts("The door is open.");
+					printText(46);
 				else
 				{
-					puts("The sign on the door says:");
-					puts("\"Entry by showing passcard - club members and their guests only\"");
+					printText(47);
+					printText(48);
 				}
 				break;
 			}
 			case waitress:
 			{
-				puts("She ignores you.");
+				printText(49);
 				break;
 			}
 			case telephone:
 			{
 				if (youAreIn(dBooth))
-					puts("\"For a good time, call 555-6969.\"");
+					printText(50);
 				else
 					seeNothingSpecial();
 				break;
@@ -418,22 +418,22 @@ void PartsFourToSix()
 			case closet:
 			{
 				if (state.closetOpen)
-					seeSomething(doll, "It's open.");
+					seeSomething(doll, loadText(51));
 				break;
 			}
 			case sink:
 			{
-				puts("Type \"water on\" or \"water off\" to operate.");
+				printText(52);
 				break;
 			}
 			case elevator:
 			{
-				puts("Its doors are closed.");
+				printText(53);
 				break;
 			}
 			case dealer:
 			{
-				puts("He's waiting for me to play.");
+				printText(54);
 				break;
 			}
 			case cabinet:
@@ -441,9 +441,9 @@ void PartsFourToSix()
 				if (state.stoolClimbed)
 				{
 					if (state.cabinetOpen)
-						seeSomething(pitcher, "It's open.");
+						seeSomething(pitcher, loadText(55));
 					else
-						puts("It's closed.");
+						printText(56);
 				}
 				else
 					seeNothingSpecial();
@@ -451,7 +451,7 @@ void PartsFourToSix()
 			}
 			case bushes:
 			{
-				puts("These bushes look lushes.");
+				printText(57);
 				break;
 			}
 			case tree:
@@ -461,7 +461,7 @@ void PartsFourToSix()
 			}
 			case sign:
 			{
-				puts("\"Hail taxi here\"");
+				printText(58);
 				break;
 			}
 			case girl:
@@ -471,7 +471,7 @@ void PartsFourToSix()
 				else if (youAreIn(dDisco) || youAreIn(cChapel))
 					writeLongMessage(34);
 				else
-					puts("She slaps me for staring.");
+					printText(59);
 				break;
 			}
 			case newspaper:
@@ -489,7 +489,7 @@ void PartsFourToSix()
 			}
 			case flowers:
 			{
-				puts("They look beautiful!");
+				printText(60);
 				break;
 			}
 			case appleCore:
@@ -499,15 +499,15 @@ void PartsFourToSix()
 			}
 			case pills:
 			{
-				puts("The label on the bottle says:");
-				puts("\"Want to drive someone crazy with lust? Try this!\"");
+				printText(61);
+				printText(62);
 				break;
 			}
 			case plant:
 			{
 				if (state.objectPlace[bushes] == nowhere)
 				{
-					puts("Hello? There's a group of bushes behind it!");
+					printText(63);
 					state.objectPlace[bushes] = state.yourPlace;
 				}
 				else
@@ -516,7 +516,7 @@ void PartsFourToSix()
 			}
 			case radio:
 			{
-				puts("Maybe I should listen?");
+				printText(64);
 				break;
 			}
 			case magazine:
@@ -530,7 +530,7 @@ void PartsFourToSix()
 			case rubber:
 			{
 				if (objectIsCarried(rubber))
-					printf("It's %s, %s-flavored, %s, and %s.\n", state.rubberColor, state.rubberFlavor, state.rubberLubricated, state.rubberRibbed);
+					printf(loadText(65), state.rubberColor, state.rubberFlavor, state.rubberLubricated, state.rubberRibbed);
 				else
 					dontHaveIt();
 				break;
@@ -538,25 +538,25 @@ void PartsFourToSix()
 			case wallet:
 			{
 				if (state.money > 0)
-					printf("It contains $%d00.\n", state.money);
+					printf(loadText(66), state.money);
 				else
-					puts("It's empty.");
+					printText(67);
 				break;
 			}
 			case doll:
 			{
 				if (state.dollInflated)
-					puts("It's inflated.");
+					printText(68);
 				else
-					puts("It's all rolled up in a little ball.");
+					printText(69);
 				break;
 			}
 			case pitcher:
 			{
 				if (state.pitcherFull)
-					puts("It's full of water.");
+					printText(70);
 				else
-					puts("It's empty.");
+					printText(71);
 				break;
 			}
 			case rack:
@@ -564,14 +564,14 @@ void PartsFourToSix()
 				if (objectIsHere(rack))
 					seeSomething(magazine, NULL);
 				else if (objectIsHere(hooker))
-					puts("It's... something alright.");
+					printText(72);
 				else if (objectIsHere(girl) || objectIsHere(blonde))
-					puts("Lookin' goo-- *SLAP* Ow.");
+					printText(73);
 				break;
 			}
 			case curtain:
 			{
-				puts("It's on the east wall.");
+				printText(74);
 				break;
 			}
 			default:
@@ -607,7 +607,7 @@ void PartsFourToSix()
 		{
 		case window:
 		{
-			puts("It won't budge.");
+			printText(75);
 			break;
 		}
 		case desk:
@@ -618,28 +618,28 @@ void PartsFourToSix()
 		case doorWest:
 		{
 			if (state.doorWestOpen)
-				puts("It's already open.");
+				printText(76);
 			else
 			{
-				puts("A voice asks, \"Passcard?\". I search my pockets and...");
+				printText(77);
 				if (objectIsCarried(passcard))
 				{
-					puts("I have it! The door opens.");
+					printText(78);
 					state.doorWestOpen = true;
 					state.path[dEntrance][west] = dDisco;
 				}
 				else
-					puts("I don't have it!");
+					printText(79);
 			}
 		}
 		case curtain:
 		{
-			puts("It seems to be remotely controlled.");
+			printText(80);
 			break;
 		}
 		case elevator:
 		{
-			puts("Push the button to open the elevator doors.");
+			printText(81);
 			break;
 		}
 		case closet:
@@ -652,7 +652,7 @@ void PartsFourToSix()
 			if (state.stoolClimbed)
 				_open(&state.cabinetOpen);
 			else
-				puts("I can't reach it.");
+				printText(82);
 		}
 		default:
 		{
@@ -669,7 +669,7 @@ void PartsFourToSix()
 			if (objectIsCarried(doll))
 			{
 				if (state.dollInflated)
-					puts("It's already inflated, dimwit.");
+					printText(83);
 				else
 				{
 					okay();
@@ -677,12 +677,12 @@ void PartsFourToSix()
 				}
 			}
 			else if (objectIsHere(doll))
-				puts("I can't if I'm not holding it close.");
+				printText(84);
 			else
 				findMeOne();
 		}
 		else
-			puts("But the prime rate is already 257%%!");
+			printText(85);
 		break;
 	}
 	case play:
@@ -699,7 +699,7 @@ void PartsFourToSix()
 					noMoney();
 			}
 			else
-				puts("Okay, show me your slot...");
+				printText(86);
 		}
 		else if (state.noun == cards)
 		{
@@ -714,7 +714,7 @@ void PartsFourToSix()
 				maybeLater();
 		}
 		else
-			puts("Playful li'l bugger, eh?");
+			printText(87);
 		break;
 	}
 	case press: //push
@@ -723,27 +723,27 @@ void PartsFourToSix()
 		{
 			if (youAreIn(bBar))
 			{
-				puts("A voice from behind the curtain says \"What's the password?\"");
+				printText(88);
 				putchar('>');
 				char password[128] = { 0 };
 				getString(password, 128);
 				for (int i = 0; i < 6; i++)
 					password[i] = (char)toupper(password[i]);
 				password[6] = '\0';
-				if (!strcmp(password, "BELLYB"))
+				if (!strcmp(password, loadText(89)))
 				{
-					puts("The curtain pulls back!");
+					printText(90);
 					state.path[bBar][east] = bBackRoom;
 				}
-				else if (!strcmp(password, "AL SEN") || !strcmp(password, "KEN SE"))
-					puts("\"Cute, bruh. Real cute, but wrong.\"");
+				else if (!strcmp(password, loadText(91)) || !strcmp(password, loadText(92)))
+					printText(93);
 				else
-					puts("\"Wrong, bruh!\"");
+					printText(94);
 			}
 			else if (youAreIn(cHtDesk) || youAreIn(pFoyer))
 			{
 				if (objectIsHere(blonde))
-					puts("The blonde calls out, \"You can't go there!\"");
+					printText(95);
 				else
 				{
 					writeLongMessage(37);
@@ -757,7 +757,7 @@ void PartsFourToSix()
 				maybeLater();
 		}
 		else
-			puts("Pushy chump, eh?");
+			printText(96);
 		break;
 	}
 	case enter:
@@ -778,10 +778,10 @@ void PartsFourToSix()
 			if (state.doorWestOpen)
 				state.yourPlace = dDisco;
 			else
-				puts("The door's closed.");
+				printText(97);
 		}
 		else if (state.noun == elevator)
-			puts("Push the button to enter the elevator.");
+			printText(98);
 		else
 			cantDoThat();
 		break;
@@ -803,16 +803,16 @@ void PartsFourToSix()
 			state.placeVisited[state.yourPlace] = false;
 		}
 		else if (state.noun == garbage || state.noun == appleCore)
-			puts("Eccch no!");
+			printText(99);
 		else if (state.noun == apple)
-			puts("I'm not that hungry.");
+			printText(100);
 		else if (state.noun == pills)
 		{
 			writeLongMessage(56);
 			purgatory();
 		}
 		else
-			puts("Tastes awful.");
+			printText(101);
 		break;
 	}
 	case drink:
@@ -824,11 +824,11 @@ void PartsFourToSix()
 		}
 		switch (state.noun)
 		{
-		case whiskey: puts("This stuff's rot-gut! I'd rather give it to someone else."); break;
-		case beer: puts("Heheheheeey, this stuff's okay!"); break;
-		case wine: puts("Sour grapes..."); break;
-		case water: puts("Thanks!"); break;
-		default: puts("...Huh? Get your head examined."); break;
+		case whiskey: printText(102); break;
+		case beer: printText(103); break;
+		case wine: printText(104); break;
+		case water: printText(105); break;
+		default: printText(106); break;
 		}
 		if (state.noun == beer || state.noun == water)
 		{
@@ -854,10 +854,10 @@ void PartsFourToSix()
 			else
 			{
 				if (state.objectPlace[state.noun] != nowhere)
-					puts("\"Sorry, all out.\"");
+					printText(107);
 				else
 				{
-					puts("I give the bartender $100 and he places it on the bar.");
+					printText(108);
 					state.money--;
 					state.objectPlace[state.noun] = state.yourPlace;
 				}
@@ -871,12 +871,12 @@ void PartsFourToSix()
 			else
 			{
 				if (state.objectPlace[state.noun] != nowhere)
-					puts("\"Sorry, all out.\"");
+					printText(109);
 				else
 				{
-					puts("The waitress takes $100 and says she'll be back shortly.");
+					printText(110);
 					delay(3000);
-					puts("...gee, that's taking a while.");
+					printText(111);
 					delay(2000);
 					state.money--;
 					state.objectPlace[state.noun] = state.yourPlace;
@@ -896,12 +896,12 @@ void PartsFourToSix()
 					if (state.noun == rubber)
 						buyRubber();
 					else
-						puts("The clerk takes $100 and gives me the magazine.");
+						printText(112);
 					state.money--;
 					state.objectPlace[state.noun] = youHaveIt;
 				}
 				else
-					puts("\"Sorry, sold out.\"");
+					printText(113);
 			}
 			break;
 		}
@@ -910,9 +910,9 @@ void PartsFourToSix()
 			if (objectIsHere(hooker))
 			{
 				if (state.paidPimp)
-					puts("I already paid the pimp, numbnuts.");
+					printText(114);
 				else
-					puts("After all that trickery?");
+					printText(115);
 			}
 			else
 				findMeOne();
@@ -920,7 +920,7 @@ void PartsFourToSix()
 		}
 		default:
 		{
-			puts("Money can't buy everything.");
+			printText(116);
 			break;
 		}
 		}
@@ -936,7 +936,7 @@ void PartsFourToSix()
 				state.stoolClimbed = true;
 			}
 			else
-				puts("It's not on the floor here.");
+				printText(117);
 		}
 		else if (objectIsHere(state.noun) || objectIsCarried(state.noun))
 			cantDoThat();
@@ -949,13 +949,13 @@ void PartsFourToSix()
 		if (state.noun == on || state.noun == off)
 		{
 			if (!objectIsHere(sink))
-				puts("Gotta find a working sink.");
+				printText(118);
 			else
 			{
 				state.waterOn = state.noun == on;
 				if (state.waterOn)
 				{
-					puts("Water is running in the sink.");
+					printText(119);
 					state.objectPlace[water] = state.yourPlace;
 				}
 				else if (!state.pitcherFull)
@@ -966,7 +966,7 @@ void PartsFourToSix()
 			}
 		}
 		else if (!objectIsCarried(water))
-			puts("I have no water.");
+			printText(120);
 		else if (!objectIsHere(state.noun))
 			findMeOne();
 		else if (state.noun == seeds)
@@ -975,16 +975,16 @@ void PartsFourToSix()
 			state.pitcherFull = true;
 			if (youAreIn(pGarden))
 			{
-				puts("Somehow, a tree sprouts within seconds!");
+				printText(121);
 				state.objectPlace[tree] = state.yourPlace;
 				state.objectPlace[seeds] = nowhere;
 			}
 			else
-				puts("The seeds need better soil to grow.");
+				printText(122);
 		}
 		else
 		{
-			puts("It pours into the ground.");
+			printText(123);
 			state.objectPlace[water] = nowhere;
 			state.pitcherFull = false;
 		}
@@ -995,13 +995,13 @@ void PartsFourToSix()
 		if (state.noun != pitcher)
 			cantDoThat();
 		else if (!objectIsCarried(pitcher))
-			puts("I don't have it.");
+			printText(124);
 		else if (!objectIsHere(sink))
-			puts("Gotta find a working sink.");
+			printText(125);
 		else if (!state.waterOn)
-			puts("The water isn't running.");
+			printText(126);
 		else if (state.pitcherFull)
-			puts("The pitcher is already full.");
+			printText(127);
 		else
 		{
 			okay();
@@ -1014,14 +1014,14 @@ void PartsFourToSix()
 		if (state.noun != water)
 			cantDoThat();
 		else if (!objectIsCarried(pitcher))
-			puts("I have nothing to pour it with.");
+			printText(128);
 		else if (!state.pitcherFull)
-			puts("The pitcher is empty.");
+			printText(129);
 		else if (!youAreIn(pGarden) || !objectIsHere(seeds))
-			puts("It pours into the ground.");
+			printText(130);
 		else
 		{
-			puts("Somehow, a tree sprouts within seconds!");
+			printText(131);
 			state.objectPlace[tree] = state.yourPlace;
 			//Bug in original: WATER SEEDS removes seeds from play, but POUR WATER does not.
 			state.objectPlace[seeds] = nowhere;
@@ -1037,18 +1037,18 @@ void PartsFourToSix()
 			if (objectIsCarried(radio))
 			{
 				if (state.radioListened)
-					puts("Eugh, punk rock.");
+					printText(132);
 				else
 				{
-					puts("An advertisement says \"call 555-0987 for all your liquor needs!\"");
+					printText(133);
 					state.radioListened = true;
 				}
 			}
 			else
-				puts("I should take it so I can hold it up to my ear.");
+				printText(134);
 		}
 		else
-			puts("Quiet as a mouse in heat.");
+			printText(135);
 		break;
 	}
 	case close:
@@ -1083,7 +1083,7 @@ void PartsFourToSix()
 					state.objectPlace[pitcher] = nowhere;
 			}
 			else
-				puts("I can't reach it.");
+				printText(136);
 			break;
 		}
 		case doorWest:
@@ -1110,17 +1110,17 @@ void PartsFourToSix()
 	case marry:
 	{
 		if (state.noun != girl)
-			puts("No way, weirdo.");
+			printText(137);
 		else if (!objectIsHere(girl))
-			puts("There's no girl here.");
+			printText(138);
 		else if (!youAreIn(cChapel))
 			maybeLater();
 		else if (state.money < 30 || !objectIsCarried(wallet))
 		{
 			if (state.money < 20)
-				puts("The girl says, \"But you'll need $2000 for the honeymoon suite!\"\nThe preacher chimes in, \"I'll need $1000, too.\"");
+				printText(139);
 			else
-				puts("The preacher says, \"I'll need $1000 for that.\"");
+				printText(140);
 		}
 		else
 		{
@@ -1144,7 +1144,7 @@ void PartsFourToSix()
 		case hooker:
 		{
 			if (state.hookerFucked)
-				puts("She doesn't look like she can take any more.");
+				printText(141);
 			else
 			{
 				if (state.rubberWorn)
@@ -1155,7 +1155,7 @@ void PartsFourToSix()
 				}
 				else
 				{
-					puts("Oh no! She gave me the dreaded Atomic Clap!");
+					printText(142);
 					purgatory();
 				}
 			}
@@ -1172,10 +1172,10 @@ void PartsFourToSix()
 					state.objectsCarried--;
 				}
 				else
-					puts("Inflate it first, dummy.");
+					printText(143);
 			}
 			else
-				puts("I can't unless I'm holding it close.");
+				printText(144);
 			break;
 		}
 		case girl:
@@ -1194,7 +1194,7 @@ void PartsFourToSix()
 					state.objectPlace[rope] = state.yourPlace;
 				}
 				else
-					puts("\"I'm nervous. Don't you have some wine?\"");
+					printText(145);
 				break;
 			}
 			case pJacuzzi:
@@ -1219,52 +1219,52 @@ void PartsFourToSix()
 		}
 		case bartender:
 		{
-			//puts("He jumps over the bar and strikes me down!");
-			//puts("(Now that's putting the 'ender' in 'bartender'!)");
+			//printText(146);
+			//printText(147);
 			//purgatory();
-			puts("\"Buddy, don't make me put the 'ender' in 'bartender'.\"");
-			puts("... he got me there.");
+			printText(148);
+			printText(149);
 			break;
 		}
 		case you:
 		{
-			puts("The whole point was to stop doing that!");
+			printText(150);
 			break;
 		}
 		case waitress:
 		{
-			puts("She kicks me in the nads for trying.");
-			puts("\"Wisen up, Buster!\"");
+			printText(151);
+			printText(152);
 			break;
 		}
 		case blonde:
 		{
-			puts("\"Fuck off, I'm working!\"");
+			printText(153);
 			break;
 		}
 		case pimp:
 		{
-			puts("\"Bruh, even if I'd let ya you couldn't afford me, foo'!\" he mocks.");
+			printText(154);
 			break;
 		}
 		case bum:
 		{
-			puts("Let's not. I don't know where he's been!");
+			printText(155);
 			break;
 		}
 		case businessMan:
 		{
-			puts("\"Don't make this weird.\"");
+			printText(156);
 			break;
 		}
 		case off:
 		{
-			puts("Yeah? How 'bout *you* fuck off, asshole?");
+			printText(157);
 			break;
 		}
 		default:
 		{
-			puts("Pervert.");
+			printText(158);
 			break;
 		}
 		}
@@ -1281,22 +1281,22 @@ void PartsFourToSix()
 		{
 		case rubber:
 		{
-			puts("It tickles!");
+			printText(159);
 			state.rubberWorn = true;
 			state.objectPlace[rubber] = youHaveIt;
 			break;
 		}
 		case toilet:
 		{
-			puts("~I got the constipation bluuueees...~");
-			puts("Ah, much better.");
+			printText(160);
+			printText(161);
 			break;
 		}
 		case bed:
 		{
-			puts("Ah, sleep...");
+			printText(162);
 			delay(1000);
-			puts("No wait! I can't sleep yet, I gotta find me a girl!");
+			printText(163);
 			break;
 		}
 		case rope:
@@ -1307,7 +1307,7 @@ void PartsFourToSix()
 				{
 					state.objectPlace[rope] = state.yourPlace;
 					state.ropeInUse = true;
-					puts("Okay, the safety rope is tied to the balcony.");
+					printText(164);
 				}
 				else
 					maybeLater();
@@ -1322,7 +1322,7 @@ void PartsFourToSix()
 			{
 				if (youAreIn(dEntrance))
 				{
-					puts("I flash my passcard and the door opens.");
+					printText(165);
 					state.path[dEntrance][west] = dDisco;
 				}
 				else
@@ -1334,20 +1334,20 @@ void PartsFourToSix()
 		}
 		case knife:
 		{
-			puts("Let me see if I still have it...");
+			printText(166);
 			delay(600);
 			if (objectIsCarried(knife))
 			{
 				if (state.tiedToBed)
 				{
-					puts("Yeah, I do. And it works! Thanks!");
+					printText(167);
 					state.tiedToBed = false;
 				}
 				else
 				{
-					puts("Samurai sex fiend, YEEEAAAH!");
+					printText(168);
 					delay(600);
-					puts("...I accidentally stabbed myself.");
+					printText(169);
 					purgatory();
 				}
 			}
@@ -1371,34 +1371,34 @@ void PartsFourToSix()
 			cantDoThat();
 		else if (state.telephoneRinging)
 		{
-			printf("A girl says, \"Hi honey! This is %s. Dear, why\n", state.girlName);
-			printf("don't you forget this game and %s with me?\n", state.girlDo);
-			printf("After all, your %s has always turned me on.\n", state.yourPart);
-			printf("So bring a %s and come play with my %s.\"\n", state.yourObject, state.girlPart);
-			printf("She hangs up.");
+			printf(loadText(170), state.girlName);
+			printf(loadText(171), state.girlDo);
+			printf(loadText(172), state.yourPart);
+			printf(loadText(173), state.yourObject, state.girlPart);
+			printf(loadText(174));
 			state.telephoneRinging = false;
 			state.telephoneAnswered = true;
 		}
 		else
-			puts("It's not ringing though?");
+			printText(175);
 		break;
 	}
 	case call: //dial
 	{
 		if (youAreIn(pPntPch))
-			puts("This only takes incoming calls.");
+			printText(176);
 		//Bug in original: CALL 555-XXXX works everywhere *but* the penthouse foyer.
 		else if (!objectIsHere(telephone))
-			puts("I mean, I could talk to my hand...");
+			printText(177);
 		else if (!strcmp(fullNoun, "6969") && !state.called5556969)
 		{
-			puts("A voice on the line says \"Hello. Please answer the questions with\none-word answers.\"");
-			printf("\"What's your favorite girls name?\"  >"); getString(state.girlName,   32);
-			printf("\"Name a nice part of her anatomy.\"  >"); getString(state.girlPart,   32);
-			printf("\"What do you like to do with her?\"  >"); getString(state.girlDo,     32);
-			printf("\"And the best part of your body?\"   >"); getString(state.yourPart,   32);
-			printf("\"Finally, your favorite object?\"    >"); getString(state.yourObject, 32);
-			puts("He hangs up.");
+			printText(178);
+			printf(loadText(179)); getString(state.girlName,   32);
+			printf(loadText(180)); getString(state.girlPart,   32);
+			printf(loadText(181)); getString(state.girlDo,     32);
+			printf(loadText(182)); getString(state.yourPart,   32);
+			printf(loadText(183)); getString(state.yourObject, 32);
+			printText(184);
 			state.called5556969 = true;
 		}
 		else if (!strcmp(fullNoun, "0439") && !state.called5550439)
@@ -1415,7 +1415,7 @@ void PartsFourToSix()
 		}
 		else
 		{
-			puts("Nobody answers.");
+			printText(185);
 		}
 		break;
 	}
@@ -1427,11 +1427,11 @@ void PartsFourToSix()
 		{
 			if (objectIsCarried(hammer))
 			{
-				puts("Using the hammer, I smash the window to pieces.");
+				printText(186);
 				state.path[bWindowLedge][south] = bInRoom;
 			}
 			else
-				puts("If I had something to break it with, sure!");
+				printText(187);
 		}
 		else
 			cantDoThat();
@@ -1439,20 +1439,20 @@ void PartsFourToSix()
 	}
 	case cut:
 	{
-		puts("Let me see if I still have that knife...");
+		printText(188);
 		delay(600);
 		if (objectIsCarried(knife))
 		{
 			if (state.noun == rope && state.tiedToBed)
 			{
-				puts("Yeah, I do. And it works! Thanks!");
+				printText(189);
 				state.tiedToBed = false;
 			}
 			else
 			{
-				puts("Samurai sex fiend, YEEEAAAH!");
+				printText(190);
 				delay(600);
-				puts("...I accidentally stabbed myself.");
+				printText(191);
 				purgatory();
 			}
 		}
@@ -1465,18 +1465,18 @@ void PartsFourToSix()
 		for (int i = 0; i < 3; i++)
 		{
 			delay(500);
-			puts("Woohoo!");
+			printText(192);
 			delay(500);
-			puts("Yeah, yeah, yeah~");
+			printText(193);
 		}
 		delay(1000);
-		puts("\nYeah, I got the moves, dude!");
+		printText(194);
 		break;
 	}
 	case kill:
 	{
-		//puts("Try using a knife.");
-		puts("What, with my bare hands?");
+		//printText(195);
+		printText(196);
 		break;
 	}
 	case pay:
@@ -1491,46 +1491,46 @@ void PartsFourToSix()
 		case pimp:
 		{
 			if (state.hookerFucked)
-				puts("\"I don't need yo money, bruh.\"");
+				printText(197);
 			else
-				puts("He'll take the money when you go up.");
+				printText(198);
 			break;
 		}
 		case hooker:
 		{
 			if (state.paidPimp)
-				puts("You already paid the pimp, dum-dum.");
+				printText(199);
 			else
-				puts("After all that trickery?");
+				printText(200);
 			break;
 		}
 		case blonde:
 		case waitress:
 		case girl:
 		{
-			puts("\"What do you take me for, some common skank!?\"");
-			puts("She punches me right in the vulnerables...");
+			printText(201);
+			printText(202);
 			purgatory();
 			break;
 		}
 		case preacher:
 		{
-			puts("Bring a girl here to marry, he'll take the money then.");
+			printText(203);
 			break;
 		}
 		case businessMan:
 		{
-			puts("He's too drunk to do business right now.");
+			printText(204);
 			break;
 		}
 		case bartender:
 		{
-			puts("Buy something, he'll take the money then.");
+			printText(205);
 			break;
 		}
 		case dealer:
 		{
-			puts("Why not play 21 instead? You'll lose anyway!");
+			printText(206);
 			break;
 		}
 		default:
@@ -1545,7 +1545,7 @@ void PartsFourToSix()
 	{
 		if (state.noun == plant)
 		{
-			puts("A cop comes running and guns me down!");
+			printText(207);
 			purgatory();
 		}
 		else
@@ -1560,7 +1560,7 @@ void PartsFourToSix()
 			{
 				if (youAreIn(dEntrance))
 				{
-					puts("I flash my passcard and the door opens.");
+					printText(208);
 					state.path[dEntrance][west] = dDisco;
 				}
 				else
@@ -1582,13 +1582,13 @@ void PartsFourToSix()
 		}
 		switch (state.noun)
 		{
-		case blonde: puts("Hmm. Nice!"); break;
-		case hooker: puts("Okay, who's eating tuna fish?"); break;
-		case toilet: puts("Augh, I'm gonna puke!"); break;
-		case plant: puts("...Achoo! Hmm. Guess I'm allergic?"); break;
-		case garbage: puts("Yeeeccch!"); break;
-		case flowers: puts("Smells like perfume."); break;
-		default: puts("Smells okay."); break;
+		case blonde: printText(209); break;
+		case hooker: printText(210); break;
+		case toilet: printText(211); break;
+		case plant: printText(212); break;
+		case garbage: printText(213); break;
+		case flowers: printText(214); break;
+		default: printText(215); break;
 		}
 		break;
 	}
@@ -1599,7 +1599,7 @@ void PartsFourToSix()
 	}
 	case kiss:
 	{
-		puts("Don't do that, it gets me excited!");
+		printText(216);
 		break;
 	}
 	case stab:
@@ -1614,13 +1614,13 @@ void PartsFourToSix()
 	}
 	case showScore:
 	{
-		puts("Can't you see the bar on top of the screen?");
+		printText(217);
 		break;
 	}
 	case save:
 	{
 		int slot = 0;
-		puts("Save to which slot? (0-9)");
+		printText(218);
 		while (true)
 		{
 			char resp = getKeySilent();
@@ -1633,26 +1633,21 @@ void PartsFourToSix()
 		char fileName[24] = "SOFTP-#.SAV";
 		fileName[6] = '0' + slot;
 // WARNME
-// #ifdef HAVESAFE
-// 		FILE *f = NULL;
-// 		if (fopen_s(&f, fileName, "wb+"))
-// #else
 // 		FILE *f = fopen(fileName, "wb+");
 // 		if (f != 0)
-// #endif
 // 		{
-// 			printf("Couldn't open %s.\n", fileName);
+// 			printf(loadText(220), fileName);
 // 			break;
 // 		}
 // 		fwrite(&state, sizeof(gameState), 1, f);
 // 		fclose(f);
-		printf("Saved game to %s.\n", fileName);
+		printf(loadText(221), fileName);
 		break;
 	}
 	case restore: //load
 	{
 		int slot = 0;
-		puts("Restore from which slot? (0-9)");
+		printText(222);
 		while (true)
 		{
 			char resp = getKeySilent();
@@ -1665,20 +1660,15 @@ void PartsFourToSix()
 		char fileName[24] = "SOFTP-#.SAV";
 		fileName[6] = '0' + slot;
 // WARNME
-// #ifdef HAVESAFE
-// 		FILE *f = NULL;
-// 		if (fopen_s(&f, fileName, "rb+"))
-// #else
 // 		FILE *f = fopen(fileName, "rb+");
 // 		if (f != 0)
-// #endif
 // 		{
-// 			printf("Couldn't open %s.\n", fileName);
+// 			printf(loadText(224), fileName);
 // 			break;
 // 		}
 // 		fread(&state, sizeof(gameState), 1, f);
 // 		fclose(f);
-		printf("Loaded game from %s.\n", fileName);
+		printf(loadText(225), fileName);
 
 		//force full description
 		state.placeVisited[state.yourPlace] = false;
