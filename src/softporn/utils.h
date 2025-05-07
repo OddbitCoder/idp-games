@@ -2,12 +2,25 @@
 #define __UTILS_H
 
 #include <stdio.h>
+#include <bdos.h>
 
-#include "mytypes.h"
+#include "metrics.h"
 
 // timer
 
-UINT16 timer();
+uint16_t timer();
+
+// file
+
+typedef struct {
+	fcb_t fcb;
+	uint8_t dma[DMA_SIZE];
+} FILE;
+
+FILE *fopen(char *path);
+uint8_t *fread(FILE *f, uint8_t *buf, uint16_t pos, uint16_t len);
+uint16_t fwrite(FILE *f, uint8_t *buf, uint16_t len);
+void fclose(FILE *f);
 
 // string
 
@@ -26,7 +39,8 @@ int strcmp(const char *str1, const char *str2);
 void setWindowSize();
 void clearScreen();
 void setPos(int x, int y);
-void getPos(int *x, int *y);
+void savePos();
+void restorePos();
 void setColor(int color);
 void writeHeader(int line, const char *leftText, const char *rightText);
 void delay(int ms);
@@ -37,7 +51,11 @@ char *getString(char *buffer, int max);
 
 // agiparse
 
-extern void loadDict();
+void loadDict();
 extern char *dict;
+
+// tests
+
+void run_tests();
 
 #endif 
