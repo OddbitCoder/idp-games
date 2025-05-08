@@ -146,11 +146,6 @@ int atoi(const char *str) {
     return sign * val;
 }
 
-// TODO
-int sprintf(char *str, const char *format, ...) {
-	return 0;
-}
-
 char *strcat(char *dest, const char *src) {
 	char *ptr = dest;
     for (; *ptr; ptr++);
@@ -232,6 +227,7 @@ void setColor(int color) {
 
 void writeHeader(int line, const char *leftText, const char *rightText) {
     savePos();
+    line++;
     setPos(1, line);
     setColor(HEADERCOLOR);
     for (int i = 0; i < COLS; i++) {

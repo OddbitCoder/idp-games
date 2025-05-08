@@ -160,7 +160,7 @@ void initNewGame()
 void lookAround()
 {
 	char status[80];
-	sprintf(status, "Score: %d/3", state.score);
+	strcpy(status, "Score: #/3"); status[7] = state.score + '0'; // sprintf(status, "Score: %d/3", state.score);
 	writeHeader(0, placeHeaders[state.yourPlace], status);
 	if (!noImAt)
 	{
@@ -411,7 +411,7 @@ void readAndParseCommand()
 	bool commandOK = false;
 	places prevPlace = (places)-1;
 	char score[40];
-	sprintf(score, "Score: %d/3", state.score);
+	strcpy(score, "Score: #/3"); score[7] = state.score + '0'; // sprintf(score, "Score: %d/3", state.score);
 
 	do
 	{
