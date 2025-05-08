@@ -6,6 +6,8 @@
 
 #include "metrics.h"
 
+void printLine(const char *);
+
 // timer
 
 uint16_t timer();

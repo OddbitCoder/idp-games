@@ -449,4 +449,4 @@ foreach (var _item in messages) {
     messages_bin += item;
 }
 
-File.WriteAllText("messages.bin", messages_bin);
+File.WriteAllText("C:\\Work\\idp-games\\src\\softporn\\messages.bin", messages_bin);

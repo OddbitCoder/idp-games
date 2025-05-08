@@ -12,7 +12,9 @@ string pattern = @"(?<!\\)""((?:\\.|[^""\\])*)""";
 
 string result = Regex.Replace(source, pattern, match =>
 {
-    string extracted = Regex.Unescape(match.Groups[1].Value);
+    string extracted = Regex.Unescape(match.Groups[1].Value)
+        .Replace("\r", "")
+        .Replace("\n", "\n\r");
 
     bool replace = extracted.Length > 5;
 
@@ -27,16 +29,15 @@ for (int i = 0; i < stringLiterals.Count; i++)
 {
     var item = stringLiterals[i];
     Console.WriteLine($"\t/* {i} */ {{ {offset}, {item.Length} }}, // {item.Replace("\r", "").Replace("\n", "\n\t// ")}");
-    offset += item.Replace("\r", "").Replace("\n", "\n\r").Length;
+    offset += item.Length;
 }
 
 // output texts.bin
 
 var texts_bin = "";
 
-foreach (var _item in stringLiterals)
+foreach (var item in stringLiterals)
 {
-    var item = _item.Replace("\r", "").Replace("\n", "\n\r");
     texts_bin += item;
 }
 

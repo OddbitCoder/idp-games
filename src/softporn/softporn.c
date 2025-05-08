@@ -21,11 +21,6 @@ int getRandom(int max)
 	return rand() / ((RAND_MAX + 1u) / max);
 }
 
-void writeLongMessage(int msg)
-{
-	puts(loadMessage(msg));
-}
-
 #include "part2.h"
 #include "part3.h"
 #include "parts456.h"
@@ -37,7 +32,7 @@ int main()
 	loadDict();
 	if (dict == NULL)
 	{
-		puts("Is \"words.bin\" there?");
+		printLine("Is \"words.bin\" there?");
 		getKey();
 		return -1;
 	}
@@ -86,7 +81,7 @@ int main()
 		{
 			if (getRandom(8) == 5)
 			{
-				puts("A passerby kills me for wearing my kinky rubber in public.");
+				printLine("A passerby kills me for wearing my kinky rubber in public.");
 				purgatory();
 				if (state.gameEnded)
 					goto quitGame;
@@ -103,15 +98,15 @@ int main()
 		}
 
 		if (haveNoVerb)
-			puts("I don't know how to do that.");
-			//printf("I don't know how to %s something.\n", fullVerb);
+			printLine("I don't know how to do that.");
+			//printf("I don't know how to %s something.\n\r", fullVerb);
 		else if (haveVerbOnly && !verbIsStandalone(state.verb))
-			puts("Give me a noun!");
+			printLine("Give me a noun!");
 		else if (!haveVerbOnly && (haveNoObject && haveNoDirection && (!verbIsSpecial(state.verb))))
 		{
-			puts("I don't know how to do that.");
+			printLine("I don't know how to do that.");
 			//addDefiniteArticleTo(fullNoun);
-			//printf("I don't know to %s %s.\n", fullVerb, fullNoun);
+			//printf("I don't know to %s %s.\n\r", fullVerb, fullNoun);
 		}
 		else
 		{
@@ -120,7 +115,7 @@ int main()
 	}
 quitGame:
 
-	puts("\n\n\nThank you for playing, and good bye!\n");
+	printLine("\n\r\n\r\n\rThank you for playing, and good bye!\n\r");
 	doneWithFiles();
 	return 0;
 }

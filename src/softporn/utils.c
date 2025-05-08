@@ -239,11 +239,11 @@ void writeHeader(int line, const char *leftText, const char *rightText) {
     }
     if (leftText != NULL) {
         setPos(2, line);
-        puts(leftText);
+        printLine(leftText);
     }
     if (rightText != NULL) {
         setPos(COLS - strlen(rightText), line);
-        puts(rightText);
+        printLine(rightText);
     }
     setColor(REGULARCOLOR); 
     restorePos();
@@ -283,7 +283,7 @@ char getKey() {
     char ch;
     while (!(ch = toupper(kbhit())));
     //putchar(ch); // WARNME: do we need this? (this is not in the original code)
-    puts(""); 
+    printLine(""); 
     return ch;
 }
 

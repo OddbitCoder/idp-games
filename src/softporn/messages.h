@@ -8,12 +8,6 @@ typedef struct {
 FILE *m_file = NULL;
 char m_buffer[2048];
 
-void doneWithFiles() {
-	if (m_file != NULL) {
-		fclose(m_file);
-	}
-}
-
 const message messages[] = {
 	/* 0 */ { 0, 0 }, //
 	/* 1 */ { 0, 303 }, // The paint is peeling off the walls and the floor hasn't been cleaned in months.
@@ -310,7 +304,7 @@ const message messages[] = {
 
 	// TEXTS
 
-	/* 0 */ { 0, 25 }, // But I'm tied to the bed!?
+    /* 0 */ { 0, 25 }, // But I'm tied to the bed!?
     /* 1 */ { 25, 30 }, // "Don't go there; do me first!"
     /* 2 */ { 55, 24 }, // The door is locked shut.
     /* 3 */ { 79, 43 }, // The pimp says I can't go until I get $2000.
@@ -321,7 +315,7 @@ const message messages[] = {
     /* 8 */ { 264, 18 }, // Huh? Hail another!
     /* 9 */ { 282, 24 }, // We arrive and I get out.
     /* 10 */ { 306, 27 }, // I'm carrying the following:
-    /* 11 */ { 333, 6 }, //
+    /* 11 */ { 333, 7 }, //
     //  > %s
     /* 12 */ { 340, 11 }, //  with $%d00
     /* 13 */ { 351, 26 }, // I'm not carrying anything!
@@ -335,7 +329,7 @@ const message messages[] = {
     /* 21 */ { 556, 37 }, // Get me a pitcher so I don't spill it.
     /* 22 */ { 593, 58 }, // The hooker calls out to you, "Don't take it, do me first!"
     /* 23 */ { 651, 25 }, // It's tied to the balcony.
-    /* 24 */ { 676, 13 }, // %s: Dropped.
+    /* 24 */ { 676, 14 }, // %s: Dropped.
     //
     /* 25 */ { 690, 26 }, // I'm not carrying anything!
     /* 26 */ { 716, 29 }, // She smiles and eats a couple.
@@ -377,9 +371,9 @@ const message messages[] = {
     /* 62 */ { 1922, 50 }, // "Want to drive someone crazy with lust? Try this!"
     /* 63 */ { 1972, 43 }, // Hello? There's a group of bushes behind it!
     /* 64 */ { 2015, 22 }, // Maybe I should listen?
-    /* 65 */ { 2037, 34 }, // It's %s, %s-flavored, %s, and %s.
+    /* 65 */ { 2037, 35 }, // It's %s, %s-flavored, %s, and %s.
     //
-    /* 66 */ { 2072, 19 }, // It contains $%d00.
+    /* 66 */ { 2072, 20 }, // It contains $%d00.
     //
     /* 67 */ { 2092, 11 }, // It's empty.
     /* 68 */ { 2103, 14 }, // It's inflated.
@@ -453,7 +447,7 @@ const message messages[] = {
     /* 136 */ { 3959, 17 }, // I can't reach it.
     /* 137 */ { 3976, 15 }, // No way, weirdo.
     /* 138 */ { 3991, 21 }, // There's no girl here.
-    /* 139 */ { 4012, 111 }, // The girl says, "But you'll need $2000 for the honeymoon suite!"
+    /* 139 */ { 4012, 112 }, // The girl says, "But you'll need $2000 for the honeymoon suite!"
     // The preacher chimes in, "I'll need $1000, too."
     /* 140 */ { 4124, 46 }, // The preacher says, "I'll need $1000 for that."
     /* 141 */ { 4170, 44 }, // She doesn't look like she can take any more.
@@ -485,19 +479,19 @@ const message messages[] = {
     /* 167 */ { 5060, 33 }, // Yeah, I do. And it works! Thanks!
     /* 168 */ { 5093, 28 }, // Samurai sex fiend, YEEEAAAH!
     /* 169 */ { 5121, 33 }, // ...I accidentally stabbed myself.
-    /* 170 */ { 5154, 46 }, // A girl says, "Hi honey! This is %s. Dear, why
+    /* 170 */ { 5154, 47 }, // A girl says, "Hi honey! This is %s. Dear, why
     //
-    /* 171 */ { 5201, 43 }, // don't you forget this game and %s with me?
+    /* 171 */ { 5201, 44 }, // don't you forget this game and %s with me?
     //
-    /* 172 */ { 5245, 44 }, // After all, your %s has always turned me on.
+    /* 172 */ { 5245, 45 }, // After all, your %s has always turned me on.
     //
-    /* 173 */ { 5290, 41 }, // So bring a %s and come play with my %s."
+    /* 173 */ { 5290, 42 }, // So bring a %s and come play with my %s."
     //
     /* 174 */ { 5332, 13 }, // She hangs up.
     /* 175 */ { 5345, 24 }, // It's not ringing though?
     /* 176 */ { 5369, 31 }, // This only takes incoming calls.
     /* 177 */ { 5400, 34 }, // I mean, I could talk to my hand...
-    /* 178 */ { 5434, 84 }, // A voice on the line says "Hello. Please answer the questions with
+    /* 178 */ { 5434, 85 }, // A voice on the line says "Hello. Please answer the questions with
     // one-word answers."
     /* 179 */ { 5519, 37 }, // "What's your favorite girls name?"  >
     /* 180 */ { 5556, 37 }, // "Name a nice part of her anatomy."  >
@@ -514,7 +508,7 @@ const message messages[] = {
     /* 191 */ { 5921, 33 }, // ...I accidentally stabbed myself.
     /* 192 */ { 5954, 7 }, // Woohoo!
     /* 193 */ { 5961, 17 }, // Yeah, yeah, yeah~
-    /* 194 */ { 5978, 29 }, //
+    /* 194 */ { 5978, 30 }, //
     // Yeah, I got the moves, dude!
     /* 195 */ { 6008, 18 }, // Try using a knife.
     /* 196 */ { 6026, 25 }, // What, with my bare hands?
@@ -541,15 +535,15 @@ const message messages[] = {
     /* 217 */ { 6688, 43 }, // Can't you see the bar on top of the screen?
     /* 218 */ { 6731, 25 }, // Save to which slot? (0-9)
     /* 219 */ { 6756, 11 }, // SOFTP-#.SAV
-    /* 220 */ { 6767, 18 }, // Couldn't open %s.
+    /* 220 */ { 6767, 19 }, // Couldn't open %s.
     //
-    /* 221 */ { 6786, 18 }, // Saved game to %s.
+    /* 221 */ { 6786, 19 }, // Saved game to %s.
     //
     /* 222 */ { 6805, 30 }, // Restore from which slot? (0-9)
     /* 223 */ { 6835, 11 }, // SOFTP-#.SAV
-    /* 224 */ { 6846, 18 }, // Couldn't open %s.
+    /* 224 */ { 6846, 19 }, // Couldn't open %s.
     //
-    /* 225 */ { 6865, 21 }, // Loaded game from %s.
+    /* 225 */ { 6865, 22 }, // Loaded game from %s.
     //
 };
 
@@ -567,12 +561,27 @@ char *loadMessage(int idx) {
 }
 
 char *loadText(int idx) {
+	const uint8_t last_msg_idx = 70; 
 	return loadMessageFromFile(
-		messages[idx + 71].pos + 18025 + 956, 
-		messages[idx + 71].len
+		messages[idx + last_msg_idx + 1].pos + messages[last_msg_idx].pos + messages[last_msg_idx].len, 
+		messages[idx + last_msg_idx + 1].len
 	);
 }
 
-void printText(int idx) {
-	puts(loadText(idx));
+void printLine(const char *str) {
+	printf("%s\n\r", str);
+}
+
+void printTextLine(int idx) {
+	printLine(loadText(idx));
+}
+
+void printLongMessageLine(int idx) {
+	printLine(loadMessage(idx));
+}
+
+void doneWithFiles() {
+	if (m_file != NULL) {
+		fclose(m_file);
+	}
 }

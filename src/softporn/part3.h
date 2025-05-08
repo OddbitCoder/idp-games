@@ -2,7 +2,7 @@
 
 void cantGoThatWay()
 {
-	puts("I can't go that way.");
+	printLine("I can't go that way.");
 }
 
 void cantDoThat()
@@ -18,17 +18,17 @@ void cantDoThat()
 		"An interesting idea.",
 		"I can't do that."
 	};
-	puts(responses[getRandom(7)]);
+	printLine(responses[getRandom(7)]);
 }
 
 void huh()
 {
-	puts("Huh?");
+	printLine("Huh?");
 }
 
 void dontKnowThatWord()
 {
-	puts("I don't think I know that word.");
+	printLine("I don't think I know that word.");
 }
 
 void findMeOne()
@@ -40,45 +40,45 @@ void findMeOne()
 		"Can't find it here.",
 		"You'd have to find it first."
 	};
-	puts(responses[getRandom(4)]);
+	printLine(responses[getRandom(4)]);
 }
 
 void dontHaveIt()
 {
-	puts("I don't have it.");
+	printLine("I don't have it.");
 }
 
 void alreadyHaveIt()
 {
-	puts("I already have it.");
+	printLine("I already have it.");
 }
 
 void seeNothingSpecial()
 {
-	puts("I see nothing special.");
+	printLine("I see nothing special.");
 }
 
 void seeSomething(objects object, const char* message)
 {
 	if (state.objectPlace[object] == nowhere)
 	{
-		puts("Oh! I see something!");
+		printLine("Oh! I see something!");
 		state.objectPlace[object] = state.yourPlace;
 	}
 	else if (message == NULL)
 		seeNothingSpecial();
 	else
-		puts(message);
+		printLine(message);
 }
 
 void maybeLater()
 {
-	puts("Maybe not just yet.");
+	printLine("Maybe not just yet.");
 }
 
 void noMoney()
 {
-	puts("Sorry, no money.");
+	printLine("Sorry, no money.");
 }
 
 bool objectIsHere(objects object)
@@ -127,19 +127,19 @@ void initNewGame()
 
 	//putw("Hello there! I'm Kawa and I welcome you to Fact Hunt-- I mean, to Softporn Adventure! If all went well, this line should've been automatically word-wrapped at \"adventure\".");
 
-	puts("\n\n\n\n\n\n\n\n\n\n");
+	printLine("\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r");
 	writeHeader(0, NULL, NULL);
 
 	setColor(BOLDCOLOR);
-	puts("Welcome to SOFTPORN ADVENTURE!\n");
+	printLine("Welcome to SOFTPORN ADVENTURE!\n\r");
 	setColor(REGULARCOLOR);
-	puts("Do you need instructions?");
+	printLine("Do you need instructions?");
 	putchar('>');
 	char yesNo = getOneOf('Y', 'N', 0);
 	if (yesNo == 'Y')
 		giveHelp();
 	else
-		puts("");
+		printLine("");
 
 	memset((void*)&state, 0, sizeof(gameState));
 
@@ -165,12 +165,12 @@ void lookAround()
 	if (!noImAt)
 	{
 		setColor(BOLDCOLOR);
-		printf("\n>> %s\n", placeHeaders[state.yourPlace]);
+		printf("\n\r>> %s\n\r", placeHeaders[state.yourPlace]);
 		setColor(REGULARCOLOR);
 		if (!state.placeVisited[state.yourPlace])
 		{
-			writeLongMessage(state.yourPlace + 1);
-			puts("");
+			printLongMessageLine(state.yourPlace + 1);
+			printLine("");
 		}
 	}
 	if (youAreIn(pPntPch) && state.called5550439)
@@ -178,8 +178,8 @@ void lookAround()
 		if (!state.telephoneAnswered && getRandom(4) == 2)
 			state.telephoneRinging = true;
 		if (state.telephoneRinging)
-			puts("The telephone rings.");
-		puts("");
+			printLine("The telephone rings.");
+		printLine("");
 	}
 
 	int statusLine = 1;
@@ -354,18 +354,18 @@ bool agiParse(char* str)
 
 	if (results[0] == -1)
 	{
-		puts("I didn't catch that.");
+		printLine("I didn't catch that.");
 		return false;
 	}
 
 	if (results[0] == 2) //taek
 	{
-		puts("Learn to spell, numbnut!");
+		printLine("Learn to spell, numbnut!");
 		return false;
 	}
 	else if (results[1] == 3) //lady
 	{
-		puts("That's no lady, that's my sister!");
+		printLine("That's no lady, that's my sister!");
 		return false;
 	}
 
@@ -427,7 +427,7 @@ void readAndParseCommand()
 				putchar('>');
 				getString(lineFromKbd, 256);
 				if (strlen(lineFromKbd) == 0)
-					puts("Beg your pardon?");
+					printLine("Beg your pardon?");
 			} while (strlen(lineFromKbd) == 0);
 
 			for (unsigned int i = 0; i < strlen(lineFromKbd); i++)
