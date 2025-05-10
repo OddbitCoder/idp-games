@@ -5,9 +5,6 @@ typedef struct {
 	uint16_t len;
 } message;
 
-FILE *m_file = NULL;
-char m_buffer[2048];
-
 const message messages[] = {
 	/* 0 */ { 0, 0 }, //
 	/* 1 */ { 0, 303 }, // The paint is peeling off the walls and the floor hasn't been cleaned in months.
@@ -547,6 +544,9 @@ const message messages[] = {
     //
 };
 
+FILE *m_file = NULL;
+char m_buffer[2048];
+
 char *loadMessageFromFile(uint16_t pos, uint16_t len) {
 	if (m_file == NULL) {
 		m_file = fopen("MESSAGES.BIN");
@@ -568,16 +568,12 @@ char *loadText(int idx) {
 	);
 }
 
-void printLine(const char *str) {
-	printf("%s\n\r", str);
+void writeTextLine(int idx) {
+    writeLine(loadText(idx));
 }
 
-void printTextLine(int idx) {
-	printLine(loadText(idx));
-}
-
-void printLongMessageLine(int idx) {
-	printLine(loadMessage(idx));
+void writeMessageLine(int idx) {
+    writeLine(loadMessage(idx));
 }
 
 void doneWithFiles() {

@@ -4,7 +4,12 @@
 #include <stdio.h>
 #include <bdos.h>
 
-#include "metrics.h"
+#define COLS 80
+#define ROWS 25
+
+#define REGULARCOLOR 0x07
+#define BOLDCOLOR 0x0F
+#define HEADERCOLOR 0x70
 
 void printLine(const char *);
 
@@ -37,26 +42,28 @@ int strcmp(const char *str1, const char *str2);
 
 // conio
 
-void setWindowSize();
 void clearScreen();
 void setPos(int x, int y);
 void savePos();
 void restorePos();
 void setColor(int color);
-void writeHeader(int line, const char *leftText, const char *rightText);
+void writeHeaderLine(int line, const char *leftText, const char *rightText);
 void delay(int ms);
 char getKey();
 char getKeySilent();
 char getOneOf(char key1, char key2, char key3);
-char *getString(char *buffer, int max);
+char *getUserInput(char *buffer, int max);
+
+void writeLine(const char *str);
+void write(const char *str);
 
 // agiparse
 
 void loadDict();
 extern char *dict;
 
-// tests
+// misc
 
-void run_tests();
+int getRandom(int max);
 
 #endif 

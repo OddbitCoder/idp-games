@@ -190,10 +190,6 @@ int strncmp(const char *str1, const char *str2, int n) {
 
 // conio
 
-void setWindowSize() {
-    // nothing to do here
-}
-
 void clearScreen() {
     printf("\x1B[2J");
     setPos(1, 1);
@@ -225,8 +221,7 @@ void setColor(int color) {
     }
 }
 
-void writeHeader(int line, const char *leftText, const char *rightText) {
-    savePos();
+void writeHeaderLine(int line, const char *leftText, const char *rightText) {
     line++;
     setPos(1, line);
     setColor(HEADERCOLOR);
@@ -235,14 +230,13 @@ void writeHeader(int line, const char *leftText, const char *rightText) {
     }
     if (leftText != NULL) {
         setPos(2, line);
-        printLine(leftText);
+        writeLine(leftText);
     }
     if (rightText != NULL) {
         setPos(COLS - strlen(rightText), line);
-        printLine(rightText);
+        writeLine(rightText);
     }
     setColor(REGULARCOLOR); 
-    restorePos();
 }
 
 void delay(int millisec) {
@@ -278,8 +272,8 @@ void delay(int millisec) {
 char getKey() {
     char ch;
     while (!(ch = toupper(kbhit())));
-    //putchar(ch); // WARNME: do we need this? (this is not in the original code)
-    printLine(""); 
+    putchar(ch); 
+    writeLine(""); 
     return ch;
 }
 
@@ -290,10 +284,17 @@ char getKeySilent() {
 }
 
 char getOneOf(char key1, char key2, char key3) {
-    return 0;
+    while (1) {
+        char key = getKeySilent();
+        if (key == key1 || key == key2 || key == key3) {
+            putchar(key);
+            writeLine("");
+            return key;
+        }
+    };
 }
 
-char *getString(char *buffer, int max) {
+char *getUserInput(char *buffer, int max) {
     char ch;
     uint8_t len = 0;
     do {
@@ -314,6 +315,14 @@ char *getString(char *buffer, int max) {
     } while (ch != '\r' || len == 0);
     printf("\n\r");
     return buffer;
+}
+
+void writeLine(const char *str) {
+    printf("%s\n\r", str);
+}
+
+void write(const char *str) {
+    printf(str);
 }
 
 // agiparse
@@ -417,61 +426,14 @@ void parse(char *input)
     }
 }
 
-// tests
+// misc
 
-void run_tests()
-{
-    uint8_t buffer[256];
-    
-    // clear screen
-    
-    printf("SOME TEXT\n\r"); 
-    clearScreen(); 
-    setPos(1, 2);
-    
-    // string
-    
-    printf("strlen: 4 == %d\n\r", strlen("TEST"));
-    
-    printf("strchr: EST == %s\n\r", strchr("TEST", 'E'));
-    
-    printf("strchr: 0 == %d\n\r", strchr("TEST", 'X'));
-    
-    printf("strcpy: TEST == %s\n\r", strcpy(buffer, "TEST"));
-    
-    printf("atoi: 42 == %d\n\r", atoi("42"));
-    
-    buffer[2] = 0; 
-    printf("strcat: TEST == %s\n\r", strcat(buffer, "ST"));
-    
-    printf("isspace: 1 == %d\n\r", isspace(' '));
-    
-    printf("isspace: 0 == %d\n\r", isspace('X'));
-    
-    printf("ispunct: 1 == %d\n\r", ispunct(','));
-    
-    printf("ispunct: 0 == %d\n\r", ispunct('X'));
-    
-    // conio
-    
-    setPos(1, 1); 
-    savePos(); 
-    printf("?"); 
-    
-    setPos(1, 12); 
-    printf("X");
-    restorePos(); 
-    printf("X"); 
-    setPos(1, 13);
-    
-    setColor(BOLDCOLOR);
-    printf("BOLD\n\r");
-    
-    setColor(HEADERCOLOR);
-    printf("HEADER\n\r");
-    
-    setColor(REGULARCOLOR);
-    printf("REGULAR\n\r");   
-
-    writeHeader(20, "LEFT", "RIGHT");
+int getRandom(int max) {
+    static bool initialized = false;
+    if (!initialized)
+    {
+        srand(timer());
+        initialized = true;
+    }
+    return rand() / ((RAND_MAX + 1u) / max);
 }

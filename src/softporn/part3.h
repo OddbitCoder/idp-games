@@ -2,7 +2,7 @@
 
 void cantGoThatWay()
 {
-	printLine("I can't go that way.");
+	writeLine("I can't go that way.");
 }
 
 void cantDoThat()
@@ -18,17 +18,17 @@ void cantDoThat()
 		"An interesting idea.",
 		"I can't do that."
 	};
-	printLine(responses[getRandom(7)]);
+	writeLine(responses[getRandom(7)]);
 }
 
 void huh()
 {
-	printLine("Huh?");
+	writeLine("Huh?");
 }
 
 void dontKnowThatWord()
 {
-	printLine("I don't think I know that word.");
+	writeLine("I don't think I know that word.");
 }
 
 void findMeOne()
@@ -40,45 +40,45 @@ void findMeOne()
 		"Can't find it here.",
 		"You'd have to find it first."
 	};
-	printLine(responses[getRandom(4)]);
+	writeLine(responses[getRandom(4)]);
 }
 
 void dontHaveIt()
 {
-	printLine("I don't have it.");
+	writeLine("I don't have it.");
 }
 
 void alreadyHaveIt()
 {
-	printLine("I already have it.");
+	writeLine("I already have it.");
 }
 
 void seeNothingSpecial()
 {
-	printLine("I see nothing special.");
+	writeLine("I see nothing special.");
 }
 
 void seeSomething(objects object, const char* message)
 {
 	if (state.objectPlace[object] == nowhere)
 	{
-		printLine("Oh! I see something!");
+		writeLine("Oh! I see something!");
 		state.objectPlace[object] = state.yourPlace;
 	}
 	else if (message == NULL)
 		seeNothingSpecial();
 	else
-		printLine(message);
+		writeLine(message);
 }
 
 void maybeLater()
 {
-	printLine("Maybe not just yet.");
+	writeLine("Maybe not just yet.");
 }
 
 void noMoney()
 {
-	printLine("Sorry, no money.");
+	writeLine("Sorry, no money.");
 }
 
 bool objectIsHere(objects object)
@@ -125,31 +125,31 @@ void initNewGame()
 {
 	clearScreen();
 
-	//putw("Hello there! I'm Kawa and I welcome you to Fact Hunt-- I mean, to Softporn Adventure! If all went well, this line should've been automatically word-wrapped at \"adventure\".");
-
-	printLine("\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r");
-	writeHeader(0, NULL, NULL);
+  writeLine("\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r");
 
 	setColor(BOLDCOLOR);
-	printLine("Welcome to SOFTPORN ADVENTURE!\n\r");
+	writeLine("Welcome to SOFTPORN ADVENTURE!\n\r");
 	setColor(REGULARCOLOR);
-	printLine("Do you need instructions?");
-	putchar('>');
+	writeLine("Do you need instructions?");
+	write("> ");
 	char yesNo = getOneOf('Y', 'N', 0);
 	if (yesNo == 'Y')
+	{
 		giveHelp();
+		writeLine("");
+	}
 	else
-		printLine("");
+		writeLine("");
 
 	memset((void*)&state, 0, sizeof(gameState));
 
 	int i;
-	for (i = 0; i < 69; i++)
+	for (i = 0; i < objectCount; i++)
 		state.objectPlace[i] = origObjectPlace[i];
-	for (i = 0; i < 32; i++)
+	for (i = 0; i < placeCount; i++)
 	{
 		state.placeVisited[i] = false;
-		for (int j = 0; j < 6; j++)
+		for (int j = 0; j < directionCount; j++)
 			state.path[i][j] = origPath[i][j];
 	}
 
@@ -157,89 +157,93 @@ void initNewGame()
 	state.money = 10; //$1000
 }
 
+void writeHeader()
+{
+	savePos();
+	char status[80];
+	strcpy(status, "Score: #/3");
+	status[7] = state.score + '0'; 
+	writeHeaderLine(0, placeHeaders[state.yourPlace], status);
+	int statusLine = 1;
+	strcpy(status, "Things here: ");
+	int ct = 0;
+	int i;
+	for (i = 0; i < objectCount; i++)
+	{
+		if (objectIsHere((objects)i))
+		{
+			if (ct)
+				strcat(status, ", ");
+			ct++;
+			if (strlen(status) + strlen(objectNames[i]) > COLS - 1)
+			{
+				writeHeaderLine(statusLine, status, NULL);
+				strcpy(status, "             ");
+				statusLine++;
+			}
+			strcat(status, objectNames[i]);
+		}
+	}
+	if (ct == 0)
+		strcat(status, "Nothing interesting.");
+	writeHeaderLine(statusLine, status, NULL);
+	statusLine++;
+	strcpy(status, "Exits: ");
+	ct = 0;
+	for (i = 0; i < directionCount; i++)
+	{
+		if (state.path[state.yourPlace][i] != nowhere)
+			ct++;
+	}
+	int exits = ct;
+	if (exits == 0)
+		strcat(status, "By magic!");
+	else
+	{
+		for (int i = 0; i < directionCount; i++)
+		{
+			if (state.path[state.yourPlace][i] != nowhere)
+			{
+				if (ct < exits)
+				{
+					if (ct > 1)
+						strcat(status, ", ");
+					else if (exits > 1)
+						strcat(status, " and ");
+				}
+				ct--;
+				strcat(status, directionNames[i]);
+			}
+		}
+	}
+	writeHeaderLine(statusLine, status, NULL);
+	restorePos();
+}
+
+places prevPlace = (places)-1;
+
 void lookAround()
 {
-	char status[80];
-	strcpy(status, "Score: #/3"); status[7] = state.score + '0'; // sprintf(status, "Score: %d/3", state.score);
-	writeHeader(0, placeHeaders[state.yourPlace], status);
-	if (!noImAt)
+	if (prevPlace != state.yourPlace) {
+	  prevPlace = state.yourPlace;
+	  setColor(BOLDCOLOR);
+	  write(">> ");
+	  writeLine(placeHeaders[state.yourPlace]);
+	  setColor(REGULARCOLOR);
+	}
+	if (!state.placeVisited[state.yourPlace])
 	{
-		setColor(BOLDCOLOR);
-		printf("\n\r>> %s\n\r", placeHeaders[state.yourPlace]);
-		setColor(REGULARCOLOR);
-		if (!state.placeVisited[state.yourPlace])
-		{
-			printLongMessageLine(state.yourPlace + 1);
-			printLine("");
-		}
+		writeLine("");
+		writeMessageLine(state.yourPlace + 1);
 	}
 	if (youAreIn(pPntPch) && state.called5550439)
 	{
 		if (!state.telephoneAnswered && getRandom(4) == 2)
 			state.telephoneRinging = true;
 		if (state.telephoneRinging)
-			printLine("The telephone rings.");
-		printLine("");
-	}
-
-	int statusLine = 1;
-	{
-		strcpy(status, "Things here: ");
-		int ct = 0;
-		int i;
-		for (i = 0; i < 70; i++)
-		{
-			if (objectIsHere((objects)i))
-			{
-				if (ct)
-					strcat(status, ", ");
-				ct++;
-				if (strlen(status) + strlen(objectNames[i]) > COLS - 1)
-				{
-					writeHeader(statusLine, status, NULL);
-					strcpy(status, "             ");
-					statusLine++;
-				}
-				strcat(status, objectNames[i]);
-			}
-		}
-		if (ct == 0)
-			strcat(status, "Nothing interesting.");
-		writeHeader(statusLine, status, NULL);
-		statusLine++;
-
-		strcpy(status, "Exits: ");
-		ct = 0;
-		for (i = 0; i < 6; i++)
-		{
-			if (state.path[state.yourPlace][i] != nowhere)
-				ct++;
-		}
-		int exits = ct;
-		if (exits == 0)
-			strcat(status, "By magic!");
-		else
-		{
-			for (int i = 0; i < 6; i++)
-			{
-				if (state.path[state.yourPlace][i] != nowhere)
-				{
-					if (ct < exits)
-					{
-						if (ct > 1)
-							strcat(status, ", ");
-						else if (exits > 1)
-							strcat(status, " and ");
-					}
-					ct--;
-					strcat(status, directionNames[i]);
-				}
-			}
-		}
-		writeHeader(statusLine, status, NULL);
+			writeLine("\n\rThe telephone rings.");
 	}
 	state.placeVisited[state.yourPlace] = true;
-	noImAt = false;
 }
 
 /*
@@ -342,7 +346,7 @@ bool agiParse(char* str)
 		{
 		case 'i': strcpy(str, "take inventory"); break;
 		case 'n': strcpy(str, "north"); break;
-		case 's': strcpy(str, "s"); break;
+		case 's': strcpy(str, "south"); break;
 		case 'e': strcpy(str, "east"); break;
 		case 'w': strcpy(str, "west"); break;
 		case 'u': strcpy(str, "up"); break;
@@ -354,18 +358,18 @@ bool agiParse(char* str)
 
 	if (results[0] == -1)
 	{
-		printLine("I didn't catch that.");
+		writeLine("I didn't catch that.");
 		return false;
 	}
 
 	if (results[0] == 2) //taek
 	{
-		printLine("Learn to spell, numbnut!");
+		writeLine("Learn to spell, numbnut!");
 		return false;
 	}
 	else if (results[1] == 3) //lady
 	{
-		printLine("That's no lady, that's my sister!");
+		writeLine("That's no lady, that's my sister!");
 		return false;
 	}
 
@@ -409,38 +413,33 @@ bool agiParse(char* str)
 void readAndParseCommand()
 {
 	bool commandOK = false;
-	places prevPlace = (places)-1;
-	char score[40];
-	strcpy(score, "Score: #/3"); score[7] = state.score + '0'; // sprintf(score, "Score: %d/3", state.score);
+	char userInput[80];
+
+	lookAround();
 
 	do
 	{
 		do
 		{
-			if (state.yourPlace != prevPlace)
-				lookAround();
-			prevPlace = state.yourPlace;
-
 			do
 			{
-				writeHeader(0, placeHeaders[state.yourPlace], score);
-				putchar('>');
-				getString(lineFromKbd, 256);
-				if (strlen(lineFromKbd) == 0)
-					printLine("Beg your pardon?");
-			} while (strlen(lineFromKbd) == 0);
+				write("\n\r> ");
+				writeHeader();
+				getUserInput(userInput, 38);
+				writeLine("");
+				if (strlen(userInput) == 0)
+					writeLine("Beg your pardon?");
+			} while (strlen(userInput) == 0);
 
-			for (unsigned int i = 0; i < strlen(lineFromKbd); i++)
+			for (unsigned int i = 0; i < strlen(userInput); i++)
 			{
-				if (ispunct(lineFromKbd[i]))
-					lineFromKbd[i] = ' ';
-				trimWhiteSpace(lineFromKbd);
+				if (ispunct(userInput[i]))
+					userInput[i] = ' ';
+				trimWhiteSpace(userInput);
 			}
-		} while (strlen(lineFromKbd) == 0);
+		} while (strlen(userInput) == 0);
 
-		char command[256];
-		strcpy(command, lineFromKbd);
-		commandOK = agiParse(command);
+		commandOK = agiParse(userInput);
 
 	} while (!commandOK);
 }

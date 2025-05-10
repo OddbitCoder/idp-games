@@ -2,7 +2,7 @@
 
 typedef enum 
 {
-	north, south, east, west, up, down, noDirection
+	north, south, east, west, up, down, directionCount
 } directions;
 
 typedef enum 
@@ -21,7 +21,7 @@ typedef enum
 	pitcher, stool, rope, rack, mushroom,
 	controlUnit, curtain, water,
 	taxi, inventory, all, on, off,
-	you, noObject
+	you, objectCount
 } objects;
 
 typedef enum 
@@ -38,7 +38,7 @@ typedef enum
 	pFoyer, pJacuzzi, pKitchen, pGarden, pLiving,
 	pPntPch,
 	//Elsewhere
-	youHaveIt, nowhere
+	youHaveIt, nowhere, placeCount
 } places;
 
 typedef enum 
@@ -48,24 +48,14 @@ typedef enum
 	_listen, close, jump,
 	marry, fuck, wear, answer, call, _break, cut, dance,
 	kill, pay, smoke, show, smell, help, kiss, stab, say, quit,
-	showScore, save, restore, noVerb
+	showScore, save, restore, verbCount
 } verbs;
 
 const int maxCarried = 7;
-const directions firstDirection = north;
-const directions lastDirection = down;
-const objects firstObject = desk;
-const objects lastObject = noObject;
-const places firstPlace = bHallway;
-const places lastPlace = nowhere;
-const verbs firstVerb = go;
-const verbs lastVerb = noVerb;
-
-//type path_array = array[places,first_direction..last_direction] of places;
 
 const char* const directionNames[] =
 {
-	"North", "South", "East", "West", "Up", "Down", "No direction"
+	"North", "South", "East", "West", "Up", "Down"
 };
 
 const char* const objectNames[] =
@@ -138,8 +128,7 @@ const char* const objectNames[] =
 	"all",
 	"on",
 	"off",
-	"yourself",
-	"no object"
+	"yourself"
 };
 
 const places origObjectPlace[] =
@@ -213,7 +202,6 @@ const places origObjectPlace[] =
 	nowhere, //on, used in "water on"
 	nowhere, //off, used in "water off"
 	nowhere, //you
-	nowhere, //no object
 };
 
 const char* const placeHeaders[] =
@@ -248,8 +236,8 @@ const char* const placeHeaders[] =
 	"Garden",
 	"Living Room",
 	"Penthouse Porch",
-	"Nowhere",
-	"Carried by You"
+	"Carried by You",
+	"Nowhere"
 };
 
 const places origPath[][6] =
@@ -296,9 +284,9 @@ const places origPath[][6] =
 
 typedef struct gameState
 {
-	places objectPlace[69];
-	bool placeVisited[32];
-	places path[32][6];
+	places objectPlace[objectCount];
+	bool placeVisited[placeCount];
+	places path[placeCount][directionCount];
 	places yourPlace;
 
 	objects noun;
@@ -323,9 +311,6 @@ typedef struct gameState
 } gameState;
 
 gameState state;
-char lineFromKbd[256];
 char parserVerb[8], parserNoun[8];
 char fullVerb[64], fullNoun[64];
 bool haveVerbOnly, haveNoVerb, haveNoObject, haveNoDirection;
-
-bool noImAt = false;

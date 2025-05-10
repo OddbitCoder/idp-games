@@ -3,24 +3,15 @@
 void giveHelp()
 {
 	clearScreen();
-	printLongMessageLine(70);
-	////printLongMessageLine(71);
-	////printLongMessageLine(72);
-	getKey();
-	clearScreen();
-	printf("\n\r\n\r\n\r\n\r");
+	writeMessageLine(70);
+	getKeySilent();
 }
 
 void lookAtGraffiti()
 {
 	clearScreen();
-	printLongMessageLine(59);
-	////printLongMessageLine(60);
-	////printLongMessageLine(61);
-	////printLongMessageLine(62);
-	getKey();
-	//clearScreen();
-	//printf("\n\r\n\r\n\r\n\r");
+	writeMessageLine(59);
+	getKeySilent();
 }
 
 void purgatory()
@@ -29,10 +20,10 @@ void purgatory()
 	int door = 0;
 loop:
 	if (door == 0)
-		printLongMessageLine(65);
+		writeMessageLine(65);
 	else
-		printLine("I'm still here?\n\r");
-	printLine("Choose your door: 1, 2, or 3?");
+		writeLine("I'm still here?\n\r");
+	writeLine("Choose your door: 1, 2, or 3?");
 ask:
 	putchar('>');
 	char k = getOneOf('1', '2', '3');
@@ -44,63 +35,63 @@ ask:
 	}
 	else
 	{
-		printLine("Just 1, 2, or 3.");
+		writeLine("Just 1, 2, or 3.");
 		goto ask;
 	}
 	if (door == 2)
 		goto loop;
 	else if (door == 1)
 	{
-		printLine("Guess I'll die.");
+		writeLine("Guess I'll die.");
 		delay(200);
 	}
 	else if (door == 0)
 	{
-		printLine("\"Congratulations, you get another shot! See you soon!\"");
+		writeLine("\"Congratulations, you get another shot! See you soon!\"");
 		delay(200);
 	}
 }
 
 void bumTellsStory()
 {
-	printLine("He looks at you and starts to speak.");
+	writeLine("He looks at you and starts to speak.");
 	delay(400);
-	printLongMessageLine(39);
+	writeMessageLine(39);
 	delay(300);
 	int i;
 	for (i = 0; i < 128; i++)
 	{
 		for (int j = 0; j < i; j++)
 			putchar(' ');
-		printLine("Like I did!");
+		writeLine("Like I did!");
 	}
 	for (i = 0; i < 5; i++)
-		printLine("");
+		writeLine("");
 	delay(500);
-	printLine("He throws up and gives me back the bottle of wine.");
+	writeLine("He throws up and gives me back the bottle of wine.");
 }
 
 void watchTV()
 {
 watch:
-	printLongMessageLine(41 + state.TVChannel);
+	writeMessageLine(41 + state.TVChannel);
 	printf("Change the channel? >");
 	if (getOneOf('Y', 'N', 0) == 'Y')
 	{
-		printLine("*click*");
+		writeLine("*click*");
 		state.TVChannel = (state.TVChannel + 1) % 9;
-		printLine("...");
+		writeLine("...");
 		goto watch;
 	}
 }
 
 void wineInTaxi()
 {
-	printLongMessageLine(58);
+	writeMessageLine(58);
 	delay(500);
-	printLine("What do I do!?");
+	writeLine("What do I do!?");
 	delay(1000);
-	printLine("The idiot cabbie backs over me and kills me!");
+	writeLine("The idiot cabbie backs over me and kills me!");
 	purgatory();
 }
 
@@ -109,28 +100,28 @@ void stabSomeone()
 {
 	if (!objectIsCarried(knife))
 	{
-		printLine("With what, rapier wit?");
+		writeLine("With what, rapier wit?");
 		return;
 	}
-	printLine("Okay ya warmonger.");
+	writeLine("Okay ya warmonger.");
 	delay(1000);
 	printf("Parry!");
 	delay(500);
 	printf(" Thrust!");
 	delay(1000);
-	printLine(" ...and I just got myself.");
+	writeLine(" ...and I just got myself.");
 	purgatory();
 }
 
 void fallingDown()
 {
-	printLine("Aaaaaauuuuuugh!");
+	writeLine("Aaaaaauuuuuugh!");
 	delay(300);
-	printLine("*SPLAT!*");
+	writeLine("*SPLAT!*");
 	if (state.verb != jump)
 	{
 		delay(500);
-		printLine("\n\r... I should've used a safety rope.");
+		writeLine("\n\r... I should've used a safety rope.");
 	}
 	purgatory();
 }
@@ -142,7 +133,7 @@ void playSlots(int* money)
 	int x1 = 0, x2 = 0, x3 = 0;
 	bool cheat = false;
 	char answer = 'Y';
-	printLine("This will cost $100 each time.");
+	writeLine("This will cost $100 each time.");
 	do
 	{
 		printf("You have $%d00. Would you like to play?\n\r>", *money);
@@ -165,28 +156,28 @@ void playSlots(int* money)
 				restorePos();
 				printf("%c %c %c", slot[x1], slot[x2], slot[x3]);
 			}
-			printLine("");
+			writeLine("");
 			if (x1 == x2 && x2 == x3)
 			{
-				printLine("Triples! You win $1500!");
+				writeLine("Triples! You win $1500!");
 				*money += 15;
 			}
 			else if (x1 == x2 || x2 == x3 || x1 == x3)
 			{
-				printLine("A pair! You win $300!");
+				writeLine("A pair! You win $300!");
 				*money += 3;
 			}
 			else
 			{
-				printLine("You lose.");
+				writeLine("You lose.");
 				*money -= 1;
 			}
 		}
 	} while (*money > 0 && answer != 'N');
-	printLine("");
+	writeLine("");
 	if (*money < 1)
 	{
-		printLine("I'm broke! That means death!");
+		writeLine("I'm broke! That means death!");
 		purgatory();
 	}
 }
@@ -223,21 +214,21 @@ void check(int* mi, int* md, int* ad, int* a, int* money, int* dollars, bool* ga
 	else if (*md > 21 || *mi > *md)
 	{
 		delay(200);
-		printLine("You win!");
+		writeLine("You win!");
 		*money += *dollars;
 		*gameOver = true;
 	}
 	else if (*mi < *md)
 	{
 		delay(200);
-		printLine("You lose!");
+		writeLine("You lose!");
 		*money -= *dollars;
 		*gameOver = true;
 	}
 	else if (*mi == *md)
 	{
 		delay(200);
-		printLine("Tie!");
+		writeLine("Tie!");
 		*gameOver = true;
 	}
 }
@@ -254,21 +245,21 @@ void checkHit(int* mi, int* md, int* yd, int* ym, int* ad, int* am, int* a, int*
 	if (*mi > 21)
 	{
 		delay(200);
-		printLine("Busted!");
+		writeLine("Busted!");
 		*money -= *dollars;
 		*gameOver = true;
 	}
 	else if (*ym == 2 && (*mi == 21))
 	{
 		delay(200);
-		printLine("You got a ***BLACKJACK***");
+		writeLine("You got a ***BLACKJACK***");
 		*money += *dollars + *dollars;
 		*gameOver = true;
 	}
 	else if (*yd == 2 && (*md == 21))
 	{
 		delay(200);
-		printLine("The dealer has a ***BLACKJACK***");
+		writeLine("The dealer has a ***BLACKJACK***");
 		*money += *dollars - *dollars;
 		*gameOver = true;
 	}
@@ -295,17 +286,17 @@ void play21(int* money)
 		{
 			answerOkay = false;
 			printf("You have $%d00. How many would you like to bet?\n\r>", *money);
-			getString(dollarString, 64);
+			getUserInput(dollarString, 64);
 			dollars = atoi(dollarString);
 			char *endBit = NULL;
 			if (strlen(dollarString) > 2)
 				endBit = dollarString + strlen(dollarString) - 2;
 			if (dollars <= 0)
-				printLine("Huh?");
+				writeLine("Huh?");
 			else if (endBit == NULL || (endBit[0] != '0' || endBit[1] != '0'))
-				printLine("$100 increments only, please.");
+				writeLine("$100 increments only, please.");
 			else if (dollars / 100 > *money)
-				printLine("You don't have that much.");
+				writeLine("You don't have that much.");
 			else
 				answerOkay = true;
 		} while (!answerOkay);
@@ -377,12 +368,12 @@ void play21(int* money)
 		} while (!gameOver);
 		if (*money < 1)
 		{
-			printLine("You're outta money! So long~");
+			writeLine("You're outta money! So long~");
 			purgatory();
 		}
 		else
 		{
-			printLine("Play again?");
+			writeLine("Play again?");
 			putchar('>');
 			answer = getOneOf('Y', 'N', 0);
 		}
@@ -393,23 +384,23 @@ void buyRubber()
 {
 	strcpy(state.rubberLubricated, "non-lubricated");
 	strcpy(state.rubberRibbed, "smooth");
-	printLine("The man leans over the counter and whispers, \"What color, maaan?\"");
+	writeLine("The man leans over the counter and whispers, \"What color, maaan?\"");
 	putchar('>');
-	getString(state.rubberColor, 32);
+	getUserInput(state.rubberColor, 32);
 	int i;
 	for (i = 0; i < 32; i++)
 		state.rubberColor[i] = (char)tolower(state.rubberColor[i]);
-	printLine("\"And what flavor?\"");
+	writeLine("\"And what flavor?\"");
 	putchar('>');
-	getString(state.rubberFlavor, 32);
+	getUserInput(state.rubberFlavor, 32);
 	for (i = 0; i < 32; i++)
 		state.rubberFlavor[i] = (char)tolower(state.rubberFlavor[i]);
-	printLine("\"Lubricated?\"");
+	writeLine("\"Lubricated?\"");
 	putchar('>');
 	char yesNo = getOneOf('Y', 'N', 0);
 	if (yesNo == 'Y')
 		strcpy(state.rubberLubricated, "lubricated");
-	printLine("\"...Ribbed?\"");
+	writeLine("\"...Ribbed?\"");
 	putchar('>');
 	yesNo = getOneOf('Y', 'N', 0);
 	if (yesNo == 'Y')
@@ -417,18 +408,18 @@ void buyRubber()
 	delay(1000);
 	printf("Suddenly the clerk yells out, \"Hey everybody! This guy just bought\n\ra %s, %s-flavored, %s, %s rubber!\"\n\r", state.rubberColor, state.rubberFlavor, state.rubberLubricated, state.rubberRibbed);
 	delay(1000);
-	printLine("\"WHAT A PERVERT!\"");
+	writeLine("\"WHAT A PERVERT!\"");
 }
 
 void okay()
 {
-	printLine("Okay.");
+	writeLine("Okay.");
 }
 
 void _open(bool* objectOpen)
 {
 	if (*objectOpen)
-		printLine("It's already open.");
+		writeLine("It's already open.");
 	else
 	{
 		okay();
@@ -439,7 +430,7 @@ void _open(bool* objectOpen)
 void _close(bool* objectOpen)
 {
 	if (!*objectOpen)
-		printLine("It's already closed.");
+		writeLine("It's already closed.");
 	else
 	{
 		okay();
