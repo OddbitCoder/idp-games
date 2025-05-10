@@ -61,7 +61,7 @@ void PartsFourToSix()
 			writeMessageLine(36);
 
 			char dest[128];
-			putchar('>');
+			write("> ");
 			getUserInput(dest, 128);
 			for (int i = 0; i < 4; i++)
 				dest[i] = (char)toupper(dest[i]);
@@ -723,7 +723,7 @@ void PartsFourToSix()
 			if (youAreIn(bBar))
 			{
 				writeTextLine(88);
-				putchar('>');
+				write("> ");
 				char password[128] = { 0 };
 				getUserInput(password, 128);
 				for (int i = 0; i < 6; i++)
@@ -1392,11 +1392,21 @@ void PartsFourToSix()
 		else if (!strcmp(fullNoun, "6969") && !state.called5556969)
 		{
 			writeTextLine(178);
-			writeText(179); getUserInput(state.girlName,   32);
-			writeText(180); getUserInput(state.girlPart,   32);
-			writeText(181); getUserInput(state.girlDo,     32);
-			writeText(182); getUserInput(state.yourPart,   32);
-			writeText(183); getUserInput(state.yourObject, 32);
+			writeTextLine(179);
+			write(" ");
+			getUserInput(state.girlName, 32);
+			writeTextLine(180);
+			write(" ");
+			getUserInput(state.girlPart, 32);
+			writeTextLine(181);
+			write(" ");
+			getUserInput(state.girlDo, 32);
+			writeTextLine(182);
+			write(" ");
+			getUserInput(state.yourPart, 32);
+			writeTextLine(183);
+			write(" ");
+			getUserInput(state.yourObject, 32);
 			writeTextLine(184);
 			state.called5556969 = true;
 		}

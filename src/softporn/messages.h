@@ -490,11 +490,16 @@ const message messages[] = {
     /* 177 */ { 5400, 34 }, // I mean, I could talk to my hand...
     /* 178 */ { 5434, 85 }, // A voice on the line says "Hello. Please answer the questions with
     // one-word answers."
-    /* 179 */ { 5519, 37 }, // "What's your favorite girls name?"  >
-    /* 180 */ { 5556, 37 }, // "Name a nice part of her anatomy."  >
-    /* 181 */ { 5593, 37 }, // "What do you like to do with her?"  >
-    /* 182 */ { 5630, 37 }, // "And the best part of your body?"   >
-    /* 183 */ { 5667, 37 }, // "Finally, your favorite object?"    >
+    /* 179 */ { 5519, 37 }, // "What's your favorite girls name?" 
+    //>
+    /* 180 */ { 5556, 37 }, // "Name a nice part of her anatomy." 
+    //>
+    /* 181 */ { 5593, 37 }, // "What do you like to do with her?" 
+    //>
+    /* 182 */ { 5630, 37 }, // "And the best part of your body?"  
+    //>
+    /* 183 */ { 5667, 37 }, // "Finally, your favorite object?"   
+    //>
     /* 184 */ { 5704, 12 }, // He hangs up.
     /* 185 */ { 5716, 15 }, // Nobody answers.
     /* 186 */ { 5731, 47 }, // Using the hammer, I smash the window to pieces.

@@ -25,7 +25,7 @@ loop:
 		writeLine("I'm still here?\n\r");
 	writeLine("Choose your door: 1, 2, or 3?");
 ask:
-	putchar('>');
+	write("> ");
 	char k = getOneOf('1', '2', '3');
 	int c = k - '0';
 	if (c > 0 && c < 4)
@@ -75,7 +75,7 @@ void watchTV()
 {
 watch:
 	writeMessageLine(41 + state.TVChannel);
-	write("Change the channel? >");
+	write("Change the channel?\n\r> ");
 	if (getOneOf('Y', 'N', 0) == 'Y')
 	{
 		writeLine("*click*");
@@ -136,7 +136,7 @@ void playSlots(int* money)
 	writeLine("This will cost $100 each time.");
 	do
 	{
-		write("You have $%d00. Would you like to play?\n\r>", *money);
+		write("You have $%d00. Would you like to play?\n\r> ", *money);
 		answer = getOneOf('Y','N','K');
 		if (answer == 'K')
 		{
@@ -266,7 +266,7 @@ void checkHit(int* mi, int* md, int* yd, int* ym, int* ad, int* am, int* a, int*
 	else
 	{
 		delay(200);
-		write("Would you like a hit?\n\r>");
+		write("Would you like a hit?\n\r> ");
 		char answer = getOneOf('Y','N',0);
 		if (answer == 'N')
 			check(mi, md, ad, a, money, dollars, gameOver);
@@ -285,7 +285,7 @@ void play21(int* money)
 		do
 		{
 			answerOkay = false;
-			write("You have $%d00. How many would you like to bet?\n\r>", *money);
+			write("You have $%d00. How many would you like to bet?\n\r> ", *money);
 			getUserInput(dollarString, 64);
 			dollars = atoi(dollarString);
 			char *endBit = NULL;
@@ -373,8 +373,7 @@ void play21(int* money)
 		}
 		else
 		{
-			writeLine("Play again?");
-			putchar('>');
+			write("Play again?\n\r> ");
 			answer = getOneOf('Y', 'N', 0);
 		}
 	} while (answer == 'Y' && *money > 0);
@@ -384,24 +383,20 @@ void buyRubber()
 {
 	strcpy(state.rubberLubricated, "non-lubricated");
 	strcpy(state.rubberRibbed, "smooth");
-	writeLine("The man leans over the counter and whispers, \"What color, maaan?\"");
-	putchar('>');
+	write("The man leans over the counter and whispers, \"What color, maaan?\"\n\r> ");
 	getUserInput(state.rubberColor, 32);
 	int i;
 	for (i = 0; i < 32; i++)
 		state.rubberColor[i] = (char)tolower(state.rubberColor[i]);
-	writeLine("\"And what flavor?\"");
-	putchar('>');
+	write("\"And what flavor?\"\n\r> ");
 	getUserInput(state.rubberFlavor, 32);
 	for (i = 0; i < 32; i++)
 		state.rubberFlavor[i] = (char)tolower(state.rubberFlavor[i]);
-	writeLine("\"Lubricated?\"");
-	putchar('>');
+	write("\"Lubricated?\"\n\r> ");
 	char yesNo = getOneOf('Y', 'N', 0);
 	if (yesNo == 'Y')
 		strcpy(state.rubberLubricated, "lubricated");
-	writeLine("\"...Ribbed?\"");
-	putchar('>');
+	write("\"...Ribbed?\"\n\r> ");
 	yesNo = getOneOf('Y', 'N', 0);
 	if (yesNo == 'Y')
 		strcpy(state.rubberRibbed, "ribbed");
