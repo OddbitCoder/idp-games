@@ -39,6 +39,7 @@ char *strcat(char *dest, const char *src);
 bool isspace(int arg);
 bool ispunct(int arg);
 int strcmp(const char *str1, const char *str2);
+void vprintf(const char *format, va_list args);
 
 // conio
 
@@ -55,7 +56,7 @@ char getOneOf(char key1, char key2, char key3);
 char *getUserInput(char *buffer, int max);
 
 void writeLine(const char *str);
-void write(const char *str);
+void write(const char *str, ...);
 
 // agiparse
 

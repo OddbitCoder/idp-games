@@ -134,7 +134,7 @@ char *strcpy(char *dest, const char *src) {
 
 int atoi(const char *str) {
     int val = 0;
-    uint8_t sign = 1;
+    int8_t sign = 1;
     uint8_t i = 0;
     if (str[0] == '-') {
         sign = -1;
@@ -186,6 +186,26 @@ int strncmp(const char *str1, const char *str2, int n) {
         str2++;
     }
     return 0;
+}
+
+void vprintf(const char *format, va_list args) {
+    for (const char *p = format; *p != '\0'; p++) {
+        if (*p == '%') {
+            p++;  // Move to specifier
+            if (*p == 'd') {
+                int val = va_arg(args, int);
+                printf("%d", val);
+            } else if (*p == 's') {
+                const char *str = va_arg(args, const char*);
+                printf("%s", str);
+            } else {
+                putchar('%');
+                putchar(*p);
+            }
+        } else {
+            putchar(*p);
+        }
+    }
 }
 
 // conio
@@ -321,8 +341,11 @@ void writeLine(const char *str) {
     printf("%s\n\r", str);
 }
 
-void write(const char *str) {
-    printf(str);
+void write(const char *str, ...) {
+    va_list args;
+    va_start(args, str);
+    vprintf(str, args);
+    va_end(args);
 }
 
 // agiparse

@@ -568,6 +568,13 @@ char *loadText(int idx) {
 	);
 }
 
+void writeText(int idx, ...) {
+	va_list args;
+    va_start(args, idx);
+    vprintf(loadText(idx), args);
+    va_end(args);
+}
+
 void writeTextLine(int idx) {
     writeLine(loadText(idx));
 }

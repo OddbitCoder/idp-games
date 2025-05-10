@@ -75,7 +75,7 @@ void watchTV()
 {
 watch:
 	writeMessageLine(41 + state.TVChannel);
-	printf("Change the channel? >");
+	write("Change the channel? >");
 	if (getOneOf('Y', 'N', 0) == 'Y')
 	{
 		writeLine("*click*");
@@ -105,9 +105,9 @@ void stabSomeone()
 	}
 	writeLine("Okay ya warmonger.");
 	delay(1000);
-	printf("Parry!");
+	write("Parry!");
 	delay(500);
-	printf(" Thrust!");
+	write(" Thrust!");
 	delay(1000);
 	writeLine(" ...and I just got myself.");
 	purgatory();
@@ -136,7 +136,7 @@ void playSlots(int* money)
 	writeLine("This will cost $100 each time.");
 	do
 	{
-		printf("You have $%d00. Would you like to play?\n\r>", *money);
+		write("You have $%d00. Would you like to play?\n\r>", *money);
 		answer = getOneOf('Y','N','K');
 		if (answer == 'K')
 		{
@@ -154,7 +154,7 @@ void playSlots(int* money)
 				if (cheat) x3 = x2 = x1;
 				delay(100);
 				restorePos();
-				printf("%c %c %c", slot[x1], slot[x2], slot[x3]);
+				write("%c %c %c", slot[x1], slot[x2], slot[x3]);
 			}
 			writeLine("");
 			if (x1 == x2 && x2 == x3)
@@ -208,7 +208,7 @@ void check(int* mi, int* md, int* ad, int* a, int* money, int* dollars, bool* ga
 		*md -= 10;
 	}
 	delay(200);
-	printf("The dealer has %d.\n\r", *md);
+	write("The dealer has %d.\n\r", *md);
 	if (*md < 17)
 		*a = 6;
 	else if (*md > 21 || *mi > *md)
@@ -241,7 +241,7 @@ void checkHit(int* mi, int* md, int* yd, int* ym, int* ad, int* am, int* a, int*
 		*mi -= 10;
 	}
 	delay(200);
-	printf("Your total is %d.\n\r", *mi);
+	write("Your total is %d.\n\r", *mi);
 	if (*mi > 21)
 	{
 		delay(200);
@@ -266,7 +266,7 @@ void checkHit(int* mi, int* md, int* yd, int* ym, int* ad, int* am, int* a, int*
 	else
 	{
 		delay(200);
-		printf("Would you like a hit?\n\r>");
+		write("Would you like a hit?\n\r>");
 		char answer = getOneOf('Y','N',0);
 		if (answer == 'N')
 			check(mi, md, ad, a, money, dollars, gameOver);
@@ -285,7 +285,7 @@ void play21(int* money)
 		do
 		{
 			answerOkay = false;
-			printf("You have $%d00. How many would you like to bet?\n\r>", *money);
+			write("You have $%d00. How many would you like to bet?\n\r>", *money);
 			getUserInput(dollarString, 64);
 			dollars = atoi(dollarString);
 			char *endBit = NULL;
@@ -323,7 +323,7 @@ void play21(int* money)
 			case 3:
 			{
 				mi += z;
-				printf("You're dealt %s.\n\r", card);
+				write("You're dealt %s.\n\r", card);
 				ym += y;
 				am += ac;
 				a++;
@@ -332,7 +332,7 @@ void play21(int* money)
 			case 2:
 			{
 				md += z;
-				printf("The dealer gets a card down.\n\r");
+				write("The dealer gets a card down.\n\r");
 				yd += y;
 				ad += ac;
 				a++;
@@ -341,7 +341,7 @@ void play21(int* money)
 			case 4:
 			{
 				md += z;
-				printf("The dealer gets %s.\n\r", card);
+				write("The dealer gets %s.\n\r", card);
 				a = 5;
 				ad += ac;
 				yd += y;
@@ -351,7 +351,7 @@ void play21(int* money)
 			case 5:
 			{
 				mi += z;
-				printf("You get %s.\n\r", card);
+				write("You get %s.\n\r", card);
 				am += ac;
 				checkHit(&mi, &md, &yd, &ym, &ad, &am, &a, money, &dollars, &gameOver);
 				break;
@@ -359,7 +359,7 @@ void play21(int* money)
 			case 6:
 			{
 				md += z;
-				printf("The dealer gets %s.\n\r", card);
+				write("The dealer gets %s.\n\r", card);
 				ad += ac;
 				check(&mi, &md, &ad, &a, money, &dollars, &gameOver);
 				break;
@@ -406,7 +406,7 @@ void buyRubber()
 	if (yesNo == 'Y')
 		strcpy(state.rubberRibbed, "ribbed");
 	delay(1000);
-	printf("Suddenly the clerk yells out, \"Hey everybody! This guy just bought\n\ra %s, %s-flavored, %s, %s rubber!\"\n\r", state.rubberColor, state.rubberFlavor, state.rubberLubricated, state.rubberRibbed);
+	write("Suddenly the clerk yells out, \"Hey everybody! This guy just bought\n\ra %s, %s-flavored, %s, %s rubber!\"\n\r", state.rubberColor, state.rubberFlavor, state.rubberLubricated, state.rubberRibbed);
 	delay(1000);
 	writeLine("\"WHAT A PERVERT!\"");
 }

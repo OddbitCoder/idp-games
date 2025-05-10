@@ -96,11 +96,11 @@ void PartsFourToSix()
 				if (objectIsCarried((objects)o))
 				{
 					if (!anythingCarried)
-						printf(loadText(10));
+						writeText(10);
 					anythingCarried = true;
-					printf(loadText(11), objectNames[o]);
+					writeText(11, objectNames[o]);
 					if (o == wallet && state.money > 0)
-						printf(loadText(12), state.money);
+						writeText(12, state.money);
 				}
 			}
 			if (anythingCarried)
@@ -118,7 +118,7 @@ void PartsFourToSix()
 			{
 				if (objectIsHere((objects)o))
 				{
-					printf("%s: ", objectNames[o]);
+					write("%s: ", objectNames[o]);
 					if (state.objectsCarried >= maxCarried)
 						writeTextLine(16);
 					else if (objectCanBeTaken((objects)o))
@@ -187,7 +187,7 @@ void PartsFourToSix()
 				if (objectIsCarried((objects)o))
 				{
 					anythingCarried = true;
-					printf(loadText(24), objectNames[o]);
+					writeText(24, objectNames[o]);
 					state.objectPlace[o] = state.yourPlace;
 					state.objectsCarried--;
 					//Bug in original: DROP ALL won't synchronize things like rubberWorn.
@@ -529,7 +529,7 @@ void PartsFourToSix()
 			case rubber:
 			{
 				if (objectIsCarried(rubber))
-					printf(loadText(65), state.rubberColor, state.rubberFlavor, state.rubberLubricated, state.rubberRibbed);
+					writeText(65, state.rubberColor, state.rubberFlavor, state.rubberLubricated, state.rubberRibbed);
 				else
 					dontHaveIt();
 				break;
@@ -537,7 +537,7 @@ void PartsFourToSix()
 			case wallet:
 			{
 				if (state.money > 0)
-					printf(loadText(66), state.money);
+					writeText(66, state.money);
 				else
 					writeTextLine(67);
 				break;
@@ -1370,11 +1370,11 @@ void PartsFourToSix()
 			cantDoThat();
 		else if (state.telephoneRinging)
 		{
-			printf(loadText(170), state.girlName);
-			printf(loadText(171), state.girlDo);
-			printf(loadText(172), state.yourPart);
-			printf(loadText(173), state.yourObject, state.girlPart);
-			printf(loadText(174));
+			writeText(170, state.girlName);
+			writeText(171, state.girlDo);
+			writeText(172, state.yourPart);
+			writeText(173, state.yourObject, state.girlPart);
+			writeText(174);
 			state.telephoneRinging = false;
 			state.telephoneAnswered = true;
 		}
@@ -1392,11 +1392,11 @@ void PartsFourToSix()
 		else if (!strcmp(fullNoun, "6969") && !state.called5556969)
 		{
 			writeTextLine(178);
-			printf(loadText(179)); getUserInput(state.girlName,   32);
-			printf(loadText(180)); getUserInput(state.girlPart,   32);
-			printf(loadText(181)); getUserInput(state.girlDo,     32);
-			printf(loadText(182)); getUserInput(state.yourPart,   32);
-			printf(loadText(183)); getUserInput(state.yourObject, 32);
+			writeText(179); getUserInput(state.girlName,   32);
+			writeText(180); getUserInput(state.girlPart,   32);
+			writeText(181); getUserInput(state.girlDo,     32);
+			writeText(182); getUserInput(state.yourPart,   32);
+			writeText(183); getUserInput(state.yourObject, 32);
 			writeTextLine(184);
 			state.called5556969 = true;
 		}
@@ -1635,12 +1635,12 @@ void PartsFourToSix()
 // 		FILE *f = fopen(fileName, "wb+");
 // 		if (f != 0)
 // 		{
-// 			printf(loadText(220), fileName);
+// 			writeText(220, fileName);
 // 			break;
 // 		}
 // 		fwrite(&state, sizeof(gameState), 1, f);
 // 		fclose(f);
-		printf(loadText(221), fileName);
+		writeText(221, fileName);
 		break;
 	}
 	case restore: //load
@@ -1662,12 +1662,12 @@ void PartsFourToSix()
 // 		FILE *f = fopen(fileName, "rb+");
 // 		if (f != 0)
 // 		{
-// 			printf(loadText(224), fileName);
+// 			writeText(224, fileName);
 // 			break;
 // 		}
 // 		fread(&state, sizeof(gameState), 1, f);
 // 		fclose(f);
-		printf(loadText(225), fileName);
+		writeText(225, fileName);
 
 		//force full description
 		state.placeVisited[state.yourPlace] = false;

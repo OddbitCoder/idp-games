@@ -82,14 +82,14 @@ int main()
 
 		if (haveNoVerb)
 			writeLine("I don't know how to do that.");
-			//printf("I don't know how to %s something.\n\r", fullVerb);
+			//write("I don't know how to %s something.\n\r", fullVerb);
 		else if (haveVerbOnly && !verbIsStandalone(state.verb))
 			writeLine("Give me a noun!");
 		else if (!haveVerbOnly && (haveNoObject && haveNoDirection && (!verbIsSpecial(state.verb))))
 		{
 			writeLine("I don't know how to do that.");
 			//addDefiniteArticleTo(fullNoun);
-			//printf("I don't know to %s %s.\n\r", fullVerb, fullNoun);
+			//write("I don't know to %s %s.\n\r", fullVerb, fullNoun);
 		}
 		else
 		{
