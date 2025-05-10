@@ -496,9 +496,9 @@ const message messages[] = {
     //>
     /* 181 */ { 5593, 37 }, // "What do you like to do with her?" 
     //>
-    /* 182 */ { 5630, 37 }, // "And the best part of your body?"  
+    /* 182 */ { 5630, 36 }, // "And the best part of your body?"  
     //>
-    /* 183 */ { 5667, 37 }, // "Finally, your favorite object?"   
+    /* 183 */ { 5667, 35 }, // "Finally, your favorite object?"   
     //>
     /* 184 */ { 5704, 12 }, // He hangs up.
     /* 185 */ { 5716, 15 }, // Nobody answers.
