@@ -351,11 +351,11 @@ void PartsFourToSix()
 			}
 			case TV:
 			{
-				//if (!objectIsCarried(controlUnit))
-				//	writeTextLine(41);
-				//else if (!state.hookerFucked)
-				//	writeTextLine(42);
-				//else
+				if (!objectIsCarried(controlUnit))
+					writeTextLine(41);
+				else if (!state.hookerFucked)
+					writeTextLine(42);
+				else
 					watchTV();
 				break;
 			}
