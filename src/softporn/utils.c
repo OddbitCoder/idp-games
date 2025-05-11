@@ -35,17 +35,16 @@ uint16_t timer() {
 
 extern int fparse(char *path, fcb_t *fcb, uint8_t *area);
 
-FILE *fopen(char *path) {
-    FILE *f = calloc(1, sizeof(FILE));
+int fopen(FILE *f, char *path) {
+    memset(f, 0, sizeof(FILE));
     uint8_t area;
     fparse(path, &f->fcb, &area);
     bdos_ret_t result;
     bdosret(F_OPEN, (uint16_t)&f->fcb, &result);
     if (result.reta == BDOS_FAILURE) {
-        free(f);
-        return NULL;
+        return -1;
     }
-    return f;
+    return 0;
 }
 
 uint8_t *fread(FILE *f, uint8_t *buf, uint16_t pos, uint16_t len) {
@@ -102,7 +101,6 @@ uint16_t fwrite(FILE *f, uint8_t *buf, uint16_t len) {
 void fclose(FILE *f) {
     bdos_ret_t result;
     bdosret(F_CLOSE, (uint16_t)&f->fcb, &result);
-    free(f); // WARNME: works if created by fopen
 }
 
 // string
@@ -357,15 +355,15 @@ char *dict = NULL;
 
 void loadDict()
 {
-    FILE *f = fopen("WORDS.BIN");
-    if (f == NULL)
+    FILE f;
+    if (fopen(&f, "WORDS.BIN") < 0)
     {
         printf("Couldn't open dictionary.\n\r");
         return;
     }
     dict = (char *)malloc(DICT_SIZE);
-    fread(f, dict, 0, DICT_SIZE);
-    fclose(f);
+    fread(&f, dict, 0, DICT_SIZE);
+    fclose(&f);
 }
 
 void parse(char *input)

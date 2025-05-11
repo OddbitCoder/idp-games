@@ -16,10 +16,10 @@ int main()
 	loadDict();
 	if (dict == NULL)
 	{
-		writeLine("Is \"words.bin\" there?");
-		getKey();
 		return -1;
 	}
+
+	fopen(&msg_file, "MESSAGES.BIN");
 
 	initNewGame();
 
@@ -82,23 +82,16 @@ int main()
 
 		if (haveNoVerb)
 			writeLine("I don't know how to do that.");
-			//write("I don't know how to %s something.\n\r", fullVerb);
 		else if (haveVerbOnly && !verbIsStandalone(state.verb))
 			writeLine("Give me a noun!");
 		else if (!haveVerbOnly && (haveNoObject && haveNoDirection && (!verbIsSpecial(state.verb))))
-		{
 			writeLine("I don't know how to do that.");
-			//addDefiniteArticleTo(fullNoun);
-			//write("I don't know to %s %s.\n\r", fullVerb, fullNoun);
-		}
 		else
-		{
 			PartsFourToSix();
-		}
 	}
 quitGame:
 
 	writeLine("Thank you for playing, and good bye!");
-	doneWithFiles();
+	fclose(&msg_file);
 	return 0;
 }

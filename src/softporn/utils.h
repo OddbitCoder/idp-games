@@ -24,7 +24,7 @@ typedef struct {
 	uint8_t dma[DMA_SIZE];
 } FILE;
 
-FILE *fopen(char *path);
+int fopen(FILE *f, char *path);
 uint8_t *fread(FILE *f, uint8_t *buf, uint16_t pos, uint16_t len);
 uint16_t fwrite(FILE *f, uint8_t *buf, uint16_t len);
 void fclose(FILE *f);

@@ -549,25 +549,18 @@ const message messages[] = {
     //
 };
 
-FILE *m_file = NULL;
-char m_buffer[2048];
+FILE msg_file;
+char buffer[512 + 1];
 
-char *loadMessageFromFile(uint16_t pos, uint16_t len) {
-	if (m_file == NULL) {
-		m_file = fopen("MESSAGES.BIN");
-	}
-    fread(m_file, m_buffer, pos, len);
-    m_buffer[len] = 0;
-    return m_buffer;
-}
-
-char *loadMessage(int idx) {
-    return loadMessageFromFile(messages[idx].pos, messages[idx].len);
+char *_loadTextFromFile(uint16_t pos, uint16_t len) {
+    fread(&msg_file, buffer, pos, len);
+    buffer[len] = 0;
+    return buffer;
 }
 
 char *loadText(int idx) {
 	const uint8_t last_msg_idx = 70; 
-	return loadMessageFromFile(
+	return _loadTextFromFile(
 		messages[idx + last_msg_idx + 1].pos + messages[last_msg_idx].pos + messages[last_msg_idx].len, 
 		messages[idx + last_msg_idx + 1].len
 	);
@@ -585,11 +578,14 @@ void writeTextLine(int idx) {
 }
 
 void writeMessageLine(int idx) {
-    writeLine(loadMessage(idx));
-}
-
-void doneWithFiles() {
-	if (m_file != NULL) {
-		fclose(m_file);
-	}
+    int len = messages[idx].len;
+    uint16_t pos = messages[idx].pos;
+    do {
+    	uint16_t part_len = len;
+    	if (part_len > 512) { part_len = 512; }
+    	write(_loadTextFromFile(pos, part_len));
+    	len -= 512;
+    	pos += 512;
+    } while (len > 0);
+    writeLine("");
 }
