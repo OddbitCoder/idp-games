@@ -1,0 +1,35 @@
+ROOT = $(realpath .)
+IDP_DEV_ROOT = $(realpath ../..)/idp-udev
+INC_DIR_STD_LIB = $(IDP_DEV_ROOT)/lib/libcpm3-z80/include
+INC_DIR = $(IDP_DEV_ROOT)/include
+UNC_DIR_CPM = $(IDP_DEV_ROOT)/src/ulibc
+BUILD_DIR = $(ROOT)/build
+
+CC = sdcc
+CFLAGS = --std-c11 -mz80 -I. -I$(INC_DIR) -I$(UNC_DIR_CPM) --nostdinc
+
+SRC = $(wildcard *.c)
+OBJ = $(patsubst %.c,$(BUILD_DIR)/%.rel,$(SRC))
+
+.PHONY: all
+all: obj
+
+.PHONY: obj
+obj: $(OBJ)
+
+.PHONY: clean
+clean:
+	rm -rf $(BUILD_DIR)
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+# $(OBJ) ; Additional header dependencies below
+$(BUILD_DIR)/%.rel: %.c %.h | $(BUILD_DIR)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+# Additional header dependencies
+
+#$(BUILD_DIR)/utils.rel: avdc.h
+#$(BUILD_DIR)/gdp.rel: utils.h
+#$(BUILD_DIR)/avdc.rel: utils.h

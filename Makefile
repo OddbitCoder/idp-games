@@ -2,7 +2,8 @@ ROOT = $(realpath .)
 SRC_DIR = $(ROOT)/src
 SRC_DIRS = $(wildcard $(SRC_DIR)/*)
 COMMON_DIR = $(SRC_DIR)/common
-GAME_DIRS = $(filter-out $(COMMON_DIR),$(SRC_DIRS))
+UDEV_LIBS_DIR = $(SRC_DIR)/libs-udev
+GAME_DIRS = $(filter-out $(UDEV_LIBS_DIR),$(filter-out $(COMMON_DIR),$(SRC_DIRS)))
 IDP_DEV_DIR = $(ROOT)/idp-dev
 IDP_UDEV_DIR = $(ROOT)/idp-udev
 BIN_DIR = $(ROOT)/bin
@@ -65,6 +66,7 @@ subdir-clean:
 .PHONY: subdir-%
 subdir-%:
 	$(MAKE) -C $(COMMON_DIR) obj || exit
+	$(MAKE) -C $(UDEV_LIBS_DIR) obj || exit
 	@for dir in $(GAME_DIRS) ; do \
 		echo $(MAKE) -C $$dir $* '||' exit ; \
 		$(MAKE) -C $$dir $* || exit ; \
