@@ -1,8 +1,6 @@
 #include "utils.h"
 #include "avdc.h" 
-#include <string.h>
-
-int fparse(char *path, fcb_t *fcb, uint8_t *area); // from io.h
+#include <bdos.h>
 
 // timer
 
@@ -25,7 +23,7 @@ uint16_t timer_ms() {
 	}
 }
 
-int16_t timer() {
+uint16_t timer() {
 	uint8_t seconds = CTC_SECONDS;
 	uint8_t hundreds = CTC_HUNDREDS;
 	uint8_t seconds_check = CTC_SECONDS;
@@ -42,6 +40,7 @@ int16_t timer_diff(uint16_t timer_start) {
 	return (now + 6000) - timer_start; 
 }
 
+// WARNME: does this work with timer_* being unsigned?
 int16_t timer_diff_ex(uint16_t timer_start, uint16_t timer_end) {
 	if (timer_end >= timer_start) { return timer_end - timer_start; }
 	return (timer_end + 6000) - timer_start; 
@@ -75,7 +74,7 @@ char kbd_get_key() {
 	return key;
 }
 
-// standard or simplified standard C functions
+// simplified standard C functions
 
 char *strcpy(char *dest, const char *src) {
     char *p = dest;
@@ -100,102 +99,8 @@ int atoi(const char *str) {
     return negative ? -result : result;
 }
 
-// files
-
-uint8_t _files_user_area;
-
-void files_init(const char *filename) {
-	_files_user_area = files_current_area();
-	files_set_area(files_area_for(filename));
-}
-
-void files_done() {
-	files_set_area(_files_user_area);
-}
-
-uint8_t files_current_area() {
-	return bdos(F_USERNUM, 0xFF);	
-}
-
-void files_set_area(uint8_t area) {
-	bdos(F_USERNUM, area);
-}
-
-uint8_t files_area_for(const char *filename) {
-	uint8_t area;
-	fcb_t fcb;
-    fparse((char *)filename, &fcb, &area);
-    return area;	
-}
-
-bool fopen(file *f, const char *filename) {
-	// reset fcb
-    memset(&f->fcb, 0, sizeof(fcb_t));
-    // parse filename 
-    uint8_t area;
-    fparse((char *)filename, &f->fcb, &area);
-    // open file 
-    bdos_ret_t result;
-    bdosret(F_OPEN, (uint16_t)&f->fcb, &result);
-    if (result.reta != BDOS_SUCCESS) { 
-        bdosret(F_MAKE, (uint16_t)&f->fcb, &result);
-        if (result.reta != BDOS_SUCCESS) {
-            return false;
-        }
-    }
-    return true;
-}
-
-void *fread(file *f, uint8_t *buf, uint16_t pos, uint16_t len) {
-	// set DMA to our block    
-    bdos(F_DMAOFF, (uint16_t)f->dma);
-	bdos_ret_t result;
-    // seek
-    uint16_t rec = pos / DMA_SIZE;
-    uint16_t dma_offs = pos % DMA_SIZE;
-    f->fcb.rrec = rec;
-    bdosret(F_READRAND, (uint16_t)&f->fcb, &result);
-    // read
-    uint16_t r_len = 0;
-    uint8_t *p_buf = buf;
-    while (r_len < len) {
-    	bdosret(F_READ, (uint16_t)&f->fcb, &result);
-        uint16_t count = DMA_SIZE - dma_offs;
-        if (r_len + count > len) {
-            count = len - r_len;
-        }
-		memcpy(p_buf, f->dma + dma_offs, count);
-		p_buf += count;
-        r_len += count;
-		dma_offs = 0;
-    }
-}
-
-bool fwrite(file *f, uint8_t *buf, uint16_t len) {
-    // set DMA to our block
-    bdos(F_DMAOFF, (uint16_t)f->dma);
-    bdos_ret_t result;
-    // write
-    uint16_t w_len = 0;
-    uint8_t *p_buf = buf;
-    while (w_len < len) {
-        // set DMA
-        uint16_t sz = (len - w_len) > DMA_SIZE ? DMA_SIZE : (len - w_len);
-        memcpy(f->dma, p_buf, sz);
-        // write
-        bdosret(F_WRITE, (uint16_t)&f->fcb, &result);
-        if (result.reta != BDOS_SUCCESS) {
-            return false;
-        }
-        p_buf += sz;
-        w_len += sz;
-    }
-    return true;
-}
-
-void fclose(file *f) {
-    bdos_ret_t result;
-    bdosret(F_CLOSE, (uint16_t)&f->fcb, &result);
+void exit() {
+    bdos(P_TERMCPM, 0);
 }
 
 // other
@@ -209,5 +114,5 @@ bool sys_is_emu() {
 }
 
 int sys_rand() {
-	return rand() / 10; // WARNME: this should be removed when rand is fixed
+	return rand() / 10; // WARNME: this should be removed when/if rand is fixed
 }

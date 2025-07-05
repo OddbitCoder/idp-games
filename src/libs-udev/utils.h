@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdio.h>
-#include <bdos.h>
+#include <stdio.h> // kbhit
+#include <stdlib.h> // rand
 
 #define LO(x) ((uint8_t *)&x)[0]
 #define HI(x) ((uint8_t *)&x)[1]
@@ -17,7 +17,7 @@ __sfr __at 0xA0 CTC_TENTHS_CS; // R: clock, tenths of a centisecond
 __sfr __at 0xA1 CTC_HUNDREDS;  // R: clock, hundreds of a second
 __sfr __at 0xA2 CTC_SECONDS;   // R: clock, seconds
 
-int16_t timer();
+uint16_t timer();
 uint16_t timer_ms();
 
 int16_t timer_diff(uint16_t timer_start);
@@ -36,29 +36,11 @@ void kbd_wait_ready();
 void kbd_beep(bool long_beep);
 char kbd_get_key();
 
-// standard or simplified standard C functions
+// simplified standard C functions
 
 char *strcpy(char *dest, const char *src);
 int atoi(const char *str);
-
-// files
-
-typedef struct {
-	fcb_t fcb;
-	uint8_t dma[DMA_SIZE];
-} file;
-
-void files_init(const char *filename);
-void files_done();
-
-uint8_t files_current_area();
-void files_set_area(uint8_t area);
-uint8_t files_area_for(const char *filename);
-
-bool fopen(file *f, const char *filename);
-void *fread(file *f, uint8_t *buf, uint16_t pos, uint16_t len);
-bool fwrite(file *f, uint8_t *buf, uint16_t len);
-void fclose(file *f);
+void exit();
 
 // other
 

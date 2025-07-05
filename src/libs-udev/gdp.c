@@ -307,7 +307,7 @@ void gdp_erase_sprite(uint8_t **sprite, uint8_t last_row_idx, uint16_t x, uint8_
     }
 }
 
-void gdp_draw_rect(gdp_tool tool, uint16_t x, uint8_t y, uint8_t w, uint8_t h) { // TODO: asm implementation?
+void gdp_draw_rect(gdp_tool tool, uint16_t x, uint8_t y, uint8_t w, uint8_t h) { 
     gdp_set_xy(x, y + h - 1);
     gdp_line_delta(tool, GDP_STYLE_NORMAL, 0, h - 1, GDP_DELTA_SIGN_DY_NEG);
     gdp_line_dx_pos(tool, GDP_STYLE_NORMAL, w - 1);
