@@ -183,7 +183,3 @@ bool sys_is_emu() {
 	}
 	return _idp_is_emu;
 }
-
-int sys_rand() {
-	return rand() / 10; // WARNME: this should be removed when/if rand is fixed
-}

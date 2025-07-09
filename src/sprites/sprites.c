@@ -1,6 +1,9 @@
 #include "../libs-udev/txtadv.h"
+#include "../libs-udev/utils.h"
 
-#include <stdio.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
 
 // #include "../libs-udev/avdc.h"
 // #include "../libs-udev/utils.h"
@@ -129,7 +132,26 @@
 
 int main() {
 	uint8_t buffer[512];
-	ta_set_mode(TA_MODE_AVDC);
+	//ta_set_mode(TA_MODE_AVDC);
 	ta_user_input(buffer, "previous command", 75, true);
-	return 0;
+	// srand(0);
+	// uint16_t buffer[10];
+	// memset(buffer, 0, 10 * 2);
+	// for (uint16_t i = 0; i < 65000; i++) {
+	// 	uint8_t digit = rand() % 10;
+	// 	buffer[digit]++;
+	// }
+	// for (uint8_t i = 0; i < 10; i++) {
+	// 	printf("%d\r\n", buffer[i]);
+	// }
+	// printf("\r\n");
+	// srand(0);
+	// memset(buffer, 0, 10 * 2);
+	// for (uint16_t i = 0; i < 65000; i++) {
+	// 	uint8_t digit = rand() % 10;
+	// 	buffer[digit]++;
+	// }
+	// for (uint8_t i = 0; i < 10; i++) {
+	// 	printf("%d\r\n", buffer[i]);
+	// }
 }

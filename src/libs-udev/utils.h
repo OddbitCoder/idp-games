@@ -50,6 +50,5 @@ uint16_t strlen(const char *str);
 // other
 
 bool sys_is_emu();
-int sys_rand();
 
 #endif
