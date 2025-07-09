@@ -41,6 +41,11 @@ char kbd_get_key();
 char *strcpy(char *dest, const char *src);
 int atoi(const char *str);
 void exit();
+char *strcat(char *dest, const char *src);
+uint8_t *memmove(uint8_t *dest, const uint8_t *src, uint16_t n);
+void reverse(char *str);
+char *itoa(int value, char *str, int base); // WARNME: types
+uint16_t strlen(const char *str);
 
 // other
 

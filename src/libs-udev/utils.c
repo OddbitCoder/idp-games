@@ -103,6 +103,77 @@ void exit() {
     bdos(P_TERMCPM, 0);
 }
 
+char *strcat(char *dest, const char *src) {
+    char *result = dest;
+    while (*dest) {
+        dest++;
+    }
+    while (*src) {
+        *dest++ = *src++;
+    }
+    *dest = '\0';
+    return result;
+}
+
+uint8_t *memmove(uint8_t *dest, const uint8_t *src, uint16_t n) {
+    uint8_t *d = dest;
+    const uint8_t *s = src;
+    if (d == s || n == 0) {
+        return dest;
+    }
+    if (d < s) {
+        for (uint16_t i = 0; i < n; i++) {
+            d[i] = s[i];
+        }
+    } else {
+        for (uint16_t i = n; i > 0; i--) {
+            d[i - 1] = s[i - 1];
+        }
+    }
+    return dest;
+}
+
+void reverse(char *str) {
+    uint16_t i = 0, j = strlen(str) - 1;
+    while (i < j) {
+        char tmp = str[i];
+        str[i++] = str[j];
+        str[j--] = tmp;
+    }
+}
+
+char *itoa(int value, char *str, int base) {
+    if (base < 2 || base > 36) {
+        str[0] = '\0'; // unsupported base
+        return str;
+    }
+    bool is_negative = false;
+    if (value < 0 && base == 10) {
+        is_negative = true;
+        value = -value;
+    }
+    int i = 0;
+    do {
+        int digit = value % base;
+        str[i++] = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
+        value /= base;
+    } while (value != 0);
+    if (is_negative) {
+        str[i++] = '-';
+    }
+    str[i] = '\0';
+    reverse(str);
+    return str;
+}
+
+uint16_t strlen(const char *str) {
+    const char *s = str;
+    while (*s) {
+        s++;
+    }
+    return s - str;
+}
+
 // other
 
 bool sys_is_emu() {
