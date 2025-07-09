@@ -107,6 +107,7 @@ void avdc_write_str_at_pointer_pos(uint8_t row, uint8_t col, uint8_t *str, uint8
 
 void avdc_set_cursor(uint8_t row, uint8_t col);
 void avdc_set_cursor_addr(uint16_t addr);
+uint16_t avdc_get_cursor_addr();
 
 void avdc_write_at_cursor(uint8_t chr, uint8_t attr);
 void avdc_write_str_at_cursor(uint8_t *str, uint8_t *attr);

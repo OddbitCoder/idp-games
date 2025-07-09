@@ -25,7 +25,7 @@ uint8_t _init_str_80[] = {
 uint8_t _init_str_132[] = {
     0xD0, // IR0: 1 (DOUBLE HT/WD ON) / 1010 (11 SCAN LINES PER CHAR ROW) / 0 (SYNC = VSYNC) / 00 (BUFFER MODE = INDEPENDENT)
     0x3E, // IR1: 0 (NON-INTERLACED) / 0111110 (EQUALIZING CONSTANT)
-    0xBF, // IR2: 1 (ROW TABLE ON) / 0111 (HSYNC WIDTH) / 111 (HORIZ BACK PORCH)
+    0xBF, // IR2: 1 (ROW TABLE ON) / 0111 (HSYNC WIDTH) / 111 (H BACK PORCH)
     0x05, // IR3: 000 (V FRONT PORCH) / 00101 (V BACK PORCH)
     0x99, // IR4: 1 (BLINK RATE) / 0011001 (ACTIVE CHAR ROWS PER SCREEN = 25 + 1)
     0x83, // IR5: 10000011 (ACTIVE CHARACTERS PER ROW = 131 + 1)
@@ -353,6 +353,12 @@ void avdc_set_cursor_addr(uint16_t addr) {
     avdc_wait_ready();
     AVDC_CUR_LWR = LO(addr);
     AVDC_CUR_UPR = HI(addr);
+}
+
+uint16_t avdc_get_cursor_addr() {
+    avdc_wait_access();
+    avdc_wait_ready();
+    return ((uint16_t)AVDC_CUR_UPR << 8) | AVDC_CUR_LWR;
 }
 
 void avdc_write_at_cursor(uint8_t chr, uint8_t attr) {
