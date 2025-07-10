@@ -82,15 +82,19 @@ void _ta_restore_cursor_pos_term() {
 }
 
 void _ta_move_left_term(uint8_t n) {
-	itoa(n, _ta_term_buffer + 2, 10);
-	strcat(_ta_term_buffer, "D");
-	_ta_write(_ta_term_buffer);
+	if (n > 0) {
+		itoa(n, _ta_term_buffer + 2, 10);
+		strcat(_ta_term_buffer, "D");
+		_ta_write(_ta_term_buffer);
+	}
 }
 
 void _ta_move_right_term(uint8_t n) {
-	itoa(n, _ta_term_buffer + 2, 10);
-	strcat(_ta_term_buffer, "C");
-	_ta_write(_ta_term_buffer);
+	if (n > 0) {
+		itoa(n, _ta_term_buffer + 2, 10);
+		strcat(_ta_term_buffer, "C");
+		_ta_write(_ta_term_buffer);
+	}
 }
 
 void _ta_write_avdc(const char *text) {
@@ -110,11 +114,15 @@ void _ta_restore_cursor_pos_avdc() {
 }
 
 void _ta_move_left_avdc(uint8_t n) {
-	avdc_set_cursor_addr(avdc_get_cursor_addr() - n);
+	if (n > 0) {
+		avdc_set_cursor_addr(avdc_get_cursor_addr() - n);
+	}
 }
 
 void _ta_move_right_avdc(uint8_t n) {
-	avdc_set_cursor_addr(avdc_get_cursor_addr() + n);
+	if (n > 0) {
+		avdc_set_cursor_addr(avdc_get_cursor_addr() + n);
+	}
 }
 
 void ta_user_input(char *buffer, const char *prev, uint8_t buffer_len, bool prompt) {
