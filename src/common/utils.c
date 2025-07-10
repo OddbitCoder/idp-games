@@ -1,5 +1,6 @@
 #include "utils.h"
 #include "avdc.h"
+#include <stdlib.h>
 
 // timer
 
