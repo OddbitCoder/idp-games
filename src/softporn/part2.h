@@ -76,7 +76,8 @@ void watchTV()
 watch:
 	writeMessageLine(41 + state.TVChannel);
 	write("Change the channel?\n\r> ");
-	if (getOneOf('Y', 'N', 0) == 'Y')
+	char answer = getOneOf('Y', 'N', 0);
+	if (answer == 'Y')
 	{
 		writeLine("*click*");
 		state.TVChannel = (state.TVChannel + 1) % 9;

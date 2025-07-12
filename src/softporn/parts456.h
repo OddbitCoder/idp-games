@@ -353,7 +353,7 @@ void PartsFourToSix()
 			{
 				if (!objectIsCarried(controlUnit))
 					writeTextLine(41);
-				else if (!state.hookerFucked)
+				else if (state.hookerFucked)
 					writeTextLine(42);
 				else
 					watchTV();

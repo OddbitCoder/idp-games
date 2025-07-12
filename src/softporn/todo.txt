@@ -1,2 +1,22 @@
 [x] Change all '\n' to '\n\r'
 [ ] Update code to latest original code
+
+Test:
+Part 2:
+[ ] giveHelp
+[ ] lookAtGraffiti
+[ ] purgatory
+[ ] bumTellsStory
+[ ] watchTV
+[ ] wineInTaxi
+[ ] stabSomeone
+[ ] fallingDown 
+[ ] playSlots <- 
+[ ] play21 <- 
+[ ] buyRubber
+[ ] okay
+[ ] _open
+[ ] _close
+
+Part 3:
+...

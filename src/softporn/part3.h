@@ -138,8 +138,6 @@ void initNewGame()
 		giveHelp();
 		writeLine("");
 	}
-	else
-		writeLine("");
 
 	memset((void*)&state, 0, sizeof(gameState));
 
@@ -426,7 +424,6 @@ void readAndParseCommand()
 				write("\n\r> ");
 				writeHeader();
 				getUserInput(userInput, 38);
-				writeLine("");
 				if (strlen(userInput) == 0)
 					writeLine("Beg your pardon?");
 			} while (strlen(userInput) == 0);

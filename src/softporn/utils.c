@@ -306,7 +306,7 @@ char getOneOf(char key1, char key2, char key3) {
         char key = getKeySilent();
         if (key == key1 || key == key2 || key == key3) {
             putchar(key);
-            writeLine("");
+            writeLine("\n\r");
             return key;
         }
     };
@@ -331,7 +331,7 @@ char *getUserInput(char *buffer, int max) {
             }
         } 
     } while (ch != '\r' || len == 0);
-    printf("\n\r");
+    printf("\n\r\n\r");
     return buffer;
 }
 
